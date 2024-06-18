@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://jqgpx158nqee"]
+
+[ext_resource type="PackedScene" uid="uid://df1e6em0ealvc" path="res://Scenes/Player.tscn" id="1_t53m2"]
+[ext_resource type="PackedScene" uid="uid://brrm8tv4pixwx" path="res://Scenes/Plant.tscn" id="2_ljp6s"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iaj73"]
+size = Vector2(100, 100)
+
+[sub_resource type="Environment" id="Environment_ajjs0"]
+
+[node name="Game" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_t53m2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03091, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_iaj73")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.900212, 0, -0.435451, 0, 1, 0, 0.435451, 0, 0.900212, -6.71437, 0.6477, -5.55248)
+use_collision = true
+size = Vector3(1.4718, 1.57324, 1.26379)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(0.990041, 0, 0.14078, 0, 1, 0, -0.14078, 0, 0.990041, 8.66975, 1.13275, -5.77835)
+use_collision = true
+size = Vector3(1.4718, 2.54333, 4.12225)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.876509, 0, -0.481387, 0, 1, 0, 0.481387, 0, 0.876509, -8.83759, 1.13275, 4.73089)
+use_collision = true
+size = Vector3(5.95758, 2.54333, 3.00937)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.876509, 0, -0.481387, 0, 1, 0, 0.481387, 0, 0.876509, -27.2827, 1.13275, 0.554763)
+use_collision = true
+size = Vector3(5.95758, 2.54333, 12.5384)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.500574, 0, 0.865694, 0, 1, 0, -0.865694, 0, 0.500574, 5.73844, 1.13275, -27.6977)
+use_collision = true
+size = Vector3(5.95758, 2.54333, 6.74685)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ajjs0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.87702, -0.180222, 0.445371, 0, 0.926981, 0.375108, -0.480453, -0.328978, 0.812981, 0, 7.16635, 0)
+shadow_enabled = true
+
+[node name="Plant" parent="." instance=ExtResource("2_ljp6s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2393, 0, 0)
+
+[node name="Plant2" parent="." instance=ExtResource("2_ljp6s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42601, 0, 13.067)
+harvest_time = 1.0
+harvest_ressource = "lyd_stone"
+harvest_quantity = 1

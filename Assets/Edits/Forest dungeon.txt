@@ -1,0 +1,53 @@
+11/06/2022
+Forest Dungeon / Forest Line / Forest Lanes / Blue Oasis / Forest Blue / Bluest / Dungest / Oasus / Lunest / Laneon :
+Jeu multijoueur 5v5
+La carte est un losange-carré comme un donjon mais dans une forêt, générer aléatoirement d'un coté puis reflechie de l'autre
+Jeu au couleurs de l'ancien lol -> vert, gris
+Item qui upgrade quand on les utilises (même dans le vide mais moins vite)
+Tout le monde commence avec un item starter, il a deux évolutions
+Chaque Items à un nombre d'évolution précise, qui sépares les items bas niveau des items haut niveaux, qui ont beaucoup d'évolution.
+La map disposes de décors à farmer donnant des materiaux, permettant de crée des armes, certaines sont armes passives
+Dans ce jeu on peut théoriquement tout faire, mais le gameplay nous pousse a adopter un style de jeu.
+Les "personnages" que l'on choisie, sont uniquement cosmétiques. ont peut pick plusieurs fois le même skin dans une game (ou pas ?)
+Le lore est présent dans le jeu mais n'est pas mit en avant, le joueur doit s'y intéresser à travers chaque détail pour le découvrir.
+
+Generation aléatoire :
+-Arbres -> sapin, bouleau modifié, Grand arbre (tronc) -> vert, bleu
+-Ruines -> pierres orangé
+-Sol -> Alternance -> Terre, Herbe, Gravier -> Geometrie Mastra sauf border
+-Rivière -> crée par une simulation -> bleu -> bordés de rocher
+-Montagnes -> un peu partout -> Mastra
+-Bloc de décors créant des murs
+-border -> pierre puis fade néant
+
+Profile customizable :
+-Tu crée un perso au tout debut, il ne change que si tu paye mais tu peux l'habiller
+-Une case Story de 500 char est presente sur chaque personnage avec une medaille entre : Explorateur, Conquerant, Guerrier ou Pacificateur.
+
+Controles :
+-Les direction sont au clavier avec zqsd ou a la manette avec les flèches directionels.
+-Pour changer d'items on utilise 12345
+-Pour utiliser les sort on utilise uio ou 789
+-p ou + pour les esquive/dash
+-Espace pour sauter
+-Maj pour se baisser
+
+Lore :
+Dans forest dungeon vous vous battez dans les ruines d'une guerre de civilisations appelé les térritoires inconquis, vous y trouverez des résidue de cultures architecturale et artisanale provenant des 5 civilisations de Lyretaris.
+
+L'univers de Lyretaris contient 5 civilisations:
+-Linsen -> Occupe les territoire nord du grand continent, vivent dans des Cavité de canyon gris, adepte du bois et de la pierre.
+-Crimina -> Occupe les territoire sud-ouest du grand continent, vivent dans de grand hotels, adepte du bois et du bronze.
+-Norarus -> Cité des océan, ils vivent sur des structure sous marines ou dans les gouffres des mer et des océan, adepte du cuivre et de l'aluminium.
+-Tridae -> Occupe tout un petit continent, ils vivent dans des montagnes à plateau de riziculture, adepte du bois.
+-Atsis -> Occupe les territoire sud-est du grand continent, ils vivent dans des forêts, adepte du crystal et du bois.
+
+
+Items : Chaque Items à 3 atouts, actifs ou passifs, les evolution améliores les statistiques et peuvent changer les atouts, seul les actifs font evoluer.
+-Serum de lydre -> régénère de la vie instantanément
+-Pierre de lyd -> Redonne x hp après chaque tick de dégats subis
+-Brai medicinale -> Règenere la vie sur une courte durée
+-Cristal créateur -> Une armure qui se stack avec les kills ?, hp ?, damage ?
+-Projecteur à stase -> crée un clone d'un allié ciblé
+-Percepteur de l'orage -> point météo
+-Elixir de sulfite -> quand il expire, le personnage fait une flamme de chalumeau avec son nez, et sors un gaz inflammable de sa bouche.
