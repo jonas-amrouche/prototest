@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://j37saxjy3781"]
+
+[ext_resource type="Texture2D" uid="uid://dy4uvhijaykk3" path="res://Assets/2D/PBR/metal_v2.png" id="1_ha46u"]
+[ext_resource type="Texture2D" uid="uid://dxk7jks1n6yc6" path="res://Assets/2D/PBR/metal_v2_mm.png" id="2_lc4h2"]
+
+[resource]
+albedo_texture = ExtResource("1_ha46u")
+metallic = 1.0
+metallic_texture = ExtResource("2_lc4h2")
+uv1_triplanar = true

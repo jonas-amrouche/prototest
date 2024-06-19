@@ -1,15 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_3x643"]
-[ext_resource type="PackedScene" uid="uid://df1e6em0ealvc" path="res://Scenes/Player.tscn" id="1_t53m2"]
-[ext_resource type="PackedScene" uid="uid://brrm8tv4pixwx" path="res://Scenes/Plant.tscn" id="2_ljp6s"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_iaj73"]
-size = Vector2(100, 100)
+[ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Ressources/Materials/PBR/Grass1.tres" id="2_4we5x"]
+[ext_resource type="PackedScene" uid="uid://iirdisb1m37l" path="res://Scenes/Props/Camp.tscn" id="3_lprla"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
 sky_top_color = Color(0.289323, 0.449742, 0.52032, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
 ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
 sun_angle_max = 0.0
 use_debanding = false
 
@@ -17,67 +16,34 @@ use_debanding = false
 sky_material = SubResource("ProceduralSkyMaterial_iie7f")
 
 [sub_resource type="Environment" id="Environment_ajjs0"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.775063, 0.775063, 0.775063, 1)
 sky = SubResource("Sky_hsrs7")
 tonemap_mode = 3
-ssao_enabled = true
 glow_enabled = true
+glow_normalized = true
+glow_blend_mode = 1
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.05
+adjustment_saturation = 0.8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2bjdm"]
+material = ExtResource("2_4we5x")
+size = Vector2(500, 500)
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_3x643")
-
-[node name="Player" parent="." instance=ExtResource("1_t53m2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03091, 0)
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_iaj73")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(0.900212, 0, -0.435451, 0, 1, 0, 0.435451, 0, 0.900212, -6.71437, 0.6477, -5.55248)
-use_collision = true
-size = Vector3(1.4718, 1.57324, 1.26379)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(0.990041, 0, 0.14078, 0, 1, 0, -0.14078, 0, 0.990041, 8.66975, 1.13275, -5.77835)
-use_collision = true
-size = Vector3(1.4718, 2.54333, 4.12225)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(0.876509, 0, -0.481387, 0, 1, 0, 0.481387, 0, 0.876509, -8.83759, 1.13275, 4.73089)
-use_collision = true
-size = Vector3(5.95758, 2.54333, 3.00937)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="."]
-transform = Transform3D(0.876509, 0, -0.481387, 0, 1, 0, 0.481387, 0, 0.876509, -27.2827, 1.13275, 0.554763)
-use_collision = true
-size = Vector3(5.95758, 2.54333, 12.5384)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="."]
-transform = Transform3D(0.500574, 0, 0.865694, 0, 1, 0, -0.865694, 0, 0.500574, 5.73844, 1.13275, -27.6977)
-use_collision = true
-size = Vector3(5.95758, 2.54333, 6.74685)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ajjs0")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.87702, -0.180222, 0.445371, 0, 0.926981, 0.375109, -0.480453, -0.328978, 0.812981, 0, 10.3159, -7.18087)
-light_energy = 0.3
 shadow_enabled = true
 
-[node name="KokaPlant" parent="." instance=ExtResource("2_ljp6s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2393, 0, 0)
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.249663, 0)
+mesh = SubResource("PlaneMesh_2bjdm")
 
-[node name="LydFragments" parent="." instance=ExtResource("2_ljp6s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42601, 0, 13.067)
-vanish_on_take = true
-harvest_time = 1.0
-harvest_ressource = "lyd_fragment"
-harvest_quantity = 1
-
-[node name="LydFragments2" parent="." instance=ExtResource("2_ljp6s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.42612, 0, 11.8189)
-vanish_on_take = true
-harvest_time = 1.0
-harvest_ressource = "lyd_fragment"
-harvest_quantity = 1
+[node name="Camp" parent="." instance=ExtResource("3_lprla")]

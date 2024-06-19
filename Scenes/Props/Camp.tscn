@@ -1,12 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://iirdisb1m37l"]
+[gd_scene load_steps=5 format=3 uid="uid://iirdisb1m37l"]
 
 [ext_resource type="PackedScene" uid="uid://b4tmepnlrkm6v" path="res://Scenes/Models/CampModel.tscn" id="1_i10bu"]
+[ext_resource type="Script" path="res://Scripts/Camp.gd" id="1_oqb1g"]
 [ext_resource type="PackedScene" uid="uid://hxkknhv1vgbl" path="res://Scenes/Props/Altar.tscn" id="2_ur4ys"]
 
-[node name="Camp" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_r21t3"]
+height = 3.79132
+radius = 2.93715
 
-[node name="Camp" parent="." instance=ExtResource("1_i10bu")]
+[node name="Camp" type="Node3D"]
+script = ExtResource("1_oqb1g")
+
+[node name="CampModel" parent="." instance=ExtResource("1_i10bu")]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -4.24144, -0.434399, -0.645631)
 
 [node name="Altar" parent="." instance=ExtResource("2_ur4ys")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2852, 0.63636, 5.25377)
+
+[node name="1" type="Marker3D" parent="PlayerSpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58749, 0, -1.49743)
+
+[node name="2" type="Marker3D" parent="PlayerSpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.11017, 0, -1.65508)
+
+[node name="3" type="Marker3D" parent="PlayerSpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5481, 0, 1.30534)
+
+[node name="4" type="Marker3D" parent="PlayerSpawn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35977, 0, 1.63817)
+
+[node name="CraftArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2711, 0, 5.27675)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="CraftArea"]
+shape = SubResource("CylinderShape3D_r21t3")
+
+[connection signal="body_shape_entered" from="CraftArea" to="." method="_on_craft_area_body_shape_entered"]
+[connection signal="body_shape_exited" from="CraftArea" to="." method="_on_craft_area_body_shape_exited"]

@@ -13,6 +13,8 @@ var movement_speed := RUN_MOVEMENT_SPEED
 var interactible : Object
 var in_interaction_with : Object
 
+var in_workshop := false
+
 var components := {}
 var items := []
 
@@ -47,10 +49,10 @@ func _process(_delta):
 	update_camera_position()
 
 func update_player_position() -> void:
-	mini_player.position = (Vector2(global_position.x, global_position.z) + Vector2(45.5, 45.5))*2.6
+	mini_player.position = ((Vector2(global_position.x, global_position.z) + Vector2(45.5, 45.5)*5.0)*2.6)/5.0
 
 func update_camera_position() -> void:
-	mini_camera.position = (Vector2(camera.global_position.x, camera.global_position.z) + Vector2(38.25, 40.0))*2.6
+	mini_camera.position = ((Vector2(camera.global_position.x, camera.global_position.z) + Vector2(38.25, 40.0)*5.0)*2.6)/5.0
 
 func cam_movement() -> void:
 	#print(get_viewport().get_mouse_position(), get_viewport().size)
@@ -169,6 +171,12 @@ func update_components() -> void:
 		_new_component_ui.get_node("Quantity").text = str(components.values()[i])
 		component_list.add_child(_new_component_ui)
 
+func entering_workshop() -> void:
+	in_workshop = true
+
+func exit_workshop() -> void:
+	in_workshop = false
+
 func _on_interact_area_entered(area):
 	interactible = area.get_node("..")
 	if Input.is_action_pressed("interact"):
@@ -192,7 +200,7 @@ func _on_area_input_event(viewport, event, _shape_idx):
 		else:
 			move_cam = false
 	if event is InputEventMouseMotion:
-		cursor_pos = (viewport.get_mouse_position() - Vector2(28.0, 28.0)) / 2.62 -Vector2(50.0, 50.0)
+		cursor_pos = ((viewport.get_mouse_position() - Vector2(28.0, 28.0)) / 2.62 - Vector2(50.0, 50.0))*5.0
 	if move_cam:
 		camera_marker.global_position.x = cursor_pos.x
 		camera_marker.global_position.z = cursor_pos.y

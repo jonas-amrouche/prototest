@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://35c7edmripbd"]
+
+[ext_resource type="Shader" path="res://ressources/Shaders/Campfire.gdshader" id="1_bvk4k"]
+[ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_hiotw"]
+[ext_resource type="Texture2D" uid="uid://keah3cy2snub" path="res://Assets/2D/Alpha-Textures/fire_topfade_v1.png" id="3_tkgk6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_bvk4k")
+shader_parameter/flame_speed = 1.0
+shader_parameter/flame_size = 10.0
+shader_parameter/emission = 20.0
+shader_parameter/color = Color(0.713847, 0.175258, 0, 1)
+shader_parameter/fire_texture_1 = ExtResource("2_hiotw")
+shader_parameter/fire_topfade_texture_1 = ExtResource("3_tkgk6")
