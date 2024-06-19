@@ -1,19 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://jqgpx158nqee"]
+[gd_scene load_steps=8 format=3 uid="uid://jqgpx158nqee"]
 
+[ext_resource type="Script" path="res://Scripts/Game.gd" id="1_3x643"]
 [ext_resource type="PackedScene" uid="uid://df1e6em0ealvc" path="res://Scenes/Player.tscn" id="1_t53m2"]
 [ext_resource type="PackedScene" uid="uid://brrm8tv4pixwx" path="res://Scenes/Plant.tscn" id="2_ljp6s"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_iaj73"]
 size = Vector2(100, 100)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
+sky_top_color = Color(0.289323, 0.449742, 0.52032, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+sun_angle_max = 0.0
+use_debanding = false
+
+[sub_resource type="Sky" id="Sky_hsrs7"]
+sky_material = SubResource("ProceduralSkyMaterial_iie7f")
+
 [sub_resource type="Environment" id="Environment_ajjs0"]
+background_mode = 2
+sky = SubResource("Sky_hsrs7")
+tonemap_mode = 3
+ssao_enabled = true
+glow_enabled = true
 
 [node name="Game" type="Node3D"]
+script = ExtResource("1_3x643")
 
 [node name="Player" parent="." instance=ExtResource("1_t53m2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03091, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Ground" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_iaj73")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -44,15 +60,24 @@ size = Vector3(5.95758, 2.54333, 6.74685)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ajjs0")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.87702, -0.180222, 0.445371, 0, 0.926981, 0.375108, -0.480453, -0.328978, 0.812981, 0, 7.16635, 0)
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.87702, -0.180222, 0.445371, 0, 0.926981, 0.375109, -0.480453, -0.328978, 0.812981, 0, 10.3159, -7.18087)
+light_energy = 0.3
 shadow_enabled = true
 
-[node name="Plant" parent="." instance=ExtResource("2_ljp6s")]
+[node name="KokaPlant" parent="." instance=ExtResource("2_ljp6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2393, 0, 0)
 
-[node name="Plant2" parent="." instance=ExtResource("2_ljp6s")]
+[node name="LydFragments" parent="." instance=ExtResource("2_ljp6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42601, 0, 13.067)
+vanish_on_take = true
 harvest_time = 1.0
-harvest_ressource = "lyd_stone"
+harvest_ressource = "lyd_fragment"
+harvest_quantity = 1
+
+[node name="LydFragments2" parent="." instance=ExtResource("2_ljp6s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.42612, 0, 11.8189)
+vanish_on_take = true
+harvest_time = 1.0
+harvest_ressource = "lyd_fragment"
 harvest_quantity = 1

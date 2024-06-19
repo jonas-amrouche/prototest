@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4tmepnlrkm6v"]
+
+[ext_resource type="PackedScene" uid="uid://dyd3egq2ropay" path="res://Assets/3D/Camp.glb" id="1_6fxvf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lv0sm"]
+albedo_color = Color(0.16534, 0.141736, 0.0870966, 1)
+metallic_specular = 0.16
+
+[node name="Camp" instance=ExtResource("1_6fxvf")]
+
+[node name="BaseCamp" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_lv0sm")

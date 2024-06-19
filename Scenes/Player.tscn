@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=12 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_6x4oa"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 
@@ -19,6 +20,18 @@ bg_color = Color(0.275284, 0.678525, 0, 1)
 border_width_right = 5
 border_color = Color(0, 0.434242, 0.0927513, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4d3t"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0tx0"]
+bg_color = Color(0, 0.621398, 0.852124, 1)
+border_width_right = 3
+border_color = Color(0, 0.434242, 0.0927513, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
 border_width_left = 1
@@ -30,6 +43,9 @@ border_width_bottom = 1
 bg_color = Color(0.953883, 0.100997, 0.0999606, 1)
 border_width_right = 5
 border_color = Color(0.713941, 0, 0.237551, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi17m"]
+size = Vector2(262, 264)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_dq7lx")
@@ -47,6 +63,10 @@ current = true
 fov = 60.0
 
 [node name="CameraMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 3)
+top_level = true
+
+[node name="CameraBaseMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 3)
 
 [node name="Interact" type="Area3D" parent="."]
@@ -66,6 +86,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="InteractionIndicator" type="ColorRect" parent="CanvasLayer/HUD"]
@@ -98,6 +119,25 @@ theme_override_styles/background = SubResource("StyleBoxFlat_57rek")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5sk5d")
 max_value = 1000.0
 value = 1000.0
+show_percentage = false
+
+[node name="ChannelingBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -295.0
+offset_top = -188.0
+offset_right = 296.0
+offset_bottom = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_o4d3t")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g0tx0")
+value = 100.0
 show_percentage = false
 
 [node name="StrengthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
@@ -261,7 +301,46 @@ offset_left = 27.0
 offset_top = 29.0
 offset_right = 289.0
 offset_bottom = 291.0
+mouse_filter = 2
 color = Color(0.400698, 0.400698, 0.400698, 1)
+
+[node name="MiniCamera" type="ColorRect" parent="CanvasLayer/HUD/MiniMap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -18.0
+offset_right = 30.0003
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.27451)
+
+[node name="MiniPlayer" type="TextureRect" parent="CanvasLayer/HUD/MiniMap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -11.0
+offset_right = 11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Area" type="Area2D" parent="CanvasLayer/HUD/MiniMap"]
+position = Vector2(131, 131)
+
+[node name="Collision" type="CollisionShape2D" parent="CanvasLayer/HUD/MiniMap/Area"]
+shape = SubResource("RectangleShape2D_wi17m")
 
 [node name="Inventory" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -289,5 +368,636 @@ grow_vertical = 2
 scale = Vector2(0.3, 0.3)
 columns = 3
 
+[node name="Workshop" type="ColorRect" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -713.0
+offset_top = -503.0
+offset_right = 713.0
+offset_bottom = 503.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.140752, 0.222361, 0.381453, 1)
+
+[node name="ItemList" type="ColorRect" parent="CanvasLayer/HUD/Workshop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -689.0
+offset_top = -454.0
+offset_right = 164.0
+offset_bottom = 478.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.172833, 0.172833, 0.172833, 1)
+
+[node name="ViewAndMake" type="ColorRect" parent="CanvasLayer/HUD/Workshop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 187.0
+offset_top = -454.0
+offset_right = 694.0
+offset_bottom = 478.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.172833, 0.172833, 0.172833, 1)
+
+[node name="Description" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -245.5
+offset_top = -363.0
+offset_right = 245.5
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.133196, 0.133196, 0.133196, 1)
+
+[node name="CraftItem" type="Button" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -184.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 23
+disabled = true
+text = "CRAFT"
+
+[node name="ItemView" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 66.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemName" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 15.0
+offset_right = 214.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 15
+text = "Clearly an OP item"
+
+[node name="ItemLevel" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 36.0
+offset_right = 214.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 12
+text = "10 minutes"
+autowrap_mode = 2
+
+[node name="ItemStats" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 103.0
+offset_right = 436.0
+offset_bottom = 292.0
+theme_override_font_sizes/font_size = 12
+text = "stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats "
+autowrap_mode = 2
+
+[node name="ListEvolution" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -245.5
+offset_top = -923.0
+offset_right = 245.5
+offset_bottom = -846.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.133196, 0.133196, 0.133196, 1)
+
+[node name="ItemAfter1" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 14.0
+offset_right = 74.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter2" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 14.0
+offset_right = 130.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter3" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 14.0
+offset_right = 186.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter4" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 14.0
+offset_right = 242.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter5" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 14.0
+offset_right = 299.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter6" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 14.0
+offset_right = 355.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter7" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 359.0
+offset_top = 14.0
+offset_right = 411.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="ItemAfter8" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/ListEvolution"]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 14.0
+offset_right = 467.0
+offset_bottom = 66.0
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="MakeSection" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.5
+offset_top = -373.0
+offset_right = 245.5
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133196, 0.133196, 0.133196, 1)
+
+[node name="UglyLinks" type="Control" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect5" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -50.0
+offset_right = 2.5
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = -55.0
+offset_right = 186.5
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = -91.0
+offset_right = -180.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -91.0
+offset_right = -88.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -91.0
+offset_right = 2.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect10" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.5
+offset_top = -91.0
+offset_right = 93.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect11" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 180.5
+offset_top = -91.0
+offset_right = 186.5
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect12" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = 19.0
+offset_right = 2.5
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect13" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 40.0
+offset_right = 186.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect14" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 41.0
+offset_right = -180.5
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect15" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = 41.0
+offset_right = -88.5
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect16" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = 41.0
+offset_right = 2.5
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect17" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 87.5
+offset_top = 41.0
+offset_right = 93.5
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="ColorRect18" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 180.5
+offset_top = 41.0
+offset_right = 186.5
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0383971, 0.0383972, 0.0383971, 1)
+
+[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -26.0
+offset_right = 26.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Components" type="Control" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Component1" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.5
+offset_top = 71.0
+offset_right = -157.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component2" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.5
+offset_top = 71.0
+offset_right = -65.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component3" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.5
+offset_top = 71.0
+offset_right = 26.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component4" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 65.5
+offset_top = 71.0
+offset_right = 117.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component5" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 157.5
+offset_top = 71.0
+offset_right = 209.5
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component6" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.5
+offset_top = -127.0
+offset_right = -157.5
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component7" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.5
+offset_top = -127.0
+offset_right = -65.5
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component8" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.5
+offset_top = -127.0
+offset_right = 26.5
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component9" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 65.5
+offset_top = -127.0
+offset_right = 117.5
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="Component10" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 157.5
+offset_top = -127.0
+offset_right = 209.5
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6x4oa")
+expand_mode = 1
+
+[node name="CloseWorkshop" type="Button" parent="CanvasLayer/HUD/Workshop"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -47.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 39.0
+grow_horizontal = 0
+text = "X"
+
 [connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]
+[connection signal="input_event" from="CanvasLayer/HUD/MiniMap/Area" to="." method="_on_area_input_event"]
+[connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

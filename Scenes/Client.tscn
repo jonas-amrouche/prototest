@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bxg238k1wkp2l"]
+[gd_scene load_steps=2 format=3 uid="uid://bxg238k1wkp2l"]
+
+[ext_resource type="Script" path="res://Scripts/Client.gd" id="1_h56vy"]
 
 [node name="Client" type="Control"]
 layout_mode = 3
@@ -7,3 +9,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_h56vy")
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -82.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 54.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Minimize" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -158.0
+offset_top = 12.0
+offset_right = -88.0
+offset_bottom = 54.0
+grow_horizontal = 0
+text = "-"
+
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Minimize" to="." method="_on_minimize_pressed"]
