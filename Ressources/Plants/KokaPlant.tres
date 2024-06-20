@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Plant" load_steps=3 format=3 uid="uid://c62q1vxf5w3et"]
+
+[ext_resource type="Script" path="res://Scripts/PlantClass.gd" id="1_cf07j"]
+[ext_resource type="Resource" uid="uid://cxdgdbh32ysta" path="res://Ressources/Components/KokaSeed.tres" id="1_g6o8x"]
+
+[resource]
+script = ExtResource("1_cf07j")
+id = "koka_plant"
+name = "Koka Plant"
+vanish_on_take = false
+harvest_time = 2.5
+harvest_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_g6o8x")])
+harvest_quantities = PackedInt32Array(3)
+grow_time = 5.0

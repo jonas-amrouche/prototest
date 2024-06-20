@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Component" load_steps=2 format=3 uid="uid://cxdgdbh32ysta"]
+
+[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="1_ixa3u"]
+
+[resource]
+script = ExtResource("1_ixa3u")
+id = "koka_seed"
+name = "Koka Seed"
