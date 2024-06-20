@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://buf4hvdfgg3ns"]
+
+[ext_resource type="PackedScene" uid="uid://rx763neh1a7m" path="res://Assets/3D/Items/HunterMachete.glb" id="1_uj425"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="2_5q3r2"]
+[ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Ressources/Materials/PBR/Metal2.tres" id="3_qha7q"]
+
+[node name="HunterMachete" instance=ExtResource("1_uj425")]
+
+[node name="Machete" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_5q3r2")
+surface_material_override/1 = ExtResource("3_qha7q")

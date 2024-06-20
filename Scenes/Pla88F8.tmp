@@ -200,225 +200,125 @@ max_value = 1000.0
 value = 1000.0
 show_percentage = false
 
-[node name="ItemBar" type="ColorRect" parent="CanvasLayer/HUD"]
+[node name="Item1" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -221.0
-offset_top = -128.0
-offset_right = 222.0
-offset_bottom = -82.0
+offset_left = -205.0
+offset_top = -124.0
+offset_right = -167.0
+offset_bottom = -86.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0.190762, 0.190762, 0.190762, 1)
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar"]
+[node name="Item2" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -124.0
+offset_right = -114.0
+offset_bottom = -86.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Hbox" type="HBoxContainer" parent="CanvasLayer/HUD/ItemBar/Pad"]
-layout_mode = 2
+[node name="Item3" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -124.0
+offset_right = -60.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Item1" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
+[node name="Item4" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -124.0
+offset_right = -7.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item1"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+[node name="Item5" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item1/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
+[node name="Item6" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 61.0
+offset_top = -124.0
+offset_right = 99.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Item2" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
+[node name="Item7" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -124.0
+offset_right = 153.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item2"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item2/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item3" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item3"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item3/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item4" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item4"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item4/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item5" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item5"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item5/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item6" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item6"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item6/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item7" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item7"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item7/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item8" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item8"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item8/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item9" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item9"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item9/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item10" type="PanelContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item10"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ItemBar/Pad/Hbox/Item10/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
+[node name="Item8" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 168.0
+offset_top = -124.0
+offset_right = 206.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.288518, 0.288518, 0.288518, 1)
 
 [node name="ScoreBoard" type="ColorRect" parent="CanvasLayer/HUD"]
 visible = false
@@ -527,7 +427,7 @@ offset_bottom = 1066.0
 grow_horizontal = 0
 color = Color(0.400698, 0.400698, 0.400698, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/Components"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/Components"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -538,12 +438,14 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
 
-[node name="CompList" type="GridContainer" parent="CanvasLayer/HUD/Components/Pad"]
+[node name="CompList" type="GridContainer" parent="CanvasLayer/HUD/Components/MarginContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 3
+metadata/_edit_lock_ = true
 
 [node name="Stats" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -684,9 +586,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -652.0
+offset_left = -713.0
 offset_top = -503.0
-offset_right = 652.0
+offset_right = 713.0
 offset_bottom = 503.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -696,7 +598,7 @@ color = Color(0.140752, 0.222361, 0.381453, 1)
 layout_mode = 2
 offset_left = 16.0
 offset_top = 54.0
-offset_right = 775.0
+offset_right = 858.0
 offset_bottom = 992.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -715,7 +617,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.172833, 0.172833, 0.172833, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -727,11 +629,8 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemList" type="GridContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad"]
+[node name="ItemList" type="GridContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 23
-theme_override_constants/v_separation = 23
-columns = 5
 
 [node name="Categories" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ItemBoard"]
 layout_mode = 1
@@ -740,7 +639,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 7.0
-offset_right = -490.0
+offset_right = -576.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -839,9 +738,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -520.0
+offset_left = -546.0
 offset_top = 54.0
-offset_right = -14.0
+offset_right = -40.0
 offset_bottom = 992.0
 grow_horizontal = 0
 color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -1022,6 +921,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="ColorRect5" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
 layout_mode = 1
@@ -1256,6 +1156,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Component1" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
 layout_mode = 1
@@ -1442,15 +1343,6 @@ grow_horizontal = 0
 text = "0:00"
 horizontal_alignment = 2
 
-[node name="Chat" type="ColorRect" parent="CanvasLayer/HUD"]
-visible = false
-layout_mode = 0
-offset_left = 295.0
-offset_top = 748.0
-offset_right = 671.0
-offset_bottom = 1058.0
-color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
-
 [node name="PlayerModel" parent="." instance=ExtResource("3_7gopy")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
@@ -1458,8 +1350,6 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 libraries = {
 "": SubResource("AnimationLibrary_wh1mf")
 }
-
-[node name="NavAgent" type="NavigationAgent3D" parent="."]
 
 [connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]

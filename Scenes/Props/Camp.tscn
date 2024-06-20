@@ -12,13 +12,13 @@ radius = 2.93715
 script = ExtResource("1_oqb1g")
 
 [node name="CampModel" parent="." instance=ExtResource("1_i10bu")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, -4.24144, -0.434399, -0.645631)
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, -0.434, 0)
 
 [node name="Altar" parent="." instance=ExtResource("2_ur4ys")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 4.01325, -0.148342, -4.11615)
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2852, 0.63636, 5.25377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.97387, 0.63636, 5.89669)
 
 [node name="1" type="Marker3D" parent="PlayerSpawn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58749, 0, -1.49743)
@@ -33,7 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5481, 0, 1.30534)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35977, 0, 1.63817)
 
 [node name="CraftArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2711, 0, 5.27675)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95977, 0, 5.91967)
 collision_layer = 0
 collision_mask = 2
 monitorable = false

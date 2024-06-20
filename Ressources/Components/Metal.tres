@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://5y0yu22dmv1j"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_idvli"]
+[ext_resource type="Script" path="res://Scripts/Component.gd" id="2_vwsos"]
+
+[resource]
+script = ExtResource("2_vwsos")
+name = "metal"
+icon_inventory = ExtResource("1_idvli")

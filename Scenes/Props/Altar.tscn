@@ -25,3 +25,9 @@ shape = SubResource("CylinderShape3D_js2in")
 [node name="Collision" type="CollisionShape3D" parent="StaticBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51457, 0)
 shape = SubResource("CylinderShape3D_x186m")
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.63314, 0)
+light_color = Color(0.861603, 0.522246, 0.276303, 1)
+light_energy = 2.0
+omni_range = 14.0213
