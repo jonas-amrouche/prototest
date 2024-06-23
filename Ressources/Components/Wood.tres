@@ -7,4 +7,4 @@
 script = ExtResource("1_1ocyk")
 id = "wood"
 name = "Wood"
-icon_inventory = ExtResource("1_tao38")
+icon = ExtResource("1_tao38")

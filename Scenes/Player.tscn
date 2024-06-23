@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=32 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_6x4oa"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
+[ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="3_n2ko7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.45
@@ -46,18 +47,47 @@ bg_color = Color(0, 0.621398, 0.852124, 1)
 border_width_right = 3
 border_color = Color(0, 0.434242, 0.0927513, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6vof"]
+shader = ExtResource("3_n2ko7")
+shader_parameter/base_fog_size = 0.0
+shader_parameter/player_fog_size = 0.0
+shader_parameter/base1_pos = null
+shader_parameter/base2_pos = null
+shader_parameter/player_pos = null
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjbmc"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.447059)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wi17m"]
-size = Vector2(300, 300)
+size = Vector2(400, 400)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
 font_size = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1phg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_821f3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c4nu8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cresn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7twce"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vlod2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpqhs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukpxu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
 
 [sub_resource type="Animation" id="Animation_owarj"]
 resource_name = "idle"
@@ -99,7 +129,16 @@ _data = {
 "walk": SubResource("Animation_c7xug")
 }
 
+[sub_resource type="FogMaterial" id="FogMaterial_ikays"]
+density = -1.0
+edge_fade = 0.00980727
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
+albedo_color = Color(0, 0.535002, 0.858316, 1)
+metallic_specular = 0.0
+
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_dq7lx")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -110,10 +149,6 @@ transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 
 top_level = true
 current = true
 fov = 60.0
-
-[node name="CameraMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 3)
-top_level = true
 
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 3)
@@ -501,13 +536,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -357.0
-offset_top = -357.0
+offset_left = -459.0
+offset_top = -458.0
 offset_right = -42.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
-color = Color(0.676811, 0.568929, 0.289646, 1)
+color = Color(0.227451, 0.176471, 0.164706, 1)
 
 [node name="MiniMap" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -516,8 +551,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -350.0
-offset_top = -350.0
+offset_left = -450.0
+offset_top = -450.0
 offset_right = -50.0
 offset_bottom = -50.0
 grow_horizontal = 0
@@ -557,21 +592,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MiniCamera" type="PanelContainer" parent="CanvasLayer/HUD/MiniMap"]
+[node name="MapMask" type="TextureRect" parent="CanvasLayer/HUD/MiniMap"]
+material = SubResource("ShaderMaterial_f6vof")
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -22.0
-offset_top = -13.0
-offset_right = 22.0
-offset_bottom = 12.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kjbmc")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MiniPlayer" type="TextureRect" parent="CanvasLayer/HUD/MiniMap"]
 layout_mode = 1
@@ -589,9 +619,24 @@ grow_vertical = 2
 texture = ExtResource("2_6x4oa")
 expand_mode = 1
 
+[node name="MiniCamera" type="PanelContainer" parent="CanvasLayer/HUD/MiniMap"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -15.0
+offset_right = 24.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kjbmc")
+
 [node name="Area" type="Area2D" parent="CanvasLayer/HUD/MiniMap"]
-position = Vector2(150, 150)
-metadata/_edit_lock_ = true
+position = Vector2(200, 200)
 
 [node name="Collision" type="CollisionShape2D" parent="CanvasLayer/HUD/MiniMap/Area"]
 shape = SubResource("RectangleShape2D_wi17m")
@@ -608,7 +653,7 @@ offset_right = -1746.0
 offset_bottom = 1080.0
 grow_horizontal = 0
 mouse_filter = 1
-color = Color(0.530643, 0.439848, 0.207573, 1)
+color = Color(0.251013, 0.224317, 0.166158, 1)
 
 [node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/Components"]
 layout_mode = 1
@@ -639,7 +684,7 @@ offset_right = -1680.0
 offset_bottom = 1080.0
 grow_horizontal = 0
 mouse_filter = 2
-color = Color(0.529412, 0.439216, 0.207843, 1)
+color = Color(0.227451, 0.176471, 0.164706, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/Stats"]
 layout_mode = 1
@@ -856,6 +901,8 @@ size_flags_vertical = 0
 
 [node name="AllItems" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer8"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ucbsi")
 text = "All Items"
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -865,6 +912,8 @@ size_flags_vertical = 0
 
 [node name="LowCD" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l1phg")
 text = "Low Cooldown"
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -874,6 +923,8 @@ size_flags_vertical = 0
 
 [node name="MDamage" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer2"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_821f3")
 text = "Medium Damage"
 
 [node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -883,6 +934,8 @@ size_flags_vertical = 0
 
 [node name="HDamage" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer3"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c4nu8")
 text = "High Damage"
 
 [node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -892,6 +945,8 @@ size_flags_vertical = 0
 
 [node name="SDependent" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer4"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cresn")
 text = "Souls Dependant"
 
 [node name="PanelContainer5" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -901,6 +956,8 @@ size_flags_vertical = 0
 
 [node name="Armor" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer5"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7twce")
 text = "Armor"
 
 [node name="PanelContainer6" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -910,6 +967,8 @@ size_flags_vertical = 0
 
 [node name="Healing" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer6"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vlod2")
 text = "Healing"
 
 [node name="PanelContainer7" type="PanelContainer" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
@@ -919,6 +978,8 @@ size_flags_vertical = 0
 
 [node name="CC" type="Button" parent="CanvasLayer/HUD/Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer7"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
 text = "Crowd Control
 "
 
@@ -934,72 +995,101 @@ offset_bottom = 992.0
 grow_horizontal = 0
 color = Color(0.172833, 0.172833, 0.172833, 1)
 
-[node name="Description" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
+[node name="Inspector" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -245.5
-offset_top = -363.0
-offset_right = 245.5
+offset_left = -245.0
+offset_top = -842.0
+offset_right = 246.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.133196, 0.133196, 0.133196, 1)
 
-[node name="CraftItem" type="Button" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+[node name="CraftItem" type="Button" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -184.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 64.0
+anchor_bottom = 1.0
+offset_left = -124.0
+offset_top = -56.0
+offset_right = -24.0
+offset_bottom = -16.0
 grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
 theme_override_font_sizes/font_size = 23
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ukpxu")
 disabled = true
 text = "CRAFT"
 
-[node name="ItemView" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+[node name="ItemView" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 14.0
+offset_top = 18.0
 offset_right = 66.0
-offset_bottom = 66.0
-texture = ExtResource("2_6x4oa")
+offset_bottom = 70.0
 expand_mode = 1
+stretch_mode = 5
 
-[node name="ItemName" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+[node name="ItemName" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
 layout_mode = 0
 offset_left = 71.0
-offset_top = 15.0
+offset_top = 19.0
 offset_right = 214.0
-offset_bottom = 38.0
+offset_bottom = 42.0
 theme_override_font_sizes/font_size = 15
-text = "Clearly an OP item"
 
-[node name="ItemLevel" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
-layout_mode = 0
-offset_left = 71.0
-offset_top = 36.0
-offset_right = 214.0
-offset_bottom = 59.0
-theme_override_font_sizes/font_size = 12
-text = "10 minutes"
-autowrap_mode = 2
-
-[node name="ItemStats" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Description"]
+[node name="ItemDesc" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
 layout_mode = 0
 offset_left = 29.0
-offset_top = 103.0
+offset_top = 106.0
 offset_right = 436.0
-offset_bottom = 292.0
+offset_bottom = 295.0
 theme_override_font_sizes/font_size = 12
-text = "stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats stats "
 autowrap_mode = 2
+
+[node name="LabelComps" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 415.0
+offset_right = 117.0
+offset_bottom = 434.0
+theme_override_font_sizes/font_size = 12
+text = "Composants :"
+autowrap_mode = 2
+
+[node name="LabelDesc" type="Label" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 84.0
+offset_right = 114.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 12
+text = "Description:"
+autowrap_mode = 2
+
+[node name="ComponentsNeeded" type="GridContainer" parent="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.5
+offset_top = 24.5
+offset_right = 223.5
+offset_bottom = 353.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 6
+columns = 8
 
 [node name="ListEvolution" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
 layout_mode = 1
@@ -1088,423 +1178,6 @@ offset_bottom = 66.0
 texture = ExtResource("2_6x4oa")
 expand_mode = 1
 
-[node name="MakeSection" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -245.5
-offset_top = -366.5
-offset_right = 245.5
-offset_bottom = 100.5
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.133196, 0.133196, 0.133196, 1)
-
-[node name="UglyLinks" type="Control" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect5" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -50.0
-offset_right = 2.5
-offset_bottom = -22.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect6" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -186.5
-offset_top = -55.0
-offset_right = 186.5
-offset_bottom = -49.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect7" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -186.5
-offset_top = -91.0
-offset_right = -180.5
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect8" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -94.5
-offset_top = -91.0
-offset_right = -88.5
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect9" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = -91.0
-offset_right = 2.5
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect10" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 87.5
-offset_top = -91.0
-offset_right = 93.5
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect11" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 180.5
-offset_top = -91.0
-offset_right = 186.5
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect12" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = 19.0
-offset_right = 2.5
-offset_bottom = 47.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect13" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -186.5
-offset_top = 40.0
-offset_right = 186.5
-offset_bottom = 46.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect14" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -186.5
-offset_top = 41.0
-offset_right = -180.5
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect15" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -94.5
-offset_top = 41.0
-offset_right = -88.5
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect16" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.5
-offset_top = 41.0
-offset_right = 2.5
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect17" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 87.5
-offset_top = 41.0
-offset_right = 93.5
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="ColorRect18" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/UglyLinks"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 180.5
-offset_top = 41.0
-offset_right = 186.5
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0383971, 0.0383972, 0.0383971, 1)
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -26.0
-offset_right = 26.0
-offset_bottom = 26.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Components" type="Control" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Component1" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -209.5
-offset_top = 71.0
-offset_right = -157.5
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component2" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -117.5
-offset_top = 71.0
-offset_right = -65.5
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component3" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.5
-offset_top = 71.0
-offset_right = 26.5
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component4" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 65.5
-offset_top = 71.0
-offset_right = 117.5
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component5" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 157.5
-offset_top = 71.0
-offset_right = 209.5
-offset_bottom = 123.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component6" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -209.5
-offset_top = -127.0
-offset_right = -157.5
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component7" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -117.5
-offset_top = -127.0
-offset_right = -65.5
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component8" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.5
-offset_top = -127.0
-offset_right = 26.5
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component9" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 65.5
-offset_top = -127.0
-offset_right = 117.5
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="Component10" type="TextureRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake/MakeSection/Components"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 157.5
-offset_top = -127.0
-offset_right = 209.5
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
 [node name="CloseWorkshop" type="Button" parent="CanvasLayer/HUD/Workshop"]
 layout_mode = 1
 anchors_preset = 1
@@ -1515,6 +1188,8 @@ offset_top = 8.0
 offset_right = -9.0
 offset_bottom = 43.0
 grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ua7hb")
 text = "X"
 
 [node name="GameTime" type="Label" parent="CanvasLayer/HUD"]
@@ -1549,11 +1224,32 @@ libraries = {
 }
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.6
 radius = 0.6
 
 [node name="UpdateMovementLine" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="Recall" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FogVolume" type="FogVolume" parent="."]
+size = Vector3(17, 50, 17)
+shape = 2
+material = SubResource("FogMaterial_ikays")
+
+[node name="RecallVisual" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76372, 0)
+visible = false
+radius = 0.921418
+height = 0.0877011
+material = SubResource("StandardMaterial3D_ag6sr")
+
+[node name="MaintainHarvest" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]
@@ -1561,3 +1257,5 @@ autostart = true
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
 [connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
 [connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]
+[connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
+[connection signal="timeout" from="MaintainHarvest" to="." method="_on_maintain_harvest_timeout"]

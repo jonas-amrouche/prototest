@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://k5hwxx3mfhp6"]
+[gd_scene load_steps=4 format=3 uid="uid://k5hwxx3mfhp6"]
 
+[ext_resource type="Script" path="res://Scripts/ComponentHud.gd" id="1_7c48t"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_sdenw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
@@ -10,6 +11,7 @@ custom_minimum_size = Vector2(50, 50)
 offset_right = 50.0
 offset_bottom = 50.0
 mouse_filter = 1
+script = ExtResource("1_7c48t")
 
 [node name="MarginIcon" type="MarginContainer" parent="."]
 layout_mode = 2

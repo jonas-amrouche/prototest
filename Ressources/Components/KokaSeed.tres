@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Component" load_steps=2 format=3 uid="uid://cxdgdbh32ysta"]
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://cxdgdbh32ysta"]
 
 [ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="1_ixa3u"]
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_o15ty"]
 
 [resource]
 script = ExtResource("1_ixa3u")
 id = "koka_seed"
 name = "Koka Seed"
+icon = ExtResource("1_o15ty")

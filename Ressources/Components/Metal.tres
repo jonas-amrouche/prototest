@@ -7,4 +7,4 @@
 script = ExtResource("2_vwsos")
 id = "metal"
 name = "Metal"
-icon_inventory = ExtResource("1_idvli")
+icon = ExtResource("1_idvli")

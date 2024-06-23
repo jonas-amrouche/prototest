@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cuyuubo3r36oj"
+path="res://.godot/imported/map_fog_player_mask.png-5b32b18e2f336caccb68389f99c4476f.image"
+
+[deps]
+
+source_file="res://Assets/2D/Shaders/map_fog_player_mask.png"
+dest_files=["res://.godot/imported/map_fog_player_mask.png-5b32b18e2f336caccb68389f99c4476f.image"]
+
+[params]
+

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b634th0obwe8d"]
+
+[ext_resource type="Texture2D" uid="uid://s63o2tlx01kv" path="res://Assets/2D/PBR/tree_tex_2.png" id="1_bysie"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_color = Color(0.598098, 0.539937, 0.243965, 1)
+albedo_texture = ExtResource("1_bysie")
+uv1_scale = Vector3(1.1, 1.1, 1.1)
+uv1_offset = Vector3(-0.105, -0.075, 0)
