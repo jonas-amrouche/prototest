@@ -24,9 +24,6 @@ var max_health := 1000.0
 var max_energy := 800.0
 var life_steal := 0.0
 
-var interactible : Object
-var in_interaction_with : Object
-
 var recall := false
 
 var in_workshop := false
@@ -42,6 +39,7 @@ var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
+var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
@@ -50,7 +48,6 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 #@onready var nav := $NavAgent
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
-@onready var indic_inter := $CanvasLayer/HUD/InteractionIndicator
 @onready var hud := $CanvasLayer/HUD
 @onready var scoreboard := $CanvasLayer/HUD/ScoreBoard
 @onready var chat := $CanvasLayer/HUD/Chat
@@ -96,7 +93,7 @@ func update_map_data(paths_data : Array[PackedVector2Array], bases_data : Packed
 func update_direction() -> void:
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
-const CAM_LIMITS = Rect2(Vector2(-85.0, -89.0), Vector2(85, 95))
+const CAM_LIMITS = Rect2(Vector2(-89.0, -89.0), Vector2(89, 95))
 var move_camera = false
 #func cam_movement() -> void:
 	#if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
@@ -190,16 +187,10 @@ func reset_speed() -> void:
 
 func action_keys():
 	if Input.is_action_just_released("left_click"):
-		move_camera = false
+		set_moving_map(false)
 	if Input.is_action_pressed("center_cam"):
 		camera.global_position = camera_base_marker.global_position
 	
-	if Input.is_action_just_pressed("interact"):
-		if interactible:
-			interaction_start(interactible.id)
-	if Input.is_action_just_released("interact"):
-		if in_interaction_with == interactible and interactible:
-			interaction_cancel(interactible.id)
 	if Input.is_action_just_pressed("recall"):
 		#nav.target_position = global_position
 		recall = true
@@ -216,14 +207,6 @@ func action_keys():
 		update_workshop_item_list(category_selected)
 		workshop.set_visible(!workshop.visible)
 
-func interaction_start(interaction : String) -> void:
-	match interaction:
-		"plant":
-			if interactible.grown:
-				interactible.start_harvesting(self)
-				in_interaction_with = interactible
-				movement_speed = HARVEST_MOVEMENT_SPEED
-				start_channeling(interactible.plant.harvest_time)
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
@@ -235,23 +218,6 @@ func start_channeling(duration : float) -> void:
 
 func stop_channeling() -> void:
 	channeling_bar.set_visible(false)
-
-func interaction_cancel(interaction : String) -> void:
-	match interaction:
-		"plant":
-			interactible.stop_harvesting()
-			in_interaction_with = null
-			reset_speed()
-			stop_channeling()
-
-func interaction_success(interaction : String, args1 = null, args2 = null) -> void:
-	match interaction:
-		"plant":
-			for i in range(args1.size()):
-				obtain_component(args1[i], args2[i])
-			in_interaction_with = null
-			reset_speed()
-			channeling_bar.set_visible(false)
 
 func obtain_component(comps : Component, quantity : int) -> void:
 	var _new_quantity = quantity
@@ -284,7 +250,18 @@ func update_items() -> void:
 	for i in items:
 		var _new_item_hud = pre_item_hud.instantiate()
 		_new_item_hud.item = i
+		_new_item_hud.connect("drag_drop_item", Callable(self, "drop_item"))
 		item_list.add_child(_new_item_hud)
+
+const DROP_VECTOR_LENGTH = 1.4
+func drop_item(item : Item) -> void:
+	items.remove_at(items.find(item))
+	var _new_item_ground = pre_item_drop.instantiate()
+	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() - get_window().size/2.0)
+	_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
+	_new_item_ground.item = item
+	get_node("..").add_child(_new_item_ground)
+	update_items()
 
 func entering_workshop() -> void:
 	in_workshop = true
@@ -336,21 +313,6 @@ func is_item_craftable(item : Item, comps : Dictionary) -> bool:
 	if _component_had == item.craft_recipe.size():
 		return true
 	return false
-	
-
-func _on_interact_area_entered(area) -> void:
-	interactible = area.get_node("..")
-	if Input.is_action_pressed("interact"):
-		interaction_start(interactible.id)
-	indic_inter.set_visible(true)
-
-func _on_interact_area_exited(area) -> void:
-	if in_interaction_with and in_interaction_with == interactible :
-		interaction_cancel(in_interaction_with.id)
-	
-	if interactible == area.get_node(".."):
-		interactible = null
-		indic_inter.set_visible(false)
 
 var fog_map : Image
 var density_tex : ImageTexture3D
@@ -395,10 +357,6 @@ func _on_update_movement_line_timeout() -> void:
 func _on_recall_timeout() -> void:
 	respawn_base()
 	cancel_recall()
-
-func _on_maintain_harvest_timeout():
-	if in_interaction_with and in_interaction_with == interactible :
-		interaction_cancel(in_interaction_with.id)
 
 func _on_craft_item_pressed():
 	if in_workshop:

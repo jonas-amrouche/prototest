@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=3 format=3 uid="uid://cc07448smpmar"]
+
+[ext_resource type="PackedScene" uid="uid://bxbe73c6eo1wj" path="res://Scenes/Monsters/OmniscientGolem.tscn" id="1_tv1gy"]
+[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="2_5aff5"]
+
+[resource]
+script = ExtResource("2_5aff5")
+id = "omniscient_golem"
+name = "Omniscient Golem"
+monster_scene = ExtResource("1_tv1gy")
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([])
+drop_quantities = PackedInt32Array()
+respawn_time = 50.0

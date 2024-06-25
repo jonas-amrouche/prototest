@@ -6,10 +6,10 @@ var bases_position : PackedVector2Array
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
-var pre_plant = preload("res://Scenes/Props/Plant.tscn")
+var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var decorations = [preload("res://Scenes/Models/TribalPillarTorchModel.tscn"), preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
-var plants = [preload("res://Ressources/Plants/KokaPlant.tres")]
+var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres")]
 var players : Array[Object]
 
 @onready var multi_tree = $MultiTrees
@@ -172,8 +172,15 @@ func is_on_right_side(point : Vector2) -> bool:
 		return true
 	return false
 
-#const WALL_DISPLACEMENT := 1.3
-#func generate_collisions() -> void:
+const COLLISION_GRID_DIVISION := 2.0
+func generate_collisions() -> void:
+	for x in range(int(MAP_SIZE.x/COLLISION_GRID_DIVISION)):
+		for y in range(int(MAP_SIZE.y/COLLISION_GRID_DIVISION)):
+			var _new_position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(MAP_SIZE)/2
+			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
+				continue
+			add_collision_cube(_new_position)
+			
 	#for path in paths_points_list:
 		#for p in range(path.size()):
 			#var _displace_vec = path[p].direction_to(path[p+1]).rotated(PI/2.0) * DISPLACEMENT_TO_CENTER if p+1 < path.size() else path[p-1].direction_to(path[p]) * DISPLACEMENT_TO_CENTER
@@ -197,7 +204,7 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 
 const DIVISION_FACTOR := 1.5
 const TREE_RANDOM_CELLS = 0.4
-const TREE_BORDER_LENGTH := 16.0
+const TREE_BORDER_LENGTH := 2.0
 const NO_TREE_CAMP_DISTANCE := 15.0
 const NO_TREE_PATH_DISTANCE := 2.5
 const TREE_ROTATION_MAX = PI/6.0
@@ -233,16 +240,16 @@ const CHANCE_TO_SPAWN_THING := 0.1
 const DISPLACEMENT_TO_CENTER := 3.0
 func generate_interests_camps() -> void:
 	for i in interest_points_list:
-		var _new_plant = pre_plant.instantiate()
-		_new_plant.position = Vector3(i.x, -0.2, i.y)
-		_new_plant.rotate(Vector3.UP, randf_range(-PI, PI))
-		_new_plant.plant = plants[randi_range(0, plants.size()-1)]
-		add_child(_new_plant)
+		var _new_camp = pre_camp.instantiate()
+		_new_camp.position = Vector3(i.x, -0.2, i.y)
+		_new_camp.rotate(Vector3.UP, randf_range(-PI, PI))
+		_new_camp.monster = monsters[randi_range(0, monsters.size()-1)]
+		add_child(_new_camp)
 
-const DECORATION_DISTANCE := 0.75
+const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
 func generate_decoration() -> void:
-	for i in range(50):
+	for i in range(150):
 		var _decoration = randi_range(0, decorations.size()-1)
 		var _new_position = Vector2(randf_range(-MAP_SIZE.x/2.0, MAP_SIZE.x/2.0), randf_range(-MAP_SIZE.y/2.0, MAP_SIZE.y/2.0))
 		if is_in_base(_new_position) or is_in_path(_new_position) or is_in_arena(_new_position):

@@ -76,10 +76,10 @@ func draw_custom_line(points : PackedVector2Array, width : float, tint : Color, 
 		#_2d_map_navigation_path.append(world_to_minimap_position(Vector2(p.x, p.z)))
 	#draw_line(_2d_map_navigation_path, MOVEMENT_LINE_WIDTH, Color(1.0, 1.0, 1.0, 1.0), mini_movement_lines)
 
-func draw_icon(pos : Vector2, size : Vector2, icon : Texture2D, tint : Color = Color(1.0, 1.0, 1.0, 1.0)) -> void:
+func draw_icon(pos : Vector2, icon_size : Vector2, icon : Texture2D, tint : Color = Color(1.0, 1.0, 1.0, 1.0)) -> void:
 	var _new_base_icon = TextureRect.new()
 	_new_base_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_new_base_icon.size = size
+	_new_base_icon.size = icon_size
 	_new_base_icon.texture = icon
 	_new_base_icon.position = world_to_minimap_position(pos) - _new_base_icon.size/2.0
 	_new_base_icon.self_modulate = tint
@@ -109,7 +109,7 @@ func update_camera_position(pos : Vector3, camera_base_position : Vector3) -> vo
 	mini_camera.position = (Vector2(pos.x, pos.z - camera_base_position.z) + map_size/2.0)*(size.x/(map_size.x/2.0))/2.0 - mini_camera.size/2.0
 
 var cursor_pos = Vector2()
-func _on_area_input_event(viewport, event, _shape_idx) -> void:
+func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:
@@ -121,5 +121,5 @@ func _on_area_input_event(viewport, event, _shape_idx) -> void:
 				#cursor_pos = ((viewport.get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
 				#nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
 	if event is InputEventMouseMotion:
-		cursor_pos = ((viewport.get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
+		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
 	player.move_camera_by_minimap(cursor_pos)

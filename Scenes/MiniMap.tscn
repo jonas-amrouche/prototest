@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhxjw2tsopla1"]
+[gd_scene load_steps=6 format=3 uid="uid://bhxjw2tsopla1"]
 
 [ext_resource type="Script" path="res://Scripts/MiniMap.gd" id="1_g4v1t"]
 [ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="1_iom1j"]
@@ -20,9 +20,6 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.8, 0.8, 0.8, 0.447059)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi17m"]
-size = Vector2(400, 400)
-
 [node name="MiniMap" type="ColorRect"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -35,7 +32,7 @@ offset_right = -50.0
 offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
-mouse_filter = 2
+mouse_filter = 1
 color = Color(0.400698, 0.400698, 0.400698, 1)
 script = ExtResource("1_g4v1t")
 
@@ -72,6 +69,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="MapMask" type="TextureRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_f6vof")
 layout_mode = 1
 anchors_preset = 15
@@ -114,11 +112,4 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kjbmc")
 
-[node name="Area" type="Area2D" parent="."]
-position = Vector2(200, 200)
-
-[node name="Collision" type="CollisionShape2D" parent="Area"]
-shape = SubResource("RectangleShape2D_wi17m")
-metadata/_edit_lock_ = true
-
-[connection signal="input_event" from="Area" to="." method="_on_area_input_event"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

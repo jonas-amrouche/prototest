@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://x2llddu5ppon"]
+
+[ext_resource type="PackedScene" uid="uid://dj8g14cye7qwu" path="res://Assets/3D/Monsters/OmniscientGolem.glb" id="1_exsit"]
+[ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="2_xxfl7"]
+
+[node name="OmniscientGolemModel" instance=ExtResource("1_exsit")]
+
+[node name="OmniscientGolem" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_xxfl7")

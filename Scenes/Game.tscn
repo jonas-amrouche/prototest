@@ -85,6 +85,7 @@ environment = SubResource("Environment_ajjs0")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781861, -0.38835, -0.811694, 0.436277, 0, 10.3159, -7.18087)
+shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.507258, 0)
@@ -97,8 +98,10 @@ multimesh = SubResource("MultiMesh_jwov1")
 navigation_mesh = SubResource("NavigationMesh_p5o78")
 
 [node name="GroundBody" type="StaticBody3D" parent="NavMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.880162, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="NavMesh/GroundBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.227139, 0)
 shape = SubResource("BoxShape3D_cosj4")
 
 [node name="FogOfWar" type="FogVolume" parent="."]

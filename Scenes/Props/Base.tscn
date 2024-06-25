@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://iirdisb1m37l"]
 
-[ext_resource type="Script" path="res://Scripts/Camp.gd" id="1_e676h"]
+[ext_resource type="Script" path="res://Scripts/Base.gd" id="1_686l8"]
 [ext_resource type="PackedScene" uid="uid://b4tmepnlrkm6v" path="res://Scenes/Models/BaseModel.tscn" id="2_pfpu3"]
 [ext_resource type="PackedScene" uid="uid://hxkknhv1vgbl" path="res://Scenes/Props/Altar.tscn" id="3_cgw04"]
 
@@ -13,7 +13,7 @@ density = -8.0
 edge_fade = 0.00980727
 
 [node name="Base" type="Node3D"]
-script = ExtResource("1_e676h")
+script = ExtResource("1_686l8")
 
 [node name="BaseModel" parent="." instance=ExtResource("2_pfpu3")]
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, -0.434, 0)

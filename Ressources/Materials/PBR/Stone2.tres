@@ -7,5 +7,5 @@
 albedo_texture = ExtResource("1_kc4xs")
 ao_enabled = true
 ao_texture = ExtResource("2_oi0wc")
-uv1_scale = Vector3(1.5, 1.5, 1.5)
+uv1_scale = Vector3(0.8, 0.8, 0.8)
 uv1_triplanar = true

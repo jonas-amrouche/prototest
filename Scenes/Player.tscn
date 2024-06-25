@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=28 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="2_5vfl1"]
@@ -6,10 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
-radius = 0.45
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_dko4n"]
-radius = 0.1
+radius = 0.387958
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -134,14 +131,6 @@ far = 512.0
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 16, 4)
 
-[node name="Interact" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-
-[node name="Collision" type="CollisionShape3D" parent="Interact"]
-shape = SubResource("CylinderShape3D_dko4n")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
@@ -168,19 +157,6 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
-
-[node name="InteractionIndicator" type="ColorRect" parent="CanvasLayer/HUD"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 595.23
-offset_top = -72.0
-offset_right = 635.23
-offset_bottom = -32.0
-grow_vertical = 0
-color = Color(0.884314, 3.20069e-06, 1.15514e-06, 1)
 
 [node name="ActionPanel" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -938,15 +914,8 @@ radius = 0.921418
 height = 0.0877011
 material = SubResource("StandardMaterial3D_ag6sr")
 
-[node name="MaintainHarvest" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
-[connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem" to="." method="_on_craft_item_pressed"]
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
 [connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
 [connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]
 [connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
-[connection signal="timeout" from="MaintainHarvest" to="." method="_on_maintain_harvest_timeout"]

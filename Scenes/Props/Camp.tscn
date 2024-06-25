@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://brrm8tv4pixwx"]
+
+[ext_resource type="Script" path="res://Scripts/Camp.gd" id="1_uoxuh"]
+[ext_resource type="PackedScene" uid="uid://pada1sww7uq6" path="res://Scenes/Models/CampFireModel.tscn" id="2_xxajo"]
+
+[node name="Camp" type="Node3D"]
+script = ExtResource("1_uoxuh")
+
+[node name="Respawn" type="Timer" parent="."]
+one_shot = true
+
+[node name="CampFireModel" parent="." instance=ExtResource("2_xxajo")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -0.264346, 0)
+
+[node name="MonsterPos1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.476402, -0.191263, 1.68672)
+
+[node name="MonsterPos2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15025, -0.191263, 0.218888)
+
+[node name="MonsterPos3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18887, -0.191263, -1.84549)
+
+[node name="MonsterPos4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.37766, -0.191263, -1.56653)
+
+[node name="MonsterPos5" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.69955, -0.191263, 0.725348)
+
+[connection signal="timeout" from="Respawn" to="." method="_on_respawn_timeout"]

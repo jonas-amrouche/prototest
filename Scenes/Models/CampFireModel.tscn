@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://pada1sww7uq6"]
+
+[ext_resource type="PackedScene" uid="uid://wgrm8hq1cvey" path="res://Assets/3D/CampFire.glb" id="1_c0jxu"]
+[ext_resource type="Material" uid="uid://cv7l5206uurjd" path="res://Ressources/Materials/PBR/Stone1.tres" id="2_6q4pf"]
+[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="3_x2jf2"]
+[ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Ressources/Materials/TechArt/SmallFire.tres" id="4_ayara"]
+
+[node name="CampFireModel" instance=ExtResource("1_c0jxu")]
+
+[node name="CampFire" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_6q4pf")
+surface_material_override/1 = ExtResource("3_x2jf2")
+
+[node name="CampFlames" parent="." index="1"]
+surface_material_override/0 = ExtResource("4_ayara")
