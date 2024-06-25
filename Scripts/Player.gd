@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 const MAP_SIZE = Vector2(200.0, 200.0)
-const DEFAULT_MOVEMENT_SPEED := 3.5
-const RUN_MOVEMENT_SPEED := 4.5
+const DEFAULT_MOVEMENT_SPEED := 3.0
+const RUN_MOVEMENT_SPEED := 4.0
 const HARVEST_MOVEMENT_SPEED := 1.0
 const ACCELERATION := 0.3
 const CAMERA_MOOVE_TRESHOLD := 1.0/100000.0
@@ -18,14 +18,16 @@ var magic_armor := 15.0
 var movement_speed := RUN_MOVEMENT_SPEED
 var souls := 0
 var cooldown_reduction := 0.0
-var health_regeneration := 10.0
+var health_regeneration := 2.0
 var energy_regeneration := 20.0
 var max_health := 1000.0
 var max_energy := 800.0
 var life_steal := 0.0
+var health := max_health
 
 var recall := false
 
+const SPAWN_REGEN = 100.0
 var in_workshop := false
 var category_selected := 0
 var item_selected : Item
@@ -64,6 +66,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var workshop_item_craft_button := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem
 @onready var player_model := $PlayerModel
 @onready var anims := $Anims
+@onready var health_bar = $SubViewport/Infos/HealthBar
 
 #1 script pour le fog
 #1 script pour la map
@@ -76,7 +79,6 @@ func _ready():
 	reset_speed()
 
 func _physics_process(_delta) -> void:
-	#cam_movement()
 	movement()
 	action_keys()
 	debug_features()
@@ -154,6 +156,24 @@ func respawn_base() -> void:
 	#nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
 
+func take_damage(damage : int) -> void:
+	health = clamp(health - damage, 0.0, max_health)
+	health_bar.value = float(health) / float(max_health) * 100.0
+
+func heal(healing : int) -> void:
+	if !is_dead():
+		health = min(health + healing, max_health)
+		health_bar.value = float(health) / float(max_health) * 100.0
+
+func is_dead() -> bool:
+	if health == 0:
+		return true
+	return false
+
+func die() -> void:
+	health = max_health
+	respawn_base()
+
 func movement() -> void:
 	#var input_dir = Vector3()
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -207,7 +227,6 @@ func action_keys():
 		update_workshop_item_list(category_selected)
 		workshop.set_visible(!workshop.visible)
 
-
 var channeling_tween
 func start_channeling(duration : float) -> void:
 	channeling_bar.set_visible(true)
@@ -257,16 +276,18 @@ const DROP_VECTOR_LENGTH = 1.4
 func drop_item(item : Item) -> void:
 	items.remove_at(items.find(item))
 	var _new_item_ground = pre_item_drop.instantiate()
-	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() - get_window().size/2.0)
+	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
 	_new_item_ground.item = item
 	get_node("..").add_child(_new_item_ground)
 	update_items()
 
 func entering_workshop() -> void:
+	health_regeneration += SPAWN_REGEN
 	in_workshop = true
 
 func exit_workshop() -> void:
+	health_regeneration -= SPAWN_REGEN
 	in_workshop = false
 
 func select_item(item : Item) -> void:
@@ -370,4 +391,6 @@ func _on_craft_item_pressed():
 				components.merge(_new_components, true)
 		update_components()
 		update_workshop_inspection_tab(item_selected)
-	
+
+func _on_stat_regen_timeout():
+	heal(int(health_regeneration))
