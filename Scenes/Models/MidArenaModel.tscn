@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxowfvmk3b1on"]
+
+[ext_resource type="PackedScene" uid="uid://bbpfc3vris1ue" path="res://Assets/3D/MidArena.glb" id="1_ekadm"]
+[ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="2_ic5sw"]
+
+[node name="MidArena" instance=ExtResource("1_ekadm")]
+
+[node name="MidArena" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_ic5sw")

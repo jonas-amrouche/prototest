@@ -14,6 +14,6 @@ description = "It starts like that in the jungle."
 icon = ExtResource("1_skpvv")
 mesh_model = ExtResource("2_fl4s8")
 craft_recipe = {
-ExtResource("1_qgop3"): 2,
-ExtResource("2_qj8s1"): 1
+ExtResource("1_qgop3"): 4,
+ExtResource("2_qj8s1"): 2
 }

@@ -151,4 +151,5 @@ item4={
 
 [rendering]
 
-environment/volumetric_fog/volume_depth=16
+environment/volumetric_fog/volume_depth=32
+anti_aliasing/quality/screen_space_aa=1

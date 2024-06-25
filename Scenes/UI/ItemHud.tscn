@@ -1,11 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=3 format=3 uid="uid://d5b6wj2vo2o6"]
 
+[ext_resource type="Script" path="res://Scripts/ItemHud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_dk43a"]
 
 [node name="ItemHud" type="PanelContainer"]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(55, 55)
 offset_right = 50.0
 offset_bottom = 50.0
+size_flags_vertical = 4
+mouse_filter = 1
+script = ExtResource("1_desy6")
 
 [node name="MarginIcon" type="MarginContainer" parent="."]
 layout_mode = 2

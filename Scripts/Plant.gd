@@ -14,9 +14,10 @@ var component_model : Object
 
 func _ready() -> void:
 	mesh = plant.mesh_model.instantiate()
-	component_model = mesh.get_child(1)
+	component_model = mesh.get_child(plant.harvest_mesh_id)
 	add_child(mesh)
-	grow_timer.wait_time = plant.grow_time
+	if plant.grow_time > 0:
+		grow_timer.wait_time = plant.grow_time
 	harvest_timer.wait_time = plant.harvest_time
 
 func start_harvesting(player : Object) -> void:

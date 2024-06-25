@@ -9,7 +9,7 @@ height = 3.79132
 radius = 2.93715
 
 [sub_resource type="FogMaterial" id="FogMaterial_h31li"]
-density = -1.0
+density = -8.0
 edge_fade = 0.00980727
 
 [node name="Base" type="Node3D"]

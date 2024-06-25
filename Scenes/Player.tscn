@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=29 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
+[ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="2_5vfl1"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_6x4oa"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
-[ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="3_n2ko7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.45
@@ -46,25 +46,6 @@ border_width_bottom = 1
 bg_color = Color(0, 0.621398, 0.852124, 1)
 border_width_right = 3
 border_color = Color(0, 0.434242, 0.0927513, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6vof"]
-shader = ExtResource("3_n2ko7")
-shader_parameter/base_fog_size = 0.0
-shader_parameter/player_fog_size = 0.0
-shader_parameter/base1_pos = null
-shader_parameter/base2_pos = null
-shader_parameter/player_pos = null
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjbmc"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.8, 0.8, 0.8, 0.447059)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi17m"]
-size = Vector2(400, 400)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
 font_size = 10
@@ -130,7 +111,7 @@ _data = {
 }
 
 [sub_resource type="FogMaterial" id="FogMaterial_ikays"]
-density = -1.0
+density = -8.0
 edge_fade = 0.00980727
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
@@ -145,13 +126,13 @@ script = ExtResource("1_dq7lx")
 shape = SubResource("CylinderShape3D_j70xh")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 16, 3)
-top_level = true
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 16, 4)
 current = true
-fov = 60.0
+fov = 50.0
+far = 512.0
 
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 3)
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 16, 4)
 
 [node name="Interact" type="Area3D" parent="."]
 collision_layer = 0
@@ -289,208 +270,8 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Hbox" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad"]
+[node name="ItemList" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad"]
 layout_mode = 2
-
-[node name="Item1" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item1"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item1/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item2" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item2"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item2/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item3" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item3"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item3/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item4" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item4"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item4/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item5" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item5"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item5/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item6" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item6"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item6/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item7" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item7"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item7/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item8" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item8"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item8/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item9" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item9"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item9/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Item10" type="PanelContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item10"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad/Hbox/Item10/Pad"]
-layout_mode = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="ChannelingBar" type="ProgressBar" parent="CanvasLayer/HUD"]
 visible = false
@@ -544,103 +325,12 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.227451, 0.176471, 0.164706, 1)
 
-[node name="MiniMap" type="ColorRect" parent="CanvasLayer/HUD"]
+[node name="MiniMap" parent="CanvasLayer/HUD" instance=ExtResource("2_5vfl1")]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -450.0
-offset_top = -450.0
-offset_right = -50.0
-offset_bottom = -50.0
-grow_horizontal = 0
-grow_vertical = 0
-mouse_filter = 2
-color = Color(0.400698, 0.400698, 0.400698, 1)
-
-[node name="MapBorder" type="ColorRect" parent="CanvasLayer/HUD/MiniMap"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.144063, 0.144063, 0.144063, 1)
-
-[node name="Content" type="Control" parent="CanvasLayer/HUD/MiniMap"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MovementLines" type="Control" parent="CanvasLayer/HUD/MiniMap"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MapMask" type="TextureRect" parent="CanvasLayer/HUD/MiniMap"]
-material = SubResource("ShaderMaterial_f6vof")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="MiniPlayer" type="TextureRect" parent="CanvasLayer/HUD/MiniMap"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.0
-offset_top = -7.0
-offset_right = 7.0
-offset_bottom = 7.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-
-[node name="MiniCamera" type="PanelContainer" parent="CanvasLayer/HUD/MiniMap"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -15.0
-offset_right = 24.0
-offset_bottom = 14.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kjbmc")
-
-[node name="Area" type="Area2D" parent="CanvasLayer/HUD/MiniMap"]
-position = Vector2(200, 200)
-
-[node name="Collision" type="CollisionShape2D" parent="CanvasLayer/HUD/MiniMap/Area"]
-shape = SubResource("RectangleShape2D_wi17m")
-metadata/_edit_lock_ = true
+offset_left = -451.0
+offset_top = -449.0
+offset_right = -51.0
+offset_bottom = -49.0
 
 [node name="Components" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -1003,7 +693,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -245.0
-offset_top = -842.0
+offset_top = -930.0
 offset_right = 246.0
 offset_bottom = -9.0
 grow_horizontal = 2
@@ -1092,6 +782,7 @@ theme_override_constants/h_separation = 6
 columns = 8
 
 [node name="ListEvolution" type="ColorRect" parent="CanvasLayer/HUD/Workshop/ViewAndMake"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1253,7 +944,7 @@ one_shot = true
 
 [connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
 [connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]
-[connection signal="input_event" from="CanvasLayer/HUD/MiniMap/Area" to="." method="_on_area_input_event"]
+[connection signal="pressed" from="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem" to="." method="_on_craft_item_pressed"]
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
 [connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
 [connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]

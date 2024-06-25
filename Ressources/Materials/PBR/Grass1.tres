@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://nxufb8x70to" path="res://Assets/2D/PBR/grass_v1.png" id="1_snfbt"]
 
 [resource]
-albedo_color = Color(0.955963, 0.955963, 0.955963, 1)
+albedo_color = Color(0.903598, 0.903598, 0.903598, 1)
 albedo_texture = ExtResource("1_snfbt")
 metallic_specular = 0.13
-uv1_scale = Vector3(0.15, 0.15, 0.15)
+uv1_scale = Vector3(0.25, 0.25, 0.25)
 uv1_triplanar = true
 uv1_world_triplanar = true

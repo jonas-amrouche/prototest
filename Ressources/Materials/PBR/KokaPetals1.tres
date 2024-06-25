@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bi5oisr4lvrhi"]
+
+[ext_resource type="Texture2D" uid="uid://c4qwbir4x6ku3" path="res://Assets/2D/PBR/corpse_flower_texture_v1.png" id="1_c37s7"]
+
+[resource]
+albedo_texture = ExtResource("1_c37s7")

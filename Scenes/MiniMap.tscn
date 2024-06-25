@@ -1,0 +1,124 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhxjw2tsopla1"]
+
+[ext_resource type="Script" path="res://Scripts/MiniMap.gd" id="1_g4v1t"]
+[ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="1_iom1j"]
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_sixjx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6vof"]
+shader = ExtResource("1_iom1j")
+shader_parameter/base_fog_size = 0.0
+shader_parameter/player_fog_size = 0.0
+shader_parameter/base1_pos = null
+shader_parameter/base2_pos = null
+shader_parameter/player_pos = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjbmc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0.447059)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi17m"]
+size = Vector2(400, 400)
+
+[node name="MiniMap" type="ColorRect"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -450.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.400698, 0.400698, 0.400698, 1)
+script = ExtResource("1_g4v1t")
+
+[node name="MapBorder" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.144063, 0.144063, 0.144063, 1)
+
+[node name="Content" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MovementLines" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MapMask" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_f6vof")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MiniPlayer" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sixjx")
+expand_mode = 1
+
+[node name="MiniCamera" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -15.0
+offset_right = 24.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kjbmc")
+
+[node name="Area" type="Area2D" parent="."]
+position = Vector2(200, 200)
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_wi17m")
+metadata/_edit_lock_ = true
+
+[connection signal="input_event" from="Area" to="." method="_on_area_input_event"]

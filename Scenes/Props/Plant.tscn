@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/Plant.gd" id="1_pjrwh"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g1jgs"]
-height = 2.56943
-radius = 2.0
+height = 2.5
+radius = 1.5
 
 [node name="Plant" type="Node3D"]
 script = ExtResource("1_pjrwh")

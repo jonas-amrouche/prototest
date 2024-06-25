@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 const MAP_SIZE = Vector2(200.0, 200.0)
-const DEFAULT_MOVEMENT_SPEED := 2.5
-const RUN_MOVEMENT_SPEED := 4.0
+const DEFAULT_MOVEMENT_SPEED := 3.5
+const RUN_MOVEMENT_SPEED := 4.5
 const HARVEST_MOVEMENT_SPEED := 1.0
 const ACCELERATION := 0.3
 const CAMERA_MOOVE_TRESHOLD := 1.0/100000.0
@@ -11,7 +11,18 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
+var physical_damage := 50.0
+var magic_damage := 50.0
+var physical_armor := 15.0
+var magic_armor := 15.0
 var movement_speed := RUN_MOVEMENT_SPEED
+var souls := 0
+var cooldown_reduction := 0.0
+var health_regeneration := 10.0
+var energy_regeneration := 20.0
+var max_health := 1000.0
+var max_energy := 800.0
+var life_steal := 0.0
 
 var interactible : Object
 var in_interaction_with : Object
@@ -20,24 +31,23 @@ var recall := false
 
 var in_workshop := false
 var category_selected := 0
+var item_selected : Item
 
 var components := {}
 var items := []
 
-var attack_mode := false
 var can_move := true
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
+var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
-var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
-var pre_plant_texture = preload("res://Assets/2D/UI/plant_icon.png")
-var pre_base_area_texture = preload("res://Assets/2D/Ui/base_area_path.png")
+var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
 @onready var camera := $Camera
 @onready var camera_base_marker := $CameraBaseMarker
-@onready var nav := $NavAgent
+#@onready var nav := $NavAgent
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
 @onready var indic_inter := $CanvasLayer/HUD/InteractionIndicator
@@ -45,13 +55,9 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var scoreboard := $CanvasLayer/HUD/ScoreBoard
 @onready var chat := $CanvasLayer/HUD/Chat
 @onready var component_list := $CanvasLayer/HUD/Components/Pad/CompList
+@onready var item_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/ItemList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
-@onready var mini_player := $CanvasLayer/HUD/MiniMap/MiniPlayer
-@onready var mini_camera := $CanvasLayer/HUD/MiniMap/MiniCamera
-@onready var mini_content := $CanvasLayer/HUD/MiniMap/Content
-@onready var mini_movement_lines := $CanvasLayer/HUD/MiniMap/MovementLines
-@onready var map_mask := $CanvasLayer/HUD/MiniMap/MapMask
 @onready var workshop := $CanvasLayer/HUD/Workshop
 @onready var workshop_item_list := $CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad/ItemList
 @onready var workshop_item_inspection_icon := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemView
@@ -69,92 +75,48 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
+	reset_speed()
 
 func _physics_process(_delta) -> void:
-	cam_movement()
+	#cam_movement()
 	movement()
 	action_keys()
 	debug_features()
 
 func _process(_delta):
 	update_direction()
-	update_player_position()
-	update_camera_position()
+	mini_map.update_camera_position(camera.global_position, camera_base_marker.position)
+	mini_map.update_player_position(global_position)
+
+func update_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
+	mini_map.initialize_minimap(MAP_SIZE, paths_data, bases_data, interests_data)
+	initialize_fog_map(bases_data)
 
 func update_direction() -> void:
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
-func update_player_position() -> void:
-	mini_player.position = (Vector2(global_position.x, global_position.z) + MAP_SIZE/2.0)*(mini_map.size.x/(MAP_SIZE.x/2.0))/2.0 - mini_player.size/2.0
-
-func update_camera_position() -> void:
-	mini_camera.position = (Vector2(camera.global_position.x, camera.global_position.z - 3.0) + MAP_SIZE/2.0)*(mini_map.size.x/(MAP_SIZE.x/2.0))/2.0 - mini_camera.size/2.0
-
-const MAP_PATH_WIDTH := 9.0
-const MAP_MID_WIDTH := 11.0
-const MAP_PATH_COLOR := Color(0.275, 0.339, 0.316)
-const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
-const MAP_BASE_AREA_SIZE := Vector2(50.0, 50.0)
-const MAP_PLANT_ICON_SIZE := Vector2(15.0, 15.0)
-func update_mini_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, plants_data : PackedVector2Array) -> void:
-	# Format Paths
-	var _new_paths_data = Array(PackedVector2Array())
-	for path in paths_data:
-		var _temp_path = PackedVector2Array()
-		for point in path:
-			_temp_path.append(world_to_minimap_position(point))
-		_new_paths_data.append(_temp_path)
-	# Draw Paths
-	for path in _new_paths_data:
-		draw_line(path, MAP_PATH_WIDTH, MAP_PATH_COLOR)
-	# Draw Midlane
-	draw_line([world_to_minimap_position(bases_data[0]), world_to_minimap_position(bases_data[1])], MAP_MID_WIDTH, MAP_PATH_COLOR)
-	# Draw Camps Icons
-	for base in bases_data:
-		draw_icon(base, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
-		draw_icon(base, MAP_BASE_ICON_SIZE, pre_base_texture)
-	initialize_fog_map(bases_data)
-	# Draw Plant Icons
-	for plant in plants_data:
-		draw_icon(plant, MAP_PLANT_ICON_SIZE, pre_plant_texture)
-
-func draw_line(points : PackedVector2Array, width : float, tint : Color, parent : Object = mini_content) -> void:
-	var _new_line = Line2D.new()
-	_new_line.points = points
-	_new_line.width = width
-	_new_line.default_color = tint
-	_new_line.joint_mode = Line2D.LINE_JOINT_ROUND
-	_new_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
-	_new_line.end_cap_mode = Line2D.LINE_CAP_ROUND
-	_new_line.antialiased = true
-	parent.add_child(_new_line)
-
-func clear_movement_lines() -> void:
-	for l in mini_movement_lines.get_children():
-		l.queue_free()
-
-func draw_icon(pos : Vector2, size : Vector2, icon : Texture2D, tint : Color = Color(1.0, 1.0, 1.0, 1.0)) -> void:
-	var _new_base_icon = TextureRect.new()
-	_new_base_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_new_base_icon.size = size
-	_new_base_icon.texture = icon
-	_new_base_icon.position = world_to_minimap_position(pos) - _new_base_icon.size/2.0
-	_new_base_icon.self_modulate = tint
-	mini_content.add_child(_new_base_icon)
-
-func world_to_minimap_position(pos : Vector2) -> Vector2:
-	return (pos + MAP_SIZE/2.0)/MAP_SIZE*mini_content.size
-
 const CAM_LIMITS = Rect2(Vector2(-85.0, -89.0), Vector2(85, 95))
-func cam_movement() -> void:
-	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
-	if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		camera.global_position.x = max(camera.global_position.x - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.x)
-	if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		camera.global_position.z = min(camera.global_position.z + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.y)
-	if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		camera.global_position.z = max(camera.global_position.z - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.y)
+var move_camera = false
+#func cam_movement() -> void:
+	#if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
+		#camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
+	#if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
+		#camera.global_position.x = max(camera.global_position.x - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.x)
+	#if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
+		#camera.global_position.z = min(camera.global_position.z + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.y)
+	#if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
+		#camera.global_position.z = max(camera.global_position.z - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.y)
+
+func move_camera_by_minimap(pos : Vector2) -> void:
+	if move_camera:
+		camera.global_position.x = clamp(pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
+		camera.global_position.z = clamp(pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
+
+func set_moving_map(moving : bool) -> void:
+	move_camera = moving
+	camera.top_level = moving
+	camera.position = camera_base_marker.position
 
 func debug_features() -> void:
 	if Input.is_action_just_pressed("quit_game"):
@@ -170,19 +132,19 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-const RAY_LENGTH := 100.0
-func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		var _mouse_pos = get_viewport().get_mouse_position()
-		var _ray_query = PhysicsRayQueryParameters3D.new()
-		_ray_query.from = camera.project_ray_origin(_mouse_pos)
-		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = 1
-		var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
-		if !_result.is_empty():
-			nav.target_position = _result.get("position")
-			if recall:
-				cancel_recall()
+#const RAY_LENGTH := 100.0
+#func _unhandled_input(event) -> void:
+	#if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
+		#var _mouse_pos = get_viewport().get_mouse_position()
+		#var _ray_query = PhysicsRayQueryParameters3D.new()
+		#_ray_query.from = camera.project_ray_origin(_mouse_pos)
+		#_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
+		#_ray_query.collision_mask = 1
+		#var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
+		#if !_result.is_empty():
+			#nav.target_position = _result.get("position")
+			#if recall:
+				#cancel_recall()
 
 func cancel_recall() -> void:
 	recall_timer.stop()
@@ -192,23 +154,17 @@ func cancel_recall() -> void:
 
 func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
-	nav.target_position = global_position
+	#nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
-
-func change_move_mode(mode : int) -> void:
-	update_movement_line()
-	attack_mode = mode
 
 func movement() -> void:
 	#var input_dir = Vector3()
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	if input_dir != Vector2():
-		change_move_mode(1)
-		nav.target_position = global_position
-	elif !nav.is_navigation_finished():
-		change_move_mode(0)
-		var _direction_result = global_position.direction_to(nav.get_next_path_position())
-		input_dir = Vector2(_direction_result.x, _direction_result.z)
+	#if input_dir != Vector2():
+		#nav.target_position = global_position
+	#elif !nav.is_navigation_finished():
+		#var _direction_result = global_position.direction_to(nav.get_next_path_position())
+		#input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction and can_move:
@@ -234,7 +190,7 @@ func reset_speed() -> void:
 
 func action_keys():
 	if Input.is_action_just_released("left_click"):
-		move_cam = false
+		move_camera = false
 	if Input.is_action_pressed("center_cam"):
 		camera.global_position = camera_base_marker.global_position
 	
@@ -245,7 +201,7 @@ func action_keys():
 		if in_interaction_with == interactible and interactible:
 			interaction_cancel(interactible.id)
 	if Input.is_action_just_pressed("recall"):
-		nav.target_position = global_position
+		#nav.target_position = global_position
 		recall = true
 		recall_timer.start()
 		start_channeling(recall_timer.wait_time)
@@ -318,6 +274,18 @@ func update_components() -> void:
 		_new_component_hud.quantity = components.values()[i]
 		component_list.add_child(_new_component_hud)
 
+func obtain_item(item : Item) -> void:
+	items.append(item)
+	update_items()
+
+func update_items() -> void:
+	for i in item_list.get_children():
+		i.queue_free()
+	for i in items:
+		var _new_item_hud = pre_item_hud.instantiate()
+		_new_item_hud.item = i
+		item_list.add_child(_new_item_hud)
+
 func entering_workshop() -> void:
 	in_workshop = true
 
@@ -325,6 +293,7 @@ func exit_workshop() -> void:
 	in_workshop = false
 
 func select_item(item : Item) -> void:
+	item_selected = item
 	update_workshop_inspection_tab(item)
 
 func update_workshop_item_list(category : int) -> void:
@@ -345,7 +314,7 @@ func update_workshop_inspection_tab(item : Item) -> void:
 		workshop_item_inspection_icon.texture = item.icon
 		workshop_item_inspection_name.text = item.name
 		workshop_item_inspection_desc.text = item.description
-		workshop_item_craft_button.disabled = !is_item_craftable(item, components)
+		workshop_item_craft_button.disabled = !is_item_craftable(item, components) or items.has(item)
 		for c in range(item.craft_recipe.size()):
 			var _new_comps_needed = pre_component_hud.instantiate()
 			_new_comps_needed.component = item.craft_recipe.keys()[c]
@@ -383,36 +352,8 @@ func _on_interact_area_exited(area) -> void:
 		interactible = null
 		indic_inter.set_visible(false)
 
-var move_cam = false
-var cursor_pos = Vector2()
-func _on_area_input_event(viewport, event, _shape_idx) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if event.pressed:
-				move_cam = true
-			else:
-				move_cam = false
-		elif event.button_index == 2:
-			if event.pressed:
-				cursor_pos = ((viewport.get_mouse_position() - mini_map.position) / (mini_map.size.x/(MAP_SIZE.x/2.0))*2.0 - MAP_SIZE/2.0)
-				nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
-	if event is InputEventMouseMotion:
-		cursor_pos = ((viewport.get_mouse_position() - mini_map.position) / (mini_map.size.x/(MAP_SIZE.x/2.0))*2.0 - MAP_SIZE/2.0)
-	if move_cam:
-		camera.global_position.x = clamp(cursor_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
-		camera.global_position.z = clamp(cursor_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-
-const MOVEMENT_LINE_WIDTH := 1.0
-func update_movement_line() -> void:
-	clear_movement_lines()
-	var _2d_map_navigation_path = PackedVector2Array()
-	for p in nav.get_current_navigation_path():
-		_2d_map_navigation_path.append(world_to_minimap_position(Vector2(p.x, p.z)))
-	draw_line(_2d_map_navigation_path, MOVEMENT_LINE_WIDTH, Color(1.0, 1.0, 1.0, 1.0), mini_movement_lines)
-
 var fog_map : Image
 var density_tex : ImageTexture3D
-var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 const FOG_RESOLUTION = 9
 const FOG_TEXTURE_SIZE = Vector2i(int(MAP_SIZE.x) * FOG_RESOLUTION, int(MAP_SIZE.y) * FOG_RESOLUTION)
 const FOG_PLAYER_SIZE = Vector2i(36, 36) * FOG_RESOLUTION
@@ -422,7 +363,7 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
 	density_tex = ImageTexture3D.new()
 	density_tex.create(Image.FORMAT_RGBA8, FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, 1, false, [fog_map])
-	initialize_minimap_fog(bases_data)
+	mini_map.initialize_fog(bases_data, FOG_BASE_SIZE, FOG_PLAYER_SIZE, FOG_TEXTURE_SIZE)
 	update_map_fog()
 
 func update_map_fog() -> void:
@@ -430,23 +371,9 @@ func update_map_fog() -> void:
 	var _player_img = pre_circle_image.duplicate()
 	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
 	fog_map.blend_rect(pre_circle_image, pre_circle_image.get_used_rect(), _fog_position - pre_circle_image.get_size()/2)
-	update_minimap_fog()
+	mini_map.update_fog(fog_map, FOG_PLAYER_SIZE, global_position)
 	density_tex.update([fog_map])
 	get_node("..").get_node("FogOfWar").material.set("density_texture", density_tex)
-
-func initialize_minimap_fog(bases_data : PackedVector2Array) -> void:
-	map_mask.material.set_shader_parameter("base_fog_size", float(FOG_BASE_SIZE.x)/2.0/float(FOG_TEXTURE_SIZE.x))
-	map_mask.material.set_shader_parameter("player_fog_size", float(FOG_PLAYER_SIZE.x)/4.5/float(FOG_TEXTURE_SIZE.x))
-	map_mask.material.set_shader_parameter("base1_pos", (bases_data[0]+MAP_SIZE/2.0)/MAP_SIZE)
-	map_mask.material.set_shader_parameter("base2_pos", (bases_data[1]+MAP_SIZE/2.0)/MAP_SIZE)
-
-func update_minimap_fog() -> void:
-	var _new_fog_map = fog_map.duplicate()
-	var _player_img = pre_circle_image.duplicate()
-	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), world_to_fog_position(Vector2(global_position.x, global_position.z)) - _player_img.get_size()/2)
-	map_mask.texture = ImageTexture.create_from_image(fog_map)
-	map_mask.material.set_shader_parameter("player_pos", (Vector2(global_position.x, global_position.z)+MAP_SIZE/2.0)/MAP_SIZE)
 
 func world_to_fog_position(pos : Vector2) -> Vector2i:
 	return Vector2i((pos + MAP_SIZE/2.0) * FOG_RESOLUTION)
@@ -455,12 +382,14 @@ func _on_close_workshop_pressed() -> void:
 	workshop.set_visible(false)
 
 func _on_nav_agent_path_changed() -> void:
-	update_movement_line()
+	pass
+	#update_movement_line()
 
 func _on_update_movement_line_timeout() -> void:
-	if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		nav.target_position = global_position
-	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
+	pass
+	#if nav.target_position == Vector3(0.0, 0.0, 0.0):
+		#nav.target_position = global_position
+	#nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
 	update_map_fog()
 
 func _on_recall_timeout() -> void:
@@ -470,3 +399,17 @@ func _on_recall_timeout() -> void:
 func _on_maintain_harvest_timeout():
 	if in_interaction_with and in_interaction_with == interactible :
 		interaction_cancel(in_interaction_with.id)
+
+func _on_craft_item_pressed():
+	if in_workshop:
+		for c in range(item_selected.craft_recipe.size()):
+			if item_selected.craft_recipe.values()[c] == components.get(item_selected.craft_recipe.keys()[c]):
+				components.erase(item_selected.craft_recipe.keys()[c])
+			else:
+				var _new_quantity = components.get(item_selected.craft_recipe.keys()[c]) - item_selected.craft_recipe.values()[c]
+				
+				var _new_components = {item_selected.craft_recipe.keys()[c]:_new_quantity}
+				components.merge(_new_components, true)
+		update_components()
+		update_workshop_inspection_tab(item_selected)
+	
