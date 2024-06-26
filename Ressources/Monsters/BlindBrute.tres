@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=5 format=3 uid="uid://jvq266hvj65c"]
+
+[ext_resource type="PackedScene" uid="uid://dx51lvdhwysho" path="res://Scenes/Models/BlindBruteModel.tscn" id="1_jlu1d"]
+[ext_resource type="Resource" uid="uid://bbj7bc3cfuiks" path="res://Ressources/Components/EssenceOfLife.tres" id="1_uh3bw"]
+[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="2_j4i6c"]
+[ext_resource type="Resource" uid="uid://cwqq8r5mj1aqd" path="res://Ressources/Components/SturdyWood.tres" id="2_p4fy6"]
+
+[resource]
+script = ExtResource("2_j4i6c")
+id = "blind_brute"
+name = "Blind Brute"
+monster_model = ExtResource("1_jlu1d")
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_uh3bw"), ExtResource("2_p4fy6")])
+drop_quantities = PackedInt32Array(1, 2)
+abilities = PackedStringArray("edifying_impact")
+respawn_time = 50.0
+aggro = true
+aggro_range = 4.0
+roam = false
+roam_range = 3.0
+turn_speed = 0.0
+max_health = 225
+physical_damage = 45
+magic_damage = 0
+physical_armor = 5
+magic_armor = 0
+movement_speed = 2.5
+health_regeneration = 4

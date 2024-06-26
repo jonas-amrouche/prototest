@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://b00w1767dex2p"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_ocmfh"]
+[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_ii44m"]
+
+[resource]
+script = ExtResource("2_ii44m")
+id = "floating_matter"
+name = "Floating Matter"
+icon = ExtResource("1_ocmfh")

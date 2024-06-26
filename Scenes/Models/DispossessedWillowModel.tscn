@@ -6,7 +6,9 @@
 [node name="DispossessedWillowModel" instance=ExtResource("1_c4f6p")]
 
 [node name="DispossessedWillow" parent="." index="0"]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.806663, 0)
 surface_material_override/0 = ExtResource("2_2ffu7")
 
 [node name="DispossessedWillowTrunk" parent="." index="1"]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.806663, 0)
 surface_material_override/0 = ExtResource("2_2ffu7")

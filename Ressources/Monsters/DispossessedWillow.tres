@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=5 format=3 uid="uid://cwbtu5mwo28lu"]
+
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/CursedWood.tres" id="1_slvs1"]
+[ext_resource type="Resource" uid="uid://d3krt0jx5j86c" path="res://Ressources/Components/EssenceOfPain.tres" id="2_cvaj7"]
+[ext_resource type="PackedScene" uid="uid://cucsd3e0a0nt2" path="res://Scenes/Models/DispossessedWillowModel.tscn" id="3_66i8m"]
+[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="4_s78hj"]
+
+[resource]
+script = ExtResource("4_s78hj")
+id = "dispossessed_willow"
+name = "Dispossessed Willow"
+monster_model = ExtResource("3_66i8m")
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_slvs1"), ExtResource("2_cvaj7")])
+drop_quantities = PackedInt32Array(4, 1)
+abilities = PackedStringArray("edifying_impact")
+respawn_time = 50.0
+aggro = false
+aggro_range = 4.0
+roam = false
+roam_range = 3.0
+turn_speed = 0.0
+max_health = 250
+physical_damage = 40
+magic_damage = 0
+physical_armor = 5
+magic_armor = 0
+movement_speed = 2.0
+health_regeneration = 3

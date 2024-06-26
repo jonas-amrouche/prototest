@@ -69,7 +69,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="MapMask" type="TextureRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_f6vof")
 layout_mode = 1
 anchors_preset = 15

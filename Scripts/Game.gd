@@ -9,7 +9,7 @@ var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var decorations = [preload("res://Scenes/Models/TribalPillarTorchModel.tscn"), preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
-var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres")]
+var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres"), preload("res://Ressources/Monsters/BlindBrute.tres"), preload("res://Ressources/Monsters/DispossessedWillow.tres")]
 var players : Array[Object]
 
 @onready var multi_tree = $MultiTrees
@@ -242,7 +242,6 @@ func generate_interests_camps() -> void:
 	for i in interest_points_list:
 		var _new_camp = pre_camp.instantiate()
 		_new_camp.position = Vector3(i.x, -0.2, i.y)
-		_new_camp.rotate(Vector3.UP, randf_range(-PI, PI))
 		_new_camp.monster = monsters[randi_range(0, monsters.size()-1)]
 		add_child(_new_camp)
 

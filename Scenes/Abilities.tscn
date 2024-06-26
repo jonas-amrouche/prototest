@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://8gxad82o4fso"]
+
+[ext_resource type="Script" path="res://Scripts/Abilities.gd" id="1_6fggh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7oh1x"]
+radius = 0.77654
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2u4s7"]
+radius = 1.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8b2x3"]
+radius = 1.04353
+
+[node name="Abilities" type="Node3D"]
+script = ExtResource("1_6fggh")
+
+[node name="cutting_around" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="cutting_around"]
+shape = SubResource("CylinderShape3D_7oh1x")
+
+[node name="stone_pounding" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="stone_pounding"]
+shape = SubResource("CylinderShape3D_2u4s7")
+
+[node name="edifying_impact" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="edifying_impact"]
+shape = SubResource("CylinderShape3D_8b2x3")
+
+[node name="CuttingAroundVisual" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.415395)
+visible = false
+size = Vector3(1.09985, 0.181885, 0.395996)
+
+[node name="StonePoundingVisual" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+visible = false
+
+[node name="EdifyingImpactVisual" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+visible = false
+radius = 0.3

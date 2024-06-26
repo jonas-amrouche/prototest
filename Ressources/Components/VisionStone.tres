@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://5y0yu22dmv1j"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_q1vwv"]
+[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_nswst"]
+
+[resource]
+script = ExtResource("2_nswst")
+id = "vision_stone"
+name = "Vision Stone"
+icon = ExtResource("1_q1vwv")

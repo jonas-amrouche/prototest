@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://cwqq8r5mj1aqd"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_xe0hg"]
+[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_1fyp4"]
+
+[resource]
+script = ExtResource("2_1fyp4")
+id = "sturdy_wood"
+name = "Sturdy Wood"
+icon = ExtResource("1_xe0hg")

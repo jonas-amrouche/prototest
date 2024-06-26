@@ -11,17 +11,17 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
-var physical_damage := 50.0
-var magic_damage := 50.0
-var physical_armor := 15.0
-var magic_armor := 15.0
+var physical_damage := 50
+var magic_damage := 50
+var physical_armor := 15
+var magic_armor := 15
 var movement_speed := RUN_MOVEMENT_SPEED
 var souls := 0
 var cooldown_reduction := 0.0
 var health_regeneration := 2.0
-var energy_regeneration := 20.0
-var max_health := 1000.0
-var max_energy := 800.0
+var strength_regeneration := 10.0
+var max_health := 450
+var max_strength := 80
 var life_steal := 0.0
 var health := max_health
 
@@ -30,10 +30,11 @@ var recall := false
 const SPAWN_REGEN = 100.0
 var in_workshop := false
 var category_selected := 0
-var item_selected : Item
+var item_workshop_selected : Item
 
 var components := {}
 var items := []
+var item_selected : int
 
 var can_move := true
 
@@ -57,6 +58,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var item_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/ItemList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
+@onready var abilities := $Abilities
 @onready var workshop := $CanvasLayer/HUD/Workshop
 @onready var workshop_item_list := $CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad/ItemList
 @onready var workshop_item_inspection_icon := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemView
@@ -67,6 +69,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var player_model := $PlayerModel
 @onready var anims := $Anims
 @onready var health_bar = $SubViewport/Infos/HealthBar
+@onready var health_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
 
 #1 script pour le fog
 #1 script pour la map
@@ -155,10 +158,23 @@ func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
 	#nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
+	camera.top_level = false
 
-func take_damage(damage : int) -> void:
-	health = clamp(health - damage, 0.0, max_health)
+func take_damage(damage : int, damage_type : int, _damage_dealer : Object) -> void:
+	var _final_damage : int
+	match damage_type:
+		0:
+			_final_damage = max(damage - physical_armor, 0.0)
+		1:
+			_final_damage = max(damage - magic_armor, 0.0)
+		2:
+			_final_damage = max(damage - physical_armor - magic_armor, 0.0)
+	
+	health = max(health - _final_damage, 0.0)
 	health_bar.value = float(health) / float(max_health) * 100.0
+	health_bar_hud.value = float(health) / float(max_health) * 100.0
+	if is_dead():
+		die()
 
 func heal(healing : int) -> void:
 	if !is_dead():
@@ -171,8 +187,10 @@ func is_dead() -> bool:
 	return false
 
 func die() -> void:
-	health = max_health
-	respawn_base()
+	get_tree().create_timer(5.0).timeout.connect(Callable(func():
+		health = max_health
+		camera.top_level = true
+		respawn_base()))
 
 func movement() -> void:
 	#var input_dir = Vector3()
@@ -208,9 +226,6 @@ func reset_speed() -> void:
 func action_keys():
 	if Input.is_action_just_released("left_click"):
 		set_moving_map(false)
-	if Input.is_action_pressed("center_cam"):
-		camera.global_position = camera_base_marker.global_position
-	
 	if Input.is_action_just_pressed("recall"):
 		#nav.target_position = global_position
 		recall = true
@@ -226,6 +241,14 @@ func action_keys():
 	if Input.is_action_just_pressed("workshop"):
 		update_workshop_item_list(category_selected)
 		workshop.set_visible(!workshop.visible)
+	
+	for i in range(8):
+		if Input.is_action_just_pressed("item"+str(i+1)):
+			item_selected = i
+	for i in range(4):
+		if Input.is_action_just_pressed("ability"+str(i+1)):
+			if items.size() > item_selected and items[item_selected].abilities.size() > i:
+				abilities.call(items[item_selected].abilities[i], self)
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
@@ -291,7 +314,7 @@ func exit_workshop() -> void:
 	in_workshop = false
 
 func select_item(item : Item) -> void:
-	item_selected = item
+	item_workshop_selected = item
 	update_workshop_inspection_tab(item)
 
 func update_workshop_item_list(category : int) -> void:
@@ -381,16 +404,16 @@ func _on_recall_timeout() -> void:
 
 func _on_craft_item_pressed():
 	if in_workshop:
-		for c in range(item_selected.craft_recipe.size()):
-			if item_selected.craft_recipe.values()[c] == components.get(item_selected.craft_recipe.keys()[c]):
-				components.erase(item_selected.craft_recipe.keys()[c])
+		for c in range(item_workshop_selected.craft_recipe.size()):
+			if item_workshop_selected.craft_recipe.values()[c] == components.get(item_workshop_selected.craft_recipe.keys()[c]):
+				components.erase(item_workshop_selected.craft_recipe.keys()[c])
 			else:
-				var _new_quantity = components.get(item_selected.craft_recipe.keys()[c]) - item_selected.craft_recipe.values()[c]
+				var _new_quantity = components.get(item_workshop_selected.craft_recipe.keys()[c]) - item_workshop_selected.craft_recipe.values()[c]
 				
-				var _new_components = {item_selected.craft_recipe.keys()[c]:_new_quantity}
+				var _new_components = {item_workshop_selected.craft_recipe.keys()[c]:_new_quantity}
 				components.merge(_new_components, true)
 		update_components()
-		update_workshop_inspection_tab(item_selected)
+		update_workshop_inspection_tab(item_workshop_selected)
 
 func _on_stat_regen_timeout():
 	heal(int(health_regeneration))

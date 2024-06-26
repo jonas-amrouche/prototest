@@ -1,20 +1,18 @@
-[gd_scene load_steps=30 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=31 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="2_5vfl1"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_6x4oa"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
 [ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="5_y7wx0"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Abilities.tscn" id="6_70mv7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.387958
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_color = Color(0.125911, 0.125911, 0.125911, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sk5d"]
 bg_color = Color(0.180666, 0.468389, 4.81307e-07, 1)
@@ -23,10 +21,6 @@ border_color = Color(1.86507e-07, 0.268013, 0.0425503, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay0d0"]
 bg_color = Color(0.587639, 0.268625, 0.731495, 1)
@@ -121,6 +115,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_dq7lx")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -203,8 +198,7 @@ size_flags_vertical = 1
 mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_57rek")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5sk5d")
-max_value = 1000.0
-value = 1000.0
+value = 100.0
 show_percentage = false
 
 [node name="Pad2" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/BarContainer"]
@@ -932,6 +926,8 @@ texture = SubResource("ViewportTexture_najce")
 
 [node name="StatRegen" type="Timer" parent="."]
 autostart = true
+
+[node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
 
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem" to="." method="_on_craft_item_pressed"]
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://d3krt0jx5j86c"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_b4rpo"]
+[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_ksi2c"]
+
+[resource]
+script = ExtResource("2_ksi2c")
+id = "essence_of_pain"
+name = "Essence Of Pain"
+icon = ExtResource("1_b4rpo")

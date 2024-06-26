@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxbe73c6eo1wj"]
+
+[ext_resource type="Script" path="res://Scripts/Monster.gd" id="1_dalmf"]
+[ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="2_8tuwq"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Abilities.tscn" id="3_laeoi"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mfdxe"]
+height = 2.2
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_q8k26"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rma1q"]
+resource_local_to_scene = true
+radius = 4.0
+
+[node name="Monster" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16156, 0)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_dalmf")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mfdxe")
+
+[node name="NavAgent" type="NavigationAgent3D" parent="."]
+path_desired_distance = 1.2
+height = 2.2
+radius = 0.7
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(200, 10)
+
+[node name="Infos" parent="SubViewport" instance=ExtResource("2_8tuwq")]
+
+[node name="InfoBar" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29, -0.630505)
+billboard = 1
+texture = SubResource("ViewportTexture_q8k26")
+
+[node name="Aggro" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="Aggro"]
+shape = SubResource("CylinderShape3D_rma1q")
+
+[node name="UpdatePath" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="Abilities" parent="." instance=ExtResource("3_laeoi")]
+
+[node name="Attack" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="Roam" type="Timer" parent="."]
+wait_time = 7.0
+
+[connection signal="body_shape_entered" from="Aggro" to="." method="_on_aggro_body_shape_entered"]
+[connection signal="body_shape_exited" from="Aggro" to="." method="_on_aggro_body_shape_exited"]
+[connection signal="timeout" from="UpdatePath" to="." method="_on_update_path_timeout"]
+[connection signal="timeout" from="Attack" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="Roam" to="." method="_on_roam_timeout"]
