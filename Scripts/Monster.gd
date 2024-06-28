@@ -23,6 +23,8 @@ var roam_point : Vector3
 @onready var attack_timer = $Attack
 @onready var roam_timer = $Roam
 
+var pre_component_drop = preload("res://Scenes/ComponentDrop.tscn")
+
 func _ready():
 	if monster.roam:
 		roam_timer.start()
@@ -58,8 +60,16 @@ func is_dead() -> bool:
 		return true
 	return false
 
+const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
 	monster_collision.disabled = true
+	for i in range(monster.drop_components.size()):
+		var _new_component_ground = pre_component_drop.instantiate()
+		var _vector_drop = Vector3.FORWARD.rotated(Vector3.UP, randf_range(-PI, PI)) * DROP_VECTOR_LENGTH
+		_new_component_ground.position = _vector_drop + position
+		_new_component_ground.component = monster.drop_components[i]
+		_new_component_ground.quantity = monster.drop_quantities[i]
+		get_node("..").add_child(_new_component_ground)
 	set_physics_process(false)
 	get_node("..").monster_died()
 	get_tree().create_timer(1.0).timeout.connect(Callable(func():
@@ -107,7 +117,7 @@ func update_path(stop : bool = false) -> void:
 		nav.target_position = player_target.global_position
 	elif monster.roam:
 		nav.path_desired_distance = STOP_DISTANCE_ROAM_POINT
-		nav.target_position = roam_point
+		nav.target_position = get_node("..").global_position + roam_point
 	else:
 		nav.path_desired_distance = STOP_DISTANCE_CAMP
 		nav.target_position = default_point
@@ -129,8 +139,8 @@ func _on_aggro_body_shape_exited(_body_rid, _body, _body_shape_index, _local_sha
 func _on_attack_timeout():
 	if player_target:
 		for i in monster.abilities:
-			if abilities.get_spell_range(i) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
-				abilities.call(i, self)
+			if abilities.get_spell_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
+				abilities.use_ability(i, self)
 
 func _on_roam_timeout():
 	roam_point = Vector3(randf_range(-monster.roam_range, monster.roam_range), 0.0, randf_range(-monster.roam_range, monster.roam_range))

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://brfkpe863kyw4"]
+
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_4i6cc"]
+
+[resource]
+script = ExtResource("1_4i6cc")
+id = "stone_pounding"
+name = "Stone Pounding"
+description = "Deal big damage in a circle."
+strength_cost = 0
+attack_time = 1.4
+damage_type = 0
+physical_damage_cap = 0
+magic_damage_cap = 0

@@ -63,18 +63,17 @@ func draw_custom_line(points : PackedVector2Array, width : float, tint : Color, 
 	_new_line.antialiased = true
 	parent.add_child(_new_line)
 
-#func clear_movement_lines() -> void:
-	#for l in mini_movement_lines.get_children():
-		#l.queue_free()
+func clear_movement_lines() -> void:
+	for l in mini_movement_lines.get_children():
+		l.queue_free()
 
-#const MOVEMENT_LINE_WIDTH := 1.0
-#func update_movement_line() -> void:
-	#clear_movement_lines()
-	#var _2d_map_navigation_path = PackedVector2Array()
-	#for p in nav.get_current_navigation_path():
-		#pass
-		#_2d_map_navigation_path.append(world_to_minimap_position(Vector2(p.x, p.z)))
-	#draw_line(_2d_map_navigation_path, MOVEMENT_LINE_WIDTH, Color(1.0, 1.0, 1.0, 1.0), mini_movement_lines)
+const MOVEMENT_LINE_WIDTH := 1.0
+func update_movement_line(nav : NavigationAgent3D) -> void:
+	clear_movement_lines()
+	var _2d_map_navigation_path = PackedVector2Array()
+	for p in nav.get_current_navigation_path():
+		_2d_map_navigation_path.append(world_to_minimap_position(Vector2(p.x, p.z)))
+	draw_custom_line(_2d_map_navigation_path, MOVEMENT_LINE_WIDTH, Color(1.0, 1.0, 1.0, 1.0), mini_movement_lines)
 
 func draw_icon(pos : Vector2, icon_size : Vector2, icon : Texture2D, tint : Color = Color(1.0, 1.0, 1.0, 1.0)) -> void:
 	var _new_base_icon = TextureRect.new()

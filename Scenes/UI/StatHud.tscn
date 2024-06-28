@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmckpfbf2u4kh"]
+
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_7xpcj"]
+[ext_resource type="Script" path="res://Scripts/StatHud.gd" id="1_qs0rs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
+font_size = 10
+
+[node name="Stat" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 20)
+mouse_filter = 1
+script = ExtResource("1_qs0rs")
+
+[node name="MarginCont" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 21)
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="StatLabel" type="Label" parent="MarginCont"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "4000"
+label_settings = SubResource("LabelSettings_2kj53")
+horizontal_alignment = 1
+
+[node name="StatIcon" type="TextureRect" parent="MarginCont"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("1_7xpcj")
+expand_mode = 1
+stretch_mode = 5

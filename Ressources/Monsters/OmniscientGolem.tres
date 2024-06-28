@@ -1,16 +1,19 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=3 format=3 uid="uid://cc07448smpmar"]
+[gd_resource type="Resource" script_class="Monster" load_steps=6 format=3 uid="uid://cc07448smpmar"]
 
 [ext_resource type="PackedScene" uid="uid://x2llddu5ppon" path="res://Scenes/Models/OmniscientGolemModel.tscn" id="1_hujs5"]
+[ext_resource type="Resource" uid="uid://brfkpe863kyw4" path="res://Ressources/Abilities/StonePounding.tres" id="1_lcofg"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="1_ydtuy"]
 [ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="2_5aff5"]
+[ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="2_w0gid"]
 
 [resource]
 script = ExtResource("2_5aff5")
 id = "omniscient_golem"
 name = "Omniscient Golem"
 monster_model = ExtResource("1_hujs5")
-drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([])
-drop_quantities = PackedInt32Array()
-abilities = PackedStringArray("stone_pounding")
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_ydtuy"), ExtResource("2_w0gid")])
+drop_quantities = PackedInt32Array(2, 3)
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_lcofg")])
 respawn_time = 50.0
 aggro = false
 aggro_range = 0.0
@@ -18,9 +21,9 @@ roam = false
 roam_range = 0.0
 turn_speed = 0.0
 max_health = 400
-physical_damage = 40
+physical_damage = 90
 magic_damage = 5
 physical_armor = 10
 magic_armor = 5
 movement_speed = 1.5
-health_regeneration = 3
+health_regeneration = 2.0

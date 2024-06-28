@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://iflvcho70g2w"]
+
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_yaty1"]
+
+[resource]
+script = ExtResource("1_yaty1")
+id = "cutting_around"
+name = "Cutting Around"
+description = "Deal small damage in a circle."
+strength_cost = 3
+attack_time = 0.3
+damage_type = 0
+physical_damage_cap = 30
+magic_damage_cap = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=30 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="2_5vfl1"]
@@ -38,9 +38,6 @@ border_width_bottom = 1
 bg_color = Color(0, 0.621398, 0.852124, 1)
 border_width_right = 3
 border_color = Color(0, 0.434242, 0.0927513, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
-font_size = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -212,8 +209,7 @@ size_flags_vertical = 1
 mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_365f3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ay0d0")
-max_value = 1000.0
-value = 1000.0
+value = 100.0
 show_percentage = false
 
 [node name="ItemBar" type="ColorRect" parent="CanvasLayer/HUD/ActionPanel"]
@@ -343,12 +339,12 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -1741.0
-offset_top = 796.0
+offset_top = 779.0
 offset_right = -1680.0
 offset_bottom = 1080.0
 grow_horizontal = 0
 mouse_filter = 2
-color = Color(0.227451, 0.176471, 0.164706, 1)
+color = Color(0.532872, 0.437675, 0.415655, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/Stats"]
 layout_mode = 1
@@ -362,116 +358,8 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="PanelContainer" type="VBoxContainer" parent="CanvasLayer/HUD/Stats/MarginContainer"]
+[node name="StatList" type="VBoxContainer" parent="CanvasLayer/HUD/Stats/MarginContainer"]
 layout_mode = 2
-
-[node name="Stat" type="PanelContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="MarginCont" type="MarginContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="StatLabel" type="Label" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat/MarginCont"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "4000"
-label_settings = SubResource("LabelSettings_2kj53")
-horizontal_alignment = 1
-
-[node name="StatIcon" type="TextureRect" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat/MarginCont"]
-custom_minimum_size = Vector2(15, 15)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Stat2" type="PanelContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="MarginCont" type="MarginContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat2"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="StatLabel" type="Label" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat2/MarginCont"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "4000"
-label_settings = SubResource("LabelSettings_2kj53")
-horizontal_alignment = 1
-
-[node name="StatIcon" type="TextureRect" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat2/MarginCont"]
-custom_minimum_size = Vector2(15, 15)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Stat3" type="PanelContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="MarginCont" type="MarginContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat3"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="StatLabel" type="Label" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat3/MarginCont"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "4000"
-label_settings = SubResource("LabelSettings_2kj53")
-horizontal_alignment = 1
-
-[node name="StatIcon" type="TextureRect" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat3/MarginCont"]
-custom_minimum_size = Vector2(15, 15)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Stat4" type="PanelContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-mouse_filter = 1
-
-[node name="MarginCont" type="MarginContainer" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat4"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="StatLabel" type="Label" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat4/MarginCont"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "4000"
-label_settings = SubResource("LabelSettings_2kj53")
-horizontal_alignment = 1
-
-[node name="StatIcon" type="TextureRect" parent="CanvasLayer/HUD/Stats/MarginContainer/PanelContainer/Stat4/MarginCont"]
-custom_minimum_size = Vector2(15, 15)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("2_6x4oa")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="Workshop" type="ColorRect" parent="CanvasLayer/HUD"]
 visible = false
@@ -889,8 +777,6 @@ libraries = {
 }
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
-path_desired_distance = 0.6
-radius = 0.6
 
 [node name="UpdateMovementLine" type="Timer" parent="."]
 wait_time = 0.5
@@ -901,7 +787,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="FogVolume" type="FogVolume" parent="."]
-size = Vector3(17, 50, 17)
+size = Vector3(15, 50, 15)
 shape = 2
 material = SubResource("FogMaterial_ikays")
 

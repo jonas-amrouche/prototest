@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=5 format=3 uid="uid://bbsir61mjulr0"]
+
+[ext_resource type="Resource" uid="uid://dhec1vbffd4ak" path="res://Ressources/Abilities/EdifyingImpact.tres" id="1_0h4kd"]
+[ext_resource type="Resource" uid="uid://b00w1767dex2p" path="res://Ressources/Components/FloatingMatter.tres" id="2_6yqaf"]
+[ext_resource type="PackedScene" uid="uid://cmvjhexu3hgoy" path="res://Scenes/Models/LostGhostModel.tscn" id="3_mn240"]
+[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="5_m6ddl"]
+
+[resource]
+script = ExtResource("5_m6ddl")
+id = "lost_ghost"
+name = "Lost Ghost"
+monster_model = ExtResource("3_mn240")
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("2_6yqaf")])
+drop_quantities = PackedInt32Array(2)
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_0h4kd")])
+respawn_time = 50.0
+aggro = false
+aggro_range = 4.0
+roam = true
+roam_range = 5.0
+turn_speed = 0.0
+max_health = 250
+physical_damage = 60
+magic_damage = 5
+physical_armor = 10
+magic_armor = 5
+movement_speed = 2.0
+health_regeneration = 2.0

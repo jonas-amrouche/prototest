@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cwsbhkkj0qp74"]
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://cwsbhkkj0qp74"]
 
 [ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="1_lmrn7"]
+[ext_resource type="Resource" uid="uid://iflvcho70g2w" path="res://Ressources/Abilities/CuttingAround.tres" id="1_ltu8q"]
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_skpvv"]
 [ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="2_fl4s8"]
 
@@ -12,7 +13,7 @@ description = "It starts like that in the jungle."
 icon = ExtResource("1_skpvv")
 mesh_model = ExtResource("2_fl4s8")
 craft_recipe = {}
-abilities = PackedStringArray("cutting_around")
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_ltu8q")])
 physical_damage = 30
 magic_damage = 0
 physical_armor = 0
@@ -20,7 +21,7 @@ magic_armor = 0
 movement_speed = 0.0
 cooldown_reduction = 0.0
 health_regeneration = 0.0
-energy_regeneration = 0.0
+strength_regeneration = 0.0
 max_health = 0
-max_energy = 0
+max_strength = 0
 life_steal = 0.0

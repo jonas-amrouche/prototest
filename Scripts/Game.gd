@@ -9,7 +9,11 @@ var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var decorations = [preload("res://Scenes/Models/TribalPillarTorchModel.tscn"), preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
-var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres"), preload("res://Ressources/Monsters/BlindBrute.tres"), preload("res://Ressources/Monsters/DispossessedWillow.tres")]
+var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres"), \
+preload("res://Ressources/Monsters/BlindBrute.tres"), \
+preload("res://Ressources/Monsters/DispossessedWillow.tres"), \
+preload("res://Ressources/Monsters/Grunter.tres"), \
+preload("res://Ressources/Monsters/LostGhost.tres")]
 var players : Array[Object]
 
 @onready var multi_tree = $MultiTrees
@@ -88,9 +92,7 @@ func generate_points_and_paths() -> void:
 			for i in range(int(p.distance_to(_closest_point)/PATH_RESOLUTION)):
 				var _point_pos = (_closest_point-p)/p.distance_to(_closest_point)/PATH_RESOLUTION * i
 				_point_pos += cos(_point_pos.length()/SIN_DIVISION) * p.direction_to(_closest_point).rotated(PI/2.0) * SIN_FORCE
-				#print(_point_pos)
 				_temp_point_list.append(p + _point_pos)
-				#debug_box(Vector3(p.x + _point_pos.x, 0.0, p.y + _point_pos.y), 1.0)
 			paths_points_list.append(_temp_point_list)
 	
 	#Comme on genere sur une grid on devrait être cacpable de trouver les 4 points autour du milieu auquel rattach

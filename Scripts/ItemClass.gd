@@ -7,7 +7,7 @@ extends Resource
 @export var icon : Texture2D
 @export var mesh_model : PackedScene
 @export var craft_recipe : Dictionary
-@export var abilities : PackedStringArray
+@export var abilities : Array[Ability]
 @export var physical_damage : int
 @export var magic_damage : int
 @export var physical_armor : int
@@ -15,7 +15,7 @@ extends Resource
 @export var movement_speed : float
 @export var cooldown_reduction : float
 @export var health_regeneration : float
-@export var energy_regeneration : float
+@export var strength_regeneration : float
 @export var max_health : int
-@export var max_energy : int
+@export var max_strength : int
 @export var life_steal : float

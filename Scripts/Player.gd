@@ -11,19 +11,30 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
-var physical_damage := 50
-var magic_damage := 50
-var physical_armor := 15
-var magic_armor := 15
+
+const BASE_PHYSICAL_DAMAGE := 50
+const BASE_MAGIC_DAMAGE := 50
+const BASE_PHYSICAL_ARMOR := 15
+const BASE_MAGIC_ARMOR := 15
+const BASE_HEALTH_REGENERATION := 2.0
+const BASE_STRENGTH_REGENERATION := 3.0
+const BASE_MAX_HEALTH := 450
+const BASE_MAX_STRENGTH := 80
+
+var physical_damage := BASE_PHYSICAL_DAMAGE
+var magic_damage := BASE_MAGIC_DAMAGE
+var physical_armor := BASE_PHYSICAL_ARMOR
+var magic_armor := BASE_MAGIC_ARMOR
 var movement_speed := RUN_MOVEMENT_SPEED
 var souls := 0
 var cooldown_reduction := 0.0
-var health_regeneration := 2.0
-var strength_regeneration := 10.0
-var max_health := 450
-var max_strength := 80
+var health_regeneration := BASE_HEALTH_REGENERATION
+var strength_regeneration := BASE_STRENGTH_REGENERATION
+var max_health := BASE_MAX_HEALTH
+var max_strength := BASE_MAX_STRENGTH
 var life_steal := 0.0
 var health := max_health
+var strength := max_strength
 
 var recall := false
 
@@ -41,14 +52,29 @@ var can_move := true
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
+var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
+var stats_icons = [preload("res://Assets/2D/UI/stat_physical.png"), \
+preload("res://Assets/2D/UI/stat_magic.png"), \
+preload("res://Assets/2D/UI/stat_armor_physical.png"), \
+preload("res://Assets/2D/UI/stat_armor_magic.png"), \
+preload("res://Assets/2D/UI/stat_movement_speed.png"), \
+preload("res://Assets/2D/UI/stat_souls.png"), \
+preload("res://Assets/2D/UI/stat_cdr.png"), \
+preload("res://Assets/2D/UI/stat_health_regen.png"), \
+preload("res://Assets/2D/UI/stat_strength_regen.png"), \
+preload("res://Assets/2D/UI/stat_max_health.png"), \
+preload("res://Assets/2D/UI/stat_max_strength.png"), \
+preload("res://Assets/2D/UI/stat_life_steal.png")]
+
 @onready var camera := $Camera
 @onready var camera_base_marker := $CameraBaseMarker
-#@onready var nav := $NavAgent
+@onready var player_collision := $Collision
+@onready var nav := $NavAgent
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
@@ -56,6 +82,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var chat := $CanvasLayer/HUD/Chat
 @onready var component_list := $CanvasLayer/HUD/Components/Pad/CompList
 @onready var item_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/ItemList
+@onready var stats_list = $CanvasLayer/HUD/Stats/MarginContainer/StatList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
 @onready var abilities := $Abilities
@@ -70,6 +97,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var anims := $Anims
 @onready var health_bar = $SubViewport/Infos/HealthBar
 @onready var health_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
+@onready var strength_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad2/StrengthBar
 
 #1 script pour le fog
 #1 script pour la map
@@ -96,6 +124,8 @@ func update_map_data(paths_data : Array[PackedVector2Array], bases_data : Packed
 	initialize_fog_map(bases_data)
 
 func update_direction() -> void:
+	#var _vector_look = -Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
+	#player_model.look_at(Vector3(global_position.x + _vector_look.x, player_model.global_position.y, global_position.z + _vector_look.y))
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
 const CAM_LIMITS = Rect2(Vector2(-89.0, -89.0), Vector2(89, 95))
@@ -134,19 +164,19 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-#const RAY_LENGTH := 100.0
-#func _unhandled_input(event) -> void:
-	#if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		#var _mouse_pos = get_viewport().get_mouse_position()
-		#var _ray_query = PhysicsRayQueryParameters3D.new()
-		#_ray_query.from = camera.project_ray_origin(_mouse_pos)
-		#_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		#_ray_query.collision_mask = 1
-		#var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
-		#if !_result.is_empty():
-			#nav.target_position = _result.get("position")
-			#if recall:
-				#cancel_recall()
+const RAY_LENGTH := 100.0
+func _unhandled_input(event) -> void:
+	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
+		var _mouse_pos = get_viewport().get_mouse_position()
+		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.from = camera.project_ray_origin(_mouse_pos)
+		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
+		_ray_query.collision_mask = 1
+		var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
+		if !_result.is_empty():
+			nav.target_position = _result.get("position")
+			if recall:
+				cancel_recall()
 
 func cancel_recall() -> void:
 	recall_timer.stop()
@@ -156,7 +186,8 @@ func cancel_recall() -> void:
 
 func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
-	#nav.target_position = global_position
+	player_collision.disabled = false
+	nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
 	camera.top_level = false
 
@@ -171,15 +202,29 @@ func take_damage(damage : int, damage_type : int, _damage_dealer : Object) -> vo
 			_final_damage = max(damage - physical_armor - magic_armor, 0.0)
 	
 	health = max(health - _final_damage, 0.0)
-	health_bar.value = float(health) / float(max_health) * 100.0
-	health_bar_hud.value = float(health) / float(max_health) * 100.0
+	update_info_bars()
 	if is_dead():
 		die()
+
+func update_info_bars() -> void:
+	health_bar.value = float(health) / float(max_health) * 100.0
+	health_bar_hud.value = float(health) / float(max_health) * 100.0
+	strength_bar_hud.value = float(strength) / float(max_strength) * 100.0
 
 func heal(healing : int) -> void:
 	if !is_dead():
 		health = min(health + healing, max_health)
-		health_bar.value = float(health) / float(max_health) * 100.0
+		update_info_bars()
+
+func lose_strength(strength_loss : int) -> void:
+	if !is_dead():
+		strength = max(strength - strength_loss, 0.0)
+		update_info_bars()
+
+func gain_strength(strength_gained) -> void:
+	if !is_dead():
+		strength = min(strength + strength_gained, max_strength)
+		update_info_bars()
 
 func is_dead() -> bool:
 	if health == 0:
@@ -187,19 +232,20 @@ func is_dead() -> bool:
 	return false
 
 func die() -> void:
+	player_collision.disabled = true
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = max_health
 		camera.top_level = true
 		respawn_base()))
 
 func movement() -> void:
-	#var input_dir = Vector3()
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var input_dir = Vector2()
+	#var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	#if input_dir != Vector2():
 		#nav.target_position = global_position
-	#elif !nav.is_navigation_finished():
-		#var _direction_result = global_position.direction_to(nav.get_next_path_position())
-		#input_dir = Vector2(_direction_result.x, _direction_result.z)
+	if !nav.is_navigation_finished():
+		var _direction_result = global_position.direction_to(nav.get_next_path_position())
+		input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction and can_move:
@@ -227,7 +273,7 @@ func action_keys():
 	if Input.is_action_just_released("left_click"):
 		set_moving_map(false)
 	if Input.is_action_just_pressed("recall"):
-		#nav.target_position = global_position
+		nav.target_position = global_position
 		recall = true
 		recall_timer.start()
 		start_channeling(recall_timer.wait_time)
@@ -248,7 +294,8 @@ func action_keys():
 	for i in range(4):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if items.size() > item_selected and items[item_selected].abilities.size() > i:
-				abilities.call(items[item_selected].abilities[i], self)
+				if strength >= items[item_selected].abilities[i].strength_cost:
+					abilities.use_ability(items[item_selected].abilities[i], self)
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
@@ -284,7 +331,43 @@ func update_components() -> void:
 
 func obtain_item(item : Item) -> void:
 	items.append(item)
+	update_stats()
 	update_items()
+
+func update_stats() -> void:
+	physical_damage = BASE_PHYSICAL_DAMAGE
+	magic_damage = BASE_MAGIC_DAMAGE
+	physical_armor = BASE_PHYSICAL_ARMOR
+	magic_armor = BASE_MAGIC_ARMOR
+	movement_speed = RUN_MOVEMENT_SPEED
+	health_regeneration = BASE_HEALTH_REGENERATION
+	strength_regeneration = BASE_STRENGTH_REGENERATION
+	max_health = BASE_MAX_HEALTH
+	max_strength = BASE_MAX_STRENGTH
+	for i in items:
+		physical_damage += i.physical_damage
+		magic_damage += i.magic_damage
+		physical_armor += i.physical_armor
+		magic_armor += i.magic_armor
+		movement_speed += i.movement_speed
+		cooldown_reduction += i.cooldown_reduction
+		health_regeneration += i.health_regeneration
+		strength_regeneration += i.strength_regeneration
+		max_health += i.max_health
+		max_strength += i.max_strength
+		life_steal += i.life_steal
+	
+	var _stats = [physical_damage, magic_damage, physical_armor, magic_armor, movement_speed, \
+	cooldown_reduction, health_regeneration, strength_regeneration, max_health, max_strength, life_steal]
+	
+	for i in stats_list.get_children():
+		i.queue_free()
+	
+	for i in range(_stats.size()):
+		var _new_stat_hud = pre_stat_hud.instantiate()
+		_new_stat_hud.stat = str(_stats[i])
+		_new_stat_hud.icon = stats_icons[i]
+		stats_list.add_child(_new_stat_hud)
 
 func update_items() -> void:
 	for i in item_list.get_children():
@@ -298,6 +381,7 @@ func update_items() -> void:
 const DROP_VECTOR_LENGTH = 1.4
 func drop_item(item : Item) -> void:
 	items.remove_at(items.find(item))
+	update_stats()
 	var _new_item_ground = pre_item_drop.instantiate()
 	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
@@ -360,9 +444,9 @@ func is_item_craftable(item : Item, comps : Dictionary) -> bool:
 
 var fog_map : Image
 var density_tex : ImageTexture3D
-const FOG_RESOLUTION = 9
-const FOG_TEXTURE_SIZE = Vector2i(int(MAP_SIZE.x) * FOG_RESOLUTION, int(MAP_SIZE.y) * FOG_RESOLUTION)
-const FOG_PLAYER_SIZE = Vector2i(36, 36) * FOG_RESOLUTION
+const FOG_RESOLUTION = 1
+const FOG_TEXTURE_SIZE = Vector2i(int(MAP_SIZE.x), int(MAP_SIZE.y)) * FOG_RESOLUTION
+const FOG_PLAYER_SIZE = Vector2i(15, 15) * FOG_RESOLUTION
 const FOG_BASE_SIZE = Vector2i(24, 24) * FOG_RESOLUTION
 func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	fog_map = Image.create(FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, false, Image.FORMAT_RGBA8)
@@ -376,7 +460,7 @@ func update_map_fog() -> void:
 	var _fog_position = world_to_fog_position(Vector2(global_position.x, global_position.z))
 	var _player_img = pre_circle_image.duplicate()
 	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	fog_map.blend_rect(pre_circle_image, pre_circle_image.get_used_rect(), _fog_position - pre_circle_image.get_size()/2)
+	fog_map.blend_rect(_player_img, _player_img.get_used_rect(), _fog_position - _player_img.get_size()/2)
 	mini_map.update_fog(fog_map, FOG_PLAYER_SIZE, global_position)
 	density_tex.update([fog_map])
 	get_node("..").get_node("FogOfWar").material.set("density_texture", density_tex)
@@ -388,14 +472,12 @@ func _on_close_workshop_pressed() -> void:
 	workshop.set_visible(false)
 
 func _on_nav_agent_path_changed() -> void:
-	pass
-	#update_movement_line()
+	mini_map.update_movement_line(nav)
 
 func _on_update_movement_line_timeout() -> void:
-	pass
-	#if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		#nav.target_position = global_position
-	#nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
+	if nav.target_position == Vector3(0.0, 0.0, 0.0):
+		nav.target_position = global_position
+	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
 	update_map_fog()
 
 func _on_recall_timeout() -> void:
@@ -417,3 +499,4 @@ func _on_craft_item_pressed():
 
 func _on_stat_regen_timeout():
 	heal(int(health_regeneration))
+	gain_strength(int(strength_regeneration))
