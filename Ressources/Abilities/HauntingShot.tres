@@ -7,6 +7,7 @@ script = ExtResource("1_q2ly0")
 id = "haunting_shot"
 name = "Haunting Shot"
 description = "Deal distance magic damage."
+cooldown = 0.5
 strength_cost = 0
 attack_time = 0.7
 damage_type = 1

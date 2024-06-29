@@ -2,7 +2,6 @@ extends CharacterBody3D
 
 const MAP_SIZE = Vector2(200.0, 200.0)
 const DEFAULT_MOVEMENT_SPEED := 3.0
-const RUN_MOVEMENT_SPEED := 4.0
 const HARVEST_MOVEMENT_SPEED := 1.0
 const ACCELERATION := 0.3
 const CAMERA_MOOVE_TRESHOLD := 1.0/100000.0
@@ -21,11 +20,13 @@ const BASE_STRENGTH_REGENERATION := 3.0
 const BASE_MAX_HEALTH := 450
 const BASE_MAX_STRENGTH := 80
 
+var area_health_regeneration := 0.0
+
 var physical_damage := BASE_PHYSICAL_DAMAGE
 var magic_damage := BASE_MAGIC_DAMAGE
 var physical_armor := BASE_PHYSICAL_ARMOR
 var magic_armor := BASE_MAGIC_ARMOR
-var movement_speed := RUN_MOVEMENT_SPEED
+var movement_speed := DEFAULT_MOVEMENT_SPEED
 var souls := 0
 var cooldown_reduction := 0.0
 var health_regeneration := BASE_HEALTH_REGENERATION
@@ -45,12 +46,14 @@ var item_workshop_selected : Item
 
 var components := {}
 var items := []
-var item_selected : int
+var abilities := [null, null, null, null, null, null, null, null, null, null]
+#var item_selected : int
 
 var can_move := true
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
+var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
 var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
@@ -81,11 +84,12 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var scoreboard := $CanvasLayer/HUD/ScoreBoard
 @onready var chat := $CanvasLayer/HUD/Chat
 @onready var component_list := $CanvasLayer/HUD/Components/Pad/CompList
-@onready var item_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/ItemList
+@onready var item_list = $CanvasLayer/HUD/Items/Pad/ItemList
+@onready var ability_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/AbilityList
 @onready var stats_list = $CanvasLayer/HUD/Stats/MarginContainer/StatList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
-@onready var abilities := $Abilities
+@onready var abilities_machine := $PlayerModel/Abilities
 @onready var workshop := $CanvasLayer/HUD/Workshop
 @onready var workshop_item_list := $CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad/ItemList
 @onready var workshop_item_inspection_icon := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemView
@@ -96,6 +100,7 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var player_model := $PlayerModel
 @onready var anims := $Anims
 @onready var health_bar = $SubViewport/Infos/HealthBar
+@onready var strength_bar = $SubViewport/Infos/StrengthBar
 @onready var health_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
 @onready var strength_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad2/StrengthBar
 
@@ -107,7 +112,7 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
-	reset_speed()
+	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -206,11 +211,6 @@ func take_damage(damage : int, damage_type : int, _damage_dealer : Object) -> vo
 	if is_dead():
 		die()
 
-func update_info_bars() -> void:
-	health_bar.value = float(health) / float(max_health) * 100.0
-	health_bar_hud.value = float(health) / float(max_health) * 100.0
-	strength_bar_hud.value = float(strength) / float(max_strength) * 100.0
-
 func heal(healing : int) -> void:
 	if !is_dead():
 		health = min(health + healing, max_health)
@@ -226,6 +226,12 @@ func gain_strength(strength_gained) -> void:
 		strength = min(strength + strength_gained, max_strength)
 		update_info_bars()
 
+func update_info_bars() -> void:
+	health_bar.value = float(health) / float(max_health) * 100.0
+	health_bar_hud.value = float(health) / float(max_health) * 100.0
+	strength_bar.value = float(strength) / float(max_strength) * 100.0
+	strength_bar_hud.value = float(strength) / float(max_strength) * 100.0
+
 func is_dead() -> bool:
 	if health == 0:
 		return true
@@ -240,10 +246,7 @@ func die() -> void:
 
 func movement() -> void:
 	var input_dir = Vector2()
-	#var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	#if input_dir != Vector2():
-		#nav.target_position = global_position
-	if !nav.is_navigation_finished():
+	if !nav.is_navigation_finished(): # Problème à regler sans doute pour les build release parce que le navigation met des fois un temps pour s'initialisé
 		var _direction_result = global_position.direction_to(nav.get_next_path_position())
 		input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -262,12 +265,6 @@ func movement() -> void:
 
 func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
-
-func reset_speed() -> void:
-	if items.is_empty():
-		movement_speed = RUN_MOVEMENT_SPEED
-	else:
-		movement_speed = DEFAULT_MOVEMENT_SPEED
 
 func action_keys():
 	if Input.is_action_just_released("left_click"):
@@ -288,14 +285,14 @@ func action_keys():
 		update_workshop_item_list(category_selected)
 		workshop.set_visible(!workshop.visible)
 	
-	for i in range(8):
-		if Input.is_action_just_pressed("item"+str(i+1)):
-			item_selected = i
-	for i in range(4):
+	#for i in range(8):
+		#if Input.is_action_just_pressed("item"+str(i+1)):
+			#item_selected = i
+	for i in range(10):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
-			if items.size() > item_selected and items[item_selected].abilities.size() > i:
-				if strength >= items[item_selected].abilities[i].strength_cost:
-					abilities.use_ability(items[item_selected].abilities[i], self)
+			if abilities[i]:
+				if strength >= abilities[i].strength_cost:
+					abilities_machine.use_ability(abilities[i], self)
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
@@ -332,15 +329,59 @@ func update_components() -> void:
 func obtain_item(item : Item) -> void:
 	items.append(item)
 	update_stats()
+	update_abilities()
 	update_items()
+
+func update_abilities() -> void:
+	# Clear ability bar
+	for a_slot in ability_list.get_children():
+		a_slot.queue_free()
+	
+	# Update abilities array
+	var _abilities_had = []
+	for i in items:
+		for a in i.abilities:
+			_abilities_had.append(a)
+	for a in _abilities_had:
+		if abilities.has(a):
+			continue
+		abilities[abilities.find(null)] = a
+	for a in abilities:
+		if !_abilities_had.has(a):
+			abilities[abilities.find(a)] = null
+			#Si il y a trop de sort pour l'instant ça va faire de la merde
+	
+	# Populate ability bar
+	for a in range(abilities.size()):
+		var _new_ability_hud = pre_ability_hud.instantiate()
+		if abilities[a]:
+			_new_ability_hud.ability = abilities[a]
+		for i in InputMap.get_actions():
+			if i.begins_with("ability") and i.ends_with(str(a+1)):
+				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
+		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
+		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
+		ability_list.add_child(_new_ability_hud)
+
+var dragged_slot : Object
+func drag_ability(slot : Object) -> void:
+	dragged_slot = slot
+
+func drop_ability(slot : Object) -> void:
+	if dragged_slot:
+		var _temp_ability = slot.ability
+		abilities[ability_list.get_children().find(slot)] = dragged_slot.ability
+		abilities[ability_list.get_children().find(dragged_slot)] = _temp_ability
+		update_abilities()
+		dragged_slot = null
 
 func update_stats() -> void:
 	physical_damage = BASE_PHYSICAL_DAMAGE
 	magic_damage = BASE_MAGIC_DAMAGE
 	physical_armor = BASE_PHYSICAL_ARMOR
 	magic_armor = BASE_MAGIC_ARMOR
-	movement_speed = RUN_MOVEMENT_SPEED
-	health_regeneration = BASE_HEALTH_REGENERATION
+	movement_speed = DEFAULT_MOVEMENT_SPEED
+	health_regeneration = BASE_HEALTH_REGENERATION + area_health_regeneration
 	strength_regeneration = BASE_STRENGTH_REGENERATION
 	max_health = BASE_MAX_HEALTH
 	max_strength = BASE_MAX_STRENGTH
@@ -382,6 +423,7 @@ const DROP_VECTOR_LENGTH = 1.4
 func drop_item(item : Item) -> void:
 	items.remove_at(items.find(item))
 	update_stats()
+	update_abilities()
 	var _new_item_ground = pre_item_drop.instantiate()
 	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
@@ -390,11 +432,13 @@ func drop_item(item : Item) -> void:
 	update_items()
 
 func entering_workshop() -> void:
-	health_regeneration += SPAWN_REGEN
+	area_health_regeneration = SPAWN_REGEN
+	update_stats()
 	in_workshop = true
 
 func exit_workshop() -> void:
-	health_regeneration -= SPAWN_REGEN
+	area_health_regeneration = 0.0
+	update_stats()
 	in_workshop = false
 
 func select_item(item : Item) -> void:

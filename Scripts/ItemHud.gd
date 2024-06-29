@@ -3,8 +3,14 @@ extends PanelContainer
 @export var item : Item
 signal drag_drop_item(item_dropped : Item)
 
+@onready var icon = $MarginIcon/Icon
+
 func _ready():
-	$MarginIcon/Icon.texture = item.icon
+	update_slot()
+
+func update_slot() -> void:
+	if item:
+		icon.texture = item.icon
 
 var grabbed = false
 func _on_gui_input(event):
@@ -12,12 +18,15 @@ func _on_gui_input(event):
 		if event.button_index == 1:
 			if event.pressed:
 				grabbed = true
+				icon.z_index = 1
 			else:
 				grabbed = false
-				var _grab_pos = position + size/2.0
-				if _grab_pos.x > 0.0 and _grab_pos.x < get_node("..").size.x and _grab_pos.y > 0.0 and _grab_pos.y < get_node("..").size.y:
-					position = Vector2()
+				icon.z_index = 0
+				var _grab_pos = get_viewport().get_mouse_position()
+				var _invetory_area = Rect2(get_node("..").global_position.x, get_node("..").global_position.y, get_node("..").size.x, get_node("..").size.y)
+				if _grab_pos.x > _invetory_area.position.x and _grab_pos.x < _invetory_area.end.x and _grab_pos.y > _invetory_area.position.y and _grab_pos.y < _invetory_area.end.y:
+					icon.position = Vector2(2, 2)
 				else:
 					drag_drop_item.emit(item)
 	if event is InputEventMouseMotion and grabbed:
-		position = get_viewport().get_mouse_position() - get_node("..").global_position - size/2.0
+		icon.position = get_viewport().get_mouse_position() - global_position - size/2.0

@@ -5,6 +5,7 @@ extends Resource
 @export var name : String
 @export_multiline var description : String
 @export var icon : Texture2D
+@export var cooldown : float
 @export var strength_cost : int
 @export var attack_time : float
 @export var damage_type : int

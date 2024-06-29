@@ -240,7 +240,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="ItemList" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad"]
+[node name="AbilityList" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad"]
 layout_mode = 2
 
 [node name="ChannelingBar" type="ProgressBar" parent="CanvasLayer/HUD"]
@@ -287,8 +287,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -459.0
-offset_top = -458.0
+offset_left = -359.0
+offset_top = -357.0
 offset_right = -42.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -297,8 +297,8 @@ color = Color(0.227451, 0.176471, 0.164706, 1)
 
 [node name="MiniMap" parent="CanvasLayer/HUD" instance=ExtResource("2_5vfl1")]
 layout_mode = 1
-offset_left = -451.0
-offset_top = -449.0
+offset_left = -351.0
+offset_top = -349.0
 offset_right = -51.0
 offset_bottom = -49.0
 
@@ -308,7 +308,7 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -1908.0
-offset_top = 517.0
+offset_top = 833.0
 offset_right = -1746.0
 offset_bottom = 1080.0
 grow_horizontal = 0
@@ -333,14 +333,47 @@ theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 3
 
+[node name="Items" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1736.0
+offset_top = 964.0
+offset_right = -1559.0
+offset_bottom = 1080.0
+grow_horizontal = 0
+mouse_filter = 1
+color = Color(0.251013, 0.224317, 0.166158, 1)
+
+[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/Items"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
+
+[node name="ItemList" type="GridContainer" parent="CanvasLayer/HUD/Items/Pad"]
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 4
+metadata/_edit_lock_ = true
+
 [node name="Stats" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -1741.0
+offset_left = -424.0
 offset_top = 779.0
-offset_right = -1680.0
+offset_right = -363.0
 offset_bottom = 1080.0
 grow_horizontal = 0
 mouse_filter = 2
@@ -357,9 +390,11 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
 
 [node name="StatList" type="VBoxContainer" parent="CanvasLayer/HUD/Stats/MarginContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="Workshop" type="ColorRect" parent="CanvasLayer/HUD"]
 visible = false
@@ -771,6 +806,9 @@ color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
 [node name="PlayerModel" parent="." instance=ExtResource("3_7gopy")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
+[node name="Abilities" parent="PlayerModel" instance=ExtResource("6_70mv7")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.1, 0)
+
 [node name="Anims" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_wh1mf")
@@ -803,6 +841,7 @@ transparent_bg = true
 size = Vector2i(200, 30)
 
 [node name="Infos" parent="SubViewport" instance=ExtResource("5_y7wx0")]
+second_bar = true
 color = Color(0, 0.611765, 0.192157, 1)
 
 [node name="InfoBar" type="Sprite3D" parent="."]
@@ -812,8 +851,6 @@ texture = SubResource("ViewportTexture_najce")
 
 [node name="StatRegen" type="Timer" parent="."]
 autostart = true
-
-[node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
 
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem" to="." method="_on_craft_item_pressed"]
 [connection signal="pressed" from="CanvasLayer/HUD/Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

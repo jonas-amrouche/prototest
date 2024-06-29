@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://dg165vqh1ixp"]
+
+[ext_resource type="Texture2D" uid="uid://4usx2ucmqx8p" path="res://Assets/2D/UI/stat_life_steal.png" id="2_185fy"]
+[ext_resource type="Resource" uid="uid://didxnfenvjk1o" path="res://Ressources/Abilities/BigForwardCut.tres" id="2_jebph"]
+[ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="4_p20xn"]
+[ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="5_3mn32"]
+
+[resource]
+script = ExtResource("5_3mn32")
+id = "big_sword"
+name = "Big Sword"
+description = "Test Big sword."
+icon = ExtResource("2_185fy")
+mesh_model = ExtResource("4_p20xn")
+craft_recipe = {}
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("2_jebph")])
+physical_damage = 30
+magic_damage = 0
+physical_armor = 0
+magic_armor = 0
+movement_speed = 0.0
+cooldown_reduction = 0.0
+health_regeneration = 0.0
+strength_regeneration = 0.0
+max_health = 0
+max_strength = 0
+life_steal = 0.0

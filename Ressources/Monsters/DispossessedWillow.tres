@@ -25,5 +25,5 @@ physical_damage = 10
 magic_damage = 40
 physical_armor = 5
 magic_armor = 15
-movement_speed = 2.0
+movement_speed = 0.0
 health_regeneration = 2.0

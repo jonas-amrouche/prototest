@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://b0wommdwj1uw"]
 
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_aikif"]
+[ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="1_a2u0c"]
 [ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_h1uns"]
 
 [resource]
 script = ExtResource("2_h1uns")
 id = "explosive_stone"
 name = "Explosive Stone"
-icon = ExtResource("1_aikif")
+icon = ExtResource("1_a2u0c")

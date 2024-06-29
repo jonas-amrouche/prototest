@@ -7,6 +7,7 @@ script = ExtResource("1_nffl7")
 id = "edifying_impact"
 name = "Edifying Impact"
 description = "Deal quick damage in a small circle."
+cooldown = 0.2
 strength_cost = 0
 attack_time = 0.4
 damage_type = 0

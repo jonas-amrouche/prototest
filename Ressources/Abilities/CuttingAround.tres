@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://iflvcho70g2w"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://iflvcho70g2w"]
 
+[ext_resource type="Texture2D" uid="uid://cis7320bvb6p4" path="res://Assets/2D/UI/stat_physical.png" id="1_0lhb6"]
 [ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_yaty1"]
 
 [resource]
@@ -7,8 +8,10 @@ script = ExtResource("1_yaty1")
 id = "cutting_around"
 name = "Cutting Around"
 description = "Deal small damage in a circle."
+icon = ExtResource("1_0lhb6")
+cooldown = 0.2
 strength_cost = 3
-attack_time = 0.3
+attack_time = 0.1
 damage_type = 0
 physical_damage_cap = 30
 magic_damage_cap = 0

@@ -7,6 +7,7 @@ script = ExtResource("1_g5hh6")
 id = "angry_headbutt"
 name = "Angry Headbutt"
 description = "Deal quick damage."
+cooldown = 0.1
 strength_cost = 0
 attack_time = 0.6
 damage_type = 0

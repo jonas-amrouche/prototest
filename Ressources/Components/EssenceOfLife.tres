@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://bbj7bc3cfuiks"]
 
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_y81ho"]
+[ext_resource type="Texture2D" uid="uid://deou13oabyptt" path="res://Assets/2D/UI/stat_health_regen.png" id="1_xdeqe"]
 [ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_oxd2m"]
 
 [resource]
 script = ExtResource("2_oxd2m")
 id = "essence_of_life"
 name = "Essence Of Life"
-icon = ExtResource("1_y81ho")
+icon = ExtResource("1_xdeqe")
