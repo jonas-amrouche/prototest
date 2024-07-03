@@ -112,7 +112,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 3
 script = ExtResource("1_dq7lx")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -806,8 +806,7 @@ color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
 [node name="PlayerModel" parent="." instance=ExtResource("3_7gopy")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
-[node name="Abilities" parent="PlayerModel" instance=ExtResource("6_70mv7")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.1, 0)
+[node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
 
 [node name="Anims" type="AnimationPlayer" parent="."]
 libraries = {
@@ -817,7 +816,7 @@ libraries = {
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
 
 [node name="UpdateMovementLine" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 autostart = true
 
 [node name="Recall" type="Timer" parent="."]

@@ -24,11 +24,9 @@ ssao_radius = 1.2
 ssao_intensity = 9.24
 ssao_detail = 5.0
 ssao_sharpness = 0.47
-ssil_enabled = true
 glow_enabled = true
 glow_normalized = true
 glow_blend_mode = 1
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 volumetric_fog_length = 32.0
 volumetric_fog_detail_spread = 1.0
@@ -85,7 +83,6 @@ environment = SubResource("Environment_ajjs0")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781861, -0.38835, -0.811694, 0.436277, 0, 10.3159, -7.18087)
-shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.507258, 0)

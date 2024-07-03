@@ -95,10 +95,6 @@ func generate_points_and_paths() -> void:
 				_temp_point_list.append(p + _point_pos)
 			paths_points_list.append(_temp_point_list)
 	
-	#Comme on genere sur une grid on devrait être cacpable de trouver les 4 points autour du milieu auquel rattach
-	# Generate path between arena and probably linked to base paths
-	
-	
 	# Clear interest points in bases and arena
 	var _removed_value = 0
 	for p in range(interest_points_list.size()):

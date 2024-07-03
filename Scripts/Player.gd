@@ -89,7 +89,7 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var stats_list = $CanvasLayer/HUD/Stats/MarginContainer/StatList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
-@onready var abilities_machine := $PlayerModel/Abilities
+@onready var abilities_machine := $Abilities
 @onready var workshop := $CanvasLayer/HUD/Workshop
 @onready var workshop_item_list := $CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad/ItemList
 @onready var workshop_item_inspection_icon := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemView
@@ -115,6 +115,7 @@ func _ready():
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
 
 func _physics_process(_delta) -> void:
+	#cam_movement()
 	movement()
 	action_keys()
 	debug_features()
@@ -129,21 +130,21 @@ func update_map_data(paths_data : Array[PackedVector2Array], bases_data : Packed
 	initialize_fog_map(bases_data)
 
 func update_direction() -> void:
-	#var _vector_look = -Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
-	#player_model.look_at(Vector3(global_position.x + _vector_look.x, player_model.global_position.y, global_position.z + _vector_look.y))
+		#var _vector_look = -Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
+		#abilities_machine.look_at(Vector3(global_position.x + _vector_look.x, abilities_machine.global_position.y, global_position.z + _vector_look.y))
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
 const CAM_LIMITS = Rect2(Vector2(-89.0, -89.0), Vector2(89, 95))
 var move_camera = false
-#func cam_movement() -> void:
-	#if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		#camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
-	#if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		#camera.global_position.x = max(camera.global_position.x - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.x)
-	#if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		#camera.global_position.z = min(camera.global_position.z + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.y)
-	#if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		#camera.global_position.z = max(camera.global_position.z - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.y)
+func cam_movement() -> void:
+	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
+		camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
+	if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
+		camera.global_position.x = max(camera.global_position.x - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.x)
+	if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
+		camera.global_position.z = min(camera.global_position.z + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.y)
+	if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
+		camera.global_position.z = max(camera.global_position.z - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.y)
 
 func move_camera_by_minimap(pos : Vector2) -> void:
 	if move_camera:
@@ -160,8 +161,8 @@ func debug_features() -> void:
 		get_tree().quit()
 	if Input.is_action_just_pressed("fullscreen"):
 		match DisplayServer.window_get_mode():
-			DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-			DisplayServer.WINDOW_MODE_WINDOWED: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+			DisplayServer.WINDOW_MODE_FULLSCREEN: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.WINDOW_MODE_WINDOWED: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	if Input.is_action_just_pressed("hide_ui"):
 		hud.set_visible(!hud.visible)
 	if Input.is_action_just_pressed("free_mouse"):
@@ -169,19 +170,22 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-const RAY_LENGTH := 100.0
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		var _mouse_pos = get_viewport().get_mouse_position()
-		var _ray_query = PhysicsRayQueryParameters3D.new()
-		_ray_query.from = camera.project_ray_origin(_mouse_pos)
-		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = 1
-		var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
+		var _result = terrain_raycast(1)
 		if !_result.is_empty():
 			nav.target_position = _result.get("position")
 			if recall:
 				cancel_recall()
+
+const RAY_LENGTH := 100.0
+func terrain_raycast(col_mask : int) -> Dictionary:
+		var _mouse_pos = get_viewport().get_mouse_position()
+		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.from = camera.project_ray_origin(_mouse_pos)
+		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
+		_ray_query.collision_mask = col_mask
+		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
 func cancel_recall() -> void:
 	recall_timer.stop()
@@ -246,10 +250,12 @@ func die() -> void:
 
 func movement() -> void:
 	var input_dir = Vector2()
-	if !nav.is_navigation_finished(): # Problème à regler sans doute pour les build release parce que le navigation met des fois un temps pour s'initialisé
-		var _direction_result = global_position.direction_to(nav.get_next_path_position())
-		input_dir = Vector2(_direction_result.x, _direction_result.z)
+	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	#if !nav.is_navigation_finished(): # Problème à regler sans doute pour les build release parce que le navigation met des fois un temps pour s'initialisé
+		#var _direction_result = global_position.direction_to(nav.get_next_path_position())
+		#input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#var direction = Vector3(1.0, 0.0, 0.0)
 	
 	if direction and can_move:
 		anims.play("walk", 1.0)
@@ -267,8 +273,10 @@ func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
 
 func action_keys():
-	if Input.is_action_just_released("left_click"):
-		set_moving_map(false)
+	#if Input.is_action_just_released("left_click"):
+		#set_moving_map(false)
+	if Input.is_action_pressed("center_cam"):
+		camera.global_position = camera_base_marker.global_position
 	if Input.is_action_just_pressed("recall"):
 		nav.target_position = global_position
 		recall = true
@@ -518,7 +526,7 @@ func _on_close_workshop_pressed() -> void:
 func _on_nav_agent_path_changed() -> void:
 	mini_map.update_movement_line(nav)
 
-func _on_update_movement_line_timeout() -> void:
+func _on_update_movement_line_timeout() -> void: #MINILAG
 	if nav.target_position == Vector3(0.0, 0.0, 0.0):
 		nav.target_position = global_position
 	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)

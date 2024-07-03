@@ -37,7 +37,7 @@ collision_mask = 6
 monitorable = false
 
 [node name="Collision" type="CollisionShape3D" parent="big_forward_cut"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.841028)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.836492)
 shape = SubResource("BoxShape3D_uc5iw")
 
 [node name="stone_pounding" type="Area3D" parent="."]
@@ -73,30 +73,30 @@ monitorable = false
 shape = SubResource("CylinderShape3D_mrew5")
 
 [node name="CuttingAroundVisual" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.415395)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.712463)
 visible = false
 size = Vector3(1.09985, 0.181885, 0.395996)
 
 [node name="StonePoundingVisual" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.761538)
 visible = false
 
 [node name="EdifyingImpactVisual" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.852775)
 visible = false
 radius = 0.3
 
 [node name="HauntingShotVisual" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.869525)
 visible = false
 radius = 0.3
 
 [node name="AngryHeadbuttVisual" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.797387)
 visible = false
 radius = 0.3
 
 [node name="BigForwardCutVisual" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.830801)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.846719)
 visible = false
 size = Vector3(1, 1, 1.88696)
