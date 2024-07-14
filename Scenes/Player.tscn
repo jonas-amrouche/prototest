@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=32 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="2_5vfl1"]
@@ -10,6 +10,32 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.387958
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay0d0"]
+bg_color = Color(0.979167, 0.927738, 0.274726, 1)
+border_width_right = 5
+border_color = Color(0.880208, 0.817058, 0.129819, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
+bg_color = Color(1, 0.996193, 0.44439, 0.286275)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.0784314)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(1, 1, 1, 0.0431373)
+shadow_size = 5
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
+font_size = 25
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
 border_color = Color(0.125911, 0.125911, 0.125911, 1)
@@ -18,14 +44,6 @@ border_color = Color(0.125911, 0.125911, 0.125911, 1)
 bg_color = Color(0.180666, 0.468389, 4.81307e-07, 1)
 border_width_right = 5
 border_color = Color(1.86507e-07, 0.268013, 0.0425503, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
-bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay0d0"]
-bg_color = Color(0.587639, 0.268625, 0.731495, 1)
-border_width_right = 5
-border_color = Color(0.386589, 0.186512, 0.445164, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4d3t"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -104,8 +122,9 @@ density = -8.0
 edge_fade = 0.00980727
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
-albedo_color = Color(0, 0.535002, 0.858316, 1)
+albedo_color = Color(0.702981, 0.218569, 0.858824, 1)
 metallic_specular = 0.0
+emission = Color(0.621644, 0.414624, 0.8125, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
 viewport_path = NodePath("SubViewport")
@@ -154,6 +173,52 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
 
+[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 60.0
+offset_top = 34.0
+offset_right = -60.0
+offset_bottom = 43.0
+grow_horizontal = 2
+size_flags_vertical = 8
+
+[node name="ExperienceBar" type="ProgressBar" parent="CanvasLayer/HUD/Pad"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_365f3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ay0d0")
+show_percentage = false
+metadata/_edit_lock_ = true
+
+[node name="LevelPan" type="Panel" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_top = 17.0
+offset_right = 35.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqqyi")
+
+[node name="LevelInd" type="Label" parent="CanvasLayer/HUD/LevelPan"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_blu1a")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="ActionPanel" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 7
@@ -162,7 +227,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -303.0
-offset_top = -111.0
+offset_top = -123.0
 offset_right = 304.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -177,17 +242,19 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -292.5
-offset_top = -99.0
+offset_top = -113.0
 offset_right = 292.5
-offset_bottom = -82.0
+offset_bottom = -99.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/BarContainer"]
-custom_minimum_size = Vector2(0, 7)
+custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 size_flags_vertical = 0
+metadata/_edit_lock_ = true
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD/ActionPanel/BarContainer/Pad"]
 layout_mode = 2
@@ -197,22 +264,9 @@ theme_override_styles/background = SubResource("StyleBoxFlat_57rek")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5sk5d")
 value = 100.0
 show_percentage = false
+metadata/_edit_lock_ = true
 
-[node name="Pad2" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/BarContainer"]
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="StrengthBar" type="ProgressBar" parent="CanvasLayer/HUD/ActionPanel/BarContainer/Pad2"]
-layout_mode = 2
-size_flags_vertical = 1
-mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_365f3")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ay0d0")
-value = 100.0
-show_percentage = false
-
-[node name="ItemBar" type="ColorRect" parent="CanvasLayer/HUD/ActionPanel"]
+[node name="AbilityBar" type="ColorRect" parent="CanvasLayer/HUD/ActionPanel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -220,15 +274,15 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -296.5
-offset_top = -77.0
+offset_top = -91.0
 offset_right = 296.5
-offset_bottom = -12.0
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 color = Color(0.190762, 0.190762, 0.190762, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar"]
+[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD/ActionPanel/AbilityBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -239,9 +293,11 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
 
-[node name="AbilityList" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/ItemBar/Pad"]
+[node name="AbilityList" type="HBoxContainer" parent="CanvasLayer/HUD/ActionPanel/AbilityBar/Pad"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="ChannelingBar" type="ProgressBar" parent="CanvasLayer/HUD"]
 visible = false
@@ -288,7 +344,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -359.0
-offset_top = -357.0
+offset_top = -317.0
 offset_right = -42.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -298,9 +354,9 @@ color = Color(0.227451, 0.176471, 0.164706, 1)
 [node name="MiniMap" parent="CanvasLayer/HUD" instance=ExtResource("2_5vfl1")]
 layout_mode = 1
 offset_left = -351.0
-offset_top = -349.0
+offset_top = -309.0
 offset_right = -51.0
-offset_bottom = -49.0
+offset_bottom = -9.0
 
 [node name="Components" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -840,7 +896,6 @@ transparent_bg = true
 size = Vector2i(200, 30)
 
 [node name="Infos" parent="SubViewport" instance=ExtResource("5_y7wx0")]
-second_bar = true
 color = Color(0, 0.611765, 0.192157, 1)
 
 [node name="InfoBar" type="Sprite3D" parent="."]

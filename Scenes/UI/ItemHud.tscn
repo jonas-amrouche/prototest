@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=4 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" path="res://Scripts/ItemHud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_dk43a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hayc8"]
+resource_local_to_scene = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="ItemHud" type="PanelContainer"]
 custom_minimum_size = Vector2(40, 40)
@@ -9,6 +16,7 @@ offset_right = 50.0
 offset_bottom = 50.0
 size_flags_vertical = 4
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_hayc8")
 script = ExtResource("1_desy6")
 
 [node name="MarginIcon" type="MarginContainer" parent="."]

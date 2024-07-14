@@ -12,6 +12,7 @@ name = "Lost Ghost"
 monster_model = ExtResource("3_mn240")
 drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("2_6yqaf")])
 drop_quantities = PackedInt32Array(2)
+experience_drop = 15
 abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_0h4kd")])
 respawn_time = 50.0
 aggro = false

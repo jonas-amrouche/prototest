@@ -1,10 +1,13 @@
 class_name Item
 extends Resource
 
+enum CLASS {STARTER, ORDINARY, ELITE, FANTASTIC, LEGENDARY, MYTHIC, THEORETICAL}
+
 @export var id : String
 @export var name : String
 @export_multiline var description : String
 @export var icon : Texture2D
+@export var rarity : CLASS
 @export var mesh_model : PackedScene
 @export var craft_recipe : Dictionary
 @export var abilities : Array[Ability]

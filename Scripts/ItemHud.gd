@@ -11,6 +11,7 @@ func _ready():
 func update_slot() -> void:
 	if item:
 		icon.texture = item.icon
+		get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
 
 var grabbed = false
 func _on_gui_input(event):

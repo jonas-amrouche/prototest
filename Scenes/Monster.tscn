@@ -51,7 +51,6 @@ shape = SubResource("CylinderShape3D_rma1q")
 wait_time = 0.15
 
 [node name="Abilities" parent="." instance=ExtResource("3_laeoi")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Attack" type="Timer" parent="."]
 wait_time = 0.3

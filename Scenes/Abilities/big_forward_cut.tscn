@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp6xgqckpjxe1"]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/big_forward_cut.gd" id="1_c8usx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uc5iw"]
+size = Vector3(1, 1, 1.919)
+
+[node name="BigForwardCut" type="Node3D"]
+script = ExtResource("1_c8usx")
+
+[node name="Area" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="Col" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.836)
+shape = SubResource("BoxShape3D_uc5iw")
+
+[node name="Visual" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.847)
+visible = false
+size = Vector3(1, 1, 1.887)

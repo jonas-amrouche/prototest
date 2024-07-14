@@ -10,15 +10,16 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
+const PER_LEVEL_PLUS_EXPERIENCE := 100
+const KILL_REWARD_EXP := 300
 
 const BASE_PHYSICAL_DAMAGE := 50
 const BASE_MAGIC_DAMAGE := 50
 const BASE_PHYSICAL_ARMOR := 15
 const BASE_MAGIC_ARMOR := 15
 const BASE_HEALTH_REGENERATION := 2.0
-const BASE_STRENGTH_REGENERATION := 3.0
 const BASE_MAX_HEALTH := 450
-const BASE_MAX_STRENGTH := 80
+const BASE_LEVEL_MAX_EXPERIENCE := 100
 
 var area_health_regeneration := 0.0
 
@@ -30,12 +31,12 @@ var movement_speed := DEFAULT_MOVEMENT_SPEED
 var souls := 0
 var cooldown_reduction := 0.0
 var health_regeneration := BASE_HEALTH_REGENERATION
-var strength_regeneration := BASE_STRENGTH_REGENERATION
 var max_health := BASE_MAX_HEALTH
-var max_strength := BASE_MAX_STRENGTH
 var life_steal := 0.0
 var health := max_health
-var strength := max_strength
+var level_max_experience := BASE_LEVEL_MAX_EXPERIENCE
+var experience := 0.0
+var level := 1
 
 var recall := false
 
@@ -50,6 +51,8 @@ var abilities := [null, null, null, null, null, null, null, null, null, null]
 #var item_selected : int
 
 var can_move := true
+
+var free_cam := false
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
@@ -69,9 +72,7 @@ preload("res://Assets/2D/UI/stat_movement_speed.png"), \
 preload("res://Assets/2D/UI/stat_souls.png"), \
 preload("res://Assets/2D/UI/stat_cdr.png"), \
 preload("res://Assets/2D/UI/stat_health_regen.png"), \
-preload("res://Assets/2D/UI/stat_strength_regen.png"), \
 preload("res://Assets/2D/UI/stat_max_health.png"), \
-preload("res://Assets/2D/UI/stat_max_strength.png"), \
 preload("res://Assets/2D/UI/stat_life_steal.png")]
 
 @onready var camera := $Camera
@@ -85,7 +86,7 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var chat := $CanvasLayer/HUD/Chat
 @onready var component_list := $CanvasLayer/HUD/Components/Pad/CompList
 @onready var item_list = $CanvasLayer/HUD/Items/Pad/ItemList
-@onready var ability_list = $CanvasLayer/HUD/ActionPanel/ItemBar/Pad/AbilityList
+@onready var ability_list = $CanvasLayer/HUD/ActionPanel/AbilityBar/Pad/AbilityList
 @onready var stats_list = $CanvasLayer/HUD/Stats/MarginContainer/StatList
 @onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
 @onready var mini_map := $CanvasLayer/HUD/MiniMap
@@ -98,11 +99,12 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var workshop_item_inspection_comps := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ComponentsNeeded
 @onready var workshop_item_craft_button := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem
 @onready var player_model := $PlayerModel
+@onready var model_anims := $PlayerModel/AnimationPlayer
 @onready var anims := $Anims
-@onready var health_bar = $SubViewport/Infos/HealthBar
-@onready var strength_bar = $SubViewport/Infos/StrengthBar
-@onready var health_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
-@onready var strength_bar_hud = $CanvasLayer/HUD/ActionPanel/BarContainer/Pad2/StrengthBar
+@onready var health_bar := $SubViewport/Infos/HealthBar
+@onready var health_bar_hud := $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
+@onready var experience_bar_hud := $CanvasLayer/HUD/Pad/ExperienceBar
+@onready var level_label := $CanvasLayer/HUD/LevelPan/LevelInd
 
 #1 script pour le fog
 #1 script pour la map
@@ -115,10 +117,11 @@ func _ready():
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
 
 func _physics_process(_delta) -> void:
-	#cam_movement()
 	movement()
 	action_keys()
 	debug_features()
+	if free_cam:
+		cam_movement()
 
 func _process(_delta):
 	update_direction()
@@ -153,8 +156,9 @@ func move_camera_by_minimap(pos : Vector2) -> void:
 
 func set_moving_map(moving : bool) -> void:
 	move_camera = moving
-	camera.top_level = moving
-	camera.position = camera_base_marker.position
+	if !free_cam:
+		camera.top_level = moving
+		camera.position = camera_base_marker.position
 
 func debug_features() -> void:
 	if Input.is_action_just_pressed("quit_game"):
@@ -200,7 +204,7 @@ func respawn_base() -> void:
 	camera.global_position = camera_base_marker.global_position
 	camera.top_level = false
 
-func take_damage(damage : int, damage_type : int, _damage_dealer : Object) -> void:
+func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> void:
 	var _final_damage : int
 	match damage_type:
 		0:
@@ -210,9 +214,12 @@ func take_damage(damage : int, damage_type : int, _damage_dealer : Object) -> vo
 		2:
 			_final_damage = max(damage - physical_armor - magic_armor, 0.0)
 	
+	model_anims.play("take_damage")
 	health = max(health - _final_damage, 0.0)
 	update_info_bars()
 	if is_dead():
+		damage_dealer.gain_experience(KILL_REWARD_EXP)
+		#lose_experience(100)
 		die()
 
 func heal(healing : int) -> void:
@@ -220,21 +227,40 @@ func heal(healing : int) -> void:
 		health = min(health + healing, max_health)
 		update_info_bars()
 
-func lose_strength(strength_loss : int) -> void:
+func lose_experience(experience_loss : int) -> void:
 	if !is_dead():
-		strength = max(strength - strength_loss, 0.0)
+		experience = experience - experience_loss
+		if experience < 0.0 and level == 1:
+			experience = 0.0
+		while is_leveling_down():
+			experience = level_max_experience - abs(experience)
+			level -= 1
+			level_max_experience = level * PER_LEVEL_PLUS_EXPERIENCE
 		update_info_bars()
 
-func gain_strength(strength_gained) -> void:
+func gain_experience(experience_gained : int) -> void:
 	if !is_dead():
-		strength = min(strength + strength_gained, max_strength)
+		experience = experience + experience_gained
+		while is_leveling_up():
+			experience = experience - level_max_experience
+			level += 1
 		update_info_bars()
+
+func is_leveling_up() -> bool:
+	if experience > level_max_experience:
+		return true
+	return false
+
+func is_leveling_down() -> bool:
+	if experience < 0.0:
+		return true
+	return false
 
 func update_info_bars() -> void:
 	health_bar.value = float(health) / float(max_health) * 100.0
 	health_bar_hud.value = float(health) / float(max_health) * 100.0
-	strength_bar.value = float(strength) / float(max_strength) * 100.0
-	strength_bar_hud.value = float(strength) / float(max_strength) * 100.0
+	experience_bar_hud.value = float(experience) / float(level_max_experience) * 100.0
+	level_label.text = str(level)
 
 func is_dead() -> bool:
 	if health == 0:
@@ -245,6 +271,7 @@ func die() -> void:
 	player_collision.disabled = true
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = max_health
+		update_info_bars()
 		camera.top_level = true
 		respawn_base()))
 
@@ -275,8 +302,13 @@ func face_direction(direction : Vector3) -> void:
 func action_keys():
 	#if Input.is_action_just_released("left_click"):
 		#set_moving_map(false)
-	if Input.is_action_pressed("center_cam"):
+	if Input.is_action_just_pressed("decenter_cam"):
+		camera.top_level = true
+		free_cam = true
+	if Input.is_action_just_released("decenter_cam"):
+		free_cam = false
 		camera.global_position = camera_base_marker.global_position
+		camera.top_level = false
 	if Input.is_action_just_pressed("recall"):
 		nav.target_position = global_position
 		recall = true
@@ -299,8 +331,9 @@ func action_keys():
 	for i in range(10):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if abilities[i]:
-				if strength >= abilities[i].strength_cost:
-					abilities_machine.use_ability(abilities[i], self)
+				match abilities_machine.use_ability(abilities[i], self):
+					abilities_machine.ERROR.OK:
+						ability_list.get_children()[i].use_ability()
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
@@ -347,9 +380,13 @@ func update_abilities() -> void:
 	
 	# Update abilities array
 	var _abilities_had = []
+	var _item_link = Dictionary()
 	for i in items:
 		for a in i.abilities:
 			_abilities_had.append(a)
+			_item_link.merge({a : i})
+	
+	# Allow bindings of abilities
 	for a in _abilities_had:
 		if abilities.has(a):
 			continue
@@ -363,7 +400,10 @@ func update_abilities() -> void:
 	for a in range(abilities.size()):
 		var _new_ability_hud = pre_ability_hud.instantiate()
 		if abilities[a]:
+			if abilities_machine.get_ability_cooldown(abilities[a]):
+				_new_ability_hud.cooldown_left = abilities_machine.get_ability_cooldown(abilities[a])
 			_new_ability_hud.ability = abilities[a]
+			_new_ability_hud.item = _item_link.get(abilities[a])
 		for i in InputMap.get_actions():
 			if i.begins_with("ability") and i.ends_with(str(a+1)):
 				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
@@ -390,9 +430,7 @@ func update_stats() -> void:
 	magic_armor = BASE_MAGIC_ARMOR
 	movement_speed = DEFAULT_MOVEMENT_SPEED
 	health_regeneration = BASE_HEALTH_REGENERATION + area_health_regeneration
-	strength_regeneration = BASE_STRENGTH_REGENERATION
 	max_health = BASE_MAX_HEALTH
-	max_strength = BASE_MAX_STRENGTH
 	for i in items:
 		physical_damage += i.physical_damage
 		magic_damage += i.magic_damage
@@ -401,13 +439,11 @@ func update_stats() -> void:
 		movement_speed += i.movement_speed
 		cooldown_reduction += i.cooldown_reduction
 		health_regeneration += i.health_regeneration
-		strength_regeneration += i.strength_regeneration
 		max_health += i.max_health
-		max_strength += i.max_strength
 		life_steal += i.life_steal
 	
 	var _stats = [physical_damage, magic_damage, physical_armor, magic_armor, movement_speed, \
-	cooldown_reduction, health_regeneration, strength_regeneration, max_health, max_strength, life_steal]
+	cooldown_reduction, health_regeneration, max_health, life_steal]
 	
 	for i in stats_list.get_children():
 		i.queue_free()
@@ -551,4 +587,3 @@ func _on_craft_item_pressed():
 
 func _on_stat_regen_timeout():
 	heal(int(health_regeneration))
-	gain_strength(int(strength_regeneration))

@@ -53,12 +53,16 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	health = max(health - _final_damage, 0.0)
 	health_bar.value = float(health) / float(monster.max_health) * 100.0
 	if is_dead():
+		damage_dealer.gain_experience(monster.experience_drop)
 		die()
 
 func is_dead() -> bool:
 	if health == 0:
 		return true
 	return false
+
+func gain_experience(_experience : float) -> void:
+	return
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
@@ -83,7 +87,9 @@ func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
 
 func update_direction() -> void:
-	monster_model.look_at(-target_direction + Vector3(global_position.x, monster_model.global_position.y, global_position.z))
+	var _vec_look = -target_direction + Vector3(global_position.x, monster_model.global_position.y, global_position.z)
+	abilities.look_at(_vec_look)
+	monster_model.look_at(_vec_look)
 
 func movement() -> void:
 	var input_dir = Vector2()
@@ -139,7 +145,7 @@ func _on_aggro_body_shape_exited(_body_rid, _body, _body_shape_index, _local_sha
 func _on_attack_timeout():
 	if player_target:
 		for i in monster.abilities:
-			if abilities.get_spell_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
+			if abilities.get_ability_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
 				abilities.use_ability(i, self)
 
 func _on_roam_timeout():

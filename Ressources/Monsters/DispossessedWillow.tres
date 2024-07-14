@@ -13,6 +13,7 @@ name = "Dispossessed Willow"
 monster_model = ExtResource("3_66i8m")
 drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_slvs1"), ExtResource("2_cvaj7")])
 drop_quantities = PackedInt32Array(4, 1)
+experience_drop = 43
 abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_5et1k")])
 respawn_time = 50.0
 aggro = false
