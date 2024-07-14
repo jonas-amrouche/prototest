@@ -1,7 +1,7 @@
 extends Node3D
 
 const MAP_SIZE := Vector2(200.0, 200.0)
-const CAMP_DISTANCE_TO_CENTER = 70.0
+const CAMP_DISTANCE_TO_CENTER = 100.0
 var bases_position : PackedVector2Array
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
@@ -39,14 +39,14 @@ func map_generation() -> void:
 	generate_interests_camps()
 
 func generate_bases() -> void:
-	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(randf_range(-PI, PI))
+	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4)
 	bases_position.append_array([_random_vector, _random_vector.rotated(PI)])
 	
 	for b in bases_position:
 		var _new_base = pre_base.instantiate()
 		_new_base.position = Vector3(b.x, 0.0, b.y)
 		navmesh.add_child(_new_base)
-		_new_base.look_at(Vector3())
+		_new_base.scale *= Vector3(sign(b.x), 1.0, -sign(b.x))
 
 var interest_points_list = PackedVector2Array()
 var paths_points_list : Array[PackedVector2Array]

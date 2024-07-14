@@ -286,6 +286,7 @@ func movement() -> void:
 	
 	if direction and can_move:
 		anims.play("walk", 1.0)
+		cancel_recall()
 		velocity.x = lerp(velocity.x, direction.x * movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * movement_speed, ACCELERATION)
 		face_direction(direction)

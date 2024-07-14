@@ -19,10 +19,10 @@ script = ExtResource("1_686l8")
 transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, -0.434, 0)
 
 [node name="Altar" parent="." instance=ExtResource("3_cgw04")]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, -0.178537, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -5.98754, -0.179, -13.9549)
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.90263, 0.63636, 6.57743)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40495, 0.63636, 5.29119)
 
 [node name="1" type="Marker3D" parent="PlayerSpawn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58749, 0, -1.49743)
@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5481, 0, 1.30534)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35977, 0, 1.63817)
 
 [node name="CraftArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.88853, 0, 6.60041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41905, 0, 5.31418)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
@@ -46,8 +46,8 @@ monitorable = false
 shape = SubResource("CylinderShape3D_r21t3")
 
 [node name="FogVolume" type="FogVolume" parent="."]
-size = Vector3(40, 80, 40)
-shape = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26494, 0, 5.2879)
+size = Vector3(9.93258, 80, 9.93274)
 material = SubResource("FogMaterial_h31li")
 
 [connection signal="body_shape_entered" from="CraftArea" to="." method="_on_craft_area_body_shape_entered"]
