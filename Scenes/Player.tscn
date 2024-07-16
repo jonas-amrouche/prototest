@@ -10,31 +10,33 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.387958
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
-bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay0d0"]
-bg_color = Color(0.979167, 0.927738, 0.274726, 1)
-border_width_right = 5
-border_color = Color(0.880208, 0.817058, 0.129819, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
-bg_color = Color(1, 0.996193, 0.44439, 0.286275)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.0784314)
+bg_color = Color(1, 0.8, 0, 1)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 0.211765)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-shadow_color = Color(1, 1, 1, 0.0431373)
-shadow_size = 5
+shadow_offset = Vector2(0, 2)
 anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
 font_size = 25
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_365f3"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ay0d0"]
+bg_color = Color(0.882353, 0.741176, 0.0431373, 1)
+border_width_right = 5
+border_color = Color(0.880208, 0.817058, 0.129819, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -53,9 +55,9 @@ border_width_right = 1
 border_width_bottom = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0tx0"]
-bg_color = Color(0, 0.621398, 0.852124, 1)
+bg_color = Color(0.563563, 0.234466, 0.999993, 1)
 border_width_right = 3
-border_color = Color(0, 0.434242, 0.0927513, 1)
+border_color = Color(0.521221, 0.00156242, 0.714876, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -173,36 +175,15 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
 
-[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD"]
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 60.0
-offset_top = 34.0
-offset_right = -60.0
-offset_bottom = 43.0
-grow_horizontal = 2
-size_flags_vertical = 8
-
-[node name="ExperienceBar" type="ProgressBar" parent="CanvasLayer/HUD/Pad"]
-layout_mode = 2
-size_flags_vertical = 1
-mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_365f3")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ay0d0")
-show_percentage = false
-metadata/_edit_lock_ = true
-
 [node name="LevelPan" type="Panel" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -35.0
-offset_top = 17.0
+offset_top = 39.0
 offset_right = 35.0
-offset_bottom = 59.0
+offset_bottom = 74.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_oqqyi")
 
@@ -217,6 +198,27 @@ text = "1"
 label_settings = SubResource("LabelSettings_blu1a")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Pad" type="MarginContainer" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 60.0
+offset_top = 24.0
+offset_right = -60.0
+offset_bottom = 33.0
+grow_horizontal = 2
+size_flags_vertical = 8
+
+[node name="ExperienceBar" type="ProgressBar" parent="CanvasLayer/HUD/Pad"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_365f3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ay0d0")
+show_percentage = false
 metadata/_edit_lock_ = true
 
 [node name="ActionPanel" type="ColorRect" parent="CanvasLayer/HUD"]
@@ -880,6 +882,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="FogVolume" type="FogVolume" parent="."]
+visible = false
 size = Vector3(15, 50, 15)
 shape = 2
 material = SubResource("FogMaterial_ikays")

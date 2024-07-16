@@ -19,5 +19,4 @@ shape = SubResource("BoxShape3D_uc5iw")
 
 [node name="Visual" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.847)
-visible = false
 size = Vector3(1, 1, 1.887)

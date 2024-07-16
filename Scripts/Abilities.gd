@@ -1,12 +1,11 @@
 extends Node3D
 
-enum ERROR {OK, IN_COOLDOWN}
 var cooldown_dict = {}
 var in_cooldown_dict = {}
 
 var in_animation : bool
 
-func use_ability(ability : Ability, ability_dealer : Object) -> ERROR:
+func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
 	add_child(_new_ability)
 	_new_ability.rotation = Vector3()

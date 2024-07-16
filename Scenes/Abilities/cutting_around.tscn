@@ -18,5 +18,4 @@ shape = SubResource("CylinderShape3D_0fa0y")
 
 [node name="Visual" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.712463)
-visible = false
 size = Vector3(1.09985, 0.181885, 0.395996)

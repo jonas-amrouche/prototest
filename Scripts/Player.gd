@@ -52,7 +52,7 @@ var abilities := [null, null, null, null, null, null, null, null, null, null]
 
 var can_move := true
 
-var free_cam := false
+#var free_cam := false
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
@@ -120,8 +120,6 @@ func _physics_process(_delta) -> void:
 	movement()
 	action_keys()
 	debug_features()
-	if free_cam:
-		cam_movement()
 
 func _process(_delta):
 	update_direction()
@@ -156,9 +154,8 @@ func move_camera_by_minimap(pos : Vector2) -> void:
 
 func set_moving_map(moving : bool) -> void:
 	move_camera = moving
-	if !free_cam:
-		camera.top_level = moving
-		camera.position = camera_base_marker.position
+	camera.top_level = moving
+	camera.position = camera_base_marker.position
 
 func debug_features() -> void:
 	if Input.is_action_just_pressed("quit_game"):
@@ -219,7 +216,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 	update_info_bars()
 	if is_dead():
 		damage_dealer.gain_experience(KILL_REWARD_EXP)
-		#lose_experience(100)
+		lose_experience(100)
 		die()
 
 func heal(healing : int) -> void:
@@ -228,15 +225,14 @@ func heal(healing : int) -> void:
 		update_info_bars()
 
 func lose_experience(experience_loss : int) -> void:
-	if !is_dead():
-		experience = experience - experience_loss
-		if experience < 0.0 and level == 1:
-			experience = 0.0
-		while is_leveling_down():
-			experience = level_max_experience - abs(experience)
-			level -= 1
-			level_max_experience = level * PER_LEVEL_PLUS_EXPERIENCE
-		update_info_bars()
+	experience = experience - experience_loss
+	if experience < 0.0 and level == 1:
+		experience = 0.0
+	while is_leveling_down():
+		experience = level_max_experience - abs(experience)
+		level -= 1
+		level_max_experience = level * PER_LEVEL_PLUS_EXPERIENCE
+	update_info_bars()
 
 func gain_experience(experience_gained : int) -> void:
 	if !is_dead():
@@ -268,11 +264,14 @@ func is_dead() -> bool:
 	return false
 
 func die() -> void:
+	can_move = false
 	player_collision.disabled = true
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = max_health
 		update_info_bars()
 		camera.top_level = true
+		player_collision.disabled = false
+		can_move = true
 		respawn_base()))
 
 func movement() -> void:
@@ -303,13 +302,13 @@ func face_direction(direction : Vector3) -> void:
 func action_keys():
 	#if Input.is_action_just_released("left_click"):
 		#set_moving_map(false)
-	if Input.is_action_just_pressed("decenter_cam"):
-		camera.top_level = true
-		free_cam = true
-	if Input.is_action_just_released("decenter_cam"):
-		free_cam = false
-		camera.global_position = camera_base_marker.global_position
-		camera.top_level = false
+	#if Input.is_action_just_pressed("decenter_cam"):
+		#camera.top_level = true
+		#free_cam = true
+	#if Input.is_action_just_released("decenter_cam"):
+		#free_cam = false
+		#camera.global_position = camera_base_marker.global_position
+		#camera.top_level = false
 	if Input.is_action_just_pressed("recall"):
 		nav.target_position = global_position
 		recall = true
@@ -333,7 +332,7 @@ func action_keys():
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if abilities[i]:
 				match abilities_machine.use_ability(abilities[i], self):
-					abilities_machine.ERROR.OK:
+					Basics.ABILITY_ERROR.OK:
 						ability_list.get_children()[i].use_ability()
 
 var channeling_tween

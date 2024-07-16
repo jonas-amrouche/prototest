@@ -104,5 +104,6 @@ shape = SubResource("BoxShape3D_cosj4")
 
 [node name="FogOfWar" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.38925, 0)
+visible = false
 size = Vector3(200, 200, 10)
 material = SubResource("FogMaterial_bwdgy")

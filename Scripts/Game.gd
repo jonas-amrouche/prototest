@@ -2,7 +2,7 @@ extends Node3D
 
 const MAP_SIZE := Vector2(200.0, 200.0)
 const CAMP_DISTANCE_TO_CENTER = 100.0
-var bases_position : PackedVector2Array
+var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
@@ -25,7 +25,7 @@ func _ready() -> void:
 	DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
-	send_map_data_to_player(paths_points_list, bases_position, interest_points_list)
+	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], interest_points_list)
 
 func map_generation() -> void:
 	randomize()
@@ -33,20 +33,22 @@ func map_generation() -> void:
 	generate_points_and_paths()
 	generate_mid_arena()
 	generate_decoration()
-	#mirror_points()
-	#generate_collisions()
+	#mirror_points() //
+	#generate_collisions() //
 	generate_forest()
-	generate_interests_camps()
+	generate_camps()
+	generate_structures()
 
 func generate_bases() -> void:
 	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4)
-	bases_position.append_array([_random_vector, _random_vector.rotated(PI)])
+	var _bases_pos = [_random_vector, _random_vector.rotated(PI)]
 	
-	for b in bases_position:
+	for b in _bases_pos:
 		var _new_base = pre_base.instantiate()
 		_new_base.position = Vector3(b.x, 0.0, b.y)
 		navmesh.add_child(_new_base)
 		_new_base.scale *= Vector3(sign(b.x), 1.0, -sign(b.x))
+		bases.append(_new_base)
 
 var interest_points_list = PackedVector2Array()
 var paths_points_list : Array[PackedVector2Array]
@@ -66,8 +68,10 @@ const ARENA_PATH_MULTIPLIER = 0.2
 func generate_points_and_paths() -> void:
 	# Generate arena and base interest points for path (Deleted at the end)
 	interest_points_list.append(Vector2(0.0, 0.0))
-	for base in bases_position:
-		interest_points_list.append(base)
+	for base in bases:
+		for i in range(3):
+			var _pos = base.get_node("PathStarts").get_node(str(i+1)).global_position
+			interest_points_list.append(Vector2(_pos.x, _pos.z))
 	
 	# Generate interest points
 	for x in range(MAP_SIZE.x/POINT_CELL_DIVISION):
@@ -166,7 +170,7 @@ func mirror_points() -> void:
 		interest_points_list.append(interest_points_list[i] * -1.0)
 
 func is_on_right_side(point : Vector2) -> bool:
-	if (bases_position[1].x - bases_position[0].x)*(point.y - bases_position[0].y)-(point.x - bases_position[0].x)*(bases_position[1].y - bases_position[0].y) > 0:
+	if (bases[1].position.x - bases[0].position.x)*(point.y - bases[0].position.y)-(point.x - bases[0].position.x)*(bases[1].position.y - bases[0].position.y) > 0:
 		return true
 	return false
 
@@ -178,18 +182,6 @@ func generate_collisions() -> void:
 			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
 				continue
 			add_collision_cube(_new_position)
-			
-	#for path in paths_points_list:
-		#for p in range(path.size()):
-			#var _displace_vec = path[p].direction_to(path[p+1]).rotated(PI/2.0) * DISPLACEMENT_TO_CENTER if p+1 < path.size() else path[p-1].direction_to(path[p]) * DISPLACEMENT_TO_CENTER
-			#var _left_position = path[p] + _displace_vec * WALL_DISPLACEMENT
-			#if is_in_base(_left_position) or is_in_mid(_left_position) or is_in_path(_left_position):
-				#continue
-			#add_collision_cube(_left_position, _displace_vec*-1.0)
-			#var _right_position = path[p] + _displace_vec * -1.0 * WALL_DISPLACEMENT
-			#if is_in_base(_right_position) or is_in_mid(_right_position) or is_in_path(_right_position):
-				#continue
-			#add_collision_cube(_right_position, _displace_vec)
 
 func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : PackedVector2Array):
 	for p in players:
@@ -203,7 +195,7 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 const DIVISION_FACTOR := 1.5
 const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
-const NO_TREE_CAMP_DISTANCE := 15.0
+const NO_TREE_BASE_DISTANCE := 25.0
 const NO_TREE_PATH_DISTANCE := 2.5
 const TREE_ROTATION_MAX = PI/6.0
 const TREE_SCALE_MIN = 0.1
@@ -236,12 +228,15 @@ func add_collision_cube(pos : Vector2) -> void:
 
 const CHANCE_TO_SPAWN_THING := 0.1
 const DISPLACEMENT_TO_CENTER := 3.0
-func generate_interests_camps() -> void:
+func generate_camps() -> void:
 	for i in interest_points_list:
 		var _new_camp = pre_camp.instantiate()
 		_new_camp.position = Vector3(i.x, -0.2, i.y)
 		_new_camp.monster = monsters[randi_range(0, monsters.size()-1)]
 		add_child(_new_camp)
+
+func generate_structures() -> void:
+	pass
 
 const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
@@ -256,10 +251,6 @@ func generate_decoration() -> void:
 		_new_decoration.position = Vector3(_new_position.x, 0.0, _new_position.y)
 		add_child(_new_decoration)
 
-#var _displace_vec = path[p].direction_to(path[p+1]).rotated(PI/2.0) * DISPLACEMENT_TO_CENTER if p+1 < path.size() else path[p-1].direction_to(path[p]) * DISPLACEMENT_TO_CENTER
-#_new_decoration.position = Vector3(path[p].x, -0.3, path[p].y) + Vector3(_displace_vec.x, 0.0, _displace_vec.y)
-#_new_tribal_torch.look_at(Vector3(_displace_vec.x, 0.0, _displace_vec.y).rotated(Vector3.UP, PI))
-
 func is_in_decoration(pos : Vector2) -> bool:
 	for i in decorations_points:
 		if i.distance_to(pos) < DECORATION_DISTANCE:
@@ -267,7 +258,7 @@ func is_in_decoration(pos : Vector2) -> bool:
 	return false
 
 func is_in_base(pos : Vector2) -> bool:
-	if pos.distance_to(bases_position[0]) < NO_TREE_CAMP_DISTANCE or pos.distance_to(bases_position[1]) < NO_TREE_CAMP_DISTANCE:
+	if pos.distance_to(Vector2(bases[0].position.x, bases[0].position.z)) < NO_TREE_BASE_DISTANCE or pos.distance_to(Vector2(bases[1].position.x, bases[1].position.z)) < NO_TREE_BASE_DISTANCE:
 		return true
 	return false
 
