@@ -13,7 +13,7 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 			manager.in_animation = true
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():
-					if p != ability_dealer:
+					if p != ability_dealer and !ability_dealer.is_dead():
 						p.take_damage(OMNISCIENT_GOLEM.physical_damage, 0, ability_dealer)
 				manager.in_animation = false
 				ability_dealer.update_path()

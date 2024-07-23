@@ -30,13 +30,14 @@ radius = 0.7
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(200, 10)
+size = Vector2i(200, 30)
 
 [node name="Infos" parent="SubViewport" instance=ExtResource("2_8tuwq")]
 
 [node name="InfoBar" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29, -0.630505)
 billboard = 1
+no_depth_test = true
 texture = SubResource("ViewportTexture_q8k26")
 
 [node name="Aggro" type="Area3D" parent="."]

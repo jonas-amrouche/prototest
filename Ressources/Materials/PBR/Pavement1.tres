@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ch50pmqgyurhh"]
+
+[ext_resource type="Texture2D" uid="uid://c0ikujullvs8t" path="res://Assets/2D/PBR/pavement_v1.png" id="1_cwes6"]
+
+[resource]
+albedo_color = Color(0.494792, 0.494792, 0.494792, 1)
+albedo_texture = ExtResource("1_cwes6")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true

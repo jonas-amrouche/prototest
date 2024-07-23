@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Camp" load_steps=3 format=3 uid="uid://dhacj2iw3jntt"]
+
+[ext_resource type="Resource" uid="uid://cc07448smpmar" path="res://Ressources/Monsters/OmniscientGolem.tres" id="1_hrhed"]
+[ext_resource type="Script" path="res://Scripts/CampClass.gd" id="2_eq1u8"]
+
+[resource]
+script = ExtResource("2_eq1u8")
+id = "omniscient_golem_camp"
+name = "Omniscient Golem Camp"
+monsters = Array[Resource("res://Scripts/MonsterClass.gd")]([ExtResource("1_hrhed")])
+respawn_time = 120.0

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Camp" load_steps=3 format=3 uid="uid://ffba8jpy7agt"]
+
+[ext_resource type="Resource" uid="uid://cwbtu5mwo28lu" path="res://Ressources/Monsters/DispossessedWillow.tres" id="1_e7drk"]
+[ext_resource type="Script" path="res://Scripts/CampClass.gd" id="2_ul34x"]
+
+[resource]
+script = ExtResource("2_ul34x")
+id = "willow_camp"
+name = "Willow Camp"
+monsters = Array[Resource("res://Scripts/MonsterClass.gd")]([ExtResource("1_e7drk")])
+respawn_time = 60.0

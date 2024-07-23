@@ -5,6 +5,7 @@ var monster : Monster
 var monster_model
 
 @onready var health : int = monster.max_health
+var level := int(1)
 var player_target : Object
 
 const ROTATION_LERP_SPEED := 0.04
@@ -19,6 +20,7 @@ var roam_point : Vector3
 @onready var agro_collision = $Aggro/Collision
 @onready var monster_collision = $Collision
 @onready var health_bar = $SubViewport/Infos/HealthBar
+@onready var level_label = $SubViewport/Infos/LevelPan/LevelLab
 @onready var update_path_timer = $UpdatePath
 @onready var attack_timer = $Attack
 @onready var roam_timer = $Roam
@@ -27,6 +29,7 @@ var pre_component_drop = preload("res://Scenes/ComponentDrop.tscn")
 
 func _ready():
 	if monster.roam:
+		roam_point = position
 		roam_timer.start()
 		update_path_timer.start()
 	agro_collision.shape.set("radius", monster.aggro_range)
@@ -34,6 +37,7 @@ func _ready():
 	monster_model = monster.monster_model.instantiate()
 	add_child(monster_model)
 	monster_model.rotation.y = randf() * PI * 2.0
+	level_label.text = str(level)
 	target_direction = global_transform.basis.x
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:

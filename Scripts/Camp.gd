@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var monster : Monster
+@export var camp : Camp
 
 var alive := true
 var level : int = 1
@@ -14,22 +14,27 @@ var pre_monster = preload("res://Scenes/Monster.tscn")
 func _ready() -> void:
 	camp_model.rotate(Vector3.UP, randf_range(-PI, PI))
 	get_tree().create_timer(0.5).timeout.connect(func():
-		respawn_timer.wait_time = monster.respawn_time
-		spawn_monster())
+		respawn_timer.wait_time = camp.respawn_time
+		spawn_monsters(camp.monsters))
 
-func spawn_monster() -> void:
+func spawn_monsters(monsters : Array[Monster]) -> void:
 	alive = true
 	camp_flames_model.set_visible(true)
-	var _new_monster = pre_monster.instantiate()
-	_new_monster.monster = monster
-	_new_monster.position = get_node("MonsterPos" + str(randi_range(1, 5))).position
-	add_child(_new_monster)
+	for m in range(monsters.size()):
+		var _new_monster = pre_monster.instantiate()
+		_new_monster.monster = monsters[m]
+		_new_monster.position = get_node("MonsterPos" + str(m+1)).position
+		add_child(_new_monster)
 
+var monster_dead := int()
 func monster_died() -> void:
-	alive = false
-	respawn_timer.start()
-	camp_flames_model.set_visible(false)
-	level += 1
+	monster_dead += 1
+	if monster_dead >= camp.monsters.size():
+		alive = false
+		respawn_timer.start()
+		camp_flames_model.set_visible(false)
+		level += 1
+		monster_dead = 0
 
 func _on_respawn_timeout() -> void:
-	spawn_monster()
+	spawn_monsters(camp.monsters)

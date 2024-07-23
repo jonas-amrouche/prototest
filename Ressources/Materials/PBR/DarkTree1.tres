@@ -6,7 +6,7 @@
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_color = Color(0.380208, 0.343236, 0.155088, 1)
+albedo_color = Color(0.468314, 0.635417, 0.250607, 1)
 albedo_texture = ExtResource("1_bysie")
 uv1_scale = Vector3(1.1, 1.1, 1.1)
 uv1_offset = Vector3(-0.105, -0.075, 0)

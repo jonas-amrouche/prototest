@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://21ehc2j02kaq"]
+
+[ext_resource type="PackedScene" uid="uid://dv8ptbfn8w7sf" path="res://Assets/3D/TowerStructure.glb" id="1_bw6og"]
+[ext_resource type="Material" uid="uid://ch50pmqgyurhh" path="res://Ressources/Materials/PBR/Pavement1.tres" id="2_34hd3"]
+[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="3_31de7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjckg"]
+albedo_color = Color(0.108982, 0.123746, 0.265625, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gtux0"]
+albedo_color = Color(0.833333, 0, 0.136379, 1)
+
+[node name="TowerStructure" instance=ExtResource("1_bw6og")]
+
+[node name="TowerStructure" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_34hd3")
+surface_material_override/1 = SubResource("StandardMaterial3D_tjckg")
+surface_material_override/2 = ExtResource("3_31de7")
+surface_material_override/3 = SubResource("StandardMaterial3D_gtux0")

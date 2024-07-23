@@ -10,8 +10,8 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
-const PER_LEVEL_PLUS_EXPERIENCE := 100
-const KILL_REWARD_EXP := 300
+const PER_LEVEL_PLUS_EXPERIENCE := 1
+const KILL_REWARD_EXP := 5
 
 const BASE_PHYSICAL_DAMAGE := 50
 const BASE_MAGIC_DAMAGE := 50
@@ -19,7 +19,8 @@ const BASE_PHYSICAL_ARMOR := 15
 const BASE_MAGIC_ARMOR := 15
 const BASE_HEALTH_REGENERATION := 2.0
 const BASE_MAX_HEALTH := 450
-const BASE_LEVEL_MAX_EXPERIENCE := 100
+const BASE_MAX_EXPERIENCE := 1
+const BASE_LEVEL_MAX_EXPERIENCE := 16
 
 var area_health_regeneration := 0.0
 
@@ -34,8 +35,8 @@ var health_regeneration := BASE_HEALTH_REGENERATION
 var max_health := BASE_MAX_HEALTH
 var life_steal := 0.0
 var health := max_health
-var level_max_experience := BASE_LEVEL_MAX_EXPERIENCE
-var experience := 0.0
+var max_experience := BASE_MAX_EXPERIENCE
+var experience := 0
 var level := 1
 
 var recall := false
@@ -48,7 +49,6 @@ var item_workshop_selected : Item
 var components := {}
 var items := []
 var abilities := [null, null, null, null, null, null, null, null, null, null]
-#var item_selected : int
 
 var can_move := true
 
@@ -59,6 +59,7 @@ var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
 var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
+var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
@@ -103,8 +104,9 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var anims := $Anims
 @onready var health_bar := $SubViewport/Infos/HealthBar
 @onready var health_bar_hud := $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
-@onready var experience_bar_hud := $CanvasLayer/HUD/Pad/ExperienceBar
-@onready var level_label := $CanvasLayer/HUD/LevelPan/LevelInd
+@onready var experience_gem_container := $CanvasLayer/HUD/Pad/ExpContainer
+@onready var level_label_hud := $CanvasLayer/HUD/LevelPan/LevelInd
+@onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
 
 #1 script pour le fog
 #1 script pour la map
@@ -115,6 +117,7 @@ func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
+	update_info_bars()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -226,37 +229,46 @@ func heal(healing : int) -> void:
 
 func lose_experience(experience_loss : int) -> void:
 	experience = experience - experience_loss
-	if experience < 0.0 and level == 1:
-		experience = 0.0
+	if experience < 0 and level == 1:
+		experience = 0
 	while is_leveling_down():
-		experience = level_max_experience - abs(experience)
+		experience = max_experience - abs(experience)
 		level -= 1
-		level_max_experience = level * PER_LEVEL_PLUS_EXPERIENCE
+		max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
 	update_info_bars()
 
 func gain_experience(experience_gained : int) -> void:
 	if !is_dead():
 		experience = experience + experience_gained
 		while is_leveling_up():
-			experience = experience - level_max_experience
+			experience = experience - max_experience
 			level += 1
+			max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
 		update_info_bars()
 
 func is_leveling_up() -> bool:
-	if experience > level_max_experience:
+	if experience >= max_experience:
 		return true
 	return false
 
 func is_leveling_down() -> bool:
-	if experience < 0.0:
+	if experience < 0:
 		return true
 	return false
 
 func update_info_bars() -> void:
 	health_bar.value = float(health) / float(max_health) * 100.0
-	health_bar_hud.value = float(health) / float(max_health) * 100.0
-	experience_bar_hud.value = float(experience) / float(level_max_experience) * 100.0
 	level_label.text = str(level)
+	health_bar_hud.value = float(health) / float(max_health) * 100.0
+	level_label_hud.text = str(level)
+	
+	for i in experience_gem_container.get_children():
+		i.free()
+	
+	for i in range(max_experience):
+		var new_xp_gem = pre_xp_gem_hud.instantiate()
+		new_xp_gem.material.set_shader_parameter("filled", experience > i)
+		experience_gem_container.add_child(new_xp_gem)
 
 func is_dead() -> bool:
 	if health == 0:

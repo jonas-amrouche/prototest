@@ -10,7 +10,7 @@ script = ExtResource("1_72fva")
 
 [node name="Area" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 2
 monitorable = false
 
 [node name="Col" type="CollisionShape3D" parent="Area"]

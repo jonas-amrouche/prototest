@@ -7,13 +7,14 @@ var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
+var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
 var decorations = [preload("res://Scenes/Models/TribalPillarTorchModel.tscn"), preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
-var monsters = [preload("res://Ressources/Monsters/OmniscientGolem.tres"), \
-preload("res://Ressources/Monsters/BlindBrute.tres"), \
-preload("res://Ressources/Monsters/DispossessedWillow.tres"), \
-preload("res://Ressources/Monsters/Grunter.tres"), \
-preload("res://Ressources/Monsters/LostGhost.tres")]
+var camps = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
+preload("res://Ressources/Camps/Gobedins.tres"), \
+preload("res://Ressources/Camps/DispossessedWillow.tres"), \
+preload("res://Ressources/Camps/Grunters.tres"), \
+preload("res://Ressources/Camps/LostGhosts.tres")]
 var players : Array[Object]
 
 @onready var multi_tree = $MultiTrees
@@ -30,6 +31,7 @@ func _ready() -> void:
 func map_generation() -> void:
 	randomize()
 	generate_bases()
+	generate_lanes()
 	generate_points_and_paths()
 	generate_mid_arena()
 	generate_decoration()
@@ -52,26 +54,44 @@ func generate_bases() -> void:
 
 var interest_points_list = PackedVector2Array()
 var paths_points_list : Array[PackedVector2Array]
-const POINT_CELL_DIVISION = 22
+const LANE_POINTS = 8
+const LANE_RESOLUTION = 1.0
+func generate_lanes() -> void:
+	for l in range(3):
+		for lp in range(LANE_POINTS):
+			var _first_base_pos = bases[0].get_node("PathStarts").get_node(str(l+1)).global_position
+			var _second_base_pos = bases[1].get_node("PathStarts").get_node(str(abs(l-3))).global_position
+			var _pos = lerp(Vector2(_first_base_pos.x, _first_base_pos.z), Vector2(_second_base_pos.x, _second_base_pos.z), float(lp)/float(LANE_POINTS-1))
+			if lp != 0 and lp != LANE_POINTS-1:
+				_pos += Vector2(randf_range(-20.0, 20.0), randf_range(-20.0, 20.0))
+			interest_points_list.append(_pos)
+			if lp == 0:
+				continue
+			var _last_point = interest_points_list[interest_points_list.size()-2]
+			var _temp_point_list = PackedVector2Array()
+			for i in range(int(_pos.distance_to(_last_point)/LANE_RESOLUTION)):
+				var _point_pos = (_last_point-_pos)/_pos.distance_to(_last_point)/LANE_RESOLUTION * i
+				_point_pos += cos(_point_pos.length()/SIN_DIVISION) * _pos.direction_to(_last_point).rotated(PI/2.0) * SIN_FORCE
+				_temp_point_list.append(_pos + _point_pos)
+			paths_points_list.append(_temp_point_list)
+
+const POINT_CELL_DIVISION = 28
 const PATH_RANDOM_CELLS = 0.4
-const PATH_MIN_POINTS = 5
-const PATH_MAX_POINTS = 10
-const POINT_PRECISION = 4.0
-const MAX_VECTOR_ANGLE = 1
 const NO_PATH_BORDER_LENGTH = 20.0
-const CHANCE_TO_SPAWN_PLANT = 0.05
+#const PATH_MIN_POINTS = 5
+#const PATH_MAX_POINTS = 10
+#const POINT_PRECISION = 4.0
+#const MAX_VECTOR_ANGLE = 1
+#const CHANCE_TO_SPAWN_PLANT = 0.05
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
 const SIN_FORCE = 2.0
 const ARENA_PATH_MULTIPLIER = 0.2
 func generate_points_and_paths() -> void:
-	# Generate arena and base interest points for path (Deleted at the end)
+	
+	# Generate arena points for path (Deleted at the end)
 	interest_points_list.append(Vector2(0.0, 0.0))
-	for base in bases:
-		for i in range(3):
-			var _pos = base.get_node("PathStarts").get_node(str(i+1)).global_position
-			interest_points_list.append(Vector2(_pos.x, _pos.z))
 	
 	# Generate interest points
 	for x in range(MAP_SIZE.x/POINT_CELL_DIVISION):
@@ -84,7 +104,7 @@ func generate_points_and_paths() -> void:
 	# Generate path between interest points
 	for p in interest_points_list:
 		var _point_linked = PackedVector2Array()
-		var _path_number = 4 if p == Vector2() else randi_range(1, 4)
+		var _path_number = 4 if p == Vector2() else 2
 		for path in range(_path_number):
 			var _closest_point = Vector2(1000.0, 1000.0)
 			for cp in interest_points_list:
@@ -98,6 +118,8 @@ func generate_points_and_paths() -> void:
 				_point_pos += cos(_point_pos.length()/SIN_DIVISION) * p.direction_to(_closest_point).rotated(PI/2.0) * SIN_FORCE
 				_temp_point_list.append(p + _point_pos)
 			paths_points_list.append(_temp_point_list)
+	
+	interest_points_list = interest_points_list.slice(LANE_POINTS*3, interest_points_list.size())
 	
 	# Clear interest points in bases and arena
 	var _removed_value = 0
@@ -195,8 +217,8 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 const DIVISION_FACTOR := 1.5
 const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
-const NO_TREE_BASE_DISTANCE := 25.0
-const NO_TREE_PATH_DISTANCE := 2.5
+const NO_TREE_BASE_DISTANCE := 15.0
+const NO_TREE_PATH_DISTANCE := 3.0
 const TREE_ROTATION_MAX = PI/6.0
 const TREE_SCALE_MIN = 0.1
 const TREE_SCALE_MAX = 0.2
@@ -226,14 +248,19 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	ground_body.add_child(_new_collision_cube)
 
-const CHANCE_TO_SPAWN_THING := 0.1
+const CHANCE_TO_SPAWN_MONSTER := 0.9
 const DISPLACEMENT_TO_CENTER := 3.0
 func generate_camps() -> void:
 	for i in interest_points_list:
-		var _new_camp = pre_camp.instantiate()
-		_new_camp.position = Vector3(i.x, -0.2, i.y)
-		_new_camp.monster = monsters[randi_range(0, monsters.size()-1)]
-		add_child(_new_camp)
+		if randf() < CHANCE_TO_SPAWN_MONSTER:
+			var _new_camp = pre_camp.instantiate()
+			_new_camp.position = Vector3(i.x, -0.2, i.y)
+			_new_camp.camp = camps[randi_range(0, camps.size()-1)]
+			add_child(_new_camp)
+		else:
+			var _new_tower = pre_tower.instantiate()
+			_new_tower.position = Vector3(i.x, -0.2, i.y)
+			add_child(_new_tower)
 
 func generate_structures() -> void:
 	pass
@@ -258,8 +285,9 @@ func is_in_decoration(pos : Vector2) -> bool:
 	return false
 
 func is_in_base(pos : Vector2) -> bool:
-	if pos.distance_to(Vector2(bases[0].position.x, bases[0].position.z)) < NO_TREE_BASE_DISTANCE or pos.distance_to(Vector2(bases[1].position.x, bases[1].position.z)) < NO_TREE_BASE_DISTANCE:
-		return true
+	for base in bases:
+		if pos.x > base.position.x - NO_TREE_BASE_DISTANCE and pos.x < base.position.x + NO_TREE_BASE_DISTANCE and pos.y > base.position.z - NO_TREE_BASE_DISTANCE and pos.y < base.position.z + NO_TREE_BASE_DISTANCE:
+			return true
 	return false
 
 func is_in_path(pos : Vector2) -> bool:

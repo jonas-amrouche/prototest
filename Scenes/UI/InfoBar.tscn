@@ -31,34 +31,24 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns24w"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.0846899, 0.0846899, 0.0846899, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.14902, 0.14902, 0.14902, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bru3"]
+bg_color = Color(0, 0, 0, 0.423529)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.211765)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_offset = Vector2(0, 2)
+anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cq4g8"]
-resource_local_to_scene = true
-bg_color = Color(0.588235, 0.266667, 0.733333, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.147672, 0.147672, 0.147672, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[sub_resource type="LabelSettings" id="LabelSettings_5ufy8"]
+font_size = 15
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Infos" type="Control"]
 layout_mode = 3
@@ -76,8 +66,9 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -5.0
-offset_bottom = 5.0
+offset_left = 32.0
+offset_top = -8.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
@@ -86,19 +77,26 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_sd3xy")
 value = 100.0
 show_percentage = false
 
-[node name="StrengthBar" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(0, 5)
+[node name="LevelPan" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = 5.0
-offset_bottom = 13.0
+offset_top = -12.0
+offset_right = 30.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6bru3")
+
+[node name="LevelLab" type="Label" parent="LevelPan"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 5
-theme_override_styles/background = SubResource("StyleBoxFlat_ns24w")
-theme_override_styles/fill = SubResource("StyleBoxFlat_cq4g8")
-value = 100.0
-show_percentage = false
+text = "1"
+label_settings = SubResource("LabelSettings_5ufy8")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
