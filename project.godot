@@ -225,5 +225,4 @@ ability10={
 lights_and_shadows/directional_shadow/size=2048
 environment/volumetric_fog/volume_depth=32
 environment/defaults/default_clear_color=Color(0.15625, 0.15625, 0.15625, 1)
-anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/screen_space_aa=1

@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-const MAP_SIZE = Vector2(200.0, 200.0)
 const DEFAULT_MOVEMENT_SPEED := 3.0
 const HARVEST_MOVEMENT_SPEED := 1.0
 const ACCELERATION := 0.3
@@ -43,8 +42,6 @@ var recall := false
 
 const SPAWN_REGEN = 100.0
 var in_workshop := false
-var category_selected := 0
-var item_workshop_selected : Item
 
 var components := {}
 var items := []
@@ -54,28 +51,9 @@ var can_move := true
 
 #var free_cam := false
 
-var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
-var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
-var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
-var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
-var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
-var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
-var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
-var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
-
-var stats_icons = [preload("res://Assets/2D/UI/stat_physical.png"), \
-preload("res://Assets/2D/UI/stat_magic.png"), \
-preload("res://Assets/2D/UI/stat_armor_physical.png"), \
-preload("res://Assets/2D/UI/stat_armor_magic.png"), \
-preload("res://Assets/2D/UI/stat_movement_speed.png"), \
-preload("res://Assets/2D/UI/stat_souls.png"), \
-preload("res://Assets/2D/UI/stat_cdr.png"), \
-preload("res://Assets/2D/UI/stat_health_regen.png"), \
-preload("res://Assets/2D/UI/stat_max_health.png"), \
-preload("res://Assets/2D/UI/stat_life_steal.png")]
-
+@onready var world := get_node("..")
 @onready var camera := $Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
@@ -83,29 +61,11 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
-@onready var scoreboard := $CanvasLayer/HUD/ScoreBoard
-@onready var chat := $CanvasLayer/HUD/Chat
-@onready var component_list := $CanvasLayer/HUD/Components/Pad/CompList
-@onready var item_list = $CanvasLayer/HUD/Items/Pad/ItemList
-@onready var ability_list = $CanvasLayer/HUD/ActionPanel/AbilityBar/Pad/AbilityList
-@onready var stats_list = $CanvasLayer/HUD/Stats/MarginContainer/StatList
-@onready var channeling_bar := $CanvasLayer/HUD/ChannelingBar
-@onready var mini_map := $CanvasLayer/HUD/MiniMap
 @onready var abilities_machine := $Abilities
-@onready var workshop := $CanvasLayer/HUD/Workshop
-@onready var workshop_item_list := $CanvasLayer/HUD/Workshop/ItemBoard/ItemListContainer/Pad/ItemList
-@onready var workshop_item_inspection_icon := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemView
-@onready var workshop_item_inspection_name := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemName
-@onready var workshop_item_inspection_desc := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ItemDesc
-@onready var workshop_item_inspection_comps := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/ComponentsNeeded
-@onready var workshop_item_craft_button := $CanvasLayer/HUD/Workshop/ViewAndMake/Inspector/CraftItem
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
 @onready var anims := $Anims
 @onready var health_bar := $SubViewport/Infos/HealthBar
-@onready var health_bar_hud := $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthBar
-@onready var experience_gem_container := $CanvasLayer/HUD/Pad/ExpContainer
-@onready var level_label_hud := $CanvasLayer/HUD/LevelPan/LevelInd
 @onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
 
 #1 script pour le fog
@@ -117,7 +77,7 @@ func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
-	update_info_bars()
+	hud.update_info_bars()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -126,12 +86,6 @@ func _physics_process(_delta) -> void:
 
 func _process(_delta):
 	update_direction()
-	mini_map.update_camera_position(camera.global_position, camera_base_marker.position)
-	mini_map.update_player_position(global_position)
-
-func update_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
-	mini_map.initialize_minimap(MAP_SIZE, paths_data, bases_data, interests_data)
-	initialize_fog_map(bases_data)
 
 func update_direction() -> void:
 		#var _vector_look = -Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
@@ -155,7 +109,7 @@ func move_camera_by_minimap(pos : Vector2) -> void:
 		camera.global_position.x = clamp(pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
 		camera.global_position.z = clamp(pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
 
-func set_moving_map(moving : bool) -> void:
+func set_move_camera(moving : bool) -> void:
 	move_camera = moving
 	camera.top_level = moving
 	camera.position = camera_base_marker.position
@@ -174,13 +128,13 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		var _result = terrain_raycast(1)
-		if !_result.is_empty():
-			nav.target_position = _result.get("position")
-			if recall:
-				cancel_recall()
+#func _unhandled_input(event) -> void:
+	#if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
+		#var _result = terrain_raycast(1)
+		#if !_result.is_empty():
+			#nav.target_position = _result.get("position")
+			#if recall:
+				#cancel_recall()
 
 const RAY_LENGTH := 100.0
 func terrain_raycast(col_mask : int) -> Dictionary:
@@ -216,7 +170,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 	
 	model_anims.play("take_damage")
 	health = max(health - _final_damage, 0.0)
-	update_info_bars()
+	hud.update_info_bars()
 	if is_dead():
 		damage_dealer.gain_experience(KILL_REWARD_EXP)
 		lose_experience(100)
@@ -225,7 +179,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 func heal(healing : int) -> void:
 	if !is_dead():
 		health = min(health + healing, max_health)
-		update_info_bars()
+		hud.update_info_bars()
 
 func lose_experience(experience_loss : int) -> void:
 	experience = experience - experience_loss
@@ -235,7 +189,7 @@ func lose_experience(experience_loss : int) -> void:
 		experience = max_experience - abs(experience)
 		level -= 1
 		max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
-	update_info_bars()
+	hud.update_info_bars()
 
 func gain_experience(experience_gained : int) -> void:
 	if !is_dead():
@@ -244,7 +198,7 @@ func gain_experience(experience_gained : int) -> void:
 			experience = experience - max_experience
 			level += 1
 			max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
-		update_info_bars()
+		hud.update_info_bars()
 
 func is_leveling_up() -> bool:
 	if experience >= max_experience:
@@ -256,20 +210,6 @@ func is_leveling_down() -> bool:
 		return true
 	return false
 
-func update_info_bars() -> void:
-	health_bar.value = float(health) / float(max_health) * 100.0
-	level_label.text = str(level)
-	health_bar_hud.value = float(health) / float(max_health) * 100.0
-	level_label_hud.text = str(level)
-	
-	for i in experience_gem_container.get_children():
-		i.free()
-	
-	for i in range(max_experience):
-		var new_xp_gem = pre_xp_gem_hud.instantiate()
-		new_xp_gem.material.set_shader_parameter("filled", experience > i)
-		experience_gem_container.add_child(new_xp_gem)
-
 func is_dead() -> bool:
 	if health == 0:
 		return true
@@ -280,7 +220,7 @@ func die() -> void:
 	player_collision.disabled = true
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = max_health
-		update_info_bars()
+		hud.update_info_bars()
 		camera.top_level = true
 		player_collision.disabled = false
 		can_move = true
@@ -313,7 +253,7 @@ func face_direction(direction : Vector3) -> void:
 
 func action_keys():
 	#if Input.is_action_just_released("left_click"):
-		#set_moving_map(false)
+		#set_move_camera(false)
 	#if Input.is_action_just_pressed("decenter_cam"):
 		#camera.top_level = true
 		#free_cam = true
@@ -328,112 +268,68 @@ func action_keys():
 		start_channeling(recall_timer.wait_time)
 		recall_visual.set_visible(true)
 	if Input.is_action_just_pressed("show_scoreboard"):
-		scoreboard.set_visible(!scoreboard.visible)
+		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
-		scoreboard.set_visible(!scoreboard.visible)
+		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_pressed("chat"):
-		chat.set_visible(!chat.visible)
+		hud.chat.set_visible(!hud.chat.visible)
 	if Input.is_action_just_pressed("workshop"):
-		update_workshop_item_list(category_selected)
-		workshop.set_visible(!workshop.visible)
-	
-	#for i in range(8):
-		#if Input.is_action_just_pressed("item"+str(i+1)):
-			#item_selected = i
+		hud.update_workshop_item_list(hud.category_selected)
+		hud.workshop.set_visible(!hud.workshop.visible)
 	for i in range(10):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if abilities[i]:
 				match abilities_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
-						ability_list.get_children()[i].use_ability()
+						hud.ability_list.get_children()[i].use_ability()
 
 var channeling_tween
 func start_channeling(duration : float) -> void:
-	channeling_bar.set_visible(true)
+	hud.channeling_bar.set_visible(true)
 	if channeling_tween:
 		channeling_tween.kill()
 	channeling_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
-	channeling_tween.tween_method(Callable(channeling_bar, "set_value"), 0.0, 100.0, duration)
+	channeling_tween.tween_method(Callable(hud.channeling_bar, "set_value"), 0.0, 100.0, duration)
 
 func stop_channeling() -> void:
-	channeling_bar.set_visible(false)
+	hud.channeling_bar.set_visible(false)
 
-func obtain_component(comps : Component, quantity : int) -> void:
+func obtain_component(comp : Component, quantity : int) -> void:
 	var _new_quantity = quantity
-	if components.has(comps):
-		var _old_quantity = components.get(comps)
+	if components.has(comp):
+		var _old_quantity = components.get(comp)
 		
 		if _old_quantity:
 			_new_quantity += _old_quantity
 	
-	var _new_components = {comps:_new_quantity}
+	var _new_components = {comp:_new_quantity}
 	components.merge(_new_components, true)
-	update_components()
+	hud.update_components()
 
-func update_components() -> void:
-	for i in component_list.get_children():
-		i.queue_free()
-	for i in range(components.size()):
-		var _new_component_hud = pre_component_hud.instantiate()
-		_new_component_hud.component = components.keys()[i]
-		_new_component_hud.quantity = components.values()[i]
-		component_list.add_child(_new_component_hud)
+func lose_component(comp : Component, quantity : int) -> void:
+	if quantity == components.get(comp):
+		components.erase(comp)
+	else:
+		var _new_quantity = components.get(comp) - quantity
+		var _new_components = {comp:_new_quantity}
+		components.merge(_new_components, true)
+	hud.update_components()
 
 func obtain_item(item : Item) -> void:
 	items.append(item)
 	update_stats()
-	update_abilities()
-	update_items()
+	hud.update_abilities()
+	hud.update_items()
 
-func update_abilities() -> void:
-	# Clear ability bar
-	for a_slot in ability_list.get_children():
-		a_slot.queue_free()
-	
-	# Update abilities array
-	var _abilities_had = []
-	var _item_link = Dictionary()
-	for i in items:
-		for a in i.abilities:
-			_abilities_had.append(a)
-			_item_link.merge({a : i})
-	
-	# Allow bindings of abilities
-	for a in _abilities_had:
-		if abilities.has(a):
-			continue
-		abilities[abilities.find(null)] = a
-	for a in abilities:
-		if !_abilities_had.has(a):
-			abilities[abilities.find(a)] = null
-			#Si il y a trop de sort pour l'instant ça va faire de la merde
-	
-	# Populate ability bar
-	for a in range(abilities.size()):
-		var _new_ability_hud = pre_ability_hud.instantiate()
-		if abilities[a]:
-			if abilities_machine.get_ability_cooldown(abilities[a]):
-				_new_ability_hud.cooldown_left = abilities_machine.get_ability_cooldown(abilities[a])
-			_new_ability_hud.ability = abilities[a]
-			_new_ability_hud.item = _item_link.get(abilities[a])
-		for i in InputMap.get_actions():
-			if i.begins_with("ability") and i.ends_with(str(a+1)):
-				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
-		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
-		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
-		ability_list.add_child(_new_ability_hud)
+func entering_workshop() -> void:
+	area_health_regeneration = SPAWN_REGEN
+	update_stats()
+	in_workshop = true
 
-var dragged_slot : Object
-func drag_ability(slot : Object) -> void:
-	dragged_slot = slot
-
-func drop_ability(slot : Object) -> void:
-	if dragged_slot:
-		var _temp_ability = slot.ability
-		abilities[ability_list.get_children().find(slot)] = dragged_slot.ability
-		abilities[ability_list.get_children().find(dragged_slot)] = _temp_ability
-		update_abilities()
-		dragged_slot = null
+func exit_workshop() -> void:
+	area_health_regeneration = 0.0
+	update_stats()
+	in_workshop = false
 
 func update_stats() -> void:
 	physical_damage = BASE_PHYSICAL_DAMAGE
@@ -453,83 +349,19 @@ func update_stats() -> void:
 		health_regeneration += i.health_regeneration
 		max_health += i.max_health
 		life_steal += i.life_steal
-	
-	var _stats = [physical_damage, magic_damage, physical_armor, magic_armor, movement_speed, \
-	cooldown_reduction, health_regeneration, max_health, life_steal]
-	
-	for i in stats_list.get_children():
-		i.queue_free()
-	
-	for i in range(_stats.size()):
-		var _new_stat_hud = pre_stat_hud.instantiate()
-		_new_stat_hud.stat = str(_stats[i])
-		_new_stat_hud.icon = stats_icons[i]
-		stats_list.add_child(_new_stat_hud)
-
-func update_items() -> void:
-	for i in item_list.get_children():
-		i.queue_free()
-	for i in items:
-		var _new_item_hud = pre_item_hud.instantiate()
-		_new_item_hud.item = i
-		_new_item_hud.connect("drag_drop_item", Callable(self, "drop_item"))
-		item_list.add_child(_new_item_hud)
+	hud.update_stats_hud()
 
 const DROP_VECTOR_LENGTH = 1.4
 func drop_item(item : Item) -> void:
 	items.remove_at(items.find(item))
 	update_stats()
-	update_abilities()
+	hud.update_abilities()
 	var _new_item_ground = pre_item_drop.instantiate()
 	var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
 	_new_item_ground.item = item
 	get_node("..").add_child(_new_item_ground)
-	update_items()
-
-func entering_workshop() -> void:
-	area_health_regeneration = SPAWN_REGEN
-	update_stats()
-	in_workshop = true
-
-func exit_workshop() -> void:
-	area_health_regeneration = 0.0
-	update_stats()
-	in_workshop = false
-
-func select_item(item : Item) -> void:
-	item_workshop_selected = item
-	update_workshop_inspection_tab(item)
-
-func update_workshop_item_list(category : int) -> void:
-	for i in workshop_item_list.get_children():
-		i.queue_free()
-	match category:
-		0:
-			for i in range(all_item_base.base.size()):
-				var _new_item = pre_item_workshop_list.instantiate()
-				_new_item.item = all_item_base.base[i]
-				workshop_item_list.add_child(_new_item)
-				_new_item.select_item.connect(Callable(self, "select_item"))
-
-func update_workshop_inspection_tab(item : Item) -> void:
-	for i in workshop_item_inspection_comps.get_children():
-		i.queue_free()
-	if item:
-		workshop_item_inspection_icon.texture = item.icon
-		workshop_item_inspection_name.text = item.name
-		workshop_item_inspection_desc.text = item.description
-		workshop_item_craft_button.disabled = !is_item_craftable(item, components) or items.has(item)
-		for c in range(item.craft_recipe.size()):
-			var _new_comps_needed = pre_component_hud.instantiate()
-			_new_comps_needed.component = item.craft_recipe.keys()[c]
-			_new_comps_needed.quantity = item.craft_recipe.values()[c]
-			workshop_item_inspection_comps.add_child(_new_comps_needed)
-	else:
-		workshop_item_inspection_icon.texture = null
-		workshop_item_inspection_name.text = ""
-		workshop_item_inspection_desc.text = ""
-		workshop_item_craft_button.disabled = true
+	hud.update_items()
 
 func is_item_craftable(item : Item, comps : Dictionary) -> bool:
 	var _component_had = 0
@@ -542,60 +374,12 @@ func is_item_craftable(item : Item, comps : Dictionary) -> bool:
 		return true
 	return false
 
-var fog_map : Image
-var density_tex : ImageTexture3D
-const FOG_RESOLUTION = 1
-const FOG_TEXTURE_SIZE = Vector2i(int(MAP_SIZE.x), int(MAP_SIZE.y)) * FOG_RESOLUTION
-const FOG_PLAYER_SIZE = Vector2i(15, 15) * FOG_RESOLUTION
-const FOG_BASE_SIZE = Vector2i(24, 24) * FOG_RESOLUTION
-func initialize_fog_map(bases_data : PackedVector2Array) -> void:
-	fog_map = Image.create(FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, false, Image.FORMAT_RGBA8)
-	fog_map.fill(Color(1.0, 1.0, 1.0))
-	density_tex = ImageTexture3D.new()
-	density_tex.create(Image.FORMAT_RGBA8, FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, 1, false, [fog_map])
-	mini_map.initialize_fog(bases_data, FOG_BASE_SIZE, FOG_PLAYER_SIZE, FOG_TEXTURE_SIZE)
-	update_map_fog()
-
-func update_map_fog() -> void:
-	var _fog_position = world_to_fog_position(Vector2(global_position.x, global_position.z))
-	var _player_img = pre_circle_image.duplicate()
-	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	fog_map.blend_rect(_player_img, _player_img.get_used_rect(), _fog_position - _player_img.get_size()/2)
-	mini_map.update_fog(fog_map, FOG_PLAYER_SIZE, global_position)
-	density_tex.update([fog_map])
-	get_node("..").get_node("FogOfWar").material.set("density_texture", density_tex)
-
-func world_to_fog_position(pos : Vector2) -> Vector2i:
-	return Vector2i((pos + MAP_SIZE/2.0) * FOG_RESOLUTION)
-
-func _on_close_workshop_pressed() -> void:
-	workshop.set_visible(false)
-
-func _on_nav_agent_path_changed() -> void:
-	mini_map.update_movement_line(nav)
-
-func _on_update_movement_line_timeout() -> void: #MINILAG
-	if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		nav.target_position = global_position
-	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
-	update_map_fog()
+#func _on_nav_agent_path_changed() -> void:
+	#hud.mini_map.update_movement_line(nav)
 
 func _on_recall_timeout() -> void:
 	respawn_base()
 	cancel_recall()
-
-func _on_craft_item_pressed():
-	if in_workshop:
-		for c in range(item_workshop_selected.craft_recipe.size()):
-			if item_workshop_selected.craft_recipe.values()[c] == components.get(item_workshop_selected.craft_recipe.keys()[c]):
-				components.erase(item_workshop_selected.craft_recipe.keys()[c])
-			else:
-				var _new_quantity = components.get(item_workshop_selected.craft_recipe.keys()[c]) - item_workshop_selected.craft_recipe.values()[c]
-				
-				var _new_components = {item_workshop_selected.craft_recipe.keys()[c]:_new_quantity}
-				components.merge(_new_components, true)
-		update_components()
-		update_workshop_inspection_tab(item_workshop_selected)
 
 func _on_stat_regen_timeout():
 	heal(int(health_regeneration))

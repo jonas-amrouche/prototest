@@ -17,6 +17,7 @@ preload("res://Ressources/Camps/Grunters.tres"), \
 preload("res://Ressources/Camps/LostGhosts.tres")]
 var players : Array[Object]
 
+@onready var fog_of_war = $FogOfWar
 @onready var multi_tree = $MultiTrees
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
@@ -207,7 +208,7 @@ func generate_collisions() -> void:
 
 func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : PackedVector2Array):
 	for p in players:
-		p.update_map_data(paths_list, bases_list, interests_list)
+		p.hud.update_map_data(paths_list, bases_list, interests_list)
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:

@@ -97,7 +97,7 @@ func update_fog(fog_map : Image, fog_player_size : Vector2i, player_position : V
 	var _new_fog_map = fog_map.duplicate()
 	var _player_img = pre_circle_image.duplicate()
 	_player_img.resize(fog_player_size.x, fog_player_size.y, Image.INTERPOLATE_NEAREST)
-	_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), player.world_to_fog_position(Vector2(player_position.x, player_position.z)) - _player_img.get_size()/2)
+	_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), player.hud.world_to_fog_position(Vector2(player_position.x, player_position.z)) - _player_img.get_size()/2)
 	map_mask.texture = ImageTexture.create_from_image(fog_map)
 	map_mask.material.set_shader_parameter("player_pos", (Vector2(player_position.x, player_position.z)+map_size/2.0)/map_size)
 
@@ -112,9 +112,9 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:
-				player.set_moving_map(true)
+				player.set_move_camera(true)
 			else:
-				player.set_moving_map(false)
+				player.set_move_camera(false)
 		#elif event.button_index == 2:
 			#if event.pressed:
 				#cursor_pos = ((viewport.get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
