@@ -11,7 +11,7 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():
 					if p != ability_dealer:
-						p.take_damage(min(ability_dealer.stats.physical_damage, ability.physical_damage_cap), 0, ability_dealer)
+						p.take_damage(min(ability_dealer.stats.physical_damage, ability.damage_cap), 0, ability_dealer)
 				manager.in_animation = false
 				manager.start_ability_cooldown(ability)
 				queue_free()))

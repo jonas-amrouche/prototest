@@ -132,12 +132,15 @@ func update_camera_position() -> void:
 var dragged_by_map = false
 func move_camera_click(press : bool) -> void:
 	dragged_by_map = press
-	camera.top_level = press
-	if press:
-		camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
-		camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-	else:
-		camera.position = camera_base_marker.position
+	camera.top_level = true
+	camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
+	camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
+	#camera.top_level = press
+	#if press:
+		#camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
+		#camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
+	#else:
+		#camera.position = camera_base_marker.position
 
 func debug_features() -> void:
 	if Input.is_action_just_pressed("quit_game"):

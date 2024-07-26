@@ -12,5 +12,4 @@ icon = ExtResource("1_upjs6")
 cooldown = 5.0
 attack_time = 0.5
 damage_type = 0
-physical_damage_cap = 75
-magic_damage_cap = 0
+damage_cap = 75

@@ -8,5 +8,4 @@ extends Resource
 @export var cooldown : float
 @export var attack_time : float
 @export var damage_type : int
-@export var physical_damage_cap : int
-@export var magic_damage_cap : int
+@export var damage_cap : int

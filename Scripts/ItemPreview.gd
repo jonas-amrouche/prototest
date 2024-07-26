@@ -10,7 +10,7 @@ var item : Item
 @onready var abilities_container = $MarginContainer/ItemData/Specs/AbilitiesBox
 @onready var passives_container = $MarginContainer/ItemData/Specs/PassiveBox
 
-var pre_ability_preview = preload("res://Scenes/UI/AbilityItemPreview.tscn")
+var pre_ability_preview = preload("res://Scenes/UI/AbilityPreview.tscn")
 var pre_passive_preview = preload("res://Scenes/UI/PassiveItemPreview.tscn")
 
 func _ready():

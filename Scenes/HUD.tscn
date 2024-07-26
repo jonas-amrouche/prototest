@@ -57,7 +57,7 @@ bg_color = Color(0.25098, 0.223529, 0.164706, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46t2u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8432"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -65,7 +65,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ciea6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mgep"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -73,7 +73,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rr6r5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53jfr"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -81,7 +81,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0txay"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brwfh"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -89,7 +89,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp07q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4nml"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -97,7 +97,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf1rx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l18n2"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -105,7 +105,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6ae3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btwrr"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -113,7 +113,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfgpa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shqss"]
 resource_local_to_scene = true
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
@@ -494,35 +494,35 @@ metadata/_edit_lock_ = true
 
 [node name="ItemHud" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_46t2u")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d8432")
 
 [node name="ItemHud2" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ciea6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0mgep")
 
 [node name="ItemHud3" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rr6r5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_53jfr")
 
 [node name="ItemHud4" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0txay")
+theme_override_styles/panel = SubResource("StyleBoxFlat_brwfh")
 
 [node name="ItemHud5" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gp07q")
+theme_override_styles/panel = SubResource("StyleBoxFlat_x4nml")
 
 [node name="ItemHud6" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tf1rx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l18n2")
 
 [node name="ItemHud7" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t6ae3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_btwrr")
 
 [node name="ItemHud8" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_nfgpa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_shqss")
 
 [node name="Stats" type="Panel" parent="."]
 layout_mode = 1

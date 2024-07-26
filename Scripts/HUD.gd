@@ -12,6 +12,7 @@ var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_item_preview = preload("res://Scenes/UI/ItemPreview.tscn")
+var pre_ability_preview = preload("res://Scenes/UI/AbilityPreview.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
@@ -28,18 +29,13 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
 @onready var mini_map := $MiniMap
-@onready var workshop := $Workshop
-#@onready var workshop_item_list := $Workshop/ItemBoard/ItemListContainer/Pad/ItemList
-#@onready var workshop_item_inspection_icon := $Workshop/ViewAndMake/Inspector/ItemView
-#@onready var workshop_item_inspection_name := $Workshop/ViewAndMake/Inspector/ItemName
-#@onready var workshop_item_inspection_desc := $Workshop/ViewAndMake/Inspector/ItemDesc
-#@onready var workshop_item_inspection_comps := $Workshop/ViewAndMake/Inspector/ComponentsNeeded
 @onready var item_craft_button := $CraftAvailable/Pad/Order/Craft
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
 @onready var experience_gem_container := $Pad/ExpContainer
 @onready var level_label_hud := $LevelPan/LevelInd
 
 var item_preview
+var ability_preview
 
 func _process(_delta):
 	mini_map.update_camera_position(player.camera.global_position, player.camera_base_marker.position)
@@ -89,14 +85,6 @@ func update_map_fog() -> void:
 func world_to_fog_position(pos : Vector2) -> Vector2i:
 	return Vector2i((pos + MAP_SIZE/2.0) * FOG_RESOLUTION)
 
-func _on_close_workshop_pressed() -> void:
-	workshop.set_visible(false)
-
-#func _on_craft_item_pressed():
-	#if player.in_workshop:
-		#for c in range(item_workshop_selected.craft_recipe.size()):
-			#player.lose_component(item_workshop_selected.craft_recipe.keys()[c], item_workshop_selected.craft_recipe.values()[c])
-		#update_workshop_inspection_tab(item_workshop_selected)
 
 func select_item(item : Item) -> void:
 	item_craft_selected = item
@@ -114,36 +102,6 @@ func update_craft_available() -> void:
 			craft_available_container.add_child(_new_item_craft)
 	
 	craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
-
-#func update_workshop_item_list(category : int) -> void:
-	#for i in workshop_item_list.get_children():
-		#i.queue_free()
-	#match category:
-		#0:
-			#for i in range(all_item_base.base.size()):
-				#var _new_item = pre_item_workshop_list.instantiate()
-				#_new_item.item = all_item_base.base[i]
-				#workshop_item_list.add_child(_new_item)
-				#_new_item.select_item.connect(Callable(self, "select_item"))
-
-#func update_workshop_inspection_tab(item : Item) -> void:
-	#for i in workshop_item_inspection_comps.get_children():
-		#i.queue_free()
-	#if item:
-		#workshop_item_inspection_icon.texture = item.icon
-		#workshop_item_inspection_name.text = item.name
-		#workshop_item_inspection_desc.text = item.description
-		#workshop_item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
-		#for c in range(item.craft_recipe.size()):
-			#var _new_comps_needed = pre_component_hud.instantiate()
-			#_new_comps_needed.component = item.craft_recipe.keys()[c]
-			#_new_comps_needed.quantity = item.craft_recipe.values()[c]
-			#workshop_item_inspection_comps.add_child(_new_comps_needed)
-	#else:
-		#workshop_item_inspection_icon.texture = null
-		#workshop_item_inspection_name.text = ""
-		#workshop_item_inspection_desc.text = ""
-		#workshop_item_craft_button.disabled = true
 
 func update_abilities() -> void:
 	# Clear ability bar
@@ -183,6 +141,8 @@ func update_abilities() -> void:
 				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
 		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
 		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
+		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
+		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
 		ability_list.add_child(_new_ability_hud)
 
 func update_items() -> void:
@@ -217,6 +177,18 @@ func hide_item_preview() -> void:
 func update_item_preview() -> void:
 	if item_preview:
 		item_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, item_preview.size.y)
+
+func show_ability_preview(ability_ref : Object) -> void:
+	if ability_ref.ability:
+		ability_preview = pre_ability_preview.instantiate()
+		ability_preview.ability = ability_ref.ability
+		add_child(ability_preview)
+		ability_preview.position = ability_ref.global_position - Vector2(ability_preview.size.x/2.0 - ability_ref.size.x/2.0, ability_preview.size.y + 10.0)
+
+func hide_ability_preview() -> void:
+	if ability_preview:
+		ability_preview.queue_free()
+		ability_preview = null
 
 func update_components() -> void:
 	for i in component_list.get_children():

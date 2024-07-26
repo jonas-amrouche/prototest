@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://duqyed1kqpwb"]
+[gd_scene load_steps=6 format=3 uid="uid://duqyed1kqpwb"]
 
-[ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="1_cw3yp"]
-[ext_resource type="Script" path="res://Scripts/AbilityItemPreview.gd" id="1_vbah3"]
+[ext_resource type="Script" path="res://Scripts/AbilityItemPreview.gd" id="1_dtegr"]
+[ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_pwvs0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un7te"]
+bg_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_tj4dl"]
 font_size = 10
@@ -9,13 +16,15 @@ font_color = Color(0.635417, 0.635417, 0.635417, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
 font_size = 11
+outline_color = Color(0.423453, 0.52643, 0.8125, 1)
 
 [node name="AbilityPanel" type="Panel"]
 custom_minimum_size = Vector2(0, 55)
 offset_right = 282.0
 offset_bottom = 55.0
 mouse_filter = 2
-script = ExtResource("1_vbah3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_un7te")
+script = ExtResource("1_dtegr")
 
 [node name="AbilityContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -35,7 +44,7 @@ custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
-texture = ExtResource("1_cw3yp")
+texture = ExtResource("2_pwvs0")
 expand_mode = 1
 
 [node name="AbilityDesc" type="Label" parent="AbilityContainer"]
@@ -54,4 +63,14 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "Big Forward Cut"
 label_settings = SubResource("LabelSettings_m4yqr")
+autowrap_mode = 2
+
+[node name="AbilityCap" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "->50"
+label_settings = SubResource("LabelSettings_m4yqr")
+horizontal_alignment = 2
 autowrap_mode = 2

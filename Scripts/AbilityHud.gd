@@ -6,12 +6,14 @@ extends PanelContainer
 @export var cooldown_left := 0.0
 signal drag_ability(slot : Object)
 signal drop_ability(slot : Object)
+signal update_ability_preview()
+signal mouse_entered_ability(abl : Ability)
 
 @onready var icon = $MarginContainer/IconContainer/Icon
 @onready var item_icon = $ItemIconContainer/ItemIcon
 @onready var keybind_label = $MarginContainer/Keybind
-@onready var rarity_frame = $MarginContainer/RarityFrame
 @onready var cooldown_label = $CooldownLabel
+@onready var cooldown_progress = $MarginContainer/CoolDownProgress
 
 func _ready() -> void:
 	if cooldown_left != 0.0:
@@ -25,11 +27,9 @@ func update_slot() -> void:
 	if ability:
 		icon.set_texture(ability.icon)
 		item_icon.set_texture(item.icon)
-		#rarity_frame.get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
 	else:
 		icon.set_texture(null)
 		item_icon.set_texture(null)
-		#rarity_frame.get("theme_override_styles/panel").set("bg_color", Color(1.0, 1.0, 1.0, 0.0))
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == 1 and !event.pressed:
@@ -44,8 +44,10 @@ func use_ability() -> void:
 func update_cooldown(time_left : float) -> void:
 	if time_left == 0.0:
 		cooldown_label.text = ""
+		cooldown_progress.value = 0.0
 		return
 	cooldown_label.text = str(int(time_left))
+	cooldown_progress.value = time_left/ability.cooldown * 100.0
 
 var grabbed = false
 func _on_gui_input(event):
@@ -55,9 +57,17 @@ func _on_gui_input(event):
 				grabbed = true
 				icon.z_index = 1
 				drag_ability.emit(self)
+				mouse_exited.emit()
 		else:
 			icon.z_index = 0
 			icon.position = Vector2(2.0, 2.0)
 			grabbed = false
-	if event is InputEventMouseMotion and grabbed:
-		icon.position = get_viewport().get_mouse_position() - global_position - size/2.0
+	if event is InputEventMouseMotion:
+		if grabbed:
+			icon.position = get_viewport().get_mouse_position() - global_position - size/2.0
+		else:
+			update_ability_preview.emit()
+
+func _on_mouse_entered():
+	if !grabbed:
+		mouse_entered_ability.emit(self)

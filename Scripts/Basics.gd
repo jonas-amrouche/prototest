@@ -5,6 +5,8 @@ const RARITY_TEXT = ["Starter", "Ordinary", "Elite", "Fantastic", "Legendary", "
 const RARITY_COLORS = [Color(0.659, 0.584, 0.561), Color(0.36, 0.56, 0.252), Color(0.322, 0.553, 0.698), Color(0.957, 0.882, 0.184), Color(0.506, 0.255, 0.686), Color(0.537, 0, 0.016), Color(0.62, 0.804, 0.561)]
 enum ABILITY_ERROR {OK, IN_COOLDOWN, DEAD}
 
+const DAMAGE_COLOR = [Color(0.813, 0.134, 0.182), Color(0.4, 0.317, 0.813), Color(0.4, 0.317, 0.813)]
+
 var stats_data := {"physical_damage" : preload("res://Ressources/Stats/PhysicalDamage.tres"), \
 "magic_damage" : preload("res://Ressources/Stats/MagicDamage.tres"), \
 "physical_armor" : preload("res://Ressources/Stats/PhysicalArmor.tres"), \
