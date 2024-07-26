@@ -4,6 +4,16 @@ var monster : Monster
 
 var monster_model
 
+@onready var stats := {"physical_damage" : monster.physical_damage, \
+"magic_damage" : monster.magic_damage, \
+"physical_armor" : monster.physical_armor, \
+"magic_armor" : monster.magic_armor, \
+"movement_speed" : monster.movement_speed, \
+"cooldown_reduction" : 0.0, \
+"health_regeneration" : monster.health_regeneration, \
+"max_health" : monster.max_health, \
+"life_steal" : 0.0}
+
 @onready var health : int = monster.max_health
 var level := int(1)
 var player_target : Object
@@ -50,12 +60,12 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	var _final_damage : int
 	match damage_type:
 		0:
-			_final_damage = max(damage - monster.physical_armor, 0.0)
+			_final_damage = max(damage - stats.physical_armor, 0.0)
 		1:
-			_final_damage = max(damage - monster.magic_armor, 0.0)
+			_final_damage = max(damage - stats.magic_armor, 0.0)
 	
 	health = max(health - _final_damage, 0.0)
-	health_bar.value = float(health) / float(monster.max_health) * 100.0
+	health_bar.value = float(health) / float(stats.max_health) * 100.0
 	if is_dead():
 		damage_dealer.gain_experience(monster.experience_drop)
 		die()
@@ -102,14 +112,14 @@ func movement() -> void:
 		input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * monster.movement_speed
-		velocity.z = direction.z * monster.movement_speed
+		velocity.x = direction.x * stats.movement_speed
+		velocity.z = direction.z * stats.movement_speed
 		face_direction(direction.rotated(Vector3.UP, PI/2.0))
 	else:
 		if player_target:
 			face_direction(global_position.direction_to(Vector3(player_target.global_position.x, global_position.y, player_target.global_position.z)).rotated(Vector3.UP, PI/2.0))
-		velocity.x = move_toward(velocity.x, 0, monster.movement_speed)
-		velocity.z = move_toward(velocity.z, 0, monster.movement_speed)
+		velocity.x = move_toward(velocity.x, 0, stats.movement_speed)
+		velocity.z = move_toward(velocity.z, 0, stats.movement_speed)
 	
 	move_and_slide()
 

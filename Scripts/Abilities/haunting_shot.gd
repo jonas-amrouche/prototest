@@ -1,7 +1,5 @@
 extends Node3D
 
-const DISPOSSESSED_WILLOW = preload("res://Ressources/Monsters/DispossessedWillow.tres")
-
 @onready var collision = $Area
 @onready var manager = get_node("..")
 
@@ -12,7 +10,7 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():
 					if p != ability_dealer and !ability_dealer.is_dead():
-						p.take_damage(DISPOSSESSED_WILLOW.magic_damage, 1, ability_dealer)
+						p.take_damage(ability_dealer.stats.magic_damage, 1, ability_dealer)
 				manager.in_animation = false
 				manager.start_ability_cooldown(ability)
 				queue_free()))

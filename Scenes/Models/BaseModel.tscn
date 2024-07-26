@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4tmepnlrkm6v"]
+[gd_scene load_steps=11 format=3 uid="uid://b4tmepnlrkm6v"]
 
 [ext_resource type="PackedScene" uid="uid://dyd3egq2ropay" path="res://Assets/3D/Base.glb" id="1_6fxvf"]
 [ext_resource type="Texture2D" uid="uid://c0ikujullvs8t" path="res://Assets/2D/PBR/pavement_v1.png" id="2_vh78p"]
 [ext_resource type="Material" uid="uid://cv7l5206uurjd" path="res://Ressources/Materials/PBR/Stone1.tres" id="3_4m88m"]
+[ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="3_tdck8"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="4_qblyy"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Ressources/Materials/PBR/Metal2.tres" id="5_fcq0b"]
 [ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Ressources/Materials/PBR/DarkRope1.tres" id="8_pn6ex"]
@@ -13,21 +14,22 @@ albedo_color = Color(0.494792, 0.494792, 0.494792, 1)
 albedo_texture = ExtResource("2_vh78p")
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sx0pl"]
-albedo_color = Color(0.494792, 0.494792, 0.494792, 1)
-albedo_texture = ExtResource("2_vh78p")
-uv1_triplanar = true
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tsk2"]
+albedo_color = Color(0.0594087, 0.0876395, 0.140625, 1)
 
 [node name="BaseModel" instance=ExtResource("1_6fxvf")]
 
 [node name="BaseCamp" parent="." index="0"]
+layers = 4
 surface_material_override/0 = SubResource("StandardMaterial3D_2sih0")
 
 [node name="BaseCampFurnitures" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_sx0pl")
+layers = 4
+surface_material_override/0 = ExtResource("3_tdck8")
 surface_material_override/1 = ExtResource("3_4m88m")
 surface_material_override/2 = ExtResource("4_qblyy")
 surface_material_override/3 = ExtResource("5_fcq0b")
 surface_material_override/4 = ExtResource("9_5wwe4")
 surface_material_override/5 = ExtResource("9_5wwe4")
 surface_material_override/6 = ExtResource("8_pn6ex")
+surface_material_override/7 = SubResource("StandardMaterial3D_5tsk2")

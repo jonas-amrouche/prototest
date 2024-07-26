@@ -1,8 +1,8 @@
 extends PanelContainer
 
-@export var icon : Texture2D
-@export var stat : String
+var stat : Stat
+var stat_value
 
 func _ready():
-	$MarginCont/StatIcon.texture = icon
-	$MarginCont/StatLabel.text = stat
+	$MarginCont/StatIcon.texture = stat.icon
+	$MarginCont/StatLabel.text = str(stat_value)

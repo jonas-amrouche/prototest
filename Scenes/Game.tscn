@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_3x643"]
-[ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Ressources/Materials/PBR/Grass1.tres" id="2_btit4"]
+[ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Ressources/Materials/PBR/Grass1.tres" id="2_wueqv"]
 [ext_resource type="ArrayMesh" uid="uid://pb64ioywdk2t" path="res://Ressources/Meshs/Tree1.tres" id="3_fbphk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
@@ -41,7 +41,7 @@ adjustment_contrast = 1.05
 adjustment_saturation = 0.8
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2bjdm"]
-material = ExtResource("2_btit4")
+material = ExtResource("2_wueqv")
 size = Vector2(250, 250)
 
 [sub_resource type="MultiMesh" id="MultiMesh_jwov1"]
@@ -85,6 +85,7 @@ environment = SubResource("Environment_ajjs0")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781861, -0.38835, -0.811694, 0.436277, 0, 10.3159, -7.18087)
+light_cull_mask = 4294967291
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.507258, 0)

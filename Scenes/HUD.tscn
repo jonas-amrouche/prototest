@@ -1,8 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=38 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
+[ext_resource type="PackedScene" uid="uid://k5hwxx3mfhp6" path="res://Scenes/UI/ComponentHud.tscn" id="3_rlkqk"]
+[ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/ItemHud.tscn" id="4_vtbau"]
+[ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
 bg_color = Color(0, 0, 0, 0.423529)
@@ -29,7 +32,7 @@ border_color = Color(0.125911, 0.125911, 0.125911, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sk5d"]
 bg_color = Color(0.180666, 0.468389, 4.81307e-07, 1)
-border_width_right = 5
+border_width_right = 3
 border_color = Color(1.86507e-07, 0.268013, 0.0425503, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4d3t"]
@@ -43,6 +46,85 @@ border_width_bottom = 1
 bg_color = Color(0.563563, 0.234466, 0.999993, 1)
 border_width_right = 3
 border_color = Color(0.521221, 0.00156242, 0.714876, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5eco"]
+bg_color = Color(0.25098, 0.223529, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqwct"]
+bg_color = Color(0.25098, 0.223529, 0.164706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46t2u"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ciea6"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rr6r5"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0txay"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp07q"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf1rx"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6ae3"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfgpa"]
+resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1q5o"]
+bg_color = Color(0.533333, 0.439216, 0.415686, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -63,6 +145,26 @@ border_color = Color(0.521221, 0.00156242, 0.714876, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukpxu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
+font_size = 25
+font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4lrj"]
+bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
+bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fa6t0"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -153,19 +255,15 @@ color = Color(0.228659, 0.177345, 0.165098, 1)
 
 [node name="BarContainer" type="PanelContainer" parent="ActionPanel"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -292.5
-offset_top = -113.0
+offset_top = 9.0
 offset_right = 292.5
-offset_bottom = -99.0
+offset_bottom = 23.0
 grow_horizontal = 2
-grow_vertical = 0
 mouse_filter = 2
-metadata/_edit_lock_ = true
 
 [node name="Pad" type="MarginContainer" parent="ActionPanel/BarContainer"]
 custom_minimum_size = Vector2(0, 14)
@@ -261,8 +359,8 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -395.0
-offset_top = -317.0
-offset_right = -78.0
+offset_top = -359.0
+offset_right = -36.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -271,22 +369,22 @@ color = Color(0.227451, 0.176471, 0.164706, 1)
 [node name="MiniMap" parent="." instance=ExtResource("1_4iu7d")]
 layout_mode = 1
 offset_left = -387.0
-offset_top = -309.0
-offset_right = -87.0
+offset_top = -353.0
+offset_right = -43.0
 offset_bottom = -9.0
+mouse_filter = 0
 
-[node name="Components" type="ColorRect" parent="."]
+[node name="Components" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1908.0
-offset_top = 833.0
-offset_right = -1746.0
-offset_bottom = 1080.0
-grow_horizontal = 0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -148.0
+offset_right = 299.0
+grow_vertical = 0
 mouse_filter = 1
-color = Color(0.251013, 0.224317, 0.166158, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_n5eco")
 
 [node name="Pad" type="MarginContainer" parent="Components"]
 layout_mode = 1
@@ -299,25 +397,80 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
 
 [node name="CompList" type="GridContainer" parent="Components/Pad"]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
-columns = 3
+columns = 6
+metadata/_edit_lock_ = true
 
-[node name="Items" type="ColorRect" parent="."]
+[node name="ComponentHud" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud2" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud3" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud4" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud5" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud6" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud7" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud8" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud9" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud10" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud11" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud12" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud13" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud14" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud15" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud16" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud17" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ComponentHud18" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="Items" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1736.0
-offset_top = 964.0
-offset_right = -1559.0
-offset_bottom = 1080.0
-grow_horizontal = 0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 454.0
+offset_top = -99.0
+offset_right = 649.0
+grow_vertical = 0
 mouse_filter = 1
-color = Color(0.251013, 0.224317, 0.166158, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_vqwct")
 
 [node name="Pad" type="MarginContainer" parent="Items"]
 layout_mode = 1
@@ -339,18 +492,52 @@ theme_override_constants/v_separation = 3
 columns = 4
 metadata/_edit_lock_ = true
 
-[node name="Stats" type="ColorRect" parent="."]
+[node name="ItemHud" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46t2u")
+
+[node name="ItemHud2" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ciea6")
+
+[node name="ItemHud3" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rr6r5")
+
+[node name="ItemHud4" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0txay")
+
+[node name="ItemHud5" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gp07q")
+
+[node name="ItemHud6" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tf1rx")
+
+[node name="ItemHud7" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t6ae3")
+
+[node name="ItemHud8" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nfgpa")
+
+[node name="Stats" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -460.0
-offset_top = 779.0
-offset_right = -399.0
-offset_bottom = 1080.0
+anchor_bottom = 1.0
+offset_left = -464.0
+offset_top = -237.0
+offset_right = -403.0
 grow_horizontal = 0
+grow_vertical = 0
 mouse_filter = 2
-color = Color(0.532872, 0.437675, 0.415655, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_e1q5o")
 
 [node name="MarginContainer" type="MarginContainer" parent="Stats"]
 layout_mode = 1
@@ -433,7 +620,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 7.0
-offset_right = -490.0
+offset_right = -554.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -776,4 +963,272 @@ offset_bottom = 1067.0
 mouse_filter = 2
 color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
 
+[node name="Craft" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -221.0
+offset_right = 299.0
+offset_bottom = -168.0
+grow_vertical = 0
+color = Color(0.145833, 0.129883, 0.0957031, 1)
+
+[node name="Pad" type="MarginContainer" parent="Craft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="CraftSteps" type="HBoxContainer" parent="Craft/Pad"]
+layout_mode = 2
+theme_override_constants/separation = 5
+metadata/_edit_lock_ = true
+
+[node name="Materials" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="ComponentHud" parent="Craft/Pad/CraftSteps/Materials" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="Substance" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="ComponentHud2" parent="Craft/Pad/CraftSteps/Substance" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="Catalyzer" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="ComponentHud3" parent="Craft/Pad/CraftSteps/Catalyzer" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="Enchantment" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="ComponentHud4" parent="Craft/Pad/CraftSteps/Enchantment" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+
+[node name="ColorRect" type="TextureRect" parent="Craft/Pad/CraftSteps"]
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+
+[node name="ComponentHud14" parent="Craft/Pad/CraftSteps" instance=ExtResource("3_rlkqk")]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Bind" type="HBoxContainer" parent="Craft/Pad"]
+layout_mode = 2
+theme_override_constants/separation = 5
+metadata/_edit_lock_ = true
+
+[node name="1" type="Label" parent="Craft/Pad/Bind"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_rr6i0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2" type="Label" parent="Craft/Pad/Bind"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+text = "2"
+label_settings = SubResource("LabelSettings_rr6i0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3" type="Label" parent="Craft/Pad/Bind"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+text = "3"
+label_settings = SubResource("LabelSettings_rr6i0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4" type="Label" parent="Craft/Pad/Bind"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+text = "4"
+label_settings = SubResource("LabelSettings_rr6i0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Craft"]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = -28.0
+offset_right = 39.0
+offset_bottom = -4.0
+color = Color(0.489583, 0.297306, 0.140627, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Craft"]
+visible = false
+layout_mode = 0
+offset_left = 65.0
+offset_top = -28.0
+offset_right = 89.0
+offset_bottom = -4.0
+color = Color(0.249837, 0.337389, 0.489583, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Craft"]
+visible = false
+layout_mode = 0
+offset_left = 115.0
+offset_top = -28.0
+offset_right = 139.0
+offset_bottom = -4.0
+color = Color(0.489583, 0.149153, 0.198037, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Craft"]
+visible = false
+layout_mode = 0
+offset_left = 165.0
+offset_top = -28.0
+offset_right = 189.0
+offset_bottom = -4.0
+color = Color(0.481053, 0.188391, 0.489583, 1)
+
+[node name="DecomposeItem" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 463.0
+offset_top = -159.0
+offset_right = 638.0
+offset_bottom = -107.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4lrj")
+
+[node name="Pad" type="MarginContainer" parent="DecomposeItem"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="ItemHud" parent="DecomposeItem/Pad" instance=ExtResource("4_vtbau")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Button" type="Button" parent="DecomposeItem/Pad"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "DECOMPOSE"
+
+[node name="CraftAvailable" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(249, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -247.0
+offset_right = 278.0
+offset_bottom = -159.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
+
+[node name="Pad" type="MarginContainer" parent="CraftAvailable"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="Order" type="VBoxContainer" parent="CraftAvailable/Pad"]
+layout_mode = 2
+alignment = 2
+
+[node name="CraftItemPanel" type="PanelContainer" parent="CraftAvailable/Pad/Order"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fa6t0")
+
+[node name="CraftAvailable" type="GridContainer" parent="CraftAvailable/Pad/Order/CraftItemPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+columns = 5
+metadata/_edit_lock_ = true
+
+[node name="Nothing" type="Label" parent="CraftAvailable/Pad/Order/CraftItemPanel"]
+visible = false
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Nothing :("
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Craft" type="Button" parent="CraftAvailable/Pad/Order"]
+layout_mode = 2
+size_flags_vertical = 8
+focus_mode = 0
+disabled = true
+text = "CRAFT"
+metadata/_edit_lock_ = true
+
+[node name="Back" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1272.0
+offset_top = 1034.0
+offset_right = 1312.0
+offset_bottom = 1074.0
+color = Color(0.801324, 0.255313, 0.880208, 1)
+
+[node name="Label" type="Label" parent="Back"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "B"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Souls" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1407.0
+offset_top = 1034.0
+offset_right = 1447.0
+offset_bottom = 1074.0
+texture = ExtResource("7_1ajdh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SoulsLabel" type="Label" parent="Souls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
+[connection signal="pressed" from="CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_pressed"]

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Passive" load_steps=2 format=3 uid="uid://b835v48to8m6k"]
+
+[ext_resource type="Script" path="res://Scripts/PassiveClass.gd" id="1_03281"]
+
+[resource]
+script = ExtResource("1_03281")
+id = "jungle_way"
+name = "Jungle's way"
+description = "deal 5 extra physical damage when damaging a monster."
+color = Color(0.46171, 0.546875, 0.398326, 1)

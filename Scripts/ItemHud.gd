@@ -1,9 +1,13 @@
 extends PanelContainer
 
 @export var item : Item
-signal drag_drop_item(item_dropped : Item)
+signal drag_item(slot : Object)
+signal drop_item(slot : Object)
+signal update_item_preview()
+signal mouse_entered_item(itm : Item)
 
-@onready var icon = $MarginIcon/Icon
+@onready var icon = $RarityCont/Rarity/MarginIcon/Icon
+@onready var rarity_pan = $RarityCont/Rarity
 
 func _ready():
 	update_slot()
@@ -11,23 +15,37 @@ func _ready():
 func update_slot() -> void:
 	if item:
 		icon.texture = item.icon
-		get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
+		rarity_pan.get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
+	else:
+		icon.texture = null
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == 1 and !event.pressed:
+		var _mouse_pos = get_viewport().get_mouse_position()
+		var _trigger = Rect2(global_position, size)
+		if _mouse_pos.x > _trigger.position.x and _mouse_pos.x < _trigger.end.x and _mouse_pos.y > _trigger.position.y and _mouse_pos.y < _trigger.end.y:
+			drop_item.emit(self)
+			mouse_entered_item.emit(item)
 
 var grabbed = false
 func _on_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if event.pressed:
+	if event is InputEventMouseButton and event.button_index == 1:
+		if event.pressed:
+			if item:
 				grabbed = true
-				icon.z_index = 1
-			else:
-				grabbed = false
-				icon.z_index = 0
-				var _grab_pos = get_viewport().get_mouse_position()
-				var _invetory_area = Rect2(get_node("..").global_position.x, get_node("..").global_position.y, get_node("..").size.x, get_node("..").size.y)
-				if _grab_pos.x > _invetory_area.position.x and _grab_pos.x < _invetory_area.end.x and _grab_pos.y > _invetory_area.position.y and _grab_pos.y < _invetory_area.end.y:
-					icon.position = Vector2(2, 2)
-				else:
-					drag_drop_item.emit(item)
-	if event is InputEventMouseMotion and grabbed:
-		icon.position = get_viewport().get_mouse_position() - global_position - size/2.0
+				rarity_pan.z_index = 1
+				drag_item.emit(self)
+				mouse_exited.emit()
+		else:
+			rarity_pan.z_index = 0
+			rarity_pan.position = Vector2(2.0, 2.0)
+			grabbed = false
+	if event is InputEventMouseMotion:
+		if grabbed:
+			rarity_pan.position = get_viewport().get_mouse_position() - global_position - size/2.0
+		else:
+			update_item_preview.emit()
+
+func _on_mouse_entered():
+	if !grabbed:
+		mouse_entered_item.emit(item)

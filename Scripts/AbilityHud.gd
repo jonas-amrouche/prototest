@@ -25,11 +25,11 @@ func update_slot() -> void:
 	if ability:
 		icon.set_texture(ability.icon)
 		item_icon.set_texture(item.icon)
-		rarity_frame.get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
+		#rarity_frame.get("theme_override_styles/panel").set("bg_color", Basics.RARITY_COLORS[item.rarity])
 	else:
 		icon.set_texture(null)
 		item_icon.set_texture(null)
-		rarity_frame.get("theme_override_styles/panel").set("bg_color", Color(1.0, 1.0, 1.0, 0.0))
+		#rarity_frame.get("theme_override_styles/panel").set("bg_color", Color(1.0, 1.0, 1.0, 0.0))
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == 1 and !event.pressed:
@@ -59,13 +59,5 @@ func _on_gui_input(event):
 			icon.z_index = 0
 			icon.position = Vector2(2.0, 2.0)
 			grabbed = false
-			#var _grab_pos = get_viewport().get_mouse_position()
-			#var _invetory_area = Rect2(get_node("..").global_position, get_node("..").size)
-			#if _grab_pos.x > _invetory_area.position.x and _grab_pos.x < _invetory_area.end.x and _grab_pos.y > _invetory_area.position.y and _grab_pos.y < _invetory_area.end.y:
-				#if !grabbed:
-					#drop_ability.emit(self)
-			#else:
-				#icon.position = Vector2(2.0, 2.0)
-			#grabbed = false
 	if event is InputEventMouseMotion and grabbed:
 		icon.position = get_viewport().get_mouse_position() - global_position - size/2.0

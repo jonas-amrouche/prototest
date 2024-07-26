@@ -11,17 +11,11 @@ id = "big_sword"
 name = "Big Sword"
 description = "Test Big sword."
 icon = ExtResource("2_185fy")
+rarity = 1
 mesh_model = ExtResource("4_p20xn")
 craft_recipe = {}
 abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("2_jebph")])
-physical_damage = 30
-magic_damage = 0
-physical_armor = 0
-magic_armor = 0
-movement_speed = 0.0
-cooldown_reduction = 0.0
-health_regeneration = 0.0
-strength_regeneration = 0.0
-max_health = 0
-max_strength = 0
-life_steal = 0.0
+passives = Array[Resource("res://Scripts/PassiveClass.gd")]([])
+stats = {
+"physical_damage": 30
+}

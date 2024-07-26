@@ -69,13 +69,14 @@ script = ExtResource("1_dq7lx")
 shape = SubResource("CylinderShape3D_j70xh")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 16, 2.5)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14, 7)
 current = true
 fov = 50.0
+size = 12.392
 far = 512.0
 
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 16, 2.5)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14, 7)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -97,12 +98,15 @@ libraries = {
 wait_time = 2.0
 autostart = true
 
+[node name="UpdateFog" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [node name="Recall" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
 
 [node name="FogVolume" type="FogVolume" parent="."]
-visible = false
 size = Vector3(15, 50, 15)
 shape = 2
 material = SubResource("FogMaterial_ikays")
@@ -131,5 +135,6 @@ texture = SubResource("ViewportTexture_najce")
 autostart = true
 
 [connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
+[connection signal="timeout" from="UpdateFog" to="." method="_on_update_fog_timeout"]
 [connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]

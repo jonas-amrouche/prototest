@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Stat" load_steps=3 format=3 uid="uid://dn7iuekr5frnq"]
+
+[ext_resource type="Texture2D" uid="uid://bwne0y8slpyej" path="res://Assets/2D/UI/stat_movement_speed.png" id="1_2yfcf"]
+[ext_resource type="Script" path="res://Scripts/StatClass.gd" id="1_8jp8o"]
+
+[resource]
+script = ExtResource("1_8jp8o")
+id = "movement_speed"
+name = "Movement Speed"
+description = "Movement speed of the entity."
+icon = ExtResource("1_2yfcf")

@@ -1,0 +1,140 @@
+[gd_scene load_steps=13 format=3 uid="uid://df1e6em0ealvc"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
+[ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/HUD.tscn" id="2_hi5xs"]
+[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
+[ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="5_y7wx0"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Abilities.tscn" id="6_70mv7"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
+radius = 0.387958
+
+[sub_resource type="Animation" id="Animation_owarj"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2.21914, -2.21914, -2.21914),
+"update": 0,
+"values": [Vector3(0, -1.05, 0), Vector3(0, -1.146, 0), Vector3(0, -1.05, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c7xug"]
+resource_name = "walk"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2.21914, -2.21914, -2.21914),
+"update": 0,
+"values": [Vector3(0, -0.9, 0), Vector3(0, -1.296, 0), Vector3(0, -0.9, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wh1mf"]
+_data = {
+"idle": SubResource("Animation_owarj"),
+"walk": SubResource("Animation_c7xug")
+}
+
+[sub_resource type="FogMaterial" id="FogMaterial_ikays"]
+density = -8.0
+edge_fade = 0.00980727
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
+albedo_color = Color(0.702981, 0.218569, 0.858824, 1)
+metallic_specular = 0.0
+emission = Color(0.621644, 0.414624, 0.8125, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_dq7lx")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_j70xh")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 16, 2.5)
+current = true
+fov = 50.0
+far = 512.0
+
+[node name="CameraBaseMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 16, 2.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_hi5xs")]
+
+[node name="PlayerModel" parent="." instance=ExtResource("3_7gopy")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
+
+[node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
+
+[node name="Anims" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wh1mf")
+}
+
+[node name="NavAgent" type="NavigationAgent3D" parent="."]
+
+[node name="UpdateMovementLine" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="UpdateFog" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Recall" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="FogVolume" type="FogVolume" parent="."]
+size = Vector3(15, 50, 15)
+shape = 2
+material = SubResource("FogMaterial_ikays")
+
+[node name="RecallVisual" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76372, 0)
+visible = false
+radius = 0.921418
+height = 0.0877011
+material = SubResource("StandardMaterial3D_ag6sr")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(200, 30)
+
+[node name="Infos" parent="SubViewport" instance=ExtResource("5_y7wx0")]
+color = Color(0, 0.611765, 0.192157, 1)
+
+[node name="InfoBar" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37512, -0.455705)
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_najce")
+
+[node name="StatRegen" type="Timer" parent="."]
+autostart = true
+
+[connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
+[connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]
+[connection signal="timeout" from="UpdateFog" to="." method="_on_update_fog_timeout"]
+[connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
+[connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]

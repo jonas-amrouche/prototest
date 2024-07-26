@@ -2,32 +2,26 @@ extends Control
 
 const MAP_SIZE = Vector2(200.0, 200.0)
 var category_selected := 0
-var item_workshop_selected : Item
+var item_craft_selected : Item
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
-var pre_item_workshop_list = preload("res://Scenes/UI/ItemWorkshopList.tscn")
+var pre_item_craft_list = preload("res://Scenes/UI/ItemCraftList.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
+var pre_item_preview = preload("res://Scenes/UI/ItemPreview.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
-
-var stats_icons = [preload("res://Assets/2D/UI/stat_physical.png"), \
-preload("res://Assets/2D/UI/stat_magic.png"), \
-preload("res://Assets/2D/UI/stat_armor_physical.png"), \
-preload("res://Assets/2D/UI/stat_armor_magic.png"), \
-preload("res://Assets/2D/UI/stat_movement_speed.png"), \
-preload("res://Assets/2D/UI/stat_souls.png"), \
-preload("res://Assets/2D/UI/stat_cdr.png"), \
-preload("res://Assets/2D/UI/stat_health_regen.png"), \
-preload("res://Assets/2D/UI/stat_max_health.png"), \
-preload("res://Assets/2D/UI/stat_life_steal.png")]
 
 @onready var player := get_node("..").get_node("..")
 @onready var scoreboard := $ScoreBoard
 @onready var chat := $Chat
+@onready var craft_tab := $CraftAvailable
+@onready var craft_available_container := $CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
+@onready var craft_available_nothing := $CraftAvailable/Pad/Order/CraftItemPanel/Nothing
+@onready var decompose_tab := $DecomposeItem
 @onready var component_list := $Components/Pad/CompList
 @onready var item_list = $Items/Pad/ItemList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
@@ -35,15 +29,17 @@ preload("res://Assets/2D/UI/stat_life_steal.png")]
 @onready var channeling_bar := $ChannelingBar
 @onready var mini_map := $MiniMap
 @onready var workshop := $Workshop
-@onready var workshop_item_list := $Workshop/ItemBoard/ItemListContainer/Pad/ItemList
-@onready var workshop_item_inspection_icon := $Workshop/ViewAndMake/Inspector/ItemView
-@onready var workshop_item_inspection_name := $Workshop/ViewAndMake/Inspector/ItemName
-@onready var workshop_item_inspection_desc := $Workshop/ViewAndMake/Inspector/ItemDesc
-@onready var workshop_item_inspection_comps := $Workshop/ViewAndMake/Inspector/ComponentsNeeded
-@onready var workshop_item_craft_button := $Workshop/ViewAndMake/Inspector/CraftItem
+#@onready var workshop_item_list := $Workshop/ItemBoard/ItemListContainer/Pad/ItemList
+#@onready var workshop_item_inspection_icon := $Workshop/ViewAndMake/Inspector/ItemView
+#@onready var workshop_item_inspection_name := $Workshop/ViewAndMake/Inspector/ItemName
+#@onready var workshop_item_inspection_desc := $Workshop/ViewAndMake/Inspector/ItemDesc
+#@onready var workshop_item_inspection_comps := $Workshop/ViewAndMake/Inspector/ComponentsNeeded
+@onready var item_craft_button := $CraftAvailable/Pad/Order/Craft
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
 @onready var experience_gem_container := $Pad/ExpContainer
 @onready var level_label_hud := $LevelPan/LevelInd
+
+var item_preview
 
 func _process(_delta):
 	mini_map.update_camera_position(player.camera.global_position, player.camera_base_marker.position)
@@ -54,9 +50,9 @@ func update_map_data(paths_data : Array[PackedVector2Array], bases_data : Packed
 	initialize_fog_map(bases_data)
 
 func update_info_bars() -> void:
-	player.health_bar.value = float(player.health) / float(player.max_health) * 100.0
+	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
 	player.level_label.text = str(player.level)
-	health_bar_hud.value = float(player.health) / float(player.max_health) * 100.0
+	health_bar_hud.value = float(player.health) / float(player.stats.max_health) * 100.0
 	level_label_hud.text = str(player.level)
 	
 	for i in experience_gem_container.get_children():
@@ -69,7 +65,7 @@ func update_info_bars() -> void:
 
 var fog_map : Image
 var density_tex : ImageTexture3D
-const FOG_RESOLUTION = 1
+const FOG_RESOLUTION = 2
 const FOG_TEXTURE_SIZE = Vector2i(int(MAP_SIZE.x), int(MAP_SIZE.y)) * FOG_RESOLUTION
 const FOG_PLAYER_SIZE = Vector2i(15, 15) * FOG_RESOLUTION
 const FOG_BASE_SIZE = Vector2i(24, 24) * FOG_RESOLUTION
@@ -96,73 +92,75 @@ func world_to_fog_position(pos : Vector2) -> Vector2i:
 func _on_close_workshop_pressed() -> void:
 	workshop.set_visible(false)
 
-#func _on_update_movement_line_timeout() -> void: #MINILAG
-	#if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		#nav.target_position = player.global_position
-	#nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
-	#update_map_fog()
-
-func _on_craft_item_pressed():
-	if player.in_workshop:
-		for c in range(item_workshop_selected.craft_recipe.size()):
-			player.lose_component(item_workshop_selected.craft_recipe.keys()[c], item_workshop_selected.craft_recipe.values()[c])
-			
-			#if item_workshop_selected.craft_recipe.values()[c] == player.components.get(item_workshop_selected.craft_recipe.keys()[c]):
-				#player.components.erase(item_workshop_selected.craft_recipe.keys()[c])
-			#else:
-				#var _new_quantity = player.components.get(item_workshop_selected.craft_recipe.keys()[c]) - item_workshop_selected.craft_recipe.values()[c]
-				#var _new_components = {item_workshop_selected.craft_recipe.keys()[c]:_new_quantity}
-				#player.components.merge(_new_components, true)
-		update_workshop_inspection_tab(item_workshop_selected)
+#func _on_craft_item_pressed():
+	#if player.in_workshop:
+		#for c in range(item_workshop_selected.craft_recipe.size()):
+			#player.lose_component(item_workshop_selected.craft_recipe.keys()[c], item_workshop_selected.craft_recipe.values()[c])
+		#update_workshop_inspection_tab(item_workshop_selected)
 
 func select_item(item : Item) -> void:
-	item_workshop_selected = item
-	update_workshop_inspection_tab(item)
+	item_craft_selected = item
+	item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
 
-func update_workshop_item_list(category : int) -> void:
-	for i in workshop_item_list.get_children():
+func update_craft_available() -> void:
+	for i in craft_available_container.get_children():
 		i.queue_free()
-	match category:
-		0:
-			for i in range(all_item_base.base.size()):
-				var _new_item = pre_item_workshop_list.instantiate()
-				_new_item.item = all_item_base.base[i]
-				workshop_item_list.add_child(_new_item)
-				_new_item.select_item.connect(Callable(self, "select_item"))
+	
+	for i in all_item_base.base:
+		if player.is_item_craftable(i):
+			var _new_item_craft = pre_item_craft_list.instantiate()
+			_new_item_craft.item = i
+			_new_item_craft.select_item.connect(Callable(self, "select_item"))
+			craft_available_container.add_child(_new_item_craft)
+	
+	craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
 
-func update_workshop_inspection_tab(item : Item) -> void:
-	for i in workshop_item_inspection_comps.get_children():
-		i.queue_free()
-	if item:
-		workshop_item_inspection_icon.texture = item.icon
-		workshop_item_inspection_name.text = item.name
-		workshop_item_inspection_desc.text = item.description
-		workshop_item_craft_button.disabled = !player.is_item_craftable(item, player.components) or player.items.has(item)
-		for c in range(item.craft_recipe.size()):
-			var _new_comps_needed = pre_component_hud.instantiate()
-			_new_comps_needed.component = item.craft_recipe.keys()[c]
-			_new_comps_needed.quantity = item.craft_recipe.values()[c]
-			workshop_item_inspection_comps.add_child(_new_comps_needed)
-	else:
-		workshop_item_inspection_icon.texture = null
-		workshop_item_inspection_name.text = ""
-		workshop_item_inspection_desc.text = ""
-		workshop_item_craft_button.disabled = true
+#func update_workshop_item_list(category : int) -> void:
+	#for i in workshop_item_list.get_children():
+		#i.queue_free()
+	#match category:
+		#0:
+			#for i in range(all_item_base.base.size()):
+				#var _new_item = pre_item_workshop_list.instantiate()
+				#_new_item.item = all_item_base.base[i]
+				#workshop_item_list.add_child(_new_item)
+				#_new_item.select_item.connect(Callable(self, "select_item"))
+
+#func update_workshop_inspection_tab(item : Item) -> void:
+	#for i in workshop_item_inspection_comps.get_children():
+		#i.queue_free()
+	#if item:
+		#workshop_item_inspection_icon.texture = item.icon
+		#workshop_item_inspection_name.text = item.name
+		#workshop_item_inspection_desc.text = item.description
+		#workshop_item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
+		#for c in range(item.craft_recipe.size()):
+			#var _new_comps_needed = pre_component_hud.instantiate()
+			#_new_comps_needed.component = item.craft_recipe.keys()[c]
+			#_new_comps_needed.quantity = item.craft_recipe.values()[c]
+			#workshop_item_inspection_comps.add_child(_new_comps_needed)
+	#else:
+		#workshop_item_inspection_icon.texture = null
+		#workshop_item_inspection_name.text = ""
+		#workshop_item_inspection_desc.text = ""
+		#workshop_item_craft_button.disabled = true
 
 func update_abilities() -> void:
 	# Clear ability bar
 	for a_slot in ability_list.get_children():
 		a_slot.queue_free()
 	
-	# Update abilities array
+	# Get item data
 	var _abilities_had = []
 	var _item_link = Dictionary()
 	for i in player.items:
+		if i == null:
+			continue
 		for a in i.abilities:
 			_abilities_had.append(a)
 			_item_link.merge({a : i})
 	
-	# Allow bindings of abilities
+	# Allow slot binding of ability
 	for a in _abilities_had:
 		if player.abilities.has(a):
 			continue
@@ -188,45 +186,114 @@ func update_abilities() -> void:
 		ability_list.add_child(_new_ability_hud)
 
 func update_items() -> void:
+	# Clear item bar
 	for i in item_list.get_children():
 		i.queue_free()
+	
+	# Populate item bar
 	for i in player.items:
 		var _new_item_hud = pre_item_hud.instantiate()
-		_new_item_hud.item = i
-		_new_item_hud.connect("drag_drop_item", Callable(player, "drop_item"))
+		if i:
+			_new_item_hud.item = i
+		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
+		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
+		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
+		_new_item_hud.connect("update_item_preview", Callable(self, "update_item_preview"))
 		item_list.add_child(_new_item_hud)
+
+func show_item_preview(item : Item) -> void:
+	if item:
+		item_preview = pre_item_preview.instantiate()
+		item_preview.hide()
+		item_preview.item = item
+		add_child(item_preview)
+
+func hide_item_preview() -> void:
+	if item_preview:
+		item_preview.queue_free()
+		item_preview = null
+
+func update_item_preview() -> void:
+	if item_preview:
+		item_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, item_preview.size.y)
 
 func update_components() -> void:
 	for i in component_list.get_children():
 		i.queue_free()
 	for i in range(player.components.size()):
 		var _new_component_hud = pre_component_hud.instantiate()
-		_new_component_hud.component = player.components.keys()[i]
-		_new_component_hud.quantity = player.components.values()[i]
+		if player.components[i]:
+			_new_component_hud.component = player.components[i]
+			_new_component_hud.quantity = player.comp_quantities[i]
+		_new_component_hud.connect("drag_component", Callable(self, "drag_component"))
+		_new_component_hud.connect("drop_component", Callable(self, "drop_component"))
 		component_list.add_child(_new_component_hud)
 
-func update_stats_hud() -> void:
-	var _stats = [player.physical_damage, player.magic_damage, player.physical_armor, \
-	player.magic_armor, player.movement_speed, player.souls, player.cooldown_reduction, \
-	player.health_regeneration, player.max_health, player.life_steal]
+#func update_craft() -> void:
+	#pass
+	#for i in craft_list.get_children():
+		#i.queue_free()
+	#for i in range(player.components.size()):
+		#var _new_component_hud = pre_component_hud.instantiate()
+		#if player.components[i]:
+			#_new_component_hud.component = player.components[i]
+			#_new_component_hud.quantity = player.comp_quantities[i]
+		#_new_component_hud.connect("drag_component", Callable(self, "drag_component"))
+		#_new_component_hud.connect("drop_component", Callable(self, "drop_component"))
+		#component_list.add_child(_new_component_hud)
 	
+
+func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
 	
-	for i in range(_stats.size()):
+	for i in range(player.stats.size()):
 		var _new_stat_hud = pre_stat_hud.instantiate()
-		_new_stat_hud.stat = str(_stats[i])
-		_new_stat_hud.icon = stats_icons[i]
+		_new_stat_hud.stat_value = player.stats.values()[i]
+		_new_stat_hud.stat = Basics.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
 
-var dragged_slot : Object
+var dragged_ability_slot : Object
 func drag_ability(slot : Object) -> void:
-	dragged_slot = slot
+	dragged_ability_slot = slot
 
 func drop_ability(slot : Object) -> void:
-	if dragged_slot:
+	if dragged_ability_slot:
 		var _temp_ability = slot.ability
-		player.abilities[ability_list.get_children().find(slot)] = dragged_slot.ability
-		player.abilities[ability_list.get_children().find(dragged_slot)] = _temp_ability
+		player.abilities[ability_list.get_children().find(slot)] = dragged_ability_slot.ability
+		player.abilities[ability_list.get_children().find(dragged_ability_slot)] = _temp_ability
 		update_abilities()
-		dragged_slot = null
+		dragged_ability_slot = null
+
+var dragged_component_slot : Object
+func drag_component(slot : Object) -> void:
+	dragged_component_slot = slot
+
+func drop_component(slot : Object) -> void:
+	if dragged_component_slot:
+		var _temp_component = slot.component
+		var _temp_quantity = slot.quantity if slot.component else null
+		player.components[component_list.get_children().find(slot)] = dragged_component_slot.component
+		player.comp_quantities[component_list.get_children().find(slot)] = dragged_component_slot.quantity
+		player.components[component_list.get_children().find(dragged_component_slot)] = _temp_component
+		player.comp_quantities[component_list.get_children().find(dragged_component_slot)] = _temp_quantity
+		update_components()
+		dragged_component_slot = null
+
+var dragged_item_slot : Object
+func drag_item(slot : Object) -> void:
+	dragged_item_slot = slot
+
+func drop_item(slot : Object) -> void:
+	if dragged_item_slot:
+		var _temp_item = slot.item
+		player.items[item_list.get_children().find(slot)] = dragged_item_slot.item
+		player.items[item_list.get_children().find(dragged_item_slot)] = _temp_item
+		update_items()
+		dragged_item_slot = null
+
+func _on_craft_pressed():
+	if player.in_workshop:
+		for c in range(item_craft_selected.craft_recipe.size()):
+			player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])

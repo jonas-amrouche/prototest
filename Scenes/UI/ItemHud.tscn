@@ -1,17 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" path="res://Scripts/ItemHud.gd" id="1_desy6"]
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_dk43a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hayc8"]
-resource_local_to_scene = true
+bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubnyl"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="ItemHud" type="PanelContainer"]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(45, 45)
 offset_right = 50.0
 offset_bottom = 50.0
 size_flags_vertical = 4
@@ -19,17 +22,29 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_hayc8")
 script = ExtResource("1_desy6")
 
-[node name="MarginIcon" type="MarginContainer" parent="."]
+[node name="RarityCont" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Icon" type="TextureRect" parent="MarginIcon"]
+[node name="Rarity" type="PanelContainer" parent="RarityCont"]
 layout_mode = 2
-texture = ExtResource("1_dk43a")
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ubnyl")
+
+[node name="MarginIcon" type="MarginContainer" parent="RarityCont/Rarity"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Icon" type="TextureRect" parent="RarityCont/Rarity/MarginIcon"]
+layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

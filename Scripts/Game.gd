@@ -1,7 +1,7 @@
 extends Node3D
 
 const MAP_SIZE := Vector2(200.0, 200.0)
-const CAMP_DISTANCE_TO_CENTER = 100.0
+const CAMP_DISTANCE_TO_CENTER = 75.0
 var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
@@ -35,15 +35,15 @@ func map_generation() -> void:
 	generate_lanes()
 	generate_points_and_paths()
 	generate_mid_arena()
-	generate_decoration()
-	#mirror_points() //
+	mirror_points()
 	#generate_collisions() //
+	generate_decoration()
 	generate_forest()
 	generate_camps()
 	generate_structures()
 
 func generate_bases() -> void:
-	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4)
+	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(randf_range(-PI, PI))
 	var _bases_pos = [_random_vector, _random_vector.rotated(PI)]
 	
 	for b in _bases_pos:
@@ -105,7 +105,7 @@ func generate_points_and_paths() -> void:
 	# Generate path between interest points
 	for p in interest_points_list:
 		var _point_linked = PackedVector2Array()
-		var _path_number = 4 if p == Vector2() else 2
+		var _path_number = 4 if p == Vector2() else randi_range(1, 4)
 		for path in range(_path_number):
 			var _closest_point = Vector2(1000.0, 1000.0)
 			for cp in interest_points_list:
@@ -221,8 +221,8 @@ const TREE_BORDER_LENGTH := 2.0
 const NO_TREE_BASE_DISTANCE := 15.0
 const NO_TREE_PATH_DISTANCE := 3.0
 const TREE_ROTATION_MAX = PI/6.0
-const TREE_SCALE_MIN = 0.1
-const TREE_SCALE_MAX = 0.2
+const TREE_SCALE_MIN = 0.07
+const TREE_SCALE_MAX = 0.12
 func generate_forest() -> void:
 	var tree_count = 0
 	

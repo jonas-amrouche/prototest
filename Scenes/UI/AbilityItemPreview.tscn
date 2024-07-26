@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://duqyed1kqpwb"]
+
+[ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="1_cw3yp"]
+[ext_resource type="Script" path="res://Scripts/AbilityItemPreview.gd" id="1_vbah3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tj4dl"]
+font_size = 10
+font_color = Color(0.635417, 0.635417, 0.635417, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
+font_size = 11
+
+[node name="AbilityPanel" type="Panel"]
+custom_minimum_size = Vector2(0, 55)
+offset_right = 282.0
+offset_bottom = 55.0
+mouse_filter = 2
+script = ExtResource("1_vbah3")
+
+[node name="AbilityContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="AbilityIcon" type="TextureRect" parent="AbilityContainer"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("1_cw3yp")
+expand_mode = 1
+
+[node name="AbilityDesc" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 31)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Throw a big slash of fire in the target direction."
+label_settings = SubResource("LabelSettings_tj4dl")
+autowrap_mode = 2
+
+[node name="AbilityName" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Big Forward Cut"
+label_settings = SubResource("LabelSettings_m4yqr")
+autowrap_mode = 2

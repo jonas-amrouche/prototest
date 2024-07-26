@@ -112,13 +112,13 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:
-				player.set_move_camera(true)
+				player.move_camera_click(true)
 			else:
-				player.set_move_camera(false)
+				player.move_camera_click(false)
 		#elif event.button_index == 2:
 			#if event.pressed:
-				#cursor_pos = ((viewport.get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
-				#nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
+				#cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
+				#player.nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
 	if event is InputEventMouseMotion:
 		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
 	player.move_camera_by_minimap(cursor_pos)

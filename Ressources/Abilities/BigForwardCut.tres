@@ -7,10 +7,9 @@
 script = ExtResource("2_a13jl")
 id = "big_forward_cut"
 name = "Big Forward Cut"
-description = "Deal big damage forward."
+description = "Throw a big slash of fire in the target direction."
 icon = ExtResource("1_upjs6")
 cooldown = 5.0
-strength_cost = 15
 attack_time = 0.5
 damage_type = 0
 physical_damage_cap = 75

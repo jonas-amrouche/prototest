@@ -1,7 +1,5 @@
 extends Node3D
 
-const OMNISCIENT_GOLEM = preload("res://Ressources/Monsters/OmniscientGolem.tres")
-
 @onready var collision = $Area
 @onready var manager = get_node("..")
 
@@ -14,7 +12,7 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():
 					if p != ability_dealer and !ability_dealer.is_dead():
-						p.take_damage(OMNISCIENT_GOLEM.physical_damage, 0, ability_dealer)
+						p.take_damage(ability_dealer.stats.physical_damage, 0, ability_dealer)
 				manager.in_animation = false
 				ability_dealer.update_path()
 				ability_dealer.update_path_timer.start()

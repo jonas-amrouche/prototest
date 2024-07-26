@@ -1,7 +1,5 @@
 extends Node3D
 
-const GRUNTER = preload("res://Ressources/Monsters/Grunter.tres")
-
 @onready var collision = $Area
 @onready var manager = get_node("..")
 enum ERROR {OK, IN_COOLDOWN}
@@ -12,7 +10,7 @@ func press(ability : Ability, ability_dealer : Object) -> ERROR:
 		get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 			for p in collision.get_overlapping_bodies():
 				if p != ability_dealer and !ability_dealer.is_dead():
-					p.take_damage(GRUNTER.physical_damage, 0, ability_dealer)
+					p.take_damage(ability_dealer.stats.physical_damage, 0, ability_dealer)
 			manager.in_animation = false
 			manager.start_ability_cooldown(ability)
 			queue_free()))
