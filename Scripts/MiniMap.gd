@@ -8,6 +8,7 @@ extends ColorRect
 
 @onready var player = get_node("..").get_node("..").get_node("..")
 
+const CAMERA_PERSPECTIVE_OFFSET = Vector2(0, 5.0)
 var map_size : Vector2
 
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
@@ -120,5 +121,5 @@ func _on_gui_input(event):
 				#cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
 				#player.nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
 	if event is InputEventMouseMotion:
-		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
+		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0) + CAMERA_PERSPECTIVE_OFFSET
 	player.move_camera_by_minimap(cursor_pos)

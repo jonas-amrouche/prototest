@@ -87,6 +87,10 @@ func _ready():
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
 	hud.update_info_bars()
+	hud.update_components()
+	hud.update_abilities()
+	hud.update_items()
+	hud.update_craft_available()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -338,6 +342,7 @@ func obtain_component(comp : Component, quantity : int) -> void:
 		comp_quantities[comp_quantities.find(null)] = quantity
 	
 	hud.update_components()
+	hud.update_craft_available()
 
 func lose_component(comp : Component, quantity : int) -> void:
 	if comp_quantities[components.find(comp)] == quantity:
@@ -356,6 +361,14 @@ func obtain_item(item : Item) -> void:
 	update_stats()
 	hud.update_abilities()
 	hud.update_items()
+	hud.update_craft_available()
+
+func lose_item(item : Item) -> void:
+	items[items.find(item)] = null
+	
+	update_stats()
+	hud.update_abilities()
+	hud.update_items()
 
 func entering_base() -> void:
 	area_health_regeneration = SPAWN_REGEN
@@ -364,6 +377,7 @@ func entering_base() -> void:
 	in_workshop = true
 	hud.craft_tab.show()
 	hud.decompose_tab.show()
+	hud.update_decompose()
 
 func exit_base() -> void:
 	area_health_regeneration = 0.0
@@ -371,6 +385,7 @@ func exit_base() -> void:
 	in_workshop = false
 	hud.craft_tab.hide()
 	hud.decompose_tab.hide()
+	hud.clear_decompose()
 
 func update_stats() -> void:
 	stats.physical_damage = BASE_PHYSICAL_DAMAGE

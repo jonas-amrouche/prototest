@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://cwsbhkkj0qp74"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://cwsbhkkj0qp74"]
 
 [ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="1_lmrn7"]
 [ext_resource type="Resource" uid="uid://iflvcho70g2w" path="res://Ressources/Abilities/CuttingAround.tres" id="1_ltu8q"]
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_skpvv"]
 [ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="2_fl4s8"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/CursedWood.tres" id="2_y5fpo"]
+[ext_resource type="Resource" uid="uid://d3krt0jx5j86c" path="res://Ressources/Components/EssenceOfPain.tres" id="3_44fbv"]
 [ext_resource type="Resource" uid="uid://b835v48to8m6k" path="res://Ressources/Passives/JungleWay.tres" id="4_vibmg"]
 
 [resource]
@@ -14,7 +16,10 @@ description = "It starts like that in the jungle."
 icon = ExtResource("1_skpvv")
 rarity = 0
 mesh_model = ExtResource("2_fl4s8")
-craft_recipe = {}
+craft_recipe = {
+ExtResource("2_y5fpo"): 2,
+ExtResource("3_44fbv"): 3
+}
 abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_ltu8q")])
 passives = Array[Resource("res://Scripts/PassiveClass.gd")]([ExtResource("4_vibmg")])
 stats = {

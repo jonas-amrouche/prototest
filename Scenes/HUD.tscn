@@ -1,10 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=29 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
 [ext_resource type="PackedScene" uid="uid://k5hwxx3mfhp6" path="res://Scenes/UI/ComponentHud.tscn" id="3_rlkqk"]
-[ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/ItemHud.tscn" id="4_vtbau"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
@@ -52,74 +51,17 @@ bg_color = Color(0.25098, 0.223529, 0.164706, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4lrj"]
+bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqwct"]
 bg_color = Color(0.25098, 0.223529, 0.164706, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8432"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mgep"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53jfr"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brwfh"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4nml"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l18n2"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btwrr"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shqss"]
-resource_local_to_scene = true
-bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1q5o"]
 bg_color = Color(0.533333, 0.439216, 0.415686, 1)
@@ -149,13 +91,6 @@ corner_radius_top_right = 5
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
 font_size = 25
 font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4lrj"]
-bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
 bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
@@ -406,59 +341,42 @@ theme_override_constants/v_separation = 3
 columns = 6
 metadata/_edit_lock_ = true
 
-[node name="ComponentHud" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
+[node name="DecomposeItem" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 463.0
+offset_top = -159.0
+offset_right = 638.0
+offset_bottom = -107.0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4lrj")
 
-[node name="ComponentHud2" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
+[node name="Pad" type="MarginContainer" parent="DecomposeItem"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
 
-[node name="ComponentHud3" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+[node name="Decompose" type="Button" parent="DecomposeItem/Pad"]
 layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+text = "DECOMPOSE"
 
-[node name="ComponentHud4" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
+[node name="DecomposeCont" type="PanelContainer" parent="DecomposeItem/Pad"]
 layout_mode = 2
-
-[node name="ComponentHud5" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud6" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud7" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud8" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud9" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud10" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud11" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud12" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud13" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud14" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud15" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud16" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud17" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-
-[node name="ComponentHud18" parent="Components/Pad/CompList" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
 
 [node name="Items" type="Panel" parent="."]
 layout_mode = 1
@@ -491,38 +409,6 @@ theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 4
 metadata/_edit_lock_ = true
-
-[node name="ItemHud" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_d8432")
-
-[node name="ItemHud2" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0mgep")
-
-[node name="ItemHud3" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_53jfr")
-
-[node name="ItemHud4" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_brwfh")
-
-[node name="ItemHud5" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_x4nml")
-
-[node name="ItemHud6" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_l18n2")
-
-[node name="ItemHud7" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_btwrr")
-
-[node name="ItemHud8" parent="Items/Pad/ItemList" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_shqss")
 
 [node name="Stats" type="Panel" parent="."]
 layout_mode = 1
@@ -1103,41 +989,6 @@ offset_right = 189.0
 offset_bottom = -4.0
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
-[node name="DecomposeItem" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 463.0
-offset_top = -159.0
-offset_right = 638.0
-offset_bottom = -107.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_l4lrj")
-
-[node name="Pad" type="MarginContainer" parent="DecomposeItem"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-metadata/_edit_lock_ = true
-
-[node name="ItemHud" parent="DecomposeItem/Pad" instance=ExtResource("4_vtbau")]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Button" type="Button" parent="DecomposeItem/Pad"]
-layout_mode = 2
-size_flags_horizontal = 8
-focus_mode = 0
-text = "DECOMPOSE"
-
 [node name="CraftAvailable" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(249, 0)
 layout_mode = 1
@@ -1230,5 +1081,6 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="DecomposeItem/Pad/Decompose" to="." method="_on_decompose_pressed"]
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
 [connection signal="pressed" from="CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_pressed"]

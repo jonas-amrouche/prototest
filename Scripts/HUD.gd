@@ -3,6 +3,7 @@ extends Control
 const MAP_SIZE = Vector2(200.0, 200.0)
 var category_selected := 0
 var item_craft_selected : Item
+var item_in_decompose
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
@@ -23,6 +24,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var craft_available_container := $CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
 @onready var craft_available_nothing := $CraftAvailable/Pad/Order/CraftItemPanel/Nothing
 @onready var decompose_tab := $DecomposeItem
+@onready var decompose_container := $DecomposeItem/Pad/DecomposeCont
 @onready var component_list := $Components/Pad/CompList
 @onready var item_list = $Items/Pad/ItemList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
@@ -85,10 +87,39 @@ func update_map_fog() -> void:
 func world_to_fog_position(pos : Vector2) -> Vector2i:
 	return Vector2i((pos + MAP_SIZE/2.0) * FOG_RESOLUTION)
 
-
 func select_item(item : Item) -> void:
 	item_craft_selected = item
 	item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
+
+func add_item_in_decompose(item : Item) -> void:
+	if item_in_decompose:
+		player.obtain_item(item_in_decompose)
+	player.lose_item(item)
+	item_in_decompose = item
+	update_decompose()
+
+func update_decompose() -> void:
+	for i in decompose_container.get_children():
+		i.queue_free()
+	
+	var _new_item_slot = pre_item_hud.instantiate()
+	_new_item_slot.connect("drop_item", Callable(self, "drop_item_decompose"))
+	_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
+	_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+	_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
+	_new_item_slot.connect("update_item_preview", Callable(self, "update_item_preview"))
+	if item_in_decompose:
+		_new_item_slot.item = item_in_decompose
+	decompose_container.add_child(_new_item_slot)
+
+func clear_decompose() -> void:
+	if item_in_decompose:
+		if player.items.find(null) == -1:
+			_on_decompose_pressed()
+			return
+		player.obtain_item(item_in_decompose)
+	item_in_decompose = null
+	update_decompose()
 
 func update_craft_available() -> void:
 	for i in craft_available_container.get_children():
@@ -259,13 +290,40 @@ func drag_item(slot : Object) -> void:
 
 func drop_item(slot : Object) -> void:
 	if dragged_item_slot:
-		var _temp_item = slot.item
+		if dragged_item_slot.item == item_in_decompose:
+			player.items[item_list.get_children().find(slot)] = dragged_item_slot.item
+			item_in_decompose = null
+			update_items()
+			update_abilities()
+			update_decompose()
+			dragged_item_slot = null
+			return
 		player.items[item_list.get_children().find(slot)] = dragged_item_slot.item
-		player.items[item_list.get_children().find(dragged_item_slot)] = _temp_item
+		player.items[item_list.get_children().find(dragged_item_slot)] = slot.item
 		update_items()
+		dragged_item_slot = null
+
+func drop_item_decompose(slot : Object) -> void:
+	if dragged_item_slot:
+		item_in_decompose = dragged_item_slot.item
+		player.items[item_list.get_children().find(dragged_item_slot)] = slot.item
+		update_items()
+		update_abilities()
+		update_decompose()
 		dragged_item_slot = null
 
 func _on_craft_pressed():
 	if player.in_workshop:
 		for c in range(item_craft_selected.craft_recipe.size()):
 			player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
+	player.obtain_item(item_craft_selected)
+	item_craft_selected = null
+	item_craft_button.disabled = true
+
+func _on_decompose_pressed():
+	if item_in_decompose:
+		for i in range(item_in_decompose.craft_recipe.size()):
+			player.obtain_component(item_in_decompose.craft_recipe.keys()[i], item_in_decompose.craft_recipe.values()[i])
+		player.lose_item(item_in_decompose)
+		item_in_decompose = null
+		update_decompose()
