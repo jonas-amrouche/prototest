@@ -54,10 +54,7 @@ var recall := false
 const SPAWN_REGEN = 100.0
 var in_workshop := false
 
-var components := [null, null, null, null, null, null, null, null, null, \
-null, null, null, null, null, null, null, null, null]
-var comp_quantities := [null, null, null, null, null, null, null, null, null, \
-null, null, null, null, null, null, null, null, null]
+var components := Dictionary()
 var items := [null, null, null, null, null, null, null, null]
 var abilities := [null, null, null, null, null, null, null, null, null, null]
 
@@ -210,6 +207,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 func kill_player() -> void:
 	gain_experience(KILL_REWARD_EXP)
 	souls += 1
+	hud.update_souls()
 	update_stats()
 
 func heal(healing : int) -> void:
@@ -261,6 +259,18 @@ func die() -> void:
 		player_collision.disabled = false
 		can_move = true
 		respawn_base()))
+
+var rotation_cam : bool
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == 2:
+			rotation_cam = true
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
+		else:
+			rotation_cam = false
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	if event is InputEventMouseMotion and rotation_cam:
+		rotation.y -= event.relative.x * 0.001
 
 func movement() -> void:
 	var input_dir = Vector2()
@@ -331,25 +341,20 @@ func start_channeling(duration : float) -> void:
 func stop_channeling() -> void:
 	hud.channeling_bar.set_visible(false)
 
-func is_components_full() -> bool:
-	return components.find(null) == -1
-
 func obtain_component(comp : Component, quantity : int) -> void:
 	if components.has(comp):
-		comp_quantities[components.find(comp)] += quantity
+		components[comp] += quantity
 	else:
-		components[components.find(null)] = comp
-		comp_quantities[comp_quantities.find(null)] = quantity
+		components[comp] = quantity
 	
 	hud.update_components()
 	hud.update_craft_available()
 
 func lose_component(comp : Component, quantity : int) -> void:
-	if comp_quantities[components.find(comp)] == quantity:
-		comp_quantities[components.find(comp)] = null
-		components[components.find(comp)] = null
+	if components[comp] == quantity:
+		components.erase(comp)
 	else:
-		comp_quantities[components.find(comp)] -= quantity
+		components[comp] -= quantity
 	hud.update_components()
 
 func is_items_full() -> bool:
@@ -418,8 +423,8 @@ func is_item_craftable(item : Item) -> bool:
 	var _component_had = 0
 	for r in range(item.craft_recipe.size()):
 		for c in range(components.size()):
-			if item.craft_recipe.keys()[r] == components[c]:
-				if item.craft_recipe.values()[r] <= comp_quantities[c]:
+			if item.craft_recipe.keys()[r] == components.keys()[c]:
+				if item.craft_recipe.values()[r] <= components.values()[c]:
 					_component_had += 1
 	if _component_had == item.craft_recipe.size():
 		return true

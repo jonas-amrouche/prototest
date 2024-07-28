@@ -46,6 +46,15 @@ bg_color = Color(0.563563, 0.234466, 0.999993, 1)
 border_width_right = 3
 border_color = Color(0.521221, 0.00156242, 0.714876, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
+bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fa6t0"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5eco"]
 bg_color = Color(0.25098, 0.223529, 0.164706, 1)
 corner_radius_top_left = 5
@@ -91,15 +100,6 @@ corner_radius_top_right = 5
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
 font_size = 25
 font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
-bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fa6t0"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -309,32 +309,77 @@ offset_right = -43.0
 offset_bottom = -9.0
 mouse_filter = 0
 
-[node name="Components" type="Panel" parent="."]
+[node name="CraftComponents" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 9.0
-offset_top = -148.0
+offset_top = -157.0
 offset_right = 299.0
 grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="CraftAvailable" type="PanelContainer" parent="CraftComponents"]
+custom_minimum_size = Vector2(249, 88)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
+
+[node name="Pad" type="MarginContainer" parent="CraftComponents/CraftAvailable"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="Order" type="VBoxContainer" parent="CraftComponents/CraftAvailable/Pad"]
+layout_mode = 2
+alignment = 2
+
+[node name="CraftItemPanel" type="PanelContainer" parent="CraftComponents/CraftAvailable/Pad/Order"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fa6t0")
+
+[node name="CraftAvailable" type="GridContainer" parent="CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+columns = 5
+metadata/_edit_lock_ = true
+
+[node name="Nothing" type="Label" parent="CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel"]
+visible = false
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Nothing :("
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Craft" type="Button" parent="CraftComponents/CraftAvailable/Pad/Order"]
+layout_mode = 2
+size_flags_vertical = 8
+focus_mode = 0
+disabled = true
+text = "CRAFT"
+metadata/_edit_lock_ = true
+
+[node name="Components" type="PanelContainer" parent="CraftComponents"]
+custom_minimum_size = Vector2(290, 51)
+layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_n5eco")
 
-[node name="Pad" type="MarginContainer" parent="Components"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Pad" type="MarginContainer" parent="CraftComponents/Components"]
+layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 metadata/_edit_lock_ = true
 
-[node name="CompList" type="GridContainer" parent="Components/Pad"]
+[node name="CompList" type="GridContainer" parent="CraftComponents/Components/Pad"]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
@@ -989,58 +1034,6 @@ offset_right = 189.0
 offset_bottom = -4.0
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
-[node name="CraftAvailable" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(249, 0)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 29.0
-offset_top = -247.0
-offset_right = 278.0
-offset_bottom = -159.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
-
-[node name="Pad" type="MarginContainer" parent="CraftAvailable"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-metadata/_edit_lock_ = true
-
-[node name="Order" type="VBoxContainer" parent="CraftAvailable/Pad"]
-layout_mode = 2
-alignment = 2
-
-[node name="CraftItemPanel" type="PanelContainer" parent="CraftAvailable/Pad/Order"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fa6t0")
-
-[node name="CraftAvailable" type="GridContainer" parent="CraftAvailable/Pad/Order/CraftItemPanel"]
-layout_mode = 2
-size_flags_vertical = 0
-columns = 5
-metadata/_edit_lock_ = true
-
-[node name="Nothing" type="Label" parent="CraftAvailable/Pad/Order/CraftItemPanel"]
-visible = false
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-size_flags_vertical = 1
-text = "Nothing :("
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Craft" type="Button" parent="CraftAvailable/Pad/Order"]
-layout_mode = 2
-size_flags_vertical = 8
-focus_mode = 0
-disabled = true
-text = "CRAFT"
-metadata/_edit_lock_ = true
-
 [node name="Back" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 1272.0
@@ -1081,6 +1074,8 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="mouse_entered" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_entered"]
+[connection signal="mouse_exited" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_exited"]
+[connection signal="pressed" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_pressed"]
 [connection signal="pressed" from="DecomposeItem/Pad/Decompose" to="." method="_on_decompose_pressed"]
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
-[connection signal="pressed" from="CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_pressed"]

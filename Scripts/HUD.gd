@@ -4,6 +4,7 @@ const MAP_SIZE = Vector2(200.0, 200.0)
 var category_selected := 0
 var item_craft_selected : Item
 var item_in_decompose
+var hover_craft_button : bool
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
@@ -20,18 +21,19 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var player := get_node("..").get_node("..")
 @onready var scoreboard := $ScoreBoard
 @onready var chat := $Chat
-@onready var craft_tab := $CraftAvailable
-@onready var craft_available_container := $CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
-@onready var craft_available_nothing := $CraftAvailable/Pad/Order/CraftItemPanel/Nothing
+@onready var craft_tab := $CraftComponents/CraftAvailable
+@onready var craft_available_container := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
+@onready var craft_available_nothing := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/Nothing
 @onready var decompose_tab := $DecomposeItem
 @onready var decompose_container := $DecomposeItem/Pad/DecomposeCont
-@onready var component_list := $Components/Pad/CompList
+@onready var component_list := $CraftComponents/Components/Pad/CompList
 @onready var item_list = $Items/Pad/ItemList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
+@onready var souls_label := $Souls/SoulsLabel
 @onready var mini_map := $MiniMap
-@onready var item_craft_button := $CraftAvailable/Pad/Order/Craft
+@onready var item_craft_button := $CraftComponents/CraftAvailable/Pad/Order/Craft
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
 @onready var experience_gem_container := $Pad/ExpContainer
 @onready var level_label_hud := $LevelPan/LevelInd
@@ -46,6 +48,9 @@ func _process(_delta):
 func update_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
 	mini_map.initialize_minimap(MAP_SIZE, paths_data, bases_data, interests_data)
 	initialize_fog_map(bases_data)
+
+func update_souls() -> void:
+	souls_label.text = str(player.souls)
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
@@ -226,12 +231,11 @@ func update_components() -> void:
 		i.queue_free()
 	for i in range(player.components.size()):
 		var _new_component_hud = pre_component_hud.instantiate()
-		if player.components[i]:
-			_new_component_hud.component = player.components[i]
-			_new_component_hud.quantity = player.comp_quantities[i]
-		_new_component_hud.connect("drag_component", Callable(self, "drag_component"))
-		_new_component_hud.connect("drop_component", Callable(self, "drop_component"))
+		_new_component_hud.component = player.components.keys()[i]
+		_new_component_hud.quantity = player.components.values()[i]
 		component_list.add_child(_new_component_hud)
+		if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
+			_new_component_hud.component_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
 
 #func update_craft() -> void:
 	#pass
@@ -327,3 +331,11 @@ func _on_decompose_pressed():
 		player.lose_item(item_in_decompose)
 		item_in_decompose = null
 		update_decompose()
+
+func _on_craft_mouse_entered():
+	hover_craft_button = true
+	update_components()
+
+func _on_craft_mouse_exited():
+	hover_craft_button = false
+	update_components()
