@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 const DEFAULT_MOVEMENT_SPEED := 3.0
-const HARVEST_MOVEMENT_SPEED := 1.0
+const EMPTY_MOVEMENT_SPEED := 4.0
 const ACCELERATION := 0.3
 const CAMERA_MOOVE_TRESHOLD := 1.0/100000.0
 const CAMERA_MOOVE_SPEED := 0.5
@@ -257,18 +257,6 @@ func die() -> void:
 		can_move = true
 		respawn_base()))
 
-#var rotation_cam : bool
-#func _input(event):
-	#if event is InputEventMouseButton:
-		#if event.pressed and event.button_index == 1:
-			#rotation_cam = true
-			#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-		#else:
-			#rotation_cam = false
-			#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	#if event is InputEventMouseMotion and rotation_cam:
-		#rotation.y -= event.relative.x * 0.001
-
 func movement() -> void:
 	var input_dir = Vector2()
 	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -397,6 +385,11 @@ func update_stats() -> void:
 	stats.movement_speed = DEFAULT_MOVEMENT_SPEED
 	stats.health_regeneration = BASE_HEALTH_REGENERATION + area_health_regeneration
 	stats.max_health = BASE_MAX_HEALTH
+	
+	# Run fast when no items
+	if items.count(null) == items.size():
+		stats.movement_speed = EMPTY_MOVEMENT_SPEED
+	
 	for i in items:
 		if i == null:
 			continue

@@ -1,7 +1,7 @@
 extends Node3D
 
 const MAP_SIZE := Vector2(200.0, 200.0)
-const CAMP_DISTANCE_TO_CENTER = 75.0
+const CAMP_DISTANCE_TO_CENTER = 95.0
 var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
@@ -43,7 +43,7 @@ func map_generation() -> void:
 	generate_structures()
 
 func generate_bases() -> void:
-	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(randf_range(-PI, PI))
+	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4.0)
 	var _bases_pos = [_random_vector, _random_vector.rotated(PI)]
 	
 	for b in _bases_pos:

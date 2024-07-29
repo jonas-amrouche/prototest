@@ -12,11 +12,11 @@ func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_E
 	return _new_ability.call("press", ability, ability_dealer)
 
 func start_ability_cooldown(ability : Ability) -> void:
-	in_cooldown_dict.merge({ability : true}, true)
-	var _timer = get_tree().create_timer(ability.cooldown)
+	in_cooldown_dict[ability] = true
+	var _timer = get_tree().create_timer(ability.cooldown, false, true)
 	_timer.timeout.connect(Callable(func():
-		in_cooldown_dict.merge({ability : false}, true)))
-	cooldown_dict.merge({ability : _timer}, true)
+		in_cooldown_dict[ability] = false))
+	cooldown_dict[ability] = _timer
 
 func get_ability_cooldown(ability : Ability):
 	if cooldown_dict.get(ability) and cooldown_dict.get(ability).time_left == 0.0:

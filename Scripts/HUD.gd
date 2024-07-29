@@ -15,6 +15,7 @@ var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_item_preview = preload("res://Scenes/UI/ItemPreview.tscn")
 var pre_ability_preview = preload("res://Scenes/UI/AbilityPreview.tscn")
+var pre_component_preview = preload("res://Scenes/UI/ComponentPreview.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
@@ -40,11 +41,13 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var level_label_hud := $LevelPan/LevelInd
 
 var item_preview
+var component_preview
 var ability_preview
 
 func _process(_delta):
 	mini_map.update_camera_position(player.camera.global_position, player.camera_base_marker.position)
 	mini_map.update_player_position(player.global_position)
+	update_previews()
 
 func update_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
 	mini_map.initialize_minimap(MAP_SIZE, paths_data, bases_data, interests_data)
@@ -113,14 +116,13 @@ func update_decompose() -> void:
 	_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
 	_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 	_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
-	_new_item_slot.connect("update_item_preview", Callable(self, "update_item_preview"))
 	if item_in_decompose:
 		_new_item_slot.item = item_in_decompose
 	decompose_container.add_child(_new_item_slot)
 
 func clear_decompose() -> void:
 	if item_in_decompose:
-		if player.items.find(null) == -1:
+		if player.is_items_full():
 			_on_decompose_pressed()
 			return
 		player.obtain_item(item_in_decompose)
@@ -200,6 +202,8 @@ func update_items() -> void:
 		item_list.add_child(_new_item_hud)
 
 func show_item_preview(item : Item) -> void:
+	if item_preview:
+		item_preview.queue_free()
 	if item:
 		item_preview = pre_item_preview.instantiate()
 		item_preview.hide()
@@ -210,10 +214,6 @@ func hide_item_preview() -> void:
 	if item_preview:
 		item_preview.queue_free()
 		item_preview = null
-
-func update_item_preview() -> void:
-	if item_preview:
-		item_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, item_preview.size.y)
 
 func show_ability_preview(ability_ref : Object) -> void:
 	if ability_ref.ability:
@@ -234,9 +234,30 @@ func update_components() -> void:
 		var _new_component_hud = pre_component_hud.instantiate()
 		_new_component_hud.component = player.components.keys()[i]
 		_new_component_hud.quantity = player.components.values()[i]
+		_new_component_hud.connect("mouse_entered_component", Callable(self, "show_component_preview"))
+		_new_component_hud.connect("mouse_exited", Callable(self, "hide_component_preview"))
 		component_list.add_child(_new_component_hud)
 		if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
-			_new_component_hud.component_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
+			_new_component_hud.component_change_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
+
+func show_component_preview(component : Component) -> void:
+	if component_preview:
+		component_preview.queue_free()
+	if component:
+		component_preview = pre_component_preview.instantiate()
+		component_preview.component = component
+		add_child(component_preview)
+
+func hide_component_preview() -> void:
+	if component_preview:
+		component_preview.queue_free()
+		component_preview = null
+
+func update_previews() -> void:
+	if component_preview:
+		component_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, component_preview.size.y)
+	if item_preview:
+		item_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, item_preview.size.y)
 
 func update_stats_hud() -> void:
 	for i in stats_list.get_children():
@@ -307,12 +328,13 @@ func drop_item_decompose(slot : Object) -> void:
 		decompose_button.disabled = false
 
 func _on_craft_pressed():
-	if player.in_workshop:
-		for c in range(item_craft_selected.craft_recipe.size()):
-			player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
-	player.obtain_item(item_craft_selected)
-	item_craft_selected = null
-	item_craft_button.disabled = true
+	if !player.is_items_full():
+		if player.in_workshop:
+			for c in range(item_craft_selected.craft_recipe.size()):
+				player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
+		player.obtain_item(item_craft_selected)
+		item_craft_selected = null
+		item_craft_button.disabled = true
 
 func _on_decompose_pressed():
 	if item_in_decompose:

@@ -1082,13 +1082,13 @@ color = Color(0.481053, 0.188391, 0.489583, 1)
 
 [node name="Back" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 1272.0
-offset_top = 1034.0
-offset_right = 1312.0
-offset_bottom = 1074.0
+offset_left = 1535.0
+offset_top = 1039.0
+offset_right = 1567.0
+offset_bottom = 1071.0
 color = Color(0.801324, 0.255313, 0.880208, 1)
 
-[node name="Label" type="Label" parent="Back"]
+[node name="BackLabel" type="Label" parent="Back"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1098,13 +1098,14 @@ grow_vertical = 2
 text = "B"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Souls" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 1407.0
-offset_top = 1034.0
-offset_right = 1447.0
-offset_bottom = 1074.0
+offset_left = 1838.0
+offset_top = 1032.0
+offset_right = 1878.0
+offset_bottom = 1072.0
 texture = ExtResource("7_1ajdh")
 expand_mode = 1
 stretch_mode = 5
@@ -1119,6 +1120,7 @@ grow_vertical = 2
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [connection signal="mouse_entered" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_entered"]
 [connection signal="mouse_exited" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_exited"]

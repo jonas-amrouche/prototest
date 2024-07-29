@@ -6,7 +6,6 @@ extends PanelContainer
 @export var cooldown_left := 0.0
 signal drag_ability(slot : Object)
 signal drop_ability(slot : Object)
-signal update_ability_preview()
 signal mouse_entered_ability(abl : Ability)
 
 @onready var icon = $MarginContainer/IconContainer/Icon
@@ -19,7 +18,7 @@ func _ready() -> void:
 	if cooldown_left != 0.0:
 		use_ability()
 	elif ability:
-		cooldown_left = ability.cooldown
+		cooldown_left = ability.cooldown + ability.attack_time
 	update_slot()
 
 func update_slot() -> void:
@@ -45,8 +44,10 @@ func update_cooldown(time_left : float) -> void:
 	if time_left == 0.0:
 		cooldown_label.text = ""
 		cooldown_progress.value = 0.0
+		if ability:
+			cooldown_left = ability.cooldown + ability.attack_time
 		return
-	cooldown_label.text = str(int(time_left))
+	cooldown_label.text = str(int(time_left*10.0)/10.0)
 	cooldown_progress.value = time_left/ability.cooldown * 100.0
 
 var grabbed = false
@@ -65,8 +66,6 @@ func _on_gui_input(event):
 	if event is InputEventMouseMotion:
 		if grabbed:
 			icon.position = get_viewport().get_mouse_position() - global_position - size/2.0
-		else:
-			update_ability_preview.emit()
 
 func _on_mouse_entered():
 	if !grabbed:
