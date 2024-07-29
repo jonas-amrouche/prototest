@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=34 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://bhxjw2tsopla1" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
@@ -96,6 +96,46 @@ corner_radius_top_right = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukpxu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xl32f"]
+resource_local_to_scene = true
+bg_color = Color(0.12, 0.12, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jluv6"]
+resource_local_to_scene = true
+bg_color = Color(0.12, 0.12, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3t882"]
+resource_local_to_scene = true
+bg_color = Color(0.12, 0.12, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4rr5"]
+resource_local_to_scene = true
+bg_color = Color(0.12, 0.12, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5noq"]
+resource_local_to_scene = true
+bg_color = Color(0.12, 0.12, 0.12, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
 font_size = 25
@@ -416,6 +456,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
+disabled = true
 text = "DECOMPOSE"
 
 [node name="DecomposeCont" type="PanelContainer" parent="DecomposeItem/Pad"]
@@ -931,6 +972,7 @@ layout_mode = 2
 
 [node name="ComponentHud" parent="Craft/Pad/CraftSteps/Materials" instance=ExtResource("3_rlkqk")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xl32f")
 
 [node name="Substance" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
@@ -938,6 +980,7 @@ layout_mode = 2
 
 [node name="ComponentHud2" parent="Craft/Pad/CraftSteps/Substance" instance=ExtResource("3_rlkqk")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jluv6")
 
 [node name="Catalyzer" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
@@ -945,6 +988,7 @@ layout_mode = 2
 
 [node name="ComponentHud3" parent="Craft/Pad/CraftSteps/Catalyzer" instance=ExtResource("3_rlkqk")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3t882")
 
 [node name="Enchantment" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
@@ -952,6 +996,7 @@ layout_mode = 2
 
 [node name="ComponentHud4" parent="Craft/Pad/CraftSteps/Enchantment" instance=ExtResource("3_rlkqk")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o4rr5")
 
 [node name="ColorRect" type="TextureRect" parent="Craft/Pad/CraftSteps"]
 custom_minimum_size = Vector2(28, 0)
@@ -960,6 +1005,7 @@ layout_mode = 2
 [node name="ComponentHud14" parent="Craft/Pad/CraftSteps" instance=ExtResource("3_rlkqk")]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_r5noq")
 
 [node name="Bind" type="HBoxContainer" parent="Craft/Pad"]
 layout_mode = 2

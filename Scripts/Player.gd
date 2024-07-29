@@ -95,7 +95,7 @@ func _physics_process(_delta) -> void:
 	debug_features()
 
 func _process(_delta):
-	border_cam_movement()
+	#border_cam_movement()
 	update_camera_position()
 	update_direction()
 
@@ -133,15 +133,12 @@ func update_camera_position() -> void:
 var dragged_by_map = false
 func move_camera_click(press : bool) -> void:
 	dragged_by_map = press
-	camera.top_level = true
-	camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
-	camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-	#camera.top_level = press
-	#if press:
-		#camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
-		#camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-	#else:
-		#camera.position = camera_base_marker.position
+	camera.top_level = press
+	if press:
+		camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
+		camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
+	else:
+		camera.position = camera_base_marker.position
 
 func debug_features() -> void:
 	if Input.is_action_just_pressed("quit_game"):
@@ -260,17 +257,17 @@ func die() -> void:
 		can_move = true
 		respawn_base()))
 
-var rotation_cam : bool
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == 2:
-			rotation_cam = true
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-		else:
-			rotation_cam = false
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	if event is InputEventMouseMotion and rotation_cam:
-		rotation.y -= event.relative.x * 0.001
+#var rotation_cam : bool
+#func _input(event):
+	#if event is InputEventMouseButton:
+		#if event.pressed and event.button_index == 1:
+			#rotation_cam = true
+			#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
+		#else:
+			#rotation_cam = false
+			#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	#if event is InputEventMouseMotion and rotation_cam:
+		#rotation.y -= event.relative.x * 0.001
 
 func movement() -> void:
 	var input_dir = Vector2()

@@ -25,6 +25,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var craft_available_container := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
 @onready var craft_available_nothing := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/Nothing
 @onready var decompose_tab := $DecomposeItem
+@onready var decompose_button := $DecomposeItem/Pad/Decompose
 @onready var decompose_container := $DecomposeItem/Pad/DecomposeCont
 @onready var component_list := $CraftComponents/Components/Pad/CompList
 @onready var item_list = $Items/Pad/ItemList
@@ -237,20 +238,6 @@ func update_components() -> void:
 		if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
 			_new_component_hud.component_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
 
-#func update_craft() -> void:
-	#pass
-	#for i in craft_list.get_children():
-		#i.queue_free()
-	#for i in range(player.components.size()):
-		#var _new_component_hud = pre_component_hud.instantiate()
-		#if player.components[i]:
-			#_new_component_hud.component = player.components[i]
-			#_new_component_hud.quantity = player.comp_quantities[i]
-		#_new_component_hud.connect("drag_component", Callable(self, "drag_component"))
-		#_new_component_hud.connect("drop_component", Callable(self, "drop_component"))
-		#component_list.add_child(_new_component_hud)
-	
-
 func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
@@ -291,6 +278,8 @@ func drop_component(slot : Object) -> void:
 var dragged_item_slot : Object
 func drag_item(slot : Object) -> void:
 	dragged_item_slot = slot
+	if slot.item == item_in_decompose:
+		decompose_button.disabled = true
 
 func drop_item(slot : Object) -> void:
 	if dragged_item_slot:
@@ -315,6 +304,7 @@ func drop_item_decompose(slot : Object) -> void:
 		update_abilities()
 		update_decompose()
 		dragged_item_slot = null
+		decompose_button.disabled = false
 
 func _on_craft_pressed():
 	if player.in_workshop:
@@ -331,6 +321,7 @@ func _on_decompose_pressed():
 		player.lose_item(item_in_decompose)
 		item_in_decompose = null
 		update_decompose()
+		decompose_button.disabled = true
 
 func _on_craft_mouse_entered():
 	hover_craft_button = true

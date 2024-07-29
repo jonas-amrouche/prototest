@@ -215,14 +215,14 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 		return true
 	return false
 
-const DIVISION_FACTOR := 1.5
+const DIVISION_FACTOR := 2.0
 const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
 const NO_TREE_BASE_DISTANCE := 15.0
 const NO_TREE_PATH_DISTANCE := 3.0
 const TREE_ROTATION_MAX = PI/6.0
-const TREE_SCALE_MIN = 0.1
-const TREE_SCALE_MAX = 0.17
+const TREE_SCALE_MIN = 0.08
+const TREE_SCALE_MAX = 0.12
 func generate_forest() -> void:
 	var tree_count = 0
 	
