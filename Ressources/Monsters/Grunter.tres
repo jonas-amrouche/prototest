@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=6 format=3 uid="uid://bjuh036cbr3yl"]
+[gd_resource type="Resource" script_class="Monster" load_steps=7 format=3 uid="uid://bjuh036cbr3yl"]
 
 [ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Ressources/Abilities/AngryHeadbutt.tres" id="1_0c6gm"]
 [ext_resource type="Resource" uid="uid://dogntf7etk6bo" path="res://Ressources/Components/UnstableCore.tres" id="2_v2xv3"]
 [ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Ressources/Components/ExplosiveStone.tres" id="3_gf6jv"]
+[ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Ressources/Components/Metal.tres" id="4_arnjp"]
 [ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/GrunterModel.tscn" id="4_hx8ec"]
 [ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="5_0m2nj"]
 
@@ -11,19 +12,19 @@ script = ExtResource("5_0m2nj")
 id = "grunter"
 name = "Grunter"
 monster_model = ExtResource("4_hx8ec")
-drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("2_v2xv3"), ExtResource("3_gf6jv")])
-drop_quantities = PackedInt32Array(1, 2)
+drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("2_v2xv3"), ExtResource("3_gf6jv"), ExtResource("4_arnjp")])
+drop_quantities = PackedInt32Array(1, 2, 3)
 experience_drop = 1
 abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_0c6gm")])
 aggro = false
 aggro_range = 4.0
 roam = true
 roam_range = 5.0
-turn_speed = 0.0
+turn_speed = 0.04
 max_health = 300
 physical_damage = 55
 magic_damage = 5
-physical_armor = 10
+physical_armor = 15
 magic_armor = 5
 movement_speed = 1.5
 health_regeneration = 2.0

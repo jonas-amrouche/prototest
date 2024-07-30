@@ -7,5 +7,5 @@
 script = ExtResource("2_cbg25")
 id = "gobedins_camp"
 name = "Gobedins Camp"
-monsters = Array[Resource("res://Scripts/MonsterClass.gd")]([ExtResource("1_xb1st"), ExtResource("1_xb1st"), ExtResource("1_xb1st")])
+monsters = Array[Resource("res://Scripts/MonsterClass.gd")]([ExtResource("1_xb1st"), ExtResource("1_xb1st")])
 respawn_time = 120.0

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dd286pu246ain"]
+
+[ext_resource type="Resource" uid="uid://bd6xn886jpo34" path="res://Ressources/Abilities/WardBeacon.tres" id="1_5pfy6"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="1_a5i6o"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="2_ovebl"]
+[ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Ressources/Components/Metal.tres" id="3_1h0u3"]
+[ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="4_wq6vg"]
+[ext_resource type="Texture2D" uid="uid://bby2paophyxql" path="res://Assets/2D/PBR/violet_salad_v1.png" id="5_6tqoe"]
+[ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="5_dfxh6"]
+
+[resource]
+script = ExtResource("5_dfxh6")
+id = "ward_machine"
+name = "Ward Machine"
+description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
+icon = ExtResource("5_6tqoe")
+rarity = 1
+mesh_model = ExtResource("4_wq6vg")
+craft_recipe = {
+ExtResource("1_a5i6o"): 3,
+ExtResource("2_ovebl"): 2,
+ExtResource("3_1h0u3"): 3
+}
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_5pfy6")])
+passives = Array[Resource("res://Scripts/PassiveClass.gd")]([])
+stats = {}

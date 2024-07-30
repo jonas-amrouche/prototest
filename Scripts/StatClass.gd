@@ -1,5 +1,5 @@
-class_name Stat
 extends Resource
+class_name Stat
 
 @export var id : String
 @export var name : String

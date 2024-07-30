@@ -5,6 +5,8 @@ var in_cooldown_dict = {}
 
 var in_animation : bool
 
+@onready var player = get_node("..")
+
 func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
 	add_child(_new_ability)
@@ -37,9 +39,15 @@ func get_ability_range(ability_id : String) -> float:
 		return ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z
 
 func look_at_cursor(ability_dealer : Object) -> void:
-	var _result = ability_dealer.terrain_raycast(1)
+	var _result = ability_dealer.terrain_raycast()
 	if !_result.is_empty():
 		look_at(Vector3(_result.get("position").x, global_position.y, _result.get("position").z))
+
+func get_cursor_world_position(ability_dealer : Object) -> Vector3:
+	var _result = ability_dealer.terrain_raycast()
+	if !_result.is_empty():
+		return _result.get("position")
+	return Vector3()
 
 func block_player_position(ability_dealer : Object) -> void:
 	ability_dealer.can_move = false

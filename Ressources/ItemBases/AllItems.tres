@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="ItemBase" load_steps=4 format=3 uid="uid://og0sq8mjtt2w"]
+[gd_resource type="Resource" script_class="ItemBase" load_steps=6 format=3 uid="uid://og0sq8mjtt2w"]
 
 [ext_resource type="Resource" uid="uid://cwsbhkkj0qp74" path="res://Ressources/Items/HunterMachette.tres" id="1_5wr8l"]
 [ext_resource type="Script" path="res://Scripts/ItemBaseClass.gd" id="1_ihu7s"]
 [ext_resource type="Resource" uid="uid://dg165vqh1ixp" path="res://Ressources/Items/BigSword.tres" id="2_818og"]
+[ext_resource type="Resource" uid="uid://dwwqw1umaopnp" path="res://Ressources/Items/WardingStaff.tres" id="3_j1cni"]
+[ext_resource type="Resource" uid="uid://dd286pu246ain" path="res://Ressources/Items/WardMachine.tres" id="4_rp640"]
 
 [resource]
 script = ExtResource("1_ihu7s")
 id = "all_items"
 name = "All Items"
-base = Array[Resource("res://Scripts/ItemClass.gd")]([ExtResource("1_5wr8l"), ExtResource("2_818og")])
+base = Array[Resource("res://Scripts/ItemClass.gd")]([ExtResource("1_5wr8l"), ExtResource("2_818og"), ExtResource("3_j1cni"), ExtResource("4_rp640")])

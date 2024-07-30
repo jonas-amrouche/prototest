@@ -17,6 +17,6 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 			return Basics.ABILITY_ERROR.OK
 		else:
 			queue_free()
-			return Basics.ABILITY_ERROR.DEAD
+			return Basics.ABILITY_ERROR.UNAVAILABLE
 	queue_free()
 	return Basics.ABILITY_ERROR.IN_COOLDOWN

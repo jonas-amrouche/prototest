@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dwwqw1umaopnp"]
+
+[ext_resource type="Resource" uid="uid://pe1nilt2e2f0" path="res://Ressources/Abilities/ShortLineVision.tres" id="1_h300r"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="2_5ehlq"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="3_n28qv"]
+[ext_resource type="Texture2D" uid="uid://c4qwbir4x6ku3" path="res://Assets/2D/PBR/corpse_flower_texture_v1.png" id="3_qukli"]
+[ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="4_731s3"]
+[ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="5_x5oy6"]
+
+[resource]
+script = ExtResource("5_x5oy6")
+id = "warding_staff"
+name = "Warding Staff"
+description = "A cool stick giving you short range vision."
+icon = ExtResource("3_qukli")
+rarity = 0
+mesh_model = ExtResource("4_731s3")
+craft_recipe = {
+ExtResource("2_5ehlq"): 1,
+ExtResource("3_n28qv"): 2
+}
+abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_h300r")])
+passives = Array[Resource("res://Scripts/PassiveClass.gd")]([])
+stats = {}

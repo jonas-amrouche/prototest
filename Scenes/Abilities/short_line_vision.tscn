@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2rmvl6cqujbv"]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/short_line_vision.gd" id="1_cp4sx"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_4t13n"]
+density = -8.0
+
+[node name="ShortLineVision" type="Node3D"]
+script = ExtResource("1_cp4sx")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+visible = false
+size = Vector3(9, 30, 12)
+material = SubResource("FogMaterial_4t13n")

@@ -80,10 +80,13 @@ theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
 [node name="DescLine" type="Label" parent="MarginContainer/ItemData"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 1
 text = "\"blade of akila\""
 label_settings = SubResource("LabelSettings_25gjd")
+autowrap_mode = 2
 
 [node name="DataSpecsSep" type="HSeparator" parent="MarginContainer/ItemData"]
 layout_mode = 2

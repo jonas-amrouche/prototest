@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://pe1nilt2e2f0"]
+
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_hjk24"]
+[ext_resource type="Texture2D" uid="uid://c0m4who6u83m7" path="res://Assets/2D/UI/exp_shine.png" id="1_mqijv"]
+
+[resource]
+script = ExtResource("1_hjk24")
+id = "short_line_vision"
+name = "Short Line Vision"
+description = "Reveal vision towards a direction for a small time"
+icon = ExtResource("1_mqijv")
+cooldown = 22.0
+attack_time = 0.2
+damage_type = 0
+damage_cap = 0

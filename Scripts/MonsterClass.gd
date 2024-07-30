@@ -12,7 +12,7 @@ class_name Monster
 @export var aggro_range : float = 4.0
 @export var roam : bool
 @export var roam_range : float = 5.0
-@export var turn_speed : float
+@export var turn_speed : float = 0.04
 @export var max_health : int = 100
 @export var physical_damage : int
 @export var magic_damage : int

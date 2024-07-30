@@ -1,7 +1,6 @@
 extends CharacterBody3D
 
-const DEFAULT_MOVEMENT_SPEED := 3.0
-const EMPTY_MOVEMENT_SPEED := 4.0
+# Controls
 const ACCELERATION := 0.3
 const CAMERA_MOOVE_TRESHOLD := 1.0/100000.0
 const CAMERA_MOOVE_SPEED := 0.5
@@ -9,58 +8,53 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
+const EMPTY_MOVEMENT_SPEED := 4.0
+const LEVEL_MAX_EXPERIENCE := 16
 const PER_LEVEL_PLUS_EXPERIENCE := 1
 const KILL_REWARD_EXP := 10
 
+# Statistics
+const BASE_MOVEMENT_SPEED := 3.0
 const BASE_PHYSICAL_DAMAGE := 50
 const BASE_MAGIC_DAMAGE := 50
+const BASE_COOLDOWN_REDUCTION := 0.0
 const BASE_PHYSICAL_ARMOR := 15
 const BASE_MAGIC_ARMOR := 15
 const BASE_HEALTH_REGENERATION := 2.0
 const BASE_MAX_HEALTH := 450
-const BASE_MAX_EXPERIENCE := 1
-const BASE_LEVEL_MAX_EXPERIENCE := 16
+const BASE_LIFE_STEAL := 0.0
 
+# Miscelious
 var area_health_regeneration := 0.0
 
-var stats := {"physical_damage" : BASE_PHYSICAL_DAMAGE, \
+var base_stats := {"physical_damage" : BASE_PHYSICAL_DAMAGE, \
 "magic_damage" : BASE_MAGIC_DAMAGE, \
 "physical_armor" : BASE_PHYSICAL_ARMOR, \
 "magic_armor" : BASE_MAGIC_ARMOR, \
-"movement_speed" : DEFAULT_MOVEMENT_SPEED, \
-"cooldown_reduction" : 0.0, \
+"movement_speed" : BASE_MOVEMENT_SPEED, \
+"cooldown_reduction" : BASE_COOLDOWN_REDUCTION, \
 "health_regeneration" : BASE_HEALTH_REGENERATION, \
 "max_health" : BASE_MAX_HEALTH, \
-"life_steal" : 0.0}
+"life_steal" : BASE_LIFE_STEAL}
 
-#var physical_damage := BASE_PHYSICAL_DAMAGE
-#var magic_damage := BASE_MAGIC_DAMAGE
-#var physical_armor := BASE_PHYSICAL_ARMOR
-#var magic_armor := BASE_MAGIC_ARMOR
-#var movement_speed := DEFAULT_MOVEMENT_SPEED
-#var cooldown_reduction := 0.0
-#var health_regeneration := BASE_HEALTH_REGENERATION
-#var max_health := BASE_MAX_HEALTH
-#var life_steal := 0.0
+var stats := base_stats.duplicate()
 
 var health := BASE_MAX_HEALTH
 var souls := 0
-var max_experience := BASE_MAX_EXPERIENCE
+var max_experience := 1
 var experience := 0
 var level := 1
 
 var recall := false
 
 const SPAWN_REGEN = 100.0
-var in_workshop := false
+var in_base := false
 
 var components := Dictionary()
 var items := [null, null, null, null, null, null, null, null]
 var abilities := [null, null, null, null, null, null, null, null, null, null]
 
 var can_move := true
-
-var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
 @onready var world := get_node("..")
 @onready var camera := $Camera
@@ -81,6 +75,9 @@ var pre_item_drop = preload("res://Scenes/ItemDrop.tscn")
 
 func _ready():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
 	hud.update_info_bars()
@@ -100,12 +97,9 @@ func _process(_delta):
 	update_direction()
 
 func update_direction() -> void:
-		#var _vector_look = -Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
-		#abilities_machine.look_at(Vector3(global_position.x + _vector_look.x, abilities_machine.global_position.y, global_position.z + _vector_look.y))
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
 const CAM_LIMITS = Rect2(Vector2(-84.0, -84.0), Vector2(84, 95))
-#var move_camera = false
 func border_cam_movement() -> void:
 	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
 		camera.top_level = true
@@ -154,21 +148,21 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		var _result = terrain_raycast(1)
-		if !_result.is_empty():
-			nav.target_position = _result.get("position")
-			if recall:
-				cancel_recall()
+#func _unhandled_input(event) -> void:
+	#if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
+		#var _result = terrain_raycast(1)
+		#if !_result.is_empty():
+			#nav.target_position = _result.get("position")
+			#if recall:
+				#cancel_recall()
 
 const RAY_LENGTH := 100.0
-func terrain_raycast(col_mask : int) -> Dictionary:
+func terrain_raycast() -> Dictionary:
 		var _mouse_pos = get_viewport().get_mouse_position()
 		var _ray_query = PhysicsRayQueryParameters3D.new()
 		_ray_query.from = camera.project_ray_origin(_mouse_pos)
 		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = col_mask
+		_ray_query.collision_mask = 1
 		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
 func cancel_recall() -> void:
@@ -219,7 +213,7 @@ func lose_experience(experience_loss : int) -> void:
 	while is_leveling_down():
 		experience = max_experience - abs(experience)
 		level -= 1
-		max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
+		max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, LEVEL_MAX_EXPERIENCE)
 	hud.update_info_bars()
 
 func gain_experience(experience_gained : int) -> void:
@@ -228,7 +222,7 @@ func gain_experience(experience_gained : int) -> void:
 		while is_leveling_up():
 			experience = experience - max_experience
 			level += 1
-			max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, BASE_LEVEL_MAX_EXPERIENCE)
+			max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, LEVEL_MAX_EXPERIENCE)
 		hud.update_info_bars()
 
 func is_leveling_up() -> bool:
@@ -284,15 +278,9 @@ func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
 
 func action_keys():
-	#if Input.is_action_just_released("left_click"):
-		#set_move_camera(false)
 	if Input.is_action_pressed("center_cam"):
 		camera.top_level = false
 		camera.position = camera_base_marker.position
-	#if Input.is_action_just_released("decenter_cam"):
-		#free_cam = false
-		#camera.global_position = camera_base_marker.global_position
-		#camera.top_level = false
 	if Input.is_action_just_pressed("recall"):
 		nav.target_position = global_position
 		recall = true
@@ -305,9 +293,6 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
-	#if Input.is_action_just_pressed("workshop"):
-		#hud.update_workshop_item_list(hud.category_selected)
-		#hud.workshop.set_visible(!hud.workshop.visible)
 	for i in range(10):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if abilities[i]:
@@ -334,6 +319,12 @@ func obtain_component(comp : Component, quantity : int) -> void:
 	
 	hud.update_components()
 	hud.update_craft_available()
+
+func has_component(component_name : String) -> bool:
+	for i in range(components.size()):
+		if components.values[i].name == component_name:
+			return true
+	return false
 
 func lose_component(comp : Component, quantity : int) -> void:
 	if components[comp] == quantity:
@@ -364,7 +355,7 @@ func entering_base() -> void:
 	area_health_regeneration = SPAWN_REGEN
 	update_stats()
 	hud.update_craft_available()
-	in_workshop = true
+	in_base = true
 	hud.craft_tab.show()
 	hud.decompose_tab.show()
 	hud.update_decompose()
@@ -372,19 +363,14 @@ func entering_base() -> void:
 func exit_base() -> void:
 	area_health_regeneration = 0.0
 	update_stats()
-	in_workshop = false
+	in_base = false
 	hud.craft_tab.hide()
 	hud.decompose_tab.hide()
 	hud.clear_decompose()
 
 func update_stats() -> void:
-	stats.physical_damage = BASE_PHYSICAL_DAMAGE
-	stats.magic_damage = BASE_MAGIC_DAMAGE
-	stats.physical_armor = BASE_PHYSICAL_ARMOR
-	stats.magic_armor = BASE_MAGIC_ARMOR
-	stats.movement_speed = DEFAULT_MOVEMENT_SPEED
-	stats.health_regeneration = BASE_HEALTH_REGENERATION + area_health_regeneration
-	stats.max_health = BASE_MAX_HEALTH
+	# Set all stats to base value to recalculate
+	stats = base_stats.duplicate()
 	
 	# Run fast when no items
 	if items.count(null) == items.size():
@@ -396,18 +382,6 @@ func update_stats() -> void:
 		for s in range(i.stats.size()):
 			stats[i.stats.keys()[s]] += i.stats.values()[s]
 	hud.update_stats_hud()
-
-#const DROP_VECTOR_LENGTH = 1.4
-#func drop_item_ground(item : Item) -> void:
-	#items[items.find(item)] = null
-	#update_stats()
-	#hud.update_abilities()
-	#var _new_item_ground = pre_item_drop.instantiate()
-	#var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
-	#_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
-	#_new_item_ground.item = item
-	#get_node("..").add_child(_new_item_ground)
-	#hud.update_items()
 
 func is_item_craftable(item : Item) -> bool:
 	var _component_had = 0

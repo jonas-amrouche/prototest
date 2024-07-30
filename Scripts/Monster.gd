@@ -9,10 +9,8 @@ var monster_model
 "physical_armor" : monster.physical_armor, \
 "magic_armor" : monster.magic_armor, \
 "movement_speed" : monster.movement_speed, \
-"cooldown_reduction" : 0.0, \
 "health_regeneration" : monster.health_regeneration, \
-"max_health" : monster.max_health, \
-"life_steal" : 0.0}
+"max_health" : monster.max_health}
 
 @onready var health : int = monster.max_health
 var level := int(1)

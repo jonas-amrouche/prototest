@@ -21,6 +21,7 @@ var players : Array[Object]
 @onready var multi_tree = $MultiTrees
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
+@onready var beacons = $Beacons
 
 func _ready() -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -249,22 +250,21 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	ground_body.add_child(_new_collision_cube)
 
-const CHANCE_TO_SPAWN_MONSTER := 0.9
 const DISPLACEMENT_TO_CENTER := 3.0
 func generate_camps() -> void:
 	for i in interest_points_list:
-		if randf() < CHANCE_TO_SPAWN_MONSTER:
-			var _new_camp = pre_camp.instantiate()
-			_new_camp.position = Vector3(i.x, -0.2, i.y)
-			_new_camp.camp = camps[randi_range(0, camps.size()-1)]
-			add_child(_new_camp)
-		else:
+		var _new_camp = pre_camp.instantiate()
+		_new_camp.position = Vector3(i.x, -0.2, i.y)
+		_new_camp.camp = camps[randi_range(0, camps.size()-1)]
+		add_child(_new_camp)
+
+const CHANCE_TO_SPAWN_TOWER := 0.05
+func generate_structures() -> void:
+	for i in interest_points_list:
+		if randf() < CHANCE_TO_SPAWN_TOWER:
 			var _new_tower = pre_tower.instantiate()
 			_new_tower.position = Vector3(i.x, -0.2, i.y)
 			add_child(_new_tower)
-
-func generate_structures() -> void:
-	pass
 
 const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()

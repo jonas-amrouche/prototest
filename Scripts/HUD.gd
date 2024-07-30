@@ -329,7 +329,7 @@ func drop_item_decompose(slot : Object) -> void:
 
 func _on_craft_pressed():
 	if !player.is_items_full():
-		if player.in_workshop:
+		if player.in_base:
 			for c in range(item_craft_selected.craft_recipe.size()):
 				player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
 		player.obtain_item(item_craft_selected)
