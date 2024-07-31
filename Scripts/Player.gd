@@ -70,10 +70,13 @@ var can_move := true
 @onready var anims := $Anims
 @onready var health_bar := $SubViewport/Infos/HealthBar
 @onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
+@onready var small_view := $MapSmallView
+@onready var camera_map := $MapSmallView/CameraMap
 
 #1 script pour le fog
 
 func _ready():
+	hud.viewport_map_cam.texture = small_view.get_texture()
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
@@ -121,12 +124,14 @@ func move_camera_by_minimap(pos : Vector2) -> void:
 
 func update_camera_position() -> void:
 	if dragged_by_map:
+		camera_map.global_position = camera_base_marker.global_position
 		camera.global_position.x = lerp(camera.global_position.x, clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x), CAMERA_SMOOTH_RATE)
 		camera.global_position.z = lerp(camera.global_position.z, clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y), CAMERA_SMOOTH_RATE)
 
 var dragged_by_map = false
 func move_camera_click(press : bool) -> void:
 	dragged_by_map = press
+	hud.small_cam_view.set_visible(press)
 	camera.top_level = press
 	if press:
 		camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)

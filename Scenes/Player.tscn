@@ -69,13 +69,22 @@ script = ExtResource("1_dq7lx")
 shape = SubResource("CylinderShape3D_j70xh")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 15, 7)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 13, 7)
 current = true
 fov = 50.0
 far = 512.0
 
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 13, 7)
+
+[node name="MapSmallView" type="SubViewport" parent="."]
+size = Vector2i(640, 360)
+
+[node name="CameraMap" type="Camera3D" parent="MapSmallView"]
 transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 15, 7)
+current = true
+fov = 30.0
+far = 512.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

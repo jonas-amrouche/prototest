@@ -1,8 +1,10 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b634th0obwe8d"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b634th0obwe8d"]
 
 [ext_resource type="Texture2D" uid="uid://s63o2tlx01kv" path="res://Assets/2D/PBR/tree_tex_2.png" id="1_bysie"]
+[ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Ressources/Materials/TechArt/FogPass.tres" id="2_lxp1t"]
 
 [resource]
+next_pass = ExtResource("2_lxp1t")
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0

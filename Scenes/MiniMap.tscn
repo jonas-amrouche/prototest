@@ -72,7 +72,6 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="MapMask" type="TextureRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_f6vof")
 layout_mode = 1
 anchors_preset = 15

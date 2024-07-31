@@ -9,7 +9,7 @@ var hover_craft_button : bool
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
 var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
-var pre_item_craft_list = preload("res://Scenes/UI/ItemCraftList.tscn")
+var pre_item_craft = preload("res://Scenes/UI/ItemCraft.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
@@ -39,6 +39,8 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
 @onready var experience_gem_container := $Pad/ExpContainer
 @onready var level_label_hud := $LevelPan/LevelInd
+@onready var viewport_map_cam := $CamView/Pad/SubViewport
+@onready var small_cam_view := $CamView
 
 var item_preview
 var component_preview
@@ -89,9 +91,9 @@ func update_map_fog() -> void:
 	var _player_img = pre_circle_image.duplicate()
 	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
 	fog_map.blend_rect(_player_img, _player_img.get_used_rect(), _fog_position - _player_img.get_size()/2)
-	mini_map.update_fog(fog_map, FOG_PLAYER_SIZE, player.global_position)
+	mini_map.update_fog(fog_map, player.global_position)
 	density_tex.update([fog_map])
-	player.world.fog_of_war.material.set("density_texture", density_tex)
+	player.world.ground_mesh.mesh.material.next_pass.set("shader_parameter/fog_texture", ImageTexture.create_from_image(fog_map))
 
 func world_to_fog_position(pos : Vector2) -> Vector2i:
 	return Vector2i((pos + MAP_SIZE/2.0) * FOG_RESOLUTION)
@@ -135,9 +137,11 @@ func update_craft_available() -> void:
 	
 	for i in all_item_base.base:
 		if player.is_item_craftable(i):
-			var _new_item_craft = pre_item_craft_list.instantiate()
+			var _new_item_craft = pre_item_craft.instantiate()
 			_new_item_craft.item = i
 			_new_item_craft.select_item.connect(Callable(self, "select_item"))
+			_new_item_craft.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+			_new_item_craft.connect("mouse_exited", Callable(self, "hide_item_preview"))
 			craft_available_container.add_child(_new_item_craft)
 	
 	craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
@@ -198,7 +202,6 @@ func update_items() -> void:
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
-		_new_item_hud.connect("update_item_preview", Callable(self, "update_item_preview"))
 		item_list.add_child(_new_item_hud)
 
 func show_item_preview(item : Item) -> void:

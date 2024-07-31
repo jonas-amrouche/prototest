@@ -19,6 +19,7 @@ var players : Array[Object]
 
 @onready var fog_of_war = $FogOfWar
 @onready var multi_tree = $MultiTrees
+@onready var ground_mesh = $Ground
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
 @onready var beacons = $Beacons

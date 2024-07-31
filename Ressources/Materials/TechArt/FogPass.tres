@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://hborwfv27w8l"]
+
+[ext_resource type="Shader" path="res://Ressources/Shaders/FogNextPass.gdshader" id="1_b63q7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b63q7")
+shader_parameter/uv_multiplier = 0.05
+shader_parameter/uv_offset = Vector3(0.5, 0, -0.5)

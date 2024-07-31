@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4fgsnfoxf6ik"
-path.s3tc="res://.godot/imported/stat_souls.png-b88bca75b302773f4a32ded3411fb82e.s3tc.ctex"
+uid="uid://5wvb2ogyu6ua"
+path.s3tc="res://.godot/imported/fog_of_war_test_map.png-60b7fdc5cb3276ec80f6d1d2a6452395.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/2D/UI/stat_souls.png"
-dest_files=["res://.godot/imported/stat_souls.png-b88bca75b302773f4a32ded3411fb82e.s3tc.ctex"]
+source_file="res://Assets/2D/Shaders/fog_of_war_test_map.png"
+dest_files=["res://.godot/imported/fog_of_war_test_map.png-60b7fdc5cb3276ec80f6d1d2a6452395.s3tc.ctex"]
 
 [params]
 

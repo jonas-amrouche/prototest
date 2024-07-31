@@ -94,11 +94,11 @@ func initialize_fog(bases_data : PackedVector2Array, fog_base_size : Vector2i, f
 	map_mask.material.set_shader_parameter("base1_pos", (bases_data[0]+map_size/2.0)/map_size)
 	map_mask.material.set_shader_parameter("base2_pos", (bases_data[1]+map_size/2.0)/map_size)
 
-func update_fog(fog_map : Image, fog_player_size : Vector2i, player_position : Vector3) -> void:
-	var _new_fog_map = fog_map.duplicate()
-	var _player_img = pre_circle_image.duplicate()
-	_player_img.resize(fog_player_size.x, fog_player_size.y, Image.INTERPOLATE_NEAREST)
-	_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), player.hud.world_to_fog_position(Vector2(player_position.x, player_position.z)) - _player_img.get_size()/2)
+func update_fog(fog_map : Image, player_position : Vector3) -> void: #, fog_player_size : Vector2i
+	#var _new_fog_map = fog_map.duplicate()
+	#var _player_img = pre_circle_image.duplicate()
+	#_player_img.resize(fog_player_size.x, fog_player_size.y, Image.INTERPOLATE_NEAREST)
+	#_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), player.hud.world_to_fog_position(Vector2(player_position.x, player_position.z)) - _player_img.get_size()/2)
 	map_mask.texture = ImageTexture.create_from_image(fog_map)
 	map_mask.material.set_shader_parameter("player_pos", (Vector2(player_position.x, player_position.z)+map_size/2.0)/map_size)
 
