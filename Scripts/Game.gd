@@ -8,7 +8,7 @@ var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
-var decorations = [preload("res://Scenes/Models/TribalPillarTorchModel.tscn"), preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
+var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
 var camps = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
 preload("res://Ressources/Camps/Gobedins.tres"), \

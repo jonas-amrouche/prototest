@@ -2,15 +2,13 @@ shader_type spatial;
 
 uniform sampler2D fog_texture;
 uniform float uv_multiplier;
-uniform vec3 uv_offset;
-
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}
+uniform vec2 uv_offset = vec2(0.5, -0.5);
+uniform float blur_power = 1.0;
+uniform int iter = 1;
+uniform int quali = 1;
 
 varying vec3 uv_power_normal;
-varying vec3 uv_triplanar_pos;
+varying vec2 uv_triplanar_pos;
 
 void vertex(){
 	TANGENT = vec3(0.0,0.0,-1.0) * abs(NORMAL.x);
@@ -23,24 +21,44 @@ void vertex(){
 	BINORMAL = normalize(BINORMAL);
 	
 	uv_power_normal = pow(abs(mat3(MODEL_MATRIX) * NORMAL), vec3(1.0));
-	uv_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0f)).xyz;
+	uv_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0f)).xz;
 	uv_power_normal /= dot(uv_power_normal, vec3(1.0));
-	uv_triplanar_pos *= vec3(1.0, -1.0, 1.0);
 	COLOR.rg = VERTEX.xz;
 }
 
-vec4 triplanar_texture_2d(sampler2D p_sampler,vec3 p_triplanar_pos) {
-	vec4 samp = vec4(0.0);
-	samp+= texture(p_sampler,p_triplanar_pos.xz);
-	return samp;
+//void light() {
+	//vec3 color = triplanar_texture_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
+	//if (color.r < 0.9){
+		//DIFFUSE_LIGHT = vec3(0.0);
+	//}
+//}
+
+vec4 triplanar_texture_xorgaussian_2d(sampler2D tex, vec2 uv, vec2 pixel_size, float blurriness, int iterations, int quality){
+	float pi = 6.28;
+	
+	vec2 radius = blurriness / (1.0 / pixel_size).xy;
+	vec4 blurred_tex = texture(tex, uv);
+	
+	for(float d = 0.0; d < pi; d += pi / float(iterations)){
+		for( float i = 1.0 / float(quality); i <= 1.0; i += 1.0 / float(quality) ){
+			vec2 directions = uv + vec2(cos(d), sin(d)) * radius * i;
+			blurred_tex += texture(tex, directions);
+		}
+	}
+	blurred_tex /= float(quality) * float(iterations) + 1.0;
+	
+	return blurred_tex;
 }
 
 void fragment() {
-	ALBEDO = triplanar_texture_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
-	if (ALBEDO.r < 0.9){
-		ALPHA = 0.0;
-	}else{
-		ALBEDO.rgb = vec3(0.0);
-		ALPHA = 1.0;
-	}
+	ALBEDO = triplanar_texture_xorgaussian_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset, vec2(1.0), blur_power, iter, quali).rgb;
+	//ALBEDO = texture(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
+	ALPHA = clamp((ALBEDO.r-0.3)*2.0, 0.0, 0.5);
+	ALBEDO.rgb = vec3(0.0);
+	//if (ALBEDO.r < 0.9){
+		//ALPHA = 0.0;
+	//}else{
+		//ALBEDO.rgb = vec3(0.0);
+		//ALPHA = 0.4;
+	//}
 }

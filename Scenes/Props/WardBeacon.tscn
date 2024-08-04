@@ -1,20 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://frf5th8n0tj2"]
 
 [ext_resource type="Script" path="res://Scripts/WardBeacon.gd" id="1_0a8td"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_el6ps"]
-top_radius = 0.0
-height = 1.0
+[ext_resource type="PackedScene" uid="uid://bprg2qcrdb2wh" path="res://Scenes/Models/TribalPillarTorchModel.tscn" id="2_ebni0"]
 
 [sub_resource type="FogMaterial" id="FogMaterial_t5m51"]
 density = -8.0
 
 [node name="WardBeacon" type="Node3D"]
 script = ExtResource("1_0a8td")
-
-[node name="Model" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368358, 0)
-mesh = SubResource("CylinderMesh_el6ps")
 
 [node name="FogVolume" type="FogVolume" parent="."]
 size = Vector3(6, 20, 6)
@@ -25,5 +18,8 @@ material = SubResource("FogMaterial_t5m51")
 wait_time = 100.0
 one_shot = true
 autostart = true
+
+[node name="TribalPillarTorch" parent="." instance=ExtResource("2_ebni0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.140819, 0)
 
 [connection signal="timeout" from="Destroy" to="." method="_on_destroy_timeout"]

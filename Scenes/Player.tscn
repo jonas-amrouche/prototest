@@ -107,7 +107,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="UpdateFog" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 autostart = true
 
 [node name="Recall" type="Timer" parent="."]

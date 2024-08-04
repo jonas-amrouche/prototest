@@ -23,8 +23,8 @@ func update_component() -> void:
 
 func component_change_preview(new_value : int) -> void:
 	quantity_lab.text = str(new_value)
-	quantity_lab.label_settings.set("font_color", Color(0.698, 0.133, 0.055))
-	get("theme_override_styles/panel").set("bg_color", Color(0.828, 0.777, 0.039))
+	quantity_lab.label_settings.set("font_color", Color(0.828, 0.777, 0.039))
+	get("theme_override_styles/panel").set("bg_color", Color(0.698, 0.133, 0.055))
 
 func _on_mouse_entered():
 	mouse_entered_component.emit(component)
