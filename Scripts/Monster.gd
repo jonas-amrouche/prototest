@@ -100,6 +100,8 @@ func face_direction(direction : Vector3) -> void:
 
 func update_direction() -> void:
 	var _vec_look = -target_direction + Vector3(global_position.x, monster_model.global_position.y, global_position.z)
+	if _vec_look == global_position:
+		return
 	abilities.look_at(_vec_look)
 	monster_model.look_at(_vec_look)
 

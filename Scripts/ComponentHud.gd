@@ -3,7 +3,6 @@ extends PanelContainer
 @export var component : Component
 @export var quantity : int
 
-signal update_component_preview()
 signal mouse_entered_component(comp : Component)
 
 @onready var icon := $CompCont/MarginIcon/Icon

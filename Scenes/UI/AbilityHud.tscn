@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bx1r2n5ivie03"]
 
 [ext_resource type="Script" path="res://Scripts/AbilityHud.gd" id="1_5a4ep"]
-[ext_resource type="Texture2D" uid="uid://bkfv82833nssg" path="res://Assets/2D/PBR/grass_v2.png" id="2_fd8yc"]
+[ext_resource type="Texture2D" uid="uid://bycg2js86f2o5" path="res://Assets/2D/UI/cooldown_clockwise.png" id="2_x5ndy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujmt7"]
 resource_local_to_scene = true
@@ -59,11 +59,11 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CoolDownProgress" type="TextureProgressBar" parent="MarginContainer"]
-modulate = Color(0.692708, 0.692708, 0.692708, 1)
+modulate = Color(0.435294, 0.164706, 0.101961, 0.819608)
 layout_mode = 2
 fill_mode = 4
 nine_patch_stretch = true
-texture_progress = ExtResource("2_fd8yc")
+texture_progress = ExtResource("2_x5ndy")
 
 [node name="Keybind" type="Label" parent="MarginContainer"]
 custom_minimum_size = Vector2(11, 0)

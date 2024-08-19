@@ -12,11 +12,13 @@ corner_radius_bottom_left = 5
 [node name="ComponentPreview" type="PanelContainer"]
 offset_right = 11.0
 offset_bottom = 33.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4cg47")
 script = ExtResource("1_b3xl7")
 
 [node name="Pad" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5

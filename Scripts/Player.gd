@@ -82,7 +82,7 @@ func _ready():
 	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
-	obtain_item(preload("res://Ressources/Items/BigSword.tres"))
+	obtain_item(preload("res://Ressources/Items/BroadswordOfMisfortune.tres"))
 	hud.update_info_bars()
 	hud.update_components()
 	hud.update_abilities()

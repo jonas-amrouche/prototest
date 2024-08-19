@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=5 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" path="res://Scripts/ItemHud.gd" id="1_desy6"]
 
@@ -12,6 +12,17 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubnyl"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17rjt"]
+bg_color = Color(0, 0, 0, 0.917647)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="ItemHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
@@ -34,14 +45,12 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ubnyl")
 
-[node name="MarginIcon" type="MarginContainer" parent="RarityCont/Rarity"]
+[node name="BlackCont" type="PanelContainer" parent="RarityCont"]
 layout_mode = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_17rjt")
 
-[node name="Icon" type="TextureRect" parent="RarityCont/Rarity/MarginIcon"]
+[node name="Icon" type="TextureRect" parent="RarityCont/BlackCont"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5

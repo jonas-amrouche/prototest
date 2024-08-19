@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dg165vqh1ixp"]
+
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_0teh4"]
+[ext_resource type="Resource" uid="uid://didxnfenvjk1o" path="res://Ressources/Abilities/BigForwardCut.tres" id="2_1viyb"]
+[ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="3_hs6gf"]
+[ext_resource type="Texture2D" uid="uid://be1s4sdsyh66v" path="res://Assets/2D/Items/BroadswordOfMisfortuneIcon.png" id="4_jb4y3"]
+[ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/HunterMacheteModel.tscn" id="5_ymbp3"]
+[ext_resource type="Script" path="res://Scripts/PassiveClass.gd" id="6_isogs"]
+[ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="7_k5yj5"]
+
+[resource]
+script = ExtResource("7_k5yj5")
+id = "broadsword_of_misfortune"
+name = "Broadsword Of Misfortune"
+description = "Forgotten aspirants sword"
+icon = ExtResource("4_jb4y3")
+rarity = 1
+mesh_model = ExtResource("5_ymbp3")
+craft_recipe = {
+ExtResource("3_hs6gf"): 3
+}
+abilities = Array[ExtResource("1_0teh4")]([ExtResource("2_1viyb")])
+passives = Array[ExtResource("6_isogs")]([])
+stats = {
+"physical_damage": 30
+}

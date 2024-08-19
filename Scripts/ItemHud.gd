@@ -6,8 +6,9 @@ signal drop_item(slot : Object)
 signal update_item_preview()
 signal mouse_entered_item(itm : Item)
 
-@onready var icon = $RarityCont/Rarity/MarginIcon/Icon
+@onready var icon = $RarityCont/BlackCont/Icon
 @onready var rarity_pan = $RarityCont/Rarity
+@onready var rarity_cont = $RarityCont
 
 func _ready():
 	update_slot()
@@ -33,16 +34,16 @@ func _on_gui_input(event):
 		if event.pressed:
 			if item:
 				grabbed = true
-				rarity_pan.z_index = 1
+				rarity_cont.z_index = 1
 				drag_item.emit(self)
 				mouse_exited.emit()
 		else:
-			rarity_pan.z_index = 0
-			rarity_pan.position = Vector2(2.0, 2.0)
+			rarity_cont.z_index = 0
+			rarity_cont.position = Vector2(2.0, 2.0)
 			grabbed = false
 	if event is InputEventMouseMotion:
 		if grabbed:
-			rarity_pan.position = get_viewport().get_mouse_position() - global_position - size/2.0
+			rarity_cont.position = get_viewport().get_mouse_position() - global_position - size/2.0
 		else:
 			update_item_preview.emit()
 
