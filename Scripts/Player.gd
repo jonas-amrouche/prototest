@@ -67,7 +67,7 @@ var can_move := true
 @onready var abilities_machine := $Abilities
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
-@onready var anims := $Anims
+#@onready var anims := $Anims
 @onready var health_bar := $SubViewport/Infos/HealthBar
 @onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
 @onready var small_view := $MapSmallView
@@ -267,13 +267,14 @@ func movement() -> void:
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction and can_move:
-		anims.play("walk", 1.0)
+		if model_anims.current_animation != "walk":
+			model_anims.play("walk", 0.5, 0.7 * stats.movement_speed)
 		cancel_recall()
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
 		face_direction(direction)
 	else:
-		anims.play("idle", 1.0)
+		model_anims.play("idle_stand")
 		velocity.x = lerp(velocity.x, 0.0, ACCELERATION)
 		velocity.z = lerp(velocity.z, 0.0, ACCELERATION)
 	
