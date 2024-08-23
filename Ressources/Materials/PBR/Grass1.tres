@@ -5,7 +5,7 @@
 
 [resource]
 next_pass = ExtResource("2_a6w2r")
-albedo_color = Color(0.901961, 0.788235, 0.627451, 1)
+albedo_color = Color(0.951087, 0.657076, 0.401223, 1)
 albedo_texture = ExtResource("1_snfbt")
 metallic_specular = 0.13
 uv1_scale = Vector3(0.25, 0.25, 0.25)

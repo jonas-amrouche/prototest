@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=3 uid="uid://c05spsivirxsh"]
+
+[ext_resource type="PackedScene" uid="uid://dar6wkf80taom" path="res://Assets/3D/VisionBeacon.glb" id="1_rkeot"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="2_5ey6o"]
+[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="3_gn1p1"]
+[ext_resource type="Material" uid="uid://dyy5axgdb8bl6" path="res://Ressources/Materials/TechArt/VisionFire.tres" id="4_xlte2"]
+[ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Ressources/Materials/PBR/DarkRope1.tres" id="5_chgn7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmhbn"]
+albedo_color = Color(0.0940533, 0.320813, 0.513863, 1)
+emission_enabled = true
+emission = Color(0.128538, 0.308346, 0.569019, 1)
+emission_energy_multiplier = 3.0
+
+[node name="VisionBeacon" instance=ExtResource("1_rkeot")]
+
+[node name="VisionBeacon" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_5ey6o")
+surface_material_override/1 = ExtResource("3_gn1p1")
+surface_material_override/2 = ExtResource("4_xlte2")
+surface_material_override/3 = ExtResource("5_chgn7")
+surface_material_override/4 = SubResource("StandardMaterial3D_jmhbn")

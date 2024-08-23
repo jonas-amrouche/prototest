@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwqd7lfga5y1g"]
+[gd_scene load_steps=2 format=3 uid="uid://dwqd7lfga5y1g"]
 
 [ext_resource type="Script" path="res://Scripts/Abilities/cutting_around.gd" id="1_hcc6o"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_0fa0y"]
-radius = 0.777
 
 [node name="CuttingAround" type="Node3D"]
 script = ExtResource("1_hcc6o")
@@ -13,9 +10,12 @@ collision_layer = 0
 collision_mask = 6
 monitorable = false
 
-[node name="Col" type="CollisionShape3D" parent="Area"]
-shape = SubResource("CylinderShape3D_0fa0y")
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+depth = 0.1
+polygon = PackedVector2Array(0, 0, -0.8, 0.5, -0.5, 0.8, 0, 1, 0.5, 0.8, 0.8, 0.5)
 
-[node name="Visual" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.712463)
-size = Vector3(1.09985, 0.181885, 0.395996)
+[node name="Visual" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+polygon = PackedVector2Array(0, 0, -0.8, 0.5, -0.5, 0.8, 0, 1, 0.5, 0.8, 0.8, 0.5)
+depth = 0.1

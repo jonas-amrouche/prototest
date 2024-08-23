@@ -4,7 +4,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irhtk"]
 cull_mode = 2
-albedo_color = Color(0.515812, 0.520239, 0.513641, 1)
+albedo_color = Color(0.19171, 0.194084, 0.190545, 1)
 metallic_specular = 0.28
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckqmh"]
@@ -14,6 +14,9 @@ albedo_color = Color(0.136522, 0.0774348, 0.0261775, 1)
 albedo_color = Color(0.314316, 0.314316, 0.314316, 1)
 
 [node name="WiseMage" instance=ExtResource("1_b56hy")]
+
+[node name="PlayerBones" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.135331)
 
 [node name="Skeleton3D" parent="PlayerBones" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.227189)
@@ -33,7 +36,6 @@ bones/13/scale = Vector3(1, 1, 1)
 bones/14/rotation = Quaternion(0.570363, 0.417955, 0.570363, -0.417955)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/rotation = Quaternion(-0.615378, -7.84263e-09, 6.24265e-08, 0.788232)
-bones/15/scale = Vector3(1, 1, 1)
 bones/16/rotation = Quaternion(0.0304671, 3.32926e-08, -3.315e-09, 0.999536)
 bones/18/rotation = Quaternion(-1.30373e-07, -1.86369e-07, -0.584396, 0.811468)
 bones/19/scale = Vector3(1, 1, 1)

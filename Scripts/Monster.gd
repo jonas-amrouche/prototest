@@ -23,6 +23,7 @@ var in_attack_range : bool
 
 var roam_point : Vector3
 
+@onready var camp = get_node("..")
 @onready var nav = $NavAgent
 @onready var abilities = $Abilities
 @onready var agro_collision = $Aggro/Collision
@@ -78,6 +79,7 @@ func gain_experience(_experience : float) -> void:
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
+	camp.world.remove_entity(self)
 	monster_collision.disabled = true
 	for i in range(monster.drop_components.size()):
 		var _new_component_ground = pre_component_drop.instantiate()
@@ -100,8 +102,6 @@ func face_direction(direction : Vector3) -> void:
 
 func update_direction() -> void:
 	var _vec_look = -target_direction + Vector3(global_position.x, monster_model.global_position.y, global_position.z)
-	if _vec_look == global_position:
-		return
 	abilities.look_at(_vec_look)
 	monster_model.look_at(_vec_look)
 

@@ -36,6 +36,7 @@ size = Vector2i(200, 30)
 
 [node name="InfoBar" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29, -0.630505)
+visible = false
 billboard = 1
 no_depth_test = true
 texture = SubResource("ViewportTexture_q8k26")

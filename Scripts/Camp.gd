@@ -7,6 +7,7 @@ var level : int = 1
 
 var pre_monster = preload("res://Scenes/Monster.tscn")
 
+@onready var world := get_node("..").get_node("..")
 @onready var respawn_timer := $Respawn
 @onready var camp_flames_model := $CampFireModel/CampFlames
 @onready var camp_model := $CampFireModel
@@ -25,6 +26,7 @@ func spawn_monsters(monsters : Array[Monster]) -> void:
 		_new_monster.monster = monsters[m]
 		_new_monster.position = get_node("MonsterPos" + str(m+1)).position
 		add_child(_new_monster)
+		world.add_entity(_new_monster)
 
 var monster_dead := int()
 func monster_died() -> void:

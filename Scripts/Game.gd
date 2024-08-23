@@ -1,6 +1,5 @@
 extends Node3D
 
-const MAP_SIZE := Vector2(200.0, 200.0)
 const CAMP_DISTANCE_TO_CENTER = 95.0
 var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
@@ -10,19 +9,22 @@ var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
 var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
-var camps = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
+var camps_list = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
 preload("res://Ressources/Camps/Gobedins.tres"), \
 preload("res://Ressources/Camps/DispossessedWillow.tres"), \
 preload("res://Ressources/Camps/Grunters.tres"), \
 preload("res://Ressources/Camps/LostGhosts.tres")]
-var players : Array[Object]
 
-@onready var fog_of_war = $FogOfWar
+var players : Array[Object]
+var entities : Array[Object]
+
 @onready var multi_tree = $MultiTrees
+#@onready var multi_tree2 = $MultiTrees2
 @onready var ground_mesh = $Ground
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
 @onready var beacons = $Beacons
+@onready var camps = $Camps
 
 func _ready() -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -30,6 +32,13 @@ func _ready() -> void:
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
 	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], interest_points_list)
+
+func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
+	var _new_player = pre_player.instantiate()
+	_new_player.position = pos
+	_new_player.target_direction = pos.direction_to(center_spawn)
+	add_child(_new_player)
+	players.append(_new_player)
 
 func map_generation() -> void:
 	randomize()
@@ -97,10 +106,10 @@ func generate_points_and_paths() -> void:
 	interest_points_list.append(Vector2(0.0, 0.0))
 	
 	# Generate interest points
-	for x in range(MAP_SIZE.x/POINT_CELL_DIVISION):
-		for y in range(MAP_SIZE.y/POINT_CELL_DIVISION):
-			var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(MAP_SIZE)/2
-			if is_close_to_square_border(MAP_SIZE, _new_point + MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
+	for x in range(Basics.MAP_SIZE.x/POINT_CELL_DIVISION):
+		for y in range(Basics.MAP_SIZE.y/POINT_CELL_DIVISION):
+			var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
+			if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
 				continue
 			interest_points_list.append(_new_point)
 	
@@ -201,16 +210,17 @@ func is_on_right_side(point : Vector2) -> bool:
 
 const COLLISION_GRID_DIVISION := 2.0
 func generate_collisions() -> void:
-	for x in range(int(MAP_SIZE.x/COLLISION_GRID_DIVISION)):
-		for y in range(int(MAP_SIZE.y/COLLISION_GRID_DIVISION)):
-			var _new_position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(MAP_SIZE)/2
+	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
+		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
+			var _new_position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
 			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
 				continue
 			add_collision_cube(_new_position)
 
 func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : PackedVector2Array):
 	for p in players:
-		p.hud.update_map_data(paths_list, bases_list, interests_list)
+		p.vision.initialize_fog_map(bases_list)
+		p.hud.init_map_data(paths_list, bases_list, interests_list)
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -222,21 +232,21 @@ const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
 const NO_TREE_BASE_DISTANCE := 15.0
 const NO_TREE_PATH_DISTANCE := 3.0
-const TREE_ROTATION_MAX = PI/6.0
+const TREE_ROTATION_MAX = PI/8.0
 const TREE_SCALE_MIN = 0.08
 const TREE_SCALE_MAX = 0.12
 func generate_forest() -> void:
 	var tree_count = 0
 	
-	for x in range(int(MAP_SIZE.x/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
-		for y in range(int(MAP_SIZE.y/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
-			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)
+	for x in range(int(Basics.MAP_SIZE.x/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
+		for y in range(int(Basics.MAP_SIZE.y/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
+			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(Basics.MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)
 			
 			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
 				continue
 			
 			var _basis_vec = Vector3(randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0).normalized()
-			var _basis = Basis(_basis_vec, randf_range(-TREE_ROTATION_MAX, TREE_ROTATION_MAX))
+			var _basis = Basis(_basis_vec, randf_range(-TREE_ROTATION_MAX, TREE_ROTATION_MAX)).rotated(Vector3.UP, randf_range(-PI, PI))
 			var _transform = Transform3D(_basis * randf_range(TREE_SCALE_MIN, TREE_SCALE_MAX), Vector3(_new_position.x, 0, _new_position.y))
 			multi_tree.multimesh.set_instance_transform(tree_count, _transform)
 			add_collision_cube(_new_position)
@@ -256,8 +266,8 @@ func generate_camps() -> void:
 	for i in interest_points_list:
 		var _new_camp = pre_camp.instantiate()
 		_new_camp.position = Vector3(i.x, -0.2, i.y)
-		_new_camp.camp = camps[randi_range(0, camps.size()-1)]
-		add_child(_new_camp)
+		_new_camp.camp = camps_list[randi_range(0, camps_list.size()-1)]
+		camps.add_child(_new_camp)
 
 const CHANCE_TO_SPAWN_TOWER := 0.05
 func generate_structures() -> void:
@@ -272,13 +282,25 @@ var decorations_points = PackedVector2Array()
 func generate_decoration() -> void:
 	for i in range(150):
 		var _decoration = randi_range(0, decorations.size()-1)
-		var _new_position = Vector2(randf_range(-MAP_SIZE.x/2.0, MAP_SIZE.x/2.0), randf_range(-MAP_SIZE.y/2.0, MAP_SIZE.y/2.0))
+		var _new_position = Vector2(randf_range(-Basics.MAP_SIZE.x/2.0, Basics.MAP_SIZE.x/2.0), randf_range(-Basics.MAP_SIZE.y/2.0, Basics.MAP_SIZE.y/2.0))
 		if is_in_base(_new_position) or is_in_path(_new_position) or is_in_arena(_new_position):
 			continue
 		decorations_points.append(_new_position)
 		var _new_decoration = decorations[_decoration].instantiate()
 		_new_decoration.position = Vector3(_new_position.x, 0.0, _new_position.y)
 		add_child(_new_decoration)
+
+func add_entity(entity : Object) -> void:
+	entities.append(entity)
+
+func remove_entity(entity : Object) -> void:
+	entities.erase(entity)
+
+func vision_update(vision : Object, fog_map : Image) -> void:
+	for e in entities:
+		if e:
+			var _fog_position = vision.world_to_fog_position(Vector2(e.global_position.x, e.global_position.z))
+			e.set_visible(fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5)
 
 func is_in_decoration(pos : Vector2) -> bool:
 	for i in decorations_points:
@@ -303,10 +325,3 @@ func is_in_arena(pos : Vector2) -> bool:
 	if pos.distance_to(Vector2(0.0, 0.0)) < ARENA_SIZE:
 		return true
 	return false
-
-func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
-	var _new_player = pre_player.instantiate()
-	_new_player.position = pos
-	_new_player.target_direction = pos.direction_to(center_spawn)
-	add_child(_new_player)
-	players.append(_new_player)

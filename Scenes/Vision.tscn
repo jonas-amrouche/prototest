@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck86813meoj4w"]
+
+[ext_resource type="Script" path="res://Scripts/Vision.gd" id="1_8v57j"]
+
+[node name="Vision" type="Node3D"]
+script = ExtResource("1_8v57j")
+
+[node name="UpdateFog" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="UpdateFog" to="." method="_on_update_fog_timeout"]

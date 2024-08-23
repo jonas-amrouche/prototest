@@ -14,32 +14,22 @@ const PER_LEVEL_PLUS_EXPERIENCE := 1
 const KILL_REWARD_EXP := 10
 
 # Statistics
-const BASE_MOVEMENT_SPEED := 3.0
-const BASE_PHYSICAL_DAMAGE := 50
-const BASE_MAGIC_DAMAGE := 50
-const BASE_COOLDOWN_REDUCTION := 0.0
-const BASE_PHYSICAL_ARMOR := 15
-const BASE_MAGIC_ARMOR := 15
-const BASE_HEALTH_REGENERATION := 2.0
-const BASE_MAX_HEALTH := 450
-const BASE_LIFE_STEAL := 0.0
+var base_stats := {"physical_damage" : 50, \
+"magic_damage" : 50, \
+"physical_armor" : 15, \
+"magic_armor" : 15, \
+"movement_speed" : 3.0, \
+"cooldown_reduction" : 0.0, \
+"health_regeneration" : 2.0, \
+"max_health" : 450, \
+"life_steal" : 0.0}
+
+var stats := base_stats.duplicate()
 
 # Miscelious
 var area_health_regeneration := 0.0
 
-var base_stats := {"physical_damage" : BASE_PHYSICAL_DAMAGE, \
-"magic_damage" : BASE_MAGIC_DAMAGE, \
-"physical_armor" : BASE_PHYSICAL_ARMOR, \
-"magic_armor" : BASE_MAGIC_ARMOR, \
-"movement_speed" : BASE_MOVEMENT_SPEED, \
-"cooldown_reduction" : BASE_COOLDOWN_REDUCTION, \
-"health_regeneration" : BASE_HEALTH_REGENERATION, \
-"max_health" : BASE_MAX_HEALTH, \
-"life_steal" : BASE_LIFE_STEAL}
-
-var stats := base_stats.duplicate()
-
-var health := BASE_MAX_HEALTH
+var health : int = base_stats.max_health
 var souls := 0
 var max_experience := 1
 var experience := 0
@@ -60,20 +50,18 @@ var can_move := true
 @onready var camera := $Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
-@onready var nav := $NavAgent
+#@onready var nav := $NavAgent
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
+@onready var vision := $Vision
 @onready var abilities_machine := $Abilities
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
-#@onready var anims := $Anims
 @onready var health_bar := $SubViewport/Infos/HealthBar
 @onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
 @onready var small_view := $MapSmallView
 @onready var camera_map := $MapSmallView/CameraMap
-
-#1 script pour le fog
 
 func _ready():
 	hud.viewport_map_cam.texture = small_view.get_texture()
@@ -179,7 +167,7 @@ func cancel_recall() -> void:
 func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
 	player_collision.disabled = false
-	nav.target_position = global_position
+	#nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
 	camera.top_level = false
 
@@ -268,7 +256,7 @@ func movement() -> void:
 	
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
-			model_anims.play("walk", 0.5, 0.7 * stats.movement_speed)
+			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed)
 		cancel_recall()
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
@@ -288,7 +276,7 @@ func action_keys():
 		camera.top_level = false
 		camera.position = camera_base_marker.position
 	if Input.is_action_just_pressed("recall"):
-		nav.target_position = global_position
+		#nav.target_position = global_position
 		recall = true
 		recall_timer.start()
 		start_channeling(recall_timer.wait_time)
@@ -401,7 +389,8 @@ func is_item_craftable(item : Item) -> bool:
 	return false
 
 func _on_nav_agent_path_changed() -> void:
-	hud.mini_map.update_movement_line(nav)
+	pass
+	#hud.mini_map.update_movement_line(nav)
 
 func _on_recall_timeout() -> void:
 	respawn_base()
@@ -411,9 +400,7 @@ func _on_stat_regen_timeout():
 	heal(int(stats.health_regeneration))
 
 func _on_update_movement_line_timeout(): #MINILAG
-	if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		nav.target_position = global_position
-	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
-
-func _on_update_fog_timeout():
-	hud.update_map_fog()
+	pass
+	#if nav.target_position == Vector3(0.0, 0.0, 0.0):
+		#nav.target_position = global_position
+	#nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)

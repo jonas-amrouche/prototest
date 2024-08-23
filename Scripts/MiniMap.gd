@@ -88,17 +88,13 @@ func draw_icon(pos : Vector2, icon_size : Vector2, icon : Texture2D, tint : Colo
 func world_to_minimap_position(pos : Vector2) -> Vector2:
 	return (pos + map_size/2.0)/map_size*mini_content.size
 
-func initialize_fog(bases_data : PackedVector2Array, fog_base_size : Vector2i, fog_player_size : Vector2i, fog_texture_size : Vector2i) -> void:
+func initialize_fog_display(bases_data : PackedVector2Array, fog_base_size : Vector2i, fog_player_size : Vector2i, fog_texture_size : Vector2i) -> void:
 	map_mask.material.set_shader_parameter("base_fog_size", float(fog_base_size.x)/2.0/float(fog_texture_size.x))
 	map_mask.material.set_shader_parameter("player_fog_size", float(fog_player_size.x)/4.5/float(fog_texture_size.x))
 	map_mask.material.set_shader_parameter("base1_pos", (bases_data[0]+map_size/2.0)/map_size)
 	map_mask.material.set_shader_parameter("base2_pos", (bases_data[1]+map_size/2.0)/map_size)
 
-func update_fog(fog_map : Image, player_position : Vector3) -> void: #, fog_player_size : Vector2i
-	#var _new_fog_map = fog_map.duplicate()
-	#var _player_img = pre_circle_image.duplicate()
-	#_player_img.resize(fog_player_size.x, fog_player_size.y, Image.INTERPOLATE_NEAREST)
-	#_new_fog_map.blend_rect(_player_img, _player_img.get_used_rect(), player.hud.world_to_fog_position(Vector2(player_position.x, player_position.z)) - _player_img.get_size()/2)
+func update_fog_display(fog_map : Image, player_position : Vector3) -> void: #, fog_player_size : Vector2i
 	map_mask.texture = ImageTexture.create_from_image(fog_map)
 	map_mask.material.set_shader_parameter("player_pos", (Vector2(player_position.x, player_position.z)+map_size/2.0)/map_size)
 
@@ -116,10 +112,6 @@ func _on_gui_input(event):
 				player.move_camera_click(true)
 			else:
 				player.move_camera_click(false)
-		#elif event.button_index == 2:
-			#if event.pressed:
-				#cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
-				#player.nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
 	if event is InputEventMouseMotion:
 		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0) + CAMERA_PERSPECTIVE_OFFSET
 	player.move_camera_by_minimap(cursor_pos)

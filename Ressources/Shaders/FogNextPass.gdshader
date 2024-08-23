@@ -51,10 +51,12 @@ vec4 triplanar_texture_xorgaussian_2d(sampler2D tex, vec2 uv, vec2 pixel_size, f
 }
 
 void fragment() {
-	ALBEDO = triplanar_texture_xorgaussian_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset, vec2(1.0), blur_power, iter, quali).rgb;
+	float fog = triplanar_texture_xorgaussian_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset, vec2(1.0), blur_power, iter, quali).r;
+	
+	ALPHA = clamp((fog-0.3)*2.0, 0.0, 0.5);
+	
 	//ALBEDO = texture(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
-	ALPHA = clamp((ALBEDO.r-0.3)*2.0, 0.0, 0.5);
-	ALBEDO.rgb = vec3(0.0);
+	ALBEDO = vec3(0.0);
 	//if (ALBEDO.r < 0.9){
 		//ALPHA = 0.0;
 	//}else{
