@@ -18,7 +18,7 @@ sky_material = SubResource("ProceduralSkyMaterial_iie7f")
 [sub_resource type="Environment" id="Environment_ajjs0"]
 background_mode = 1
 background_color = Color(1, 1, 1, 1)
-background_energy_multiplier = 0.2
+background_energy_multiplier = 0.4
 sky = SubResource("Sky_hsrs7")
 tonemap_mode = 3
 ssao_radius = 1.2
@@ -85,5 +85,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.227139, 0)
 shape = SubResource("BoxShape3D_cosj4")
 
 [node name="Beacons" type="Node3D" parent="."]
+
+[node name="TempVision" type="Node3D" parent="."]
 
 [node name="Camps" type="Node3D" parent="."]

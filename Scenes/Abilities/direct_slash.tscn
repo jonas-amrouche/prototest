@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dp6xgqckpjxe1"]
+[gd_scene load_steps=3 format=3 uid="uid://mn0dqjta8atv"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/big_forward_cut.gd" id="1_c8usx"]
+[ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_vyjbj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uc5iw"]
 size = Vector3(1, 1, 1.919)
 
 [node name="BigForwardCut" type="Node3D"]
-script = ExtResource("1_c8usx")
+script = ExtResource("1_vyjbj")
 
 [node name="Area" type="Area3D" parent="."]
 collision_layer = 0

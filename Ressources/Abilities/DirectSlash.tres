@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://didxnfenvjk1o"]
+
+[ext_resource type="Texture2D" uid="uid://c8v1qwnlv0txu" path="res://Assets/2D/Abilities/DirectSlashIcon.png" id="1_32i4i"]
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="2_mqqg1"]
+
+[resource]
+script = ExtResource("2_mqqg1")
+id = "direct_slash"
+name = "Direct Slash"
+description = "Slash in the target direction."
+icon = ExtResource("1_32i4i")
+cooldown = 5.0
+attack_time = 0.5
+damage_type = 0
+damage_cap = 75

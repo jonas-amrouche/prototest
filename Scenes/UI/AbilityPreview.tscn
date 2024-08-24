@@ -15,6 +15,7 @@ font_size = 10
 font_color = Color(0.635417, 0.635417, 0.635417, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
+resource_local_to_scene = true
 font_size = 11
 outline_color = Color(0.423453, 0.52643, 0.8125, 1)
 

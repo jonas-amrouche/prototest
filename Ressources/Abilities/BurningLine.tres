@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://bkwym8ejgyxvn"]
+
+[ext_resource type="Texture2D" uid="uid://djt1kxw2o88j1" path="res://Assets/2D/Abilities/BurningLineIcon.png" id="1_4s0q2"]
+[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="2_ffuwy"]
+
+[resource]
+script = ExtResource("2_ffuwy")
+id = "burning_line"
+name = "Burning Line"
+description = "Throw a big slash of fire in the target direction."
+icon = ExtResource("1_4s0q2")
+cooldown = 12.0
+attack_time = 0.75
+damage_type = 1
+damage_cap = 100

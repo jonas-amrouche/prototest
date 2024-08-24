@@ -25,6 +25,7 @@ var entities : Array[Object]
 @onready var navmesh = $NavMesh
 @onready var beacons = $Beacons
 @onready var camps = $Camps
+@onready var temp_vision = $TempVision
 
 func _ready() -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -90,11 +91,6 @@ func generate_lanes() -> void:
 const POINT_CELL_DIVISION = 28
 const PATH_RANDOM_CELLS = 0.4
 const NO_PATH_BORDER_LENGTH = 20.0
-#const PATH_MIN_POINTS = 5
-#const PATH_MAX_POINTS = 10
-#const POINT_PRECISION = 4.0
-#const MAX_VECTOR_ANGLE = 1
-#const CHANCE_TO_SPAWN_PLANT = 0.05
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
@@ -145,28 +141,6 @@ func generate_mid_arena() -> void:
 	var _new_arena = pre_arena.instantiate()
 	_new_arena.position = Vector3(0.0, 0.0, 0.0)
 	add_child(_new_arena)
-
-#func generate_points_and_paths() -> void:
-	#for x in range(MAP_SIZE.x/POINT_CELL_DIVISION):
-		#for y in range(MAP_SIZE.y/POINT_CELL_DIVISION):
-			#var _vector_direction = Vector2(randf()-0.5, randf()-0.5).normalized()
-			#var _vector_pos = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(MAP_SIZE)/2
-			#
-			#if is_close_to_square_border(MAP_SIZE, _vector_pos + MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
-				#continue
-			#
-			#var _temp_point_list = PackedVector2Array()
-			#var _path_length = randi_range(PATH_MIN_POINTS, PATH_MAX_POINTS)
-			#for i in range(_path_length):
-				#if !is_in_base(_vector_pos) and !is_in_mid(_vector_pos):
-					#if randf() < CHANCE_TO_SPAWN_PLANT:
-						#interest_points_list.append(_vector_pos)
-					#elif i+1 == _path_length:
-						#interest_points_list.append(_vector_pos)
-				#_temp_point_list.append(_vector_pos)
-				#_vector_pos += _vector_direction * POINT_PRECISION
-				#_vector_direction = _vector_direction.rotated(randf_range(-MAX_VECTOR_ANGLE, MAX_VECTOR_ANGLE)) 
-			#paths_points_list.append(_temp_point_list)
 
 func debug_box(pos : Vector3, size : float = 1.0, color : Color = Color(1.0, 1.0, 1.0)) -> void:
 	var _box = CSGBox3D.new()

@@ -4,8 +4,8 @@
 
 [node name="Passive" type="RichTextLabel"]
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 13
 theme_override_font_sizes/italics_font_size = 13
+theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 text = "[i][color=violet]Hero's lish[/color] [color=#B7B7B7]: deal 5 extra physical damage when damaging a monster. [/color][/i]"
 fit_content = true

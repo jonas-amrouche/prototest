@@ -19,14 +19,20 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 func update_map_fog() -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
 	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
-	var _player_img = pre_circle_image.duplicate()
-	_player_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	fog_map.blend_rect(_player_img, _player_img.get_used_rect(), _player_position - _player_img.get_size()/2)
-	var _beacon_img = pre_circle_image.duplicate()
+	var _ring_img = pre_circle_image.duplicate()
+	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
+	fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
+	#var _beacon_img = pre_circle_image.duplicate()
 	for i in player.world.beacons.get_children():
 		var _beacon_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
-		_beacon_img.resize(FOG_BEACON_SIZE.x, FOG_BEACON_SIZE.y, Image.INTERPOLATE_NEAREST)
-		fog_map.blend_rect(_beacon_img, _beacon_img.get_used_rect(), _beacon_position - _beacon_img.get_size()/2)
+		_ring_img.resize(FOG_BEACON_SIZE.x, FOG_BEACON_SIZE.y, Image.INTERPOLATE_NEAREST)
+		fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _beacon_position - _ring_img.get_size()/2)
+	
+	for i in player.world.temp_vision.get_children():
+		var _temp_vision_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
+		_ring_img.resize(i.radius, i.radius, Image.INTERPOLATE_NEAREST)
+		fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _temp_vision_position - _ring_img.get_size()/2)
+		
 	player.hud.mini_map.update_fog_display(fog_map, player.global_position)
 	
 	# Send vision map to ground mesh affacting all landscape because it's the same material instance

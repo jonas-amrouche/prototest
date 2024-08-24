@@ -72,6 +72,10 @@ func update_info_bars() -> void:
 func select_item(item : Item) -> void:
 	item_craft_selected = item
 	item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
+	for i in craft_available_container.get_children():
+		if i.item == item:
+			continue
+		i.unselect_item()
 
 func add_item_in_decompose(item : Item) -> void:
 	if item_in_decompose:
@@ -103,6 +107,8 @@ func clear_decompose() -> void:
 	update_decompose()
 
 func update_craft_available() -> void:
+	item_craft_selected = null
+	item_craft_button.disabled = true
 	for i in craft_available_container.get_children():
 		i.queue_free()
 	

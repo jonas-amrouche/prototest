@@ -1,16 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn57uxe8ha5k3"]
+[gd_scene load_steps=6 format=3 uid="uid://dn57uxe8ha5k3"]
 
 [ext_resource type="Script" path="res://Scripts/ItemCraft.gd" id="1_6tboc"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_g2ku8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ds11i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scd0q"]
+resource_local_to_scene = true
+bg_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fin58"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ds11i"]
 
 [node name="ItemHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
 offset_right = 50.0
 offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_scd0q")
 script = ExtResource("1_6tboc")
 
 [node name="MarginIcon" type="MarginContainer" parent="."]
@@ -30,8 +39,8 @@ stretch_mode = 5
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ds11i")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fin58")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ds11i")
 action_mode = 0
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

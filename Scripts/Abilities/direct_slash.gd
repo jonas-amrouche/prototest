@@ -1,31 +1,23 @@
 extends Node3D
 
+@onready var visual = $Visual
+@onready var collision = $Area
 @onready var manager = get_node("..")
-
-var _pre_temp_vision = preload("res://Scenes/Props/TempVision.tscn")
-var temp_visions_list : Array[Object]
 
 func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead():
 			manager.look_at_cursor(ability_dealer)
-			top_level = true
 			manager.in_animation = true
 			manager.block_player_position(ability_dealer)
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
+				for p in collision.get_overlapping_bodies():
+					if p != ability_dealer:
+						p.take_damage(min(ability_dealer.stats.physical_damage, ability.damage_cap), 0, ability_dealer)
 				manager.in_animation = false
 				manager.unblock_player_position(ability_dealer)
-				for i in range(get_child_count()):
-					var _new_temp_vision = _pre_temp_vision.instantiate()
-					_new_temp_vision.position = Vector3(get_node(str(i)).global_position.x, 0.0, get_node(str(i)).global_position.z)
-					_new_temp_vision.radius = 15.0
-					manager.player.world.temp_vision.add_child(_new_temp_vision)
-					temp_visions_list.append(_new_temp_vision)
 				manager.start_ability_cooldown(ability)
-				get_tree().create_timer(2.0).timeout.connect(Callable(func():
-					for i in temp_visions_list:
-						i.queue_free()
-					queue_free()))))
+				queue_free()))
 			return Basics.ABILITY_ERROR.OK
 		else:
 			queue_free()

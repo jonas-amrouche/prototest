@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djt1kxw2o88j1"
-path="res://.godot/imported/BigForwardCutIcon_v3.png-88757ae3c4aac7c00413b4e80013c2ac.ctex"
+path="res://.godot/imported/BurningLineIcon.png-30064a36729429d14d7a08129ad8b04b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/Abilities/BigForwardCutIcon_v3.png"
-dest_files=["res://.godot/imported/BigForwardCutIcon_v3.png-88757ae3c4aac7c00413b4e80013c2ac.ctex"]
+source_file="res://Assets/2D/Abilities/BurningLineIcon.png"
+dest_files=["res://.godot/imported/BurningLineIcon.png-30064a36729429d14d7a08129ad8b04b.ctex"]
 
 [params]
 
