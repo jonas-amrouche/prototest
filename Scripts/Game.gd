@@ -275,6 +275,10 @@ func vision_update(vision : Object, fog_map : Image) -> void:
 		if e:
 			var _fog_position = vision.world_to_fog_position(Vector2(e.global_position.x, e.global_position.z))
 			e.set_visible(fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5)
+	
+	for c in camps.get_children():
+		var _fog_position = vision.world_to_fog_position(Vector2(c.global_position.x, c.global_position.z))
+		c.change_camp_visibility(fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5)
 
 func is_in_decoration(pos : Vector2) -> bool:
 	for i in decorations_points:

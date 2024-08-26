@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://erquakorne0r"]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_8kldp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ff2nd"]
+size = Vector3(0.1, 1, 6)
+
+[node name="InstantShardstone" type="Node3D"]
+script = ExtResource("1_8kldp")
+
+[node name="Area" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+
+[node name="Col" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+shape = SubResource("BoxShape3D_ff2nd")
+
+[node name="Visual" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+size = Vector3(0.1, 1, 6)

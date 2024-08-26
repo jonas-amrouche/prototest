@@ -7,7 +7,7 @@ var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png"
 var fog_map : Image
 const FOG_RESOLUTION = 2
 const FOG_TEXTURE_SIZE = Vector2i(int(Basics.MAP_SIZE.x), int(Basics.MAP_SIZE.y)) * FOG_RESOLUTION
-const FOG_PLAYER_SIZE = Vector2i(15, 15) * FOG_RESOLUTION
+const FOG_PLAYER_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
 const FOG_BEACON_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
 const FOG_BASE_SIZE = Vector2i(24, 24) * FOG_RESOLUTION
 func initialize_fog_map(bases_data : PackedVector2Array) -> void:
@@ -32,8 +32,10 @@ func update_map_fog() -> void:
 		var _temp_vision_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
 		_ring_img.resize(i.radius, i.radius, Image.INTERPOLATE_NEAREST)
 		fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _temp_vision_position - _ring_img.get_size()/2)
-		
+	
 	player.hud.mini_map.update_fog_display(fog_map, player.global_position)
+	
+	#TODO We need temporal reprojection of fog
 	
 	# Send vision map to ground mesh affacting all landscape because it's the same material instance
 	player.world.ground_mesh.mesh.material.next_pass.set("shader_parameter/fog_texture", ImageTexture.create_from_image(fog_map))

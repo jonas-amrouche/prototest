@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Passive" load_steps=2 format=3 uid="uid://dr72d33q0tg0w"]
+
+[ext_resource type="Script" path="res://Scripts/PassiveClass.gd" id="1_lo4h2"]
+
+[resource]
+script = ExtResource("1_lo4h2")
+id = "silius_vision"
+name = "Silius Vision"
+description = "Notify you when you are seen, by conventinal vision."
+color = Color(0.286257, 0.54343, 0.716633, 1)

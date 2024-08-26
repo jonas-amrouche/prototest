@@ -1,11 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://mn0dqjta8atv"]
+[gd_scene load_steps=2 format=3 uid="uid://mn0dqjta8atv"]
 
 [ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_vyjbj"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_uc5iw"]
-size = Vector3(1, 1, 1.919)
-
-[node name="BigForwardCut" type="Node3D"]
+[node name="DirectSlash" type="Node3D"]
 script = ExtResource("1_vyjbj")
 
 [node name="Area" type="Area3D" parent="."]
@@ -13,10 +10,10 @@ collision_layer = 0
 collision_mask = 6
 monitorable = false
 
-[node name="Col" type="CollisionShape3D" parent="Area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.836)
-shape = SubResource("BoxShape3D_uc5iw")
+[node name="Col" type="CollisionPolygon3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+polygon = PackedVector2Array(-0.5, 0, -0.15, -2.3, 0.15, -2.3, 0.5, 0)
 
-[node name="Visual" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.847)
-size = Vector3(1, 1, 1.887)
+[node name="Visual" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+polygon = PackedVector2Array(-0.5, 0, -0.15, -2.3, 0.15, -2.3, 0.5, 0)

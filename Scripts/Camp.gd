@@ -38,5 +38,8 @@ func monster_died() -> void:
 		level += 1
 		monster_dead = 0
 
+func change_camp_visibility(visi : bool) -> void:
+	camp_flames_model.set_visible(alive and visi)
+
 func _on_respawn_timeout() -> void:
 	spawn_monsters(camp.monsters)
