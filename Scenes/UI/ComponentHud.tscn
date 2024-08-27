@@ -1,11 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://k5hwxx3mfhp6"]
 
 [ext_resource type="Script" path="res://Scripts/ComponentHud.gd" id="1_7c48t"]
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_sdenw"]
+[ext_resource type="Texture2D" uid="uid://ce52v4i5m1r4m" path="res://Assets/2D/Components/vision_stone_icon.png" id="2_lhvmr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouxl8"]
 resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
+bg_color = Color(0, 0, 0, 0.193)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -14,6 +15,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
 resource_local_to_scene = true
 font_size = 15
+font_color = Color(0.780702, 0.780702, 0.780702, 1)
 
 [node name="ComponentHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
@@ -28,28 +30,28 @@ layout_mode = 2
 
 [node name="MarginIcon" type="MarginContainer" parent="CompCont"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
 
 [node name="Icon" type="TextureRect" parent="CompCont/MarginIcon"]
 layout_mode = 2
-texture = ExtResource("1_sdenw")
+texture = ExtResource("2_lhvmr")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="MarginQuantity" type="MarginContainer" parent="CompCont"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_top = -2
+theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 0
 
 [node name="Quantity" type="Label" parent="CompCont/MarginQuantity"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "75"
+text = "7"
 label_settings = SubResource("LabelSettings_72hmf")
 horizontal_alignment = 2
 vertical_alignment = 1

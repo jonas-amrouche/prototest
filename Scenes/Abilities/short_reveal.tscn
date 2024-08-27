@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2rmvl6cqujbv"]
+
+[ext_resource type="Script" path="res://Scripts/Abilities/short_reveal.gd" id="1_cp4sx"]
+
+[node name="ShortReveal" type="Node3D"]
+script = ExtResource("1_cp4sx")
+
+[node name="0" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, -3.5)
+
+[node name="2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0, -3.5)
+
+[node name="3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.25, 0, -5)
+
+[node name="4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.5)
+
+[node name="5" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 0, -5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhxjw2tsopla1"]
+[gd_scene load_steps=6 format=3 uid="uid://b7a7xf75sbf22"]
 
 [ext_resource type="Script" path="res://Scripts/MiniMap.gd" id="1_g4v1t"]
 [ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="1_iom1j"]

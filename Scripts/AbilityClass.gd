@@ -7,5 +7,6 @@ class_name Ability
 @export var icon : Texture2D
 @export var cooldown : float
 @export var attack_time : float
+@export var activable : bool
 @export var damage_type : int
 @export var damage_cap : int

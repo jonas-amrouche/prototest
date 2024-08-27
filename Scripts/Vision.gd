@@ -18,11 +18,10 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 
 func update_map_fog() -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
-	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
+	#var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
 	var _ring_img = pre_circle_image.duplicate()
-	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
-	#var _beacon_img = pre_circle_image.duplicate()
+	#_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
+	#fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
 	for i in player.world.beacons.get_children():
 		var _beacon_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
 		_ring_img.resize(FOG_BEACON_SIZE.x, FOG_BEACON_SIZE.y, Image.INTERPOLATE_NEAREST)
@@ -42,6 +41,24 @@ func update_map_fog() -> void:
 	
 	# Send vision map to map script to manage entities visibility
 	player.world.vision_update(self, fog_map)
+
+const RAY_NUM = 8
+func update_player_vision() -> void:
+	for i in range(RAY_NUM):
+		vision_raycast(Vector3.FORWARD.rotated(Vector3.UP, PI*2.0*(float(i)/float(RAY_NUM))))
+		#????? comment determiner
+
+const RAY_LENGTH := 100.0
+func vision_raycast(direction : Vector3) -> float:
+	var _mouse_pos = get_viewport().get_mouse_position()
+	var _ray_query = PhysicsRayQueryParameters3D.new()
+	_ray_query.from = player.project_ray_origin(_mouse_pos)
+	_ray_query.to = _ray_query.from + player.project_ray_normal(direction) * RAY_LENGTH
+	_ray_query.collision_mask = 1
+	var _result = get_world_3d().direct_space_state.intersect_ray(_ray_query)
+	if !_result.is_empty():
+		return player.position.distance_to(_result.get("position"))
+	return RAY_LENGTH
 
 func world_to_fog_position(pos : Vector2) -> Vector2i:
 	return Vector2i((pos + Basics.MAP_SIZE/2.0) * FOG_RESOLUTION)

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://dogntf7etk6bo"]
 
-[ext_resource type="Texture2D" uid="uid://dyu63albnmt7f" path="res://Assets/2D/PBR/pattern_v1.png" id="1_1m57l"]
+[ext_resource type="Texture2D" uid="uid://s63o2tlx01kv" path="res://Assets/2D/PBR/tree_tex_2.png" id="1_hkr2e"]
 [ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_n15ug"]
 
 [resource]
 script = ExtResource("2_n15ug")
 id = "unstable_core"
 name = "Unstable Core"
-icon = ExtResource("1_1m57l")
+icon = ExtResource("1_hkr2e")

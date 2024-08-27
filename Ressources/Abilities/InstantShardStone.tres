@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://etadmlsde31a"]
 
-[ext_resource type="Texture2D" uid="uid://biv1bxbrokj4t" path="res://Assets/2D/Abilities/InstantShardstoneIcon.png" id="1_s88ay"]
+[ext_resource type="Texture2D" uid="uid://cw3h4tuhco61q" path="res://Assets/2D/Abilities/InstantShardstoneIcon_v3.png" id="1_thgrm"]
 [ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="2_wauvp"]
 
 [resource]
@@ -8,7 +8,7 @@ script = ExtResource("2_wauvp")
 id = "instant_shardstone"
 name = "Instant Shardstone"
 description = "Fire a shardstone in the chosen direction."
-icon = ExtResource("1_s88ay")
+icon = ExtResource("1_thgrm")
 cooldown = 4.0
 attack_time = 0.3
 damage_type = 0

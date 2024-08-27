@@ -55,7 +55,7 @@ var can_move := true
 @onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
 @onready var vision := $Vision
-@onready var abilities_machine := $Abilities
+@onready var ability_machine := $Abilities
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
 @onready var health_bar := $SubViewport/Infos/HealthBar
@@ -71,6 +71,7 @@ func _ready():
 	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BroadswordOfMisfortune.tres"))
+	obtain_item(preload("res://Ressources/Items/StoneArquebus.tres"))
 	hud.update_info_bars()
 	hud.update_components()
 	hud.update_abilities()
@@ -290,9 +291,13 @@ func action_keys():
 	for i in range(10):
 		if Input.is_action_just_pressed("ability"+str(i+1)):
 			if abilities[i]:
-				match abilities_machine.use_ability(abilities[i], self):
+				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
 						hud.ability_list.get_children()[i].use_ability()
+		if Input.is_action_just_released("ability"+str(i+1)):
+			if abilities[i]:
+				ability_machine.release_ability(abilities[i], self)
+		
 
 var channeling_tween
 func start_channeling(duration : float) -> void:

@@ -18,7 +18,7 @@ func _ready() -> void:
 	if cooldown_left != 0.0:
 		use_ability()
 	elif ability:
-		cooldown_left = ability.cooldown + ability.attack_time
+		cooldown_left = ability.cooldown
 	update_slot()
 
 func update_slot() -> void:
@@ -38,6 +38,11 @@ func _unhandled_input(event):
 			drop_ability.emit(self)
 
 func use_ability() -> void:
+	cooldown_label.hide()
+	cooldown_progress.value = 100.0
+
+func start_cooldown() -> void:
+	cooldown_label.show()
 	create_tween().tween_method(Callable(self, "update_cooldown"), cooldown_left, 0.0, cooldown_left)
 
 func update_cooldown(time_left : float) -> void:
@@ -45,9 +50,12 @@ func update_cooldown(time_left : float) -> void:
 		cooldown_label.text = ""
 		cooldown_progress.value = 0.0
 		if ability:
-			cooldown_left = ability.cooldown + ability.attack_time
+			cooldown_left = ability.cooldown
 		return
-	cooldown_label.text = str(int(time_left*10.0)/10.0)
+	if time_left > 1.0:
+		cooldown_label.text = str(int(time_left))
+	else:
+		cooldown_label.text = str(int(time_left*10.0)/10.0)
 	cooldown_progress.value = time_left/ability.cooldown * 100.0
 
 var grabbed = false

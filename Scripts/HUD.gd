@@ -152,8 +152,8 @@ func update_abilities() -> void:
 	for a in range(player.abilities.size()):
 		var _new_ability_hud = pre_ability_hud.instantiate()
 		if player.abilities[a]:
-			if player.abilities_machine.get_ability_cooldown(player.abilities[a]):
-				_new_ability_hud.cooldown_left = player.abilities_machine.get_ability_cooldown(player.abilities[a])
+			if player.ability_machine.get_ability_cooldown(player.abilities[a]):
+				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
 			_new_ability_hud.ability = player.abilities[a]
 			_new_ability_hud.item = _item_link.get(player.abilities[a])
 		for i in InputMap.get_actions():
@@ -315,6 +315,7 @@ func _on_craft_pressed():
 		player.obtain_item(item_craft_selected)
 		item_craft_selected = null
 		item_craft_button.disabled = true
+		update_components()
 
 func _on_decompose_pressed():
 	if item_in_decompose:

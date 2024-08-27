@@ -1,7 +1,8 @@
 extends Node3D
 
-var cooldown_dict = {}
-var in_cooldown_dict = {}
+var active_abilities : Dictionary  # Contains ability in keys and scene ability ref in values
+var cooldown_dict : Dictionary # Contains ability in keys and cooldowns timer refs in values
+var in_cooldown_dict : Dictionary # Contains ability in keys and in_cooldown boolean in values
 
 var in_animation : bool
 
@@ -11,13 +12,29 @@ func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_E
 	var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
 	add_child(_new_ability)
 	_new_ability.rotation = Vector3()
+	active_abilities[ability] = _new_ability
+	_new_ability.connect("tree_exiting", Callable(self, "destroy_ability").bind(ability))
 	return _new_ability.call("press", ability, ability_dealer)
+
+func release_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
+	if active_abilities.has(ability) and active_abilities.get(ability).has_method("release"):
+		return active_abilities.get(ability).call("release", ability, ability_dealer)
+	return Basics.ABILITY_ERROR.UNAVAILABLE
+
+func destroy_ability(ability : Ability) -> void:
+	active_abilities.erase(ability)
 
 func start_ability_cooldown(ability : Ability) -> void:
 	in_cooldown_dict[ability] = true
+	for a in player.hud.ability_list.get_children():
+		if a.ability == ability:
+			a.start_cooldown()
+			break
+	
 	var _timer = get_tree().create_timer(ability.cooldown, false, true)
 	_timer.timeout.connect(Callable(func():
-		in_cooldown_dict[ability] = false))
+		in_cooldown_dict[ability] = false
+		cooldown_dict.erase(ability)))
 	cooldown_dict[ability] = _timer
 
 func get_ability_cooldown(ability : Ability):

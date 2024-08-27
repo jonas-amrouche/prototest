@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dwwqw1umaopnp"]
 
 [ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_ubpcj"]
-[ext_resource type="Resource" uid="uid://pe1nilt2e2f0" path="res://Ressources/Abilities/ShortLineVision.tres" id="1_udich"]
+[ext_resource type="Resource" uid="uid://pe1nilt2e2f0" path="res://Ressources/Abilities/ShortReveal.tres" id="1_udich"]
 [ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="2_16frl"]
 [ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="3_qxwdw"]
 [ext_resource type="Texture2D" uid="uid://big7l7wgt30id" path="res://Assets/2D/Items/VisionStaffIcon.png" id="5_wptx0"]
