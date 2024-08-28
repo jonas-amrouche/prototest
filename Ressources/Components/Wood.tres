@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://cdcjflhpdi034"]
 
-[ext_resource type="Texture2D" uid="uid://dktubyvr2bjko" path="res://Assets/2D/UI/plant_icon.png" id="1_h0wbo"]
+[ext_resource type="Texture2D" uid="uid://b1cn0j3ohm5w5" path="res://Assets/2D/Components/wood_icon.png" id="1_pmu73"]
 [ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_ccu81"]
 
 [resource]
 script = ExtResource("2_ccu81")
 id = "wood"
 name = "Wood"
-icon = ExtResource("1_h0wbo")
+icon = ExtResource("1_pmu73")

@@ -1,11 +1,9 @@
-[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bgxbh30xfnlh"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bgxbh30xfnlh"]
 
 [ext_resource type="Texture2D" uid="uid://dulg1w02lwe13" path="res://Assets/2D/PBR/wood_v1.png" id="1_2ytu7"]
-[ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Ressources/Materials/TechArt/FogPass.tres" id="2_33ebt"]
 
 [resource]
-next_pass = ExtResource("2_33ebt")
-albedo_color = Color(0.193154, 0.193154, 0.193154, 1)
+albedo_color = Color(0.329158, 0.329158, 0.329158, 1)
 albedo_texture = ExtResource("1_2ytu7")
 metallic_specular = 0.0
 uv1_triplanar = true

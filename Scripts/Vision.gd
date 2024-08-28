@@ -9,7 +9,7 @@ const FOG_RESOLUTION = 2
 const FOG_TEXTURE_SIZE = Vector2i(int(Basics.MAP_SIZE.x), int(Basics.MAP_SIZE.y)) * FOG_RESOLUTION
 const FOG_PLAYER_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
 const FOG_BEACON_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
-const FOG_BASE_SIZE = Vector2i(24, 24) * FOG_RESOLUTION
+const FOG_BASE_SIZE = Vector2i(14, 14) * FOG_RESOLUTION
 func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	fog_map = Image.create(FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, false, Image.FORMAT_RGBA8)
 	fog_map.fill(Color(1.0, 1.0, 1.0))
@@ -18,10 +18,14 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 
 func update_map_fog() -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
-	#var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
+	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
 	var _ring_img = pre_circle_image.duplicate()
-	#_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	#fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
+	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
+	fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
+	for i in player.world.bases:
+		var _base_pos = Vector2(i.position.x + (FOG_BASE_SIZE.x/2.0 * min(0.0, sign(i.position.x ))), i.position.z + (FOG_BASE_SIZE.y/2.0 * -max(0.0, sign(i.position.x))))
+		fog_map.fill_rect(Rect2i(world_to_fog_position(_base_pos), FOG_BASE_SIZE), Color(0.0, 0.0, 0.0))
+	
 	for i in player.world.beacons.get_children():
 		var _beacon_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
 		_ring_img.resize(FOG_BEACON_SIZE.x, FOG_BEACON_SIZE.y, Image.INTERPOLATE_NEAREST)
@@ -37,7 +41,7 @@ func update_map_fog() -> void:
 	#TODO We need temporal reprojection of fog
 	
 	# Send vision map to ground mesh affacting all landscape because it's the same material instance
-	player.world.ground_mesh.mesh.material.next_pass.set("shader_parameter/fog_texture", ImageTexture.create_from_image(fog_map))
+	player.world.fog_plane.mesh.material.set("shader_parameter/fog_texture", ImageTexture.create_from_image(fog_map))
 	
 	# Send vision map to map script to manage entities visibility
 	player.world.vision_update(self, fog_map)

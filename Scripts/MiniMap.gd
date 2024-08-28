@@ -16,11 +16,12 @@ var pre_base_area_texture = preload("res://Assets/2D/Ui/base_area_path.png")
 var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
 var pre_interest_texture = preload("res://Assets/2D/UI/plant_icon.png")
 
+const BASE_OFFSET := 7.0
 const MAP_PATH_WIDTH := 9.0
 const MAP_MID_WIDTH := 17.0
 const MAP_PATH_COLOR := Color(0.275, 0.339, 0.316)
 const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
-const MAP_BASE_AREA_SIZE := Vector2(50.0, 50.0)
+const MAP_BASE_AREA_SIZE := Vector2(30.0, 30.0)
 const MAP_ARENA_SIZE := Vector2(50.0, 50.0)
 const MAP_INTEREST_ICON_SIZE := Vector2(15.0, 15.0)
 func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
@@ -40,7 +41,8 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	
 	# Draw Camps Zone Icons
 	for base in bases_data:
-		draw_icon(base, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
+		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
+		draw_icon(_base_pos, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
 	
 	# Draw Arena Zone Icons
 	draw_icon(Vector2(0.0, 0.0), MAP_ARENA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
@@ -51,7 +53,8 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	
 	# Draw Camps Icons
 	for base in bases_data:
-		draw_icon(base, MAP_BASE_ICON_SIZE, pre_base_texture)
+		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
+		draw_icon(_base_pos, MAP_BASE_ICON_SIZE, pre_base_texture)
 
 func draw_custom_line(points : PackedVector2Array, width : float, tint : Color, parent : Object = mini_content) -> void:
 	var _new_line = Line2D.new()

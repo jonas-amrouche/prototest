@@ -1,16 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://iirdisb1m37l"]
+[gd_scene load_steps=13 format=3 uid="uid://iirdisb1m37l"]
 
 [ext_resource type="Script" path="res://Scripts/Base.gd" id="1_686l8"]
 [ext_resource type="PackedScene" uid="uid://b4tmepnlrkm6v" path="res://Scenes/Models/BaseModel.tscn" id="2_pfpu3"]
-[ext_resource type="PackedScene" uid="uid://hxkknhv1vgbl" path="res://Scenes/Props/Altar.tscn" id="3_cgw04"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_r21t3"]
 height = 3.79132
 radius = 2.93715
-
-[sub_resource type="FogMaterial" id="FogMaterial_h31li"]
-density = -8.0
-edge_fade = 0.00980727
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jcld"]
 size = Vector3(1.73431, 4.70679, 0.71875)
@@ -43,25 +38,22 @@ size = Vector3(15.9835, 4.707, 0.796398)
 script = ExtResource("1_686l8")
 
 [node name="BaseModel" parent="." instance=ExtResource("2_pfpu3")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 2.68011, -0.434, 3.17811)
-
-[node name="Altar" parent="." instance=ExtResource("3_cgw04")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 3.54581, -0.179, 4.05027)
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 3.5, -0.434, 3.5)
 
 [node name="PlayerSpawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.405, 0.7, 5.291)
 
 [node name="1" type="Marker3D" parent="PlayerSpawn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.09262, 0, 1.68068)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.93586, 0, 2.05778)
 
 [node name="2" type="Marker3D" parent="PlayerSpawn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.79028, 0, 1.52303)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.63352, 0, 1.90013)
 
 [node name="3" type="Marker3D" parent="PlayerSpawn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22821, 0, 4.48345)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.07145, 0, 4.86055)
 
 [node name="4" type="Marker3D" parent="PlayerSpawn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32034, 0, 4.81628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16358, 0, 5.19338)
 
 [node name="CraftArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41905, 0, 5.31418)
@@ -70,93 +62,87 @@ collision_mask = 2
 monitorable = false
 
 [node name="Collision" type="CollisionShape3D" parent="CraftArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68011, 0, 3.17811)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52335, 0, 3.55521)
 shape = SubResource("CylinderShape3D_r21t3")
-
-[node name="FogVolume" type="FogVolume" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.04584, 0, 6.65723)
-size = Vector3(15, 80, 15)
-material = SubResource("FogMaterial_h31li")
 
 [node name="PathStarts" type="Node3D" parent="."]
 
 [node name="1" type="Marker3D" parent="PathStarts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2017, 0, -12.2452)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -1)
 
 [node name="2" type="Marker3D" parent="PathStarts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.36588, 0, -9.89971)
 
 [node name="3" type="Marker3D" parent="PathStarts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0684, 0, 11.565)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 12)
 
 [node name="FireLight1" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6896, 1.35961, 11.8763)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5147, 1.35961, 12.2201)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6896, 1.35961, 7.83744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5147, 1.35961, 8.18122)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight9" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.342477, 1.35961, 7.88422)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482589, 1.35961, 8.228)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight10" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.342477, 1.35961, 3.84539)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482589, 1.35961, 4.18917)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight11" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.43416, 1.35961, 0.212883)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.25923, 1.35961, 0.556663)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight12" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.47299, 1.35961, 0.212883)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8.29806, 1.35961, 0.556663)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6896, 1.35961, 3.64302)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5147, 1.35961, 3.9868)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight4" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6896, 1.35961, -0.453312)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5147, 1.35961, -0.109532)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight5" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.1947, 1.35961, 13.2471)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.0198, 1.35961, 13.5909)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight6" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.15589, 1.35961, 13.2471)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.98096, 1.35961, 13.5909)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight7" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.96146, 1.35961, 13.2471)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.78653, 1.35961, 13.5909)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
 
 [node name="FireLight8" type="OmniLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.13487, 1.35961, 13.2471)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.309804, 1.35961, 13.5909)
 light_color = Color(1, 0.610734, 0.365352, 1)
 light_energy = 2.0
 omni_range = 8.42526
@@ -164,43 +150,43 @@ omni_range = 8.42526
 [node name="Walls" type="StaticBody3D" parent="."]
 
 [node name="Col4" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60511, 1.76595, 9.12745)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.770724, 1.76595, 9.43403)
 shape = SubResource("BoxShape3D_5jcld")
 
 [node name="Col5" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.911733, 1.76595, 5.90938)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0773471, 1.76595, 6.21596)
 shape = SubResource("BoxShape3D_mfuo6")
 
 [node name="Col6" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67671, 1.76595, 2.6731)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.842324, 1.76595, 2.97968)
 shape = SubResource("BoxShape3D_ybvhd")
 
 [node name="Col9" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.69169, 1.76595, -0.315023)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.857304, 1.76595, -0.00844342)
 shape = SubResource("BoxShape3D_scmj4")
 
 [node name="Col10" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.927207, 1.76595, -1.0469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0928211, 1.76595, -0.74032)
 shape = SubResource("BoxShape3D_ukyce")
 
 [node name="Col11" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0295, 1.76595, -1.0493)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86389, 1.76595, -0.74272)
 shape = SubResource("BoxShape3D_ukyce")
 
 [node name="Col12" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3305, 1.76595, -0.334061)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.16489, 1.76595, -0.0274814)
 shape = SubResource("BoxShape3D_4n3ii")
 
 [node name="Col13" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.63204, 1.76595, -0.789554)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.46643, 1.76595, -0.482974)
 shape = SubResource("BoxShape3D_jhsnh")
 
 [node name="Col2" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2056, 1.76595, 6.22895)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.04, 1.76595, 6.53553)
 shape = SubResource("BoxShape3D_updja")
 
 [node name="Col3" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58114, 1.76595, 13.6733)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.41553, 1.76595, 13.9799)
 shape = SubResource("BoxShape3D_mondd")
 
 [connection signal="body_shape_entered" from="CraftArea" to="." method="_on_craft_area_body_shape_entered"]

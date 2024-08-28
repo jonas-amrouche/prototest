@@ -14,8 +14,9 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
 resource_local_to_scene = true
-font_size = 15
-font_color = Color(0.780702, 0.780702, 0.780702, 1)
+font_size = 17
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="ComponentHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
@@ -44,8 +45,8 @@ stretch_mode = 5
 [node name="MarginQuantity" type="MarginContainer" parent="CompCont"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = -2
-theme_override_constants/margin_right = 4
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 0
 
 [node name="Quantity" type="Label" parent="CompCont/MarginQuantity"]

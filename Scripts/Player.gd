@@ -9,15 +9,17 @@ const ROTATION_LERP_SPEED := 0.2
 var target_direction := Vector3()
 
 const EMPTY_MOVEMENT_SPEED := 4.0
+const MAX_HEALTH_PER_LEVEL := 50.0
+const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
+const MAGIC_DAMAGE_PER_LEVEL := 10.0
 const LEVEL_MAX_EXPERIENCE := 16
-const PER_LEVEL_PLUS_EXPERIENCE := 1
 const KILL_REWARD_EXP := 10
 
 # Statistics
-var base_stats := {"physical_damage" : 50, \
-"magic_damage" : 50, \
-"physical_armor" : 15, \
-"magic_armor" : 15, \
+var base_stats := {"physical_damage" : 5, \
+"magic_damage" : 0, \
+"physical_armor" : 0, \
+"magic_armor" : 0, \
 "movement_speed" : 3.0, \
 "cooldown_reduction" : 0.0, \
 "health_regeneration" : 2.0, \
@@ -64,11 +66,18 @@ var can_move := true
 @onready var camera_map := $MapSmallView/CameraMap
 
 func _ready():
+	add_to_group("player")
 	hud.viewport_map_cam.texture = small_view.get_texture()
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
+	obtain_component(preload("res://Ressources/Components/GolemFragment.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/EssenceOfLife.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/EssenceOfPain.tres"), 7)
+	obtain_component(preload("res://Ressources/Components/FloatingMatter.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/UnstableCore.tres"), 3)
+	obtain_component(preload("res://Ressources/Components/ExplosiveStone.tres"), 3)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
 	obtain_item(preload("res://Ressources/Items/BroadswordOfMisfortune.tres"))
 	obtain_item(preload("res://Ressources/Items/StoneArquebus.tres"))
@@ -207,17 +216,18 @@ func lose_experience(experience_loss : int) -> void:
 	while is_leveling_down():
 		experience = max_experience - abs(experience)
 		level -= 1
-		max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, LEVEL_MAX_EXPERIENCE)
+		max_experience = min(level, LEVEL_MAX_EXPERIENCE)
 	hud.update_info_bars()
+	update_stats()
 
 func gain_experience(experience_gained : int) -> void:
-	if !is_dead():
-		experience = experience + experience_gained
-		while is_leveling_up():
-			experience = experience - max_experience
-			level += 1
-			max_experience = min(level * PER_LEVEL_PLUS_EXPERIENCE, LEVEL_MAX_EXPERIENCE)
-		hud.update_info_bars()
+	experience = experience + experience_gained
+	while is_leveling_up():
+		experience = experience - max_experience
+		level += 1
+		max_experience = min(level, LEVEL_MAX_EXPERIENCE)
+	hud.update_info_bars()
+	update_stats()
 
 func is_leveling_up() -> bool:
 	if experience >= max_experience:
@@ -375,6 +385,12 @@ func update_stats() -> void:
 	if items.count(null) == items.size():
 		stats.movement_speed = EMPTY_MOVEMENT_SPEED
 	
+	# Add stats of levels
+	stats.max_health += (level-1) * MAX_HEALTH_PER_LEVEL
+	stats.physical_damage += (level-1) * PHYSICAL_DAMAGE_PER_LEVEL
+	stats.magic_damage += (level-1) * MAGIC_DAMAGE_PER_LEVEL
+	
+	# Add stats of items
 	for i in items:
 		if i == null:
 			continue

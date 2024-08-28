@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyx3pbamisavl"]
+
+[ext_resource type="Script" path="res://Scripts/LevelHoverTip.gd" id="1_5vraw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un7te"]
+bg_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_diboc"]
+font_color = Color(0.39327, 0.640913, 0.322547, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oosv7"]
+font_size = 12
+font_color = Color(0.33123, 0.429209, 0.344766, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gjo4"]
+font_size = 12
+font_color = Color(0.963876, 0.257608, 0.252901, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e1sy5"]
+font_size = 12
+font_color = Color(0.740647, 0.387557, 0.81647, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cr2nj"]
+font_size = 12
+font_color = Color(0.443146, 0.622762, 0.14032, 1)
+
+[node name="LevelPanel" type="Panel"]
+custom_minimum_size = Vector2(0, 55)
+offset_right = 232.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_un7te")
+script = ExtResource("1_5vraw")
+
+[node name="LevelContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="InnerCont" type="VBoxContainer" parent="LevelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LevelTitle" type="MarginContainer" parent="LevelContainer/InnerCont"]
+layout_mode = 2
+
+[node name="LevelLab" type="Label" parent="LevelContainer/InnerCont/LevelTitle"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Level 1"
+label_settings = SubResource("LabelSettings_diboc")
+
+[node name="LevelProgressLab" type="Label" parent="LevelContainer/InnerCont/LevelTitle"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "5/6"
+label_settings = SubResource("LabelSettings_diboc")
+
+[node name="NextLevel" type="Label" parent="LevelContainer/InnerCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "New level gain :"
+label_settings = SubResource("LabelSettings_oosv7")
+
+[node name="GivenCont" type="VBoxContainer" parent="LevelContainer/InnerCont"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Given" type="Label" parent="LevelContainer/InnerCont/GivenCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "+10 Physical Damage"
+label_settings = SubResource("LabelSettings_8gjo4")
+
+[node name="Given2" type="Label" parent="LevelContainer/InnerCont/GivenCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "+10 Magic Damage"
+label_settings = SubResource("LabelSettings_e1sy5")
+
+[node name="Given3" type="Label" parent="LevelContainer/InnerCont/GivenCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "+50 max health"
+label_settings = SubResource("LabelSettings_cr2nj")

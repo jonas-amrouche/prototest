@@ -26,6 +26,7 @@ var entities : Array[Object]
 @onready var beacons = $Beacons
 @onready var camps = $Camps
 @onready var temp_vision = $TempVision
+@onready var fog_plane = $FogPlane
 
 func _ready() -> void:
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -91,6 +92,7 @@ func generate_lanes() -> void:
 const POINT_CELL_DIVISION = 28
 const PATH_RANDOM_CELLS = 0.4
 const NO_PATH_BORDER_LENGTH = 20.0
+#const CHANCE_TO_REMOVE_POINT = 0.3
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
@@ -107,6 +109,8 @@ func generate_points_and_paths() -> void:
 			var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
 			if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
 				continue
+			#if randf() < CHANCE_TO_REMOVE_POINT:
+				#continue
 			interest_points_list.append(_new_point)
 	
 	# Generate path between interest points
@@ -204,11 +208,11 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 const DIVISION_FACTOR := 2.0
 const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
-const NO_TREE_BASE_DISTANCE := 15.0
-const NO_TREE_PATH_DISTANCE := 3.0
+const NO_TREE_BASE_DISTANCE := 8.0
+const NO_TREE_PATH_DISTANCE := 2.5
 const TREE_ROTATION_MAX = PI/8.0
-const TREE_SCALE_MIN = 0.08
-const TREE_SCALE_MAX = 0.12
+const TREE_SCALE_MIN = 0.12#0.08
+const TREE_SCALE_MAX = 0.2#0.12
 func generate_forest() -> void:
 	var tree_count = 0
 	
@@ -231,7 +235,7 @@ func generate_forest() -> void:
 func add_collision_cube(pos : Vector2) -> void:
 	var _new_collision_cube = CollisionShape3D.new()
 	_new_collision_cube.shape = BoxShape3D.new()
-	_new_collision_cube.shape.size = Vector3(2.0, 4.0, 2.0)
+	_new_collision_cube.shape.size = Vector3(2.5, 4.0, 2.5)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	ground_body.add_child(_new_collision_cube)
 
@@ -288,14 +292,16 @@ func is_in_decoration(pos : Vector2) -> bool:
 
 func is_in_base(pos : Vector2) -> bool:
 	for base in bases:
-		if pos.x > base.position.x - NO_TREE_BASE_DISTANCE and pos.x < base.position.x + NO_TREE_BASE_DISTANCE and pos.y > base.position.z - NO_TREE_BASE_DISTANCE and pos.y < base.position.z + NO_TREE_BASE_DISTANCE:
+		var _base_pos = Vector2(base.position.x+(NO_TREE_BASE_DISTANCE*sign(base.position.x)), base.position.z+(NO_TREE_BASE_DISTANCE*-sign(base.position.x)))
+		if pos.x > _base_pos.x - NO_TREE_BASE_DISTANCE and pos.x < _base_pos.x + NO_TREE_BASE_DISTANCE and pos.y > _base_pos.y - NO_TREE_BASE_DISTANCE and pos.y < _base_pos.y + NO_TREE_BASE_DISTANCE:
 			return true
 	return false
 
 func is_in_path(pos : Vector2) -> bool:
 	for paths in paths_points_list:
 		for points in paths:
-			if pos.distance_to(points) < NO_TREE_PATH_DISTANCE:
+			#for base in bases:
+			if pos.distance_to(points) < NO_TREE_PATH_DISTANCE: # * (min(50.0, points.distance_to(Vector2(base.position.x, base.position.z)))/50.0)
 				return true
 	return false
 

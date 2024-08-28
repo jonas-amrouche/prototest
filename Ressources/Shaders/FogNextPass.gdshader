@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode depth_test_disabled;
 
 uniform sampler2D fog_texture;
 uniform float uv_multiplier;
@@ -23,15 +24,7 @@ void vertex(){
 	uv_power_normal = pow(abs(mat3(MODEL_MATRIX) * NORMAL), vec3(1.0));
 	uv_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0f)).xz;
 	uv_power_normal /= dot(uv_power_normal, vec3(1.0));
-	COLOR.rg = VERTEX.xz;
 }
-
-//void light() {
-	//vec3 color = triplanar_texture_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
-	//if (color.r < 0.9){
-		//DIFFUSE_LIGHT = vec3(0.0);
-	//}
-//}
 
 vec4 triplanar_texture_xorgaussian_2d(sampler2D tex, vec2 uv, vec2 pixel_size, float blurriness, int iterations, int quality){
 	float pi = 6.28;

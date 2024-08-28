@@ -6,7 +6,7 @@ var in_cooldown_dict : Dictionary # Contains ability in keys and in_cooldown boo
 
 var in_animation : bool
 
-@onready var player = get_node("..")
+@onready var entity = get_node("..") # It can either be a player or a monster
 
 func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
@@ -26,10 +26,11 @@ func destroy_ability(ability : Ability) -> void:
 
 func start_ability_cooldown(ability : Ability) -> void:
 	in_cooldown_dict[ability] = true
-	for a in player.hud.ability_list.get_children():
-		if a.ability == ability:
-			a.start_cooldown()
-			break
+	if entity.is_in_group("player"):
+		for a in entity.hud.ability_list.get_children():
+			if a.ability == ability:
+				a.start_cooldown()
+				break
 	
 	var _timer = get_tree().create_timer(ability.cooldown, false, true)
 	_timer.timeout.connect(Callable(func():
