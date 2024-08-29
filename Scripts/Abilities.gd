@@ -56,13 +56,22 @@ func get_ability_range(ability_id : String) -> float:
 		ab.queue_free()
 		return ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z
 
-func look_at_cursor(ability_dealer : Object) -> void:
-	var _result = ability_dealer.terrain_raycast()
+const RAY_LENGTH := 100.0
+func terrain_raycast() -> Dictionary:
+		var _mouse_pos = get_viewport().get_mouse_position()
+		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.from = entity.camera.project_ray_origin(_mouse_pos)
+		_ray_query.to = _ray_query.from + entity.camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
+		_ray_query.collision_mask = 1
+		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
+
+func look_at_cursor() -> void:
+	var _result = terrain_raycast()
 	if !_result.is_empty():
 		look_at(Vector3(_result.get("position").x, global_position.y, _result.get("position").z))
 
-func get_cursor_world_position(ability_dealer : Object) -> Vector3:
-	var _result = ability_dealer.terrain_raycast()
+func get_cursor_world_position() -> Vector3:
+	var _result = terrain_raycast()
 	if !_result.is_empty():
 		return _result.get("position")
 	return Vector3()

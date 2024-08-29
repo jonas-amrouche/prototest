@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://iirdisb1m37l"]
+[gd_scene load_steps=12 format=3 uid="uid://iirdisb1m37l"]
 
 [ext_resource type="Script" path="res://Scripts/Base.gd" id="1_686l8"]
 [ext_resource type="PackedScene" uid="uid://b4tmepnlrkm6v" path="res://Scenes/Models/BaseModel.tscn" id="2_pfpu3"]
@@ -15,9 +15,6 @@ size = Vector3(0.712646, 4.70679, 7.15149)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybvhd"]
 size = Vector3(2.23125, 4.70679, 0.695801)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_scmj4"]
-size = Vector3(2.23754, 4.70679, 0.707703)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ukyce"]
 size = Vector3(0.70874, 4.70679, 2.18032)
@@ -160,14 +157,6 @@ shape = SubResource("BoxShape3D_mfuo6")
 [node name="Col6" type="CollisionShape3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.842324, 1.76595, 2.97968)
 shape = SubResource("BoxShape3D_ybvhd")
-
-[node name="Col9" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.857304, 1.76595, -0.00844342)
-shape = SubResource("BoxShape3D_scmj4")
-
-[node name="Col10" type="CollisionShape3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0928211, 1.76595, -0.74032)
-shape = SubResource("BoxShape3D_ukyce")
 
 [node name="Col11" type="CollisionShape3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86389, 1.76595, -0.74272)

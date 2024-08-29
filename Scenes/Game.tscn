@@ -89,6 +89,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.880162, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.227139, 0)
 shape = SubResource("BoxShape3D_cosj4")
 
+[node name="TreesBody" type="StaticBody3D" parent="NavMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.880162, 0)
+collision_layer = 8
+collision_mask = 8
+
 [node name="Beacons" type="Node3D" parent="."]
 
 [node name="TempVision" type="Node3D" parent="."]

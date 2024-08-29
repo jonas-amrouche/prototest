@@ -16,7 +16,7 @@ signal mouse_entered_ability(abl : Ability)
 
 func _ready() -> void:
 	if cooldown_left != 0.0:
-		use_ability()
+		start_cooldown()
 	elif ability:
 		cooldown_left = ability.cooldown
 	update_slot()

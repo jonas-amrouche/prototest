@@ -15,7 +15,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
 resource_local_to_scene = true
 font_size = 17
-outline_size = 4
+outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
 [node name="ComponentHud" type="PanelContainer"]

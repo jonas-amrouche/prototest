@@ -93,7 +93,8 @@ func _physics_process(_delta) -> void:
 	debug_features()
 
 func _process(_delta):
-	#border_cam_movement()
+	if camera.top_level:
+		border_cam_movement()
 	update_camera_position()
 	update_direction()
 
@@ -103,16 +104,12 @@ func update_direction() -> void:
 const CAM_LIMITS = Rect2(Vector2(-84.0, -84.0), Vector2(84, 95))
 func border_cam_movement() -> void:
 	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		camera.top_level = true
 		camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
 	if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
-		camera.top_level = true
 		camera.global_position.x = max(camera.global_position.x - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.x)
 	if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		camera.top_level = true
 		camera.global_position.z = min(camera.global_position.z + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.y)
 	if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOOVE_TRESHOLD:
-		camera.top_level = true
 		camera.global_position.z = max(camera.global_position.z - CAMERA_MOOVE_SPEED, CAM_LIMITS.position.y)
 
 var target_cam_pos = Vector2()
@@ -121,20 +118,22 @@ func move_camera_by_minimap(pos : Vector2) -> void:
 	target_cam_pos = pos
 
 func update_camera_position() -> void:
-	if dragged_by_map:
+	if camera.top_level:
 		camera_map.global_position = camera_base_marker.global_position
+	if dragged_by_map:
 		camera.global_position.x = lerp(camera.global_position.x, clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x), CAMERA_SMOOTH_RATE)
 		camera.global_position.z = lerp(camera.global_position.z, clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y), CAMERA_SMOOTH_RATE)
 
 var dragged_by_map = false
 func move_camera_click(press : bool) -> void:
 	dragged_by_map = press
-	hud.small_cam_view.set_visible(press)
-	camera.top_level = press
+	if !Input.is_action_pressed("center_cam"):
+		hud.small_cam_view.set_visible(press)
+		camera.top_level = press
 	if press:
 		camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
 		camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-	else:
+	elif !Input.is_action_pressed("center_cam"):
 		camera.position = camera_base_marker.position
 
 func debug_features() -> void:
@@ -151,23 +150,6 @@ func debug_features() -> void:
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 			DisplayServer.MOUSE_MODE_VISIBLE: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 
-#func _unhandled_input(event) -> void:
-	#if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		#var _result = terrain_raycast(1)
-		#if !_result.is_empty():
-			#nav.target_position = _result.get("position")
-			#if recall:
-				#cancel_recall()
-
-const RAY_LENGTH := 100.0
-func terrain_raycast() -> Dictionary:
-		var _mouse_pos = get_viewport().get_mouse_position()
-		var _ray_query = PhysicsRayQueryParameters3D.new()
-		_ray_query.from = camera.project_ray_origin(_mouse_pos)
-		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = 1
-		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
-
 func cancel_recall() -> void:
 	recall_timer.stop()
 	recall = false
@@ -177,7 +159,6 @@ func cancel_recall() -> void:
 func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
 	player_collision.disabled = false
-	#nav.target_position = global_position
 	camera.global_position = camera_base_marker.global_position
 	camera.top_level = false
 
@@ -283,9 +264,14 @@ func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
 
 func action_keys():
-	if Input.is_action_pressed("center_cam"):
-		camera.top_level = false
-		camera.position = camera_base_marker.position
+	if Input.is_action_just_pressed("center_cam"):
+		camera.top_level = true
+		hud.small_cam_view.set_visible(true)
+	if Input.is_action_just_released("center_cam"):
+		if !dragged_by_map:
+			camera.top_level = false
+			hud.small_cam_view.set_visible(false)
+			camera.position = camera_base_marker.position
 	if Input.is_action_just_pressed("recall"):
 		#nav.target_position = global_position
 		recall = true
@@ -419,9 +405,3 @@ func _on_recall_timeout() -> void:
 
 func _on_stat_regen_timeout():
 	heal(int(stats.health_regeneration))
-
-func _on_update_movement_line_timeout(): #MINILAG
-	pass
-	#if nav.target_position == Vector3(0.0, 0.0, 0.0):
-		#nav.target_position = global_position
-	#nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)

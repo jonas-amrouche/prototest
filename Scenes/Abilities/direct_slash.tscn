@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://mn0dqjta8atv"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_vyjbj"]
+[ext_resource type="Script" path="res://Scripts/Abilities/direct_slash.gd" id="1_7q3up"]
 
 [node name="DirectSlash" type="Node3D"]
-script = ExtResource("1_vyjbj")
+script = ExtResource("1_7q3up")
 
 [node name="Area" type="Area3D" parent="."]
 collision_layer = 0

@@ -10,10 +10,10 @@ var ward_position : Vector3
 func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead() and manager.entity.components.has(vision_stone):
-			manager.look_at_cursor(ability_dealer)
+			manager.look_at_cursor()
 			manager.entity.lose_component(vision_stone, 1)
 			manager.in_animation = true
-			ward_position = manager.get_cursor_world_position(ability_dealer)
+			ward_position = manager.get_cursor_world_position()
 			ward_position = (ward_position-manager.entity.position).limit_length(5.0) + manager.entity.position
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				manager.in_animation = false

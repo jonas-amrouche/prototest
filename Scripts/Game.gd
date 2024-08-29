@@ -1,6 +1,6 @@
 extends Node3D
 
-const CAMP_DISTANCE_TO_CENTER = 95.0
+const CAMP_DISTANCE_TO_CENTER = 100.0
 var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
@@ -21,6 +21,7 @@ var entities : Array[Object]
 @onready var multi_tree = $MultiTrees
 #@onready var multi_tree2 = $MultiTrees2
 @onready var ground_mesh = $Ground
+@onready var trees_body = $NavMesh/TreesBody
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
 @onready var beacons = $Beacons
@@ -33,7 +34,7 @@ func _ready() -> void:
 	DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
-	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], interest_points_list)
+	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list)
 
 func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
 	var _new_player = pre_player.instantiate()
@@ -48,12 +49,12 @@ func map_generation() -> void:
 	generate_lanes()
 	generate_points_and_paths()
 	generate_mid_arena()
-	mirror_points()
+	#mirror_points()
 	#generate_collisions() //
-	generate_decoration()
+	#generate_decoration()
 	generate_forest()
 	generate_camps()
-	generate_structures()
+	#generate_structures()
 
 func generate_bases() -> void:
 	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4.0)
@@ -71,7 +72,7 @@ var paths_points_list : Array[PackedVector2Array]
 const LANE_POINTS = 8
 const LANE_RESOLUTION = 1.0
 func generate_lanes() -> void:
-	for l in range(3):
+	for l in range(1, 2):
 		for lp in range(LANE_POINTS):
 			var _first_base_pos = bases[0].get_node("PathStarts").get_node(str(l+1)).global_position
 			var _second_base_pos = bases[1].get_node("PathStarts").get_node(str(abs(l-3))).global_position
@@ -89,34 +90,81 @@ func generate_lanes() -> void:
 				_temp_point_list.append(_pos + _point_pos)
 			paths_points_list.append(_temp_point_list)
 
-const POINT_CELL_DIVISION = 28
+const POINT_CELL_DIVISION = 16#28
 const PATH_RANDOM_CELLS = 0.4
 const NO_PATH_BORDER_LENGTH = 20.0
-#const CHANCE_TO_REMOVE_POINT = 0.3
+
+const MIN_INTEREST_POINTS = 12
+const MAX_INTEREST_POINTS = 24
+const MIN_INTEREST_SIZE = 5.0
+const MAX_INTEREST_SIZE = 14.0
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
 const SIN_FORCE = 2.0
 const ARENA_PATH_MULTIPLIER = 0.2
+const MIN_PATH = 1
+const MAX_PATH = 3
+
+var new_interest_points_list : Dictionary
+
 func generate_points_and_paths() -> void:
 	
 	# Generate arena points for path (Deleted at the end)
 	interest_points_list.append(Vector2(0.0, 0.0))
 	
-	# Generate interest points
+	# Generate grid
+	var _grid_point_list : PackedVector2Array
 	for x in range(Basics.MAP_SIZE.x/POINT_CELL_DIVISION):
 		for y in range(Basics.MAP_SIZE.y/POINT_CELL_DIVISION):
 			var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
+			#var _new_point = Vector2(x+1, y+1)*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
 			if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
 				continue
-			#if randf() < CHANCE_TO_REMOVE_POINT:
+			_grid_point_list.append(_new_point)
+	
+	var _interest_point_num = randi_range(MIN_INTEREST_POINTS, MAX_INTEREST_POINTS)
+	print(_interest_point_num)
+	
+	var _break_count : int = 0
+	
+	# Select random point, assign a size, then select the next one not in the range
+	while new_interest_points_list.size() < _interest_point_num:
+		var _rand_idx = randi_range(0, _grid_point_list.size()-1)
+		var _is_valid = true
+		for i in range(new_interest_points_list.size()):
+			_is_valid = false
+			if new_interest_points_list.keys()[i].distance_to(_grid_point_list[_rand_idx]) < new_interest_points_list.values()[i]:
+				_grid_point_list.remove_at(_rand_idx)
+				continue
+			_is_valid = true
+			break
+		if _is_valid:
+			#debug_box(Vector3(_grid_point_list[_rand_idx].x, 0.0, _grid_point_list[_rand_idx].y))
+			new_interest_points_list[_grid_point_list[_rand_idx]] = randf_range(MIN_INTEREST_SIZE, MAX_INTEREST_SIZE)
+			
+			#TEMP
+			interest_points_list.append(_grid_point_list[_rand_idx])
+			
+		_break_count += 1
+		
+		#if there is already to many large areas we don't want to be blocked
+		if _break_count > 200:
+			print("SAFETY BREAK POINT CALCULATION")
+			break
+	print("while loops : ", _break_count)
+	# Generate interest points
+	#for x in range(Basics.MAP_SIZE.x/POINT_CELL_DIVISION):
+		#for y in range(Basics.MAP_SIZE.y/POINT_CELL_DIVISION):
+			#var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
+			#if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
 				#continue
-			interest_points_list.append(_new_point)
+			#interest_points_list.append(_new_point)
 	
 	# Generate path between interest points
 	for p in interest_points_list:
 		var _point_linked = PackedVector2Array()
-		var _path_number = 4 if p == Vector2() else randi_range(1, 4)
+		var _path_number = 4 if p == Vector2() else randi_range(MIN_PATH, MAX_PATH)
 		for path in range(_path_number):
 			var _closest_point = Vector2(1000.0, 1000.0)
 			for cp in interest_points_list:
@@ -131,7 +179,7 @@ func generate_points_and_paths() -> void:
 				_temp_point_list.append(p + _point_pos)
 			paths_points_list.append(_temp_point_list)
 	
-	interest_points_list = interest_points_list.slice(LANE_POINTS*3, interest_points_list.size())
+	interest_points_list = interest_points_list.slice(LANE_POINTS*1, interest_points_list.size())
 	
 	# Clear interest points in bases and arena
 	var _removed_value = 0
@@ -195,7 +243,7 @@ func generate_collisions() -> void:
 				continue
 			add_collision_cube(_new_position)
 
-func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : PackedVector2Array):
+func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : Dictionary):
 	for p in players:
 		p.vision.initialize_fog_map(bases_list)
 		p.hud.init_map_data(paths_list, bases_list, interests_list)
@@ -220,7 +268,7 @@ func generate_forest() -> void:
 		for y in range(int(Basics.MAP_SIZE.y/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
 			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(Basics.MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)
 			
-			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
+			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position) or is_in_interest(_new_position):
 				continue
 			
 			var _basis_vec = Vector3(randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0).normalized()
@@ -237,7 +285,7 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.shape = BoxShape3D.new()
 	_new_collision_cube.shape.size = Vector3(2.5, 4.0, 2.5)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
-	ground_body.add_child(_new_collision_cube)
+	trees_body.add_child(_new_collision_cube)
 
 const DISPLACEMENT_TO_CENTER := 3.0
 func generate_camps() -> void:
@@ -277,8 +325,7 @@ func remove_entity(entity : Object) -> void:
 func vision_update(vision : Object, fog_map : Image) -> void:
 	for e in entities:
 		if e:
-			var _fog_position = vision.world_to_fog_position(Vector2(e.global_position.x, e.global_position.z))
-			e.set_visible(fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5)
+			e.set_visible(vision.has_vision(Vector2i(e.global_position.x, e.global_position.z)))
 	
 	for c in camps.get_children():
 		var _fog_position = vision.world_to_fog_position(Vector2(c.global_position.x, c.global_position.z))
@@ -303,6 +350,12 @@ func is_in_path(pos : Vector2) -> bool:
 			#for base in bases:
 			if pos.distance_to(points) < NO_TREE_PATH_DISTANCE: # * (min(50.0, points.distance_to(Vector2(base.position.x, base.position.z)))/50.0)
 				return true
+	return false
+
+func is_in_interest(pos : Vector2) -> bool:
+	for i in range(new_interest_points_list.size()):
+		if pos.distance_to(new_interest_points_list.keys()[i]) < new_interest_points_list.values()[i]:
+			return true
 	return false
 
 func is_in_arena(pos : Vector2) -> bool:

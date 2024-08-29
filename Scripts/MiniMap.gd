@@ -13,6 +13,7 @@ var map_size : Vector2
 
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 var pre_base_area_texture = preload("res://Assets/2D/Ui/base_area_path.png")
+var pre_base_arena_texture = preload("res://Assets/2D/Ui/base_arena_path.png")
 var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
 var pre_interest_texture = preload("res://Assets/2D/UI/plant_icon.png")
 
@@ -20,11 +21,12 @@ const BASE_OFFSET := 7.0
 const MAP_PATH_WIDTH := 9.0
 const MAP_MID_WIDTH := 17.0
 const MAP_PATH_COLOR := Color(0.275, 0.339, 0.316)
+const MAP_INTEREST_COLOR := Color(0.275*0.7, 0.339*0.7, 0.316*0.7)
 const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
 const MAP_BASE_AREA_SIZE := Vector2(30.0, 30.0)
-const MAP_ARENA_SIZE := Vector2(50.0, 50.0)
-const MAP_INTEREST_ICON_SIZE := Vector2(15.0, 15.0)
-func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
+const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
+const MAP_INTEREST_ICON_SIZE := Vector2(3.0, 3.0)
+func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary) -> void:
 	# Set map_size
 	map_size = m_size
 	
@@ -39,19 +41,19 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	for path in _new_paths_data:
 		draw_custom_line(path, MAP_PATH_WIDTH, MAP_PATH_COLOR)
 	
-	# Draw Camps Zone Icons
+	# Draw Bases Zone Icons
 	for base in bases_data:
 		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
 		draw_icon(_base_pos, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
 	
 	# Draw Arena Zone Icons
-	draw_icon(Vector2(0.0, 0.0), MAP_ARENA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
+	draw_icon(Vector2(0.0, 0.0), MAP_ARENA_SIZE, pre_base_arena_texture, MAP_PATH_COLOR)
 		
 	# Draw Interest Icons
-	for interest in interests_data:
-		draw_icon(interest, MAP_INTEREST_ICON_SIZE, pre_interest_texture)
+	for i in range(interests_data.size()):
+		draw_icon(interests_data.keys()[i], interests_data.values()[i] * MAP_INTEREST_ICON_SIZE, pre_base_arena_texture, MAP_INTEREST_COLOR)
 	
-	# Draw Camps Icons
+	# Draw Bases Icons
 	for base in bases_data:
 		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
 		draw_icon(_base_pos, MAP_BASE_ICON_SIZE, pre_base_texture)

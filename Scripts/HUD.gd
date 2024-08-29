@@ -49,7 +49,7 @@ func _process(_delta):
 	mini_map.update_player_position(player.global_position)
 	update_previews()
 
-func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : PackedVector2Array) -> void:
+func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary) -> void:
 	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data)
 
 func update_souls() -> void:
@@ -146,7 +146,7 @@ func update_abilities() -> void:
 	for a in player.abilities:
 		if !_abilities_had.has(a):
 			player.abilities[player.abilities.find(a)] = null
-			#Si il y a trop de sort pour l'instant ça va faire de la merde
+			#TODO Si il y a trop de sort pour l'instant ça va faire de la merde
 	
 	# Populate ability bar
 	for a in range(player.abilities.size()):

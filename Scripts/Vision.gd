@@ -17,7 +17,8 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	update_map_fog()
 
 func update_map_fog() -> void:
-	fog_map.fill(Color(1.0, 1.0, 1.0))
+	#fog_map.fill(Color(1.0, 1.0, 1.0))
+	fog_map.fill(Color(0.0, 0.0, 0.0))
 	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
 	var _ring_img = pre_circle_image.duplicate()
 	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
@@ -45,6 +46,12 @@ func update_map_fog() -> void:
 	
 	# Send vision map to map script to manage entities visibility
 	player.world.vision_update(self, fog_map)
+
+func has_vision(pos : Vector2i) -> bool:
+	
+	# TODO bug quand une entité va trop loin (il depasse de la map de vision) pour l'instant je clamp
+	var _fog_position = world_to_fog_position(clamp(pos, Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1)))
+	return fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5
 
 const RAY_NUM = 8
 func update_player_vision() -> void:

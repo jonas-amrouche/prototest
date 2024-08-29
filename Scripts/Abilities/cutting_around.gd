@@ -6,7 +6,7 @@ extends Node3D
 func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead():
-			manager.look_at_cursor(ability_dealer)
+			manager.look_at_cursor()
 			manager.in_animation = true
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():

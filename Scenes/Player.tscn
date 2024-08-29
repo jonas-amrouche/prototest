@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=10 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/HUD.tscn" id="2_hi5xs"]
@@ -10,10 +10,6 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.387958
 
-[sub_resource type="FogMaterial" id="FogMaterial_ikays"]
-density = -8.0
-edge_fade = 0.00980727
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
 albedo_color = Color(0.702981, 0.218569, 0.858824, 1)
 metallic_specular = 0.0
@@ -24,6 +20,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_dq7lx")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -56,24 +53,12 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
 [node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
 
-[node name="NavAgent" type="NavigationAgent3D" parent="."]
-
-[node name="UpdateMovementLine" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
-
-[node name="UpdateFog" type="Timer" parent="."]
-wait_time = 0.1
-autostart = true
-
 [node name="Recall" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="FogVolume" type="FogVolume" parent="."]
-size = Vector3(15, 50, 15)
-shape = 2
-material = SubResource("FogMaterial_ikays")
+[node name="StatRegen" type="Timer" parent="."]
+autostart = true
 
 [node name="RecallVisual" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76372, 0)
@@ -96,12 +81,7 @@ billboard = 1
 no_depth_test = true
 texture = SubResource("ViewportTexture_najce")
 
-[node name="StatRegen" type="Timer" parent="."]
-autostart = true
-
 [node name="Vision" parent="." instance=ExtResource("6_0448q")]
 
-[connection signal="path_changed" from="NavAgent" to="." method="_on_nav_agent_path_changed"]
-[connection signal="timeout" from="UpdateFog" to="." method="_on_update_fog_timeout"]
 [connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]
