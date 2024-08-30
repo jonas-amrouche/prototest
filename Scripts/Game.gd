@@ -1,6 +1,6 @@
 extends Node3D
 
-const CAMP_DISTANCE_TO_CENTER = 100.0
+const CAMP_DISTANCE_TO_CENTER = 75.0
 var bases : Array[Object]
 var pre_base = preload("res://Scenes/Props/Base.tscn")
 var pre_player = preload("res://Scenes/Player.tscn")
@@ -50,11 +50,11 @@ func map_generation() -> void:
 	generate_lanes()
 	generate_points_and_paths()
 	generate_mid_arena()
-	#mirror_points()
+	mirror_points()
 	#generate_collisions() //
 	#generate_decoration()
 	generate_forest()
-	#generate_camps()
+	generate_camps()
 	#generate_structures()
 
 func generate_bases() -> void:
@@ -91,14 +91,15 @@ func generate_lanes() -> void:
 				_temp_point_list.append(_pos + _point_pos)
 			paths_points_list.append(_temp_point_list)
 
-const POINT_CELL_DIVISION = 16#28
-const PATH_RANDOM_CELLS = 0.4
+const POINT_CELL_DIVISION = 8#28
+const PATH_RANDOM_CELLS = 4.0#0.4
 const NO_PATH_BORDER_LENGTH = 20.0
 
-const MIN_INTEREST_POINTS = 12
-const MAX_INTEREST_POINTS = 24
+const MIN_INTEREST_POINTS = 18#12
+const MAX_INTEREST_POINTS = 32#24
 const MIN_INTEREST_SIZE = 5.0
 const MAX_INTEREST_SIZE = 14.0
+const INTEREST_BORDER = 5.0
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
@@ -134,12 +135,13 @@ func generate_points_and_paths() -> void:
 		var _rand_idx = randi_range(0, _grid_point_list.size()-1)
 		var _is_valid = true
 		for i in range(new_interest_points_list.size()):
-			_is_valid = false
-			if new_interest_points_list.keys()[i].distance_to(_grid_point_list[_rand_idx]) < new_interest_points_list.values()[i]:
+			# ERROR au lancement (index trop grand (new_interest_points_list.keys()[i]))
+			if _grid_point_list[_rand_idx].distance_to(new_interest_points_list.keys()[i]) < new_interest_points_list.values()[i] + INTEREST_BORDER:
 				_grid_point_list.remove_at(_rand_idx)
-				continue
-			_is_valid = true
-			break
+				_is_valid = false
+				break
+			#_is_valid = true
+			#break
 		if _is_valid:
 			#debug_box(Vector3(_grid_point_list[_rand_idx].x, 0.0, _grid_point_list[_rand_idx].y))
 			new_interest_points_list[_grid_point_list[_rand_idx]] = randf_range(MIN_INTEREST_SIZE, MAX_INTEREST_SIZE)
@@ -150,7 +152,7 @@ func generate_points_and_paths() -> void:
 		_break_count += 1
 		
 		#if there is already to many large areas we don't want to be blocked
-		if _break_count > 200:
+		if _break_count > 300:
 			print("SAFETY BREAK POINT CALCULATION")
 			break
 	print("while loops : ", _break_count)
@@ -221,6 +223,12 @@ func mirror_points() -> void:
 			interest_points_list.remove_at(i - _removed_interest_count)
 			_removed_interest_count += 1
 	
+	var _removed_new_interest_count := 0
+	for i in range(new_interest_points_list.size()):
+		if is_on_right_side(new_interest_points_list.keys()[i - _removed_new_interest_count]):
+			new_interest_points_list.erase(new_interest_points_list.keys()[i - _removed_new_interest_count])
+			_removed_new_interest_count += 1
+	
 	var _new_miror_paths = paths_points_list.duplicate(true)
 	for pa in range(_new_miror_paths.size()):
 		for po in range(_new_miror_paths[pa].size()):
@@ -229,6 +237,9 @@ func mirror_points() -> void:
 	
 	for i in range(interest_points_list.size()):
 		interest_points_list.append(interest_points_list[i] * -1.0)
+		
+	for i in range(new_interest_points_list.size()):
+		new_interest_points_list[new_interest_points_list.keys()[i] * -1.0] = new_interest_points_list.values()[i]
 
 func is_on_right_side(point : Vector2) -> bool:
 	if (bases[1].position.x - bases[0].position.x)*(point.y - bases[0].position.y)-(point.x - bases[0].position.x)*(bases[1].position.y - bases[0].position.y) > 0:
@@ -288,13 +299,17 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	trees_body.add_child(_new_collision_cube)
 
+const CAMPS_RATIO := 2.25
 const DISPLACEMENT_TO_CENTER := 3.0
 func generate_camps() -> void:
-	for i in interest_points_list:
-		var _new_camp = pre_camp.instantiate()
-		_new_camp.position = Vector3(i.x, -0.2, i.y)
-		_new_camp.camp = camps_list[randi_range(0, camps_list.size()-1)]
-		camps.add_child(_new_camp)
+	for i in range(new_interest_points_list.size()):
+		var _camps_num : int = ceil((new_interest_points_list.values()[i] - MIN_INTEREST_SIZE)/CAMPS_RATIO)
+		for c in range(_camps_num):
+			var _new_camp = pre_camp.instantiate()
+			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
+			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.2, new_interest_points_list.keys()[i].y) + _added_vec
+			_new_camp.camp = camps_list[randi_range(0, camps_list.size()-1)]
+			camps.add_child(_new_camp)
 
 const CHANCE_TO_SPAWN_TOWER := 0.05
 func generate_structures() -> void:
@@ -364,7 +379,7 @@ func is_in_river(pos : Vector2) -> bool:
 	var _noise = rivers.mesh.get("material").get("shader_parameter/noise").noise
 	var _new_pos = (pos+Vector2(250.0, 250.0)/2.0)/Vector2(250.0, 250.0)*2048.0
 	var _val = (_noise.get_noise_2d(int(_new_pos.x), int(_new_pos.y))+1.0)/2.0
-	return _val > 0.45 and _val < 0.75
+	return _val > 0.5 and _val < 0.7
 
 const PATH_LIMIT = 15.0
 func is_beyond_map_limit(pos : Vector2) -> bool:

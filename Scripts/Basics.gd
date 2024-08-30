@@ -1,6 +1,6 @@
 extends Node
 
-const MAP_SIZE = Vector2(200.0, 200.0)
+const MAP_SIZE = Vector2(150.0, 150.0)
 enum RARITY {STARTER, ORDINARY, ELITE, FANTASTIC, LEGENDARY, MYTHICAL, THEORETICAL}
 const RARITY_TEXT = ["Starter", "Ordinary", "Elite", "Fantastic", "Legendary", "Mythical", "Theoretical"]
 const RARITY_COLORS = [Color(0.659, 0.584, 0.561), Color(0.36, 0.56, 0.252), Color(0.322, 0.553, 0.698), Color(0.957, 0.882, 0.184), Color(0.506, 0.255, 0.686), Color(0.537, 0, 0.016), Color(0.62, 0.804, 0.561)]

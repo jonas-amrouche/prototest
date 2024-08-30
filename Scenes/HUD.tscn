@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=38 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
@@ -140,6 +140,23 @@ corner_radius_bottom_left = 5
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
 font_size = 25
 font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpk8"]
+bg_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_xtu5i"]
+font_size = 25
+font_color = Color(0, 0.487374, 0.913349, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8pma"]
+font_size = 15
+font_color = Color(0.56, 0.56, 0.56, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ut4rx"]
+font_size = 25
+font_color = Color(0.917951, 0, 0.195237, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -1152,6 +1169,42 @@ layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 metadata/_edit_lock_ = true
+
+[node name="ScoreLab" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4qpk8")
+
+[node name="MarginContainer" type="MarginContainer" parent="ScoreLab"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
+
+[node name="Blue" type="Label" parent="ScoreLab/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "14"
+label_settings = SubResource("LabelSettings_xtu5i")
+
+[node name="vs" type="Label" parent="ScoreLab/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "vs"
+label_settings = SubResource("LabelSettings_l8pma")
+
+[node name="Red" type="Label" parent="ScoreLab/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "30"
+label_settings = SubResource("LabelSettings_ut4rx")
 
 [connection signal="mouse_entered" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_entered"]
 [connection signal="mouse_exited" from="CraftComponents/CraftAvailable/Pad/Order/Craft" to="." method="_on_craft_mouse_exited"]

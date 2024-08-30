@@ -21,5 +21,5 @@ void fragment() {
 	}
 	ALBEDO = mix(ALBEDO, border_tint, (min(1.0, abs((n-0.6)*10.0)*-2.0+2.0)*-1.0+1.0)*texture(water_texture, UV * uv_water_size + TIME * vec2(1.2, -1.3) * texture_speed).r);
 	NORMAL_MAP = texture(water_normal_texture, UV * uv_water_normal_size + TIME * vec2(0.5, -0.3) * normal_speed).rgb;
-	ROUGHNESS = 0.9;
+	ROUGHNESS = 1.0;
 }

@@ -9,6 +9,6 @@ void fragment() {
 	COLOR.rgb = water_tint;
 	float n = texture(noise, UV * uv_noise_size + vec2(0.1, 0.1)).r;
 	if (n > 0.55 && n < 0.65){
-		COLOR.a = 1.0;
+		COLOR.a = 0.7;
 	}
 }
