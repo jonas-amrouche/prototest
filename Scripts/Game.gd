@@ -7,7 +7,7 @@ var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
-var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
+var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/SkullModel.tscn"), preload("res://Scenes/Models/TombStoneModel.tscn"), preload("res://Scenes/Models/SignModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
 
 var camps_list = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
 preload("res://Ressources/Camps/Gobedins.tres"), \
@@ -21,6 +21,7 @@ var entities : Array[Object]
 @onready var multi_tree = $MultiTrees
 #@onready var multi_tree2 = $MultiTrees2
 @onready var ground_mesh = $Ground
+@onready var rivers = $Rivers
 @onready var trees_body = $NavMesh/TreesBody
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
@@ -34,7 +35,7 @@ func _ready() -> void:
 	DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
-	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list)
+	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
 
 func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
 	var _new_player = pre_player.instantiate()
@@ -53,7 +54,7 @@ func map_generation() -> void:
 	#generate_collisions() //
 	#generate_decoration()
 	generate_forest()
-	generate_camps()
+	#generate_camps()
 	#generate_structures()
 
 func generate_bases() -> void:
@@ -243,10 +244,10 @@ func generate_collisions() -> void:
 				continue
 			add_collision_cube(_new_position)
 
-func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : Dictionary):
+func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : Dictionary, river_noise_tex : NoiseTexture2D):
 	for p in players:
 		p.vision.initialize_fog_map(bases_list)
-		p.hud.init_map_data(paths_list, bases_list, interests_list)
+		p.hud.init_map_data(paths_list, bases_list, interests_list, river_noise_tex)
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -259,8 +260,8 @@ const TREE_BORDER_LENGTH := 2.0
 const NO_TREE_BASE_DISTANCE := 8.0
 const NO_TREE_PATH_DISTANCE := 2.5
 const TREE_ROTATION_MAX = PI/8.0
-const TREE_SCALE_MIN = 0.12#0.08
-const TREE_SCALE_MAX = 0.2#0.12
+const TREE_SCALE_MIN = 0.1#0.08
+const TREE_SCALE_MAX = 0.18#0.12
 func generate_forest() -> void:
 	var tree_count = 0
 	
@@ -268,7 +269,7 @@ func generate_forest() -> void:
 		for y in range(int(Basics.MAP_SIZE.y/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
 			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(Basics.MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)
 			
-			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position) or is_in_interest(_new_position):
+			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position) or is_in_interest(_new_position) or (is_in_river(_new_position) and !is_beyond_map_limit(_new_position)):
 				continue
 			
 			var _basis_vec = Vector3(randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0).normalized()
@@ -314,6 +315,7 @@ func generate_decoration() -> void:
 		decorations_points.append(_new_position)
 		var _new_decoration = decorations[_decoration].instantiate()
 		_new_decoration.position = Vector3(_new_position.x, 0.0, _new_position.y)
+		_new_decoration.rotation = Vector3(0.0, randf_range(-PI, PI), 0.0)
 		add_child(_new_decoration)
 
 func add_entity(entity : Object) -> void:
@@ -357,6 +359,16 @@ func is_in_interest(pos : Vector2) -> bool:
 		if pos.distance_to(new_interest_points_list.keys()[i]) < new_interest_points_list.values()[i]:
 			return true
 	return false
+
+func is_in_river(pos : Vector2) -> bool:
+	var _noise = rivers.mesh.get("material").get("shader_parameter/noise").noise
+	var _new_pos = (pos+Vector2(250.0, 250.0)/2.0)/Vector2(250.0, 250.0)*2048.0
+	var _val = (_noise.get_noise_2d(int(_new_pos.x), int(_new_pos.y))+1.0)/2.0
+	return _val > 0.45 and _val < 0.75
+
+const PATH_LIMIT = 15.0
+func is_beyond_map_limit(pos : Vector2) -> bool:
+	return !(pos.x > -Basics.MAP_SIZE.x/2.0+PATH_LIMIT and pos.x < Basics.MAP_SIZE.x/2.0-PATH_LIMIT  and pos.y > -Basics.MAP_SIZE.x/2.0+PATH_LIMIT and pos.y < Basics.MAP_SIZE.x/2.0-PATH_LIMIT)
 
 func is_in_arena(pos : Vector2) -> bool:
 	if pos.distance_to(Vector2(0.0, 0.0)) < ARENA_SIZE:

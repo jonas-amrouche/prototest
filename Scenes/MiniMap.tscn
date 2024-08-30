@@ -1,8 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7a7xf75sbf22"]
+[gd_scene load_steps=10 format=3 uid="uid://b7a7xf75sbf22"]
 
 [ext_resource type="Script" path="res://Scripts/MiniMap.gd" id="1_g4v1t"]
 [ext_resource type="Shader" path="res://Ressources/Shaders/MapFogTexture.gdshader" id="1_iom1j"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_sixjx"]
+[ext_resource type="Shader" path="res://Ressources/Shaders/MinimapRiverShader.gdshader" id="3_o2jy8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yc34d"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e2h7s"]
+noise = SubResource("FastNoiseLite_yc34d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xo5x"]
+shader = ExtResource("3_o2jy8")
+shader_parameter/water_tint = Color(0.16883, 0.362478, 0.539494, 1)
+shader_parameter/uv_noise_size = 0.8
+shader_parameter/noise = SubResource("NoiseTexture2D_e2h7s")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f6vof"]
 shader = ExtResource("1_iom1j")
@@ -50,6 +62,18 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.144063, 0.144063, 0.144063, 1)
 metadata/_edit_lock_ = true
+
+[node name="MapRivers" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_6xo5x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sixjx")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Content" type="Control" parent="."]
 layout_mode = 1

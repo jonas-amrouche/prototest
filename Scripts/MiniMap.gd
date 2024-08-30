@@ -5,6 +5,7 @@ extends ColorRect
 @onready var mini_content := $Content
 @onready var mini_movement_lines := $MovementLines
 @onready var map_mask := $MapMask
+@onready var map_rivers := $MapRivers
 
 @onready var player = get_node("..").get_node("..").get_node("..")
 
@@ -22,11 +23,12 @@ const MAP_PATH_WIDTH := 9.0
 const MAP_MID_WIDTH := 17.0
 const MAP_PATH_COLOR := Color(0.275, 0.339, 0.316)
 const MAP_INTEREST_COLOR := Color(0.275*0.7, 0.339*0.7, 0.316*0.7)
+const MAP_RIVER_COLOR := Color(0.226, 0.471, 0.564)
 const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
 const MAP_BASE_AREA_SIZE := Vector2(30.0, 30.0)
 const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
 const MAP_INTEREST_ICON_SIZE := Vector2(3.0, 3.0)
-func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary) -> void:
+func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
 	# Set map_size
 	map_size = m_size
 	
@@ -57,6 +59,9 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	for base in bases_data:
 		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
 		draw_icon(_base_pos, MAP_BASE_ICON_SIZE, pre_base_texture)
+	
+	#Draw rivers
+	map_rivers.material.set_shader_parameter("noise", river_noise_tex)
 
 func draw_custom_line(points : PackedVector2Array, width : float, tint : Color, parent : Object = mini_content) -> void:
 	var _new_line = Line2D.new()

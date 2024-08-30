@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://jqgpx158nqee"]
+[gd_scene load_steps=16 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_3x643"]
 [ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Ressources/Materials/PBR/Grass1.tres" id="2_wueqv"]
 [ext_resource type="ArrayMesh" uid="uid://pb64ioywdk2t" path="res://Ressources/Meshs/Tree1.tres" id="3_fbphk"]
+[ext_resource type="Material" uid="uid://bpu24nurmm7wb" path="res://Ressources/Materials/TechArt/Rivers.tres" id="3_vsxwn"]
 [ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Ressources/Materials/TechArt/FogPass.tres" id="4_pplb6"]
+[ext_resource type="PackedScene" uid="uid://cev1a22ek6uvs" path="res://Scenes/Models/MountSidesModel.tscn" id="6_54slp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
 sky_top_color = Color(0.289323, 0.449742, 0.52032, 1)
@@ -45,6 +47,10 @@ adjustment_saturation = 0.8
 material = ExtResource("2_wueqv")
 size = Vector2(250, 250)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_jd2q5"]
+material = ExtResource("3_vsxwn")
+size = Vector2(250, 250)
+
 [sub_resource type="MultiMesh" id="MultiMesh_foaus"]
 transform_format = 1
 instance_count = 15000
@@ -73,8 +79,12 @@ transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781
 light_cull_mask = 4294967291
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.507258, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("PlaneMesh_2bjdm")
+
+[node name="Rivers" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+mesh = SubResource("PlaneMesh_jd2q5")
 
 [node name="MultiTrees" type="MultiMeshInstance3D" parent="."]
 multimesh = SubResource("MultiMesh_foaus")
@@ -101,4 +111,9 @@ collision_mask = 8
 [node name="Camps" type="Node3D" parent="."]
 
 [node name="FogPlane" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("PlaneMesh_20jko")
+
+[node name="MountSides" parent="." instance=ExtResource("6_54slp")]
+transform = Transform3D(13, 0, 0, 0, 10, 0, 0, 0, 13, 0, -14.9359, 0)
+visible = false

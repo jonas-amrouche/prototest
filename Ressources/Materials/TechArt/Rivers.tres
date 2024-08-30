@@ -1,0 +1,58 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bpu24nurmm7wb"]
+
+[ext_resource type="Shader" path="res://Ressources/Shaders/RiverShader.gdshader" id="1_lqcv7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8vtbd"]
+noise_type = 0
+seed = 254
+frequency = 0.004
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nrebc"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_8vtbd")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_glipb"]
+noise_type = 2
+seed = 110
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g0cjx"]
+width = 1024
+height = 1024
+seamless = true
+as_normal_map = true
+bump_strength = 4.0
+noise = SubResource("FastNoiseLite_glipb")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1a7lf"]
+noise_type = 2
+fractal_octaves = 3
+fractal_lacunarity = 8.48
+fractal_weighted_strength = 1.0
+cellular_distance_function = 3
+cellular_return_type = 5
+domain_warp_enabled = true
+domain_warp_frequency = 0.025
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3lmvd"]
+width = 2048
+height = 2048
+seamless = true
+noise = SubResource("FastNoiseLite_1a7lf")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_lqcv7")
+shader_parameter/water_tint_1 = Color(0.0081665, 0.0680921, 0.133241, 1)
+shader_parameter/water_tint_2 = Color(0.136744, 0.230562, 0.284997, 1)
+shader_parameter/border_tint = Color(0.15967, 0.15967, 0.15967, 1)
+shader_parameter/uv_noise_size = 1.0
+shader_parameter/uv_water_size = 7.0
+shader_parameter/uv_water_normal_size = 5.0
+shader_parameter/texture_speed = 0.001
+shader_parameter/normal_speed = 0.005
+shader_parameter/water_texture = SubResource("NoiseTexture2D_3lmvd")
+shader_parameter/water_normal_texture = SubResource("NoiseTexture2D_g0cjx")
+shader_parameter/noise = SubResource("NoiseTexture2D_nrebc")

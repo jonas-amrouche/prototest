@@ -49,8 +49,8 @@ func _process(_delta):
 	mini_map.update_player_position(player.global_position)
 	update_previews()
 
-func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary) -> void:
-	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data)
+func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
+	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, river_noise_tex)
 
 func update_souls() -> void:
 	souls_label.text = str(player.souls)

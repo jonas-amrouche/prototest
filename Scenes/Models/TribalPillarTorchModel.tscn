@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bprg2qcrdb2wh"]
 
-[ext_resource type="PackedScene" uid="uid://bd0s4r4j2vajf" path="res://Assets/3D/TribalPillarTorch.glb" id="1_wnbpt"]
+[ext_resource type="PackedScene" uid="uid://bd0s4r4j2vajf" path="res://Assets/3D/Decorations/TribalPillarTorch.glb" id="1_wnbpt"]
 [ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="2_tf2ad"]
 [ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="3_cm8e1"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="4_lh7xk"]
