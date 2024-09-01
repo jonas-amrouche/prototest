@@ -145,6 +145,8 @@ light_energy = 2.0
 omni_range = 8.42526
 
 [node name="Walls" type="StaticBody3D" parent="."]
+collision_layer = 8
+collision_mask = 8
 
 [node name="Col4" type="CollisionShape3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.770724, 1.76595, 9.43403)

@@ -3,18 +3,12 @@ extends Node3D
 @onready var visual = $Visual
 @onready var collision = $Area
 @onready var manager = get_node("..")
-@onready var fire_anim = $Visual/Fire
-@onready var fire_anim_angle_1 = $Visual/FireAngle1
-@onready var fire_anim_angle_2 = $Visual/FireAngle2
 
 func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead():
 			manager.look_at_cursor()
 			manager.in_animation = true
-			fire_anim.play("fire")
-			fire_anim_angle_1.play("fire")
-			fire_anim_angle_2.play("fire")
 			manager.block_player_position(ability_dealer)
 			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
 				for p in collision.get_overlapping_bodies():
@@ -23,8 +17,7 @@ func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 				manager.in_animation = false
 				manager.unblock_player_position(ability_dealer)
 				manager.start_ability_cooldown(ability)
-				get_tree().create_timer(0.15).timeout.connect(Callable(func():
-					queue_free()))))
+				queue_free()))
 			return Basics.ABILITY_ERROR.OK
 		else:
 			queue_free()

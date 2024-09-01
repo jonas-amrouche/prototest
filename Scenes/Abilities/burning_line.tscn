@@ -1,9 +1,105 @@
-[gd_scene load_steps=3 format=3 uid="uid://dp6xgqckpjxe1"]
+[gd_scene load_steps=26 format=3 uid="uid://dp6xgqckpjxe1"]
 
 [ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_c8usx"]
+[ext_resource type="Texture2D" uid="uid://0arsqjm6n17e" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0000.png" id="2_gue3p"]
+[ext_resource type="Texture2D" uid="uid://cilop3imwuur4" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0001.png" id="3_u8bq3"]
+[ext_resource type="Texture2D" uid="uid://pv2aypxuwwrl" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0002.png" id="4_kpb8k"]
+[ext_resource type="Texture2D" uid="uid://hdpiha81aw7q" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0003.png" id="5_3mn05"]
+[ext_resource type="Texture2D" uid="uid://dbhjfatag2gi8" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0004.png" id="6_ci5hw"]
+[ext_resource type="Texture2D" uid="uid://o3pcklksmirf" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0005.png" id="7_hayjj"]
+[ext_resource type="Texture2D" uid="uid://bqy53o1rqpd7v" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0006.png" id="8_yhlhe"]
+[ext_resource type="Texture2D" uid="uid://lx0h5puedkc3" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0007.png" id="9_pul37"]
+[ext_resource type="Texture2D" uid="uid://drbqdboybklp" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0008.png" id="10_q3ett"]
+[ext_resource type="Texture2D" uid="uid://bnjs0dv01u2g6" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0009.png" id="11_krwbd"]
+[ext_resource type="Texture2D" uid="uid://t6aqdfkt2gee" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0010.png" id="12_iwp16"]
+[ext_resource type="Texture2D" uid="uid://dbxlqt163gqko" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0011.png" id="13_nyo6h"]
+[ext_resource type="Texture2D" uid="uid://b7wjf7vv8speh" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0012.png" id="14_ckvge"]
+[ext_resource type="Texture2D" uid="uid://cw17vk0ftt4vn" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0013.png" id="15_u8r8n"]
+[ext_resource type="Texture2D" uid="uid://ee4f4upuvewx" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0014.png" id="16_elgce"]
+[ext_resource type="Texture2D" uid="uid://b50i8clt46tb4" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0015.png" id="17_iengd"]
+[ext_resource type="Texture2D" uid="uid://mgvh1is7qgsh" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0016.png" id="18_t4k2q"]
+[ext_resource type="Texture2D" uid="uid://766ejibumvun" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0017.png" id="19_63cdh"]
+[ext_resource type="Texture2D" uid="uid://faklxuowla73" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0018.png" id="20_fwrrf"]
+[ext_resource type="Texture2D" uid="uid://bnr8g4efoaa8w" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0019.png" id="21_qdtj6"]
+[ext_resource type="Texture2D" uid="uid://dhrpqas71jg4w" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0020.png" id="22_x5dul"]
+[ext_resource type="Texture2D" uid="uid://deht0xdy0diyf" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0021.png" id="23_sl3w2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uc5iw"]
 size = Vector3(0.6, 1, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80fho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gue3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u8bq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kpb8k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3mn05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ci5hw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hayjj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yhlhe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pul37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q3ett")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_krwbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_iwp16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_nyo6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ckvge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_u8r8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_elgce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_iengd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_t4k2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_63cdh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_fwrrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_qdtj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_x5dul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_sl3w2")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 24.0
+}]
 
 [node name="BurningLine" type="Node3D"]
 script = ExtResource("1_c8usx")
@@ -17,6 +113,25 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 shape = SubResource("BoxShape3D_uc5iw")
 
-[node name="Visual" type="CSGBox3D" parent="."]
+[node name="Visual" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
-size = Vector3(0.6, 1, 3)
+
+[node name="Fire" type="AnimatedSprite3D" parent="Visual"]
+transform = Transform3D(0.529, 0, 0, 0, -3.4838e-08, 0.664, 0, -0.797, -2.90244e-08, 0, 0, -0.437045)
+no_depth_test = true
+sprite_frames = SubResource("SpriteFrames_80fho")
+animation = &"fire"
+
+[node name="FireAngle1" type="AnimatedSprite3D" parent="Visual"]
+transform = Transform3D(0.374059, -1.02038e-08, 0.469519, -0.374059, -2.46342e-08, 0.469519, 6.77266e-09, -0.797, -2.05233e-08, 0, 0, -0.437045)
+no_depth_test = true
+sprite_frames = SubResource("SpriteFrames_80fho")
+animation = &"fire"
+frame = 21
+frame_progress = 0.547912
+
+[node name="FireAngle2" type="AnimatedSprite3D" parent="Visual"]
+transform = Transform3D(0.374059, 1.02038e-08, -0.469519, 0.374059, -2.46342e-08, 0.469519, -6.77266e-09, -0.797, -2.05233e-08, 0, 0, -0.437045)
+no_depth_test = true
+sprite_frames = SubResource("SpriteFrames_80fho")
+animation = &"fire"
