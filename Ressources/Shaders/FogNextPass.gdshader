@@ -2,7 +2,7 @@ shader_type spatial;
 render_mode depth_test_disabled;
 
 uniform sampler2D fog_texture;
-uniform float uv_multiplier;
+uniform float uv_multiplier = 0.0375;
 uniform vec2 uv_offset = vec2(0.5, -0.5);
 uniform float blur_power = 1.0;
 uniform int iter = 1;

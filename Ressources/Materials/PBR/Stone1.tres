@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cfp4bbdllwr3r" path="res://Assets/2D/PBR/rock_v1_ao.png" id="2_qdybr"]
 
 [resource]
-albedo_color = Color(0.212305, 0.212305, 0.212305, 1)
+albedo_color = Color(0.462291, 0.462291, 0.462291, 1)
 albedo_texture = ExtResource("1_hd21o")
 ao_enabled = true
 ao_texture = ExtResource("2_qdybr")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_scale = Vector3(0.4, 0.4, 0.4)
 uv1_triplanar = true

@@ -17,14 +17,14 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	update_map_fog()
 
 func update_map_fog() -> void:
-	#fog_map.fill(Color(1.0, 1.0, 1.0))
-	fog_map.fill(Color(0.0, 0.0, 0.0))
+	fog_map.fill(Color(1.0, 1.0, 1.0))
+	#fog_map.fill(Color(0.0, 0.0, 0.0))
 	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
 	var _ring_img = pre_circle_image.duplicate()
 	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
 	fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
 	for i in player.world.bases:
-		var _base_pos = Vector2(i.position.x + (FOG_BASE_SIZE.x/2.0 * min(0.0, sign(i.position.x ))), i.position.z + (FOG_BASE_SIZE.y/2.0 * -max(0.0, sign(i.position.x))))
+		var _base_pos = Vector2(i.position.x + (FOG_BASE_SIZE.x/2.0 * min(0.0, sign(i.position.x))), i.position.z + (FOG_BASE_SIZE.y/2.0 * -max(0.0, sign(i.position.x))))
 		fog_map.fill_rect(Rect2i(world_to_fog_position(_base_pos), FOG_BASE_SIZE), Color(0.0, 0.0, 0.0))
 	
 	for i in player.world.beacons.get_children():
@@ -41,7 +41,7 @@ func update_map_fog() -> void:
 	
 	#TODO We need temporal reprojection of fog
 	
-	# Send vision map to ground mesh affacting all landscape because it's the same material instance
+	# Send vision map to fog plane
 	player.world.fog_plane.mesh.material.set("shader_parameter/fog_texture", ImageTexture.create_from_image(fog_map))
 	
 	# Send vision map to map script to manage entities visibility
@@ -50,7 +50,7 @@ func update_map_fog() -> void:
 func has_vision(pos : Vector2i) -> bool:
 	
 	# TODO bug quand une entité va trop loin (il depasse de la map de vision) pour l'instant je clamp
-	var _fog_position = world_to_fog_position(clamp(pos, Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1)))
+	var _fog_position = clamp(world_to_fog_position(pos), Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1))
 	return fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5
 
 const RAY_NUM = 8

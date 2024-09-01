@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dx51lvdhwysho"]
 
 [ext_resource type="PackedScene" uid="uid://d267sf1wyj7ju" path="res://Assets/3D/Monsters/BlindBrute.glb" id="1_5c60t"]
-[ext_resource type="Material" uid="uid://bi5oisr4lvrhi" path="res://Ressources/Materials/PBR/KokaPetals1.tres" id="2_iisx7"]
+[ext_resource type="Material" uid="uid://cv7l5206uurjd" path="res://Ressources/Materials/PBR/Stone1.tres" id="2_brort"]
 
 [node name="BlindBruteModel" instance=ExtResource("1_5c60t")]
 
 [node name="BlindBrute" parent="." index="0"]
 transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, 0.0671265, -1.00996, 0)
-surface_material_override/0 = ExtResource("2_iisx7")
+surface_material_override/0 = ExtResource("2_brort")

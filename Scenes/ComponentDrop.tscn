@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://krhwbpclsgug"]
+[gd_scene load_steps=4 format=3 uid="uid://krhwbpclsgug"]
 
 [ext_resource type="Script" path="res://Scripts/ComponentDrop.gd" id="1_v4uuw"]
+[ext_resource type="Texture2D" uid="uid://rfhqvfpg31vp" path="res://Assets/2D/Components/floating_matter_icon.png" id="2_m4j2u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hmyda"]
+size = Vector3(0.5, 0.5, 0.5)
 
 [node name="ComponentDrop" type="Node3D"]
 script = ExtResource("1_v4uuw")
@@ -15,7 +17,18 @@ monitorable = false
 [node name="Collision" type="CollisionShape3D" parent="PickUp"]
 shape = SubResource("BoxShape3D_hmyda")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(0.5, 0.5, 0.5)
+[node name="IconTex" type="Sprite3D" parent="."]
+transform = Transform3D(-1.74846e-08, -0.4, -1.74846e-08, 0, -1.74846e-08, 0.4, -0.4, 1.74846e-08, 7.64274e-16, 0, -0.65, 0)
+modulate = Color(0.61339, 0.61339, 0.61339, 1)
+double_sided = false
+alpha_cut = 2
+texture = ExtResource("2_m4j2u")
+
+[node name="IconTexShadow" type="Sprite3D" parent="."]
+transform = Transform3D(-1.74846e-08, -0.4, -1.74846e-08, 0, -1.74846e-08, 0.4, -0.4, 1.74846e-08, 7.64274e-16, 0, -0.786782, 0)
+modulate = Color(0, 0, 0, 1)
+double_sided = false
+alpha_cut = 2
+texture = ExtResource("2_m4j2u")
 
 [connection signal="body_shape_entered" from="PickUp" to="." method="_on_pick_up_body_shape_entered"]

@@ -101,7 +101,7 @@ func _process(_delta):
 func update_direction() -> void:
 	player_model.look_at(-target_direction + Vector3(global_position.x, player_model.global_position.y, global_position.z))
 
-const CAM_LIMITS = Rect2(Vector2(-84.0, -84.0), Vector2(84, 95))
+const CAM_LIMITS = Rect2(Vector2(-63.0, -61.0), Vector2(63, 75))
 func border_cam_movement() -> void:
 	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOOVE_TRESHOLD:
 		camera.global_position.x = min(camera.global_position.x + CAMERA_MOOVE_SPEED, CAM_LIMITS.size.x)
@@ -128,12 +128,12 @@ var dragged_by_map = false
 func move_camera_click(press : bool) -> void:
 	dragged_by_map = press
 	if !Input.is_action_pressed("center_cam"):
-		hud.small_cam_view.set_visible(press)
-		camera.top_level = press
+		hud.small_cam_view.set_visible(press and !is_dead())
+		camera.top_level = press or is_dead()
 	if press:
 		camera.position.x = clamp(target_cam_pos.x, CAM_LIMITS.position.x, CAM_LIMITS.size.x)
 		camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
-	elif !Input.is_action_pressed("center_cam"):
+	elif !Input.is_action_pressed("center_cam") and !is_dead():
 		camera.position = camera_base_marker.position
 
 func debug_features() -> void:
@@ -227,11 +227,11 @@ func is_dead() -> bool:
 
 func die() -> void:
 	can_move = false
+	camera.top_level = true
 	player_collision.disabled = true
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = stats.max_health
 		hud.update_info_bars()
-		camera.top_level = true
 		player_collision.disabled = false
 		can_move = true
 		respawn_base()))
@@ -265,13 +265,15 @@ func face_direction(direction : Vector3) -> void:
 
 func action_keys():
 	if Input.is_action_just_pressed("center_cam"):
-		camera.top_level = true
-		hud.small_cam_view.set_visible(true)
+		if !is_dead():
+			camera.top_level = true
+			hud.small_cam_view.set_visible(true)
 	if Input.is_action_just_released("center_cam"):
-		if !dragged_by_map:
-			camera.top_level = false
-			hud.small_cam_view.set_visible(false)
-			camera.position = camera_base_marker.position
+		if !is_dead():
+			if !dragged_by_map:
+				camera.top_level = false
+				hud.small_cam_view.set_visible(false)
+				camera.position = camera_base_marker.position
 	if Input.is_action_just_pressed("recall"):
 		#nav.target_position = global_position
 		recall = true

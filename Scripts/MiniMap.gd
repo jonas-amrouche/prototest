@@ -27,7 +27,7 @@ const MAP_RIVER_COLOR := Color(0.226, 0.471, 0.564)
 const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
 const MAP_BASE_AREA_SIZE := Vector2(30.0, 30.0)
 const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
-const MAP_INTEREST_ICON_SIZE := Vector2(3.0, 3.0)
+const MAP_INTEREST_ICON_SIZE := Vector2(4.0, 4.0)
 func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
 	# Set map_size
 	map_size = m_size

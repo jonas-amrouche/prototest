@@ -97,6 +97,9 @@ func _physics_process(_delta) -> void:
 	update_direction()
 	movement()
 
+func kill_player() -> void:
+	print("slay by monster you noob")
+
 func face_direction(direction : Vector3) -> void:
 	target_direction = lerp(target_direction, direction, ROTATION_LERP_SPEED)
 

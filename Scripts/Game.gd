@@ -97,9 +97,9 @@ const NO_PATH_BORDER_LENGTH = 20.0
 
 const MIN_INTEREST_POINTS = 18#12
 const MAX_INTEREST_POINTS = 32#24
-const MIN_INTEREST_SIZE = 5.0
-const MAX_INTEREST_SIZE = 14.0
-const INTEREST_BORDER = 5.0
+const MIN_INTEREST_SIZE = 4.0
+const MAX_INTEREST_SIZE = 10.0
+const INTEREST_BORDER = 7.0
 
 const PATH_RESOLUTION = 1.0
 const SIN_DIVISION = 3.0
@@ -345,8 +345,7 @@ func vision_update(vision : Object, fog_map : Image) -> void:
 			e.set_visible(vision.has_vision(Vector2i(e.global_position.x, e.global_position.z)))
 	
 	for c in camps.get_children():
-		var _fog_position = vision.world_to_fog_position(Vector2(c.global_position.x, c.global_position.z))
-		c.change_camp_visibility(fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5)
+		c.change_camp_visibility(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))
 
 func is_in_decoration(pos : Vector2) -> bool:
 	for i in decorations_points:
@@ -379,7 +378,8 @@ func is_in_river(pos : Vector2) -> bool:
 	var _noise = rivers.mesh.get("material").get("shader_parameter/noise").noise
 	var _new_pos = (pos+Vector2(250.0, 250.0)/2.0)/Vector2(250.0, 250.0)*2048.0
 	var _val = (_noise.get_noise_2d(int(_new_pos.x), int(_new_pos.y))+1.0)/2.0
-	return _val > 0.5 and _val < 0.7
+	#return _val > 0.5 and _val < 0.7
+	return false
 
 const PATH_LIMIT = 15.0
 func is_beyond_map_limit(pos : Vector2) -> bool:
