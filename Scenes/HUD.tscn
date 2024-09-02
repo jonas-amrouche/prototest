@@ -1,9 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=60 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
+[ext_resource type="PackedScene" uid="uid://dmsot177joet6" path="res://Scenes/UI/ExperienceGem.tscn" id="2_j4ssy"]
+[ext_resource type="Shader" path="res://Ressources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
 [ext_resource type="PackedScene" uid="uid://k5hwxx3mfhp6" path="res://Scenes/UI/ComponentHud.tscn" id="3_rlkqk"]
+[ext_resource type="Texture2D" uid="uid://cx6f1ycmvqilj" path="res://Assets/2D/Shaders/gem_texture_ui.png" id="4_4sp2n"]
+[ext_resource type="Texture2D" uid="uid://c0m4who6u83m7" path="res://Assets/2D/UI/exp_shine.png" id="5_0cch0"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
@@ -24,6 +28,166 @@ anti_aliasing = false
 font_size = 25
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy6ci"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gw64n"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ux5"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uflcv"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5uhqk"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5hrv"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1bji"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pnvm"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxkxr"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abb43"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n3vcj"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8u7u"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlega"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub0o4"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bbpm"]
+resource_local_to_scene = true
+shader = ExtResource("3_khlsh")
+shader_parameter/filled = true
+shader_parameter/decay = 0.0
+shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
+shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
+shader_parameter/noise1 = ExtResource("4_4sp2n")
+shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -141,6 +305,21 @@ corner_radius_bottom_left = 5
 font_size = 25
 font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq8fq"]
+bg_color = Color(0.454632, 0.318063, 0.842269, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.140274, 0.100208, 0.324716, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_kx2yo"]
+font_color = Color(0.0155536, 0, 0.28221, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpk8"]
 bg_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
 corner_radius_bottom_right = 10
@@ -148,7 +327,7 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_xtu5i"]
 font_size = 25
-font_color = Color(0, 0.487374, 0.913349, 1)
+font_color = Color(0.537032, 0.405658, 0.783504, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l8pma"]
 font_size = 15
@@ -156,7 +335,7 @@ font_color = Color(0.56, 0.56, 0.56, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ut4rx"]
 font_size = 25
-font_color = Color(0.917951, 0, 0.195237, 1)
+font_color = Color(0.257466, 0.434664, 0.21107, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -209,7 +388,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="Pad" type="MarginContainer" parent="."]
+[node name="ExpPad" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
 anchors_preset = 10
@@ -225,9 +404,97 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ExpContainer" type="HBoxContainer" parent="Pad"]
+[node name="ExpContainer" type="HBoxContainer" parent="ExpPad"]
 layout_mode = 2
 theme_override_constants/separation = 9
+metadata/_edit_lock_ = true
+
+[node name="Gem" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_ewydl")
+layout_mode = 2
+
+[node name="Gem2" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_oy6ci")
+layout_mode = 2
+
+[node name="Gem3" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_gw64n")
+layout_mode = 2
+
+[node name="Gem4" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_m1ux5")
+layout_mode = 2
+
+[node name="Gem5" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_uflcv")
+layout_mode = 2
+
+[node name="Gem6" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_5uhqk")
+layout_mode = 2
+
+[node name="Gem7" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_s5hrv")
+layout_mode = 2
+
+[node name="Gem8" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_d1bji")
+layout_mode = 2
+
+[node name="Gem9" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_7pnvm")
+layout_mode = 2
+
+[node name="Gem10" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_gxkxr")
+layout_mode = 2
+
+[node name="Gem11" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_abb43")
+layout_mode = 2
+
+[node name="Gem12" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_n3vcj")
+layout_mode = 2
+
+[node name="Gem13" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_k8u7u")
+layout_mode = 2
+
+[node name="Gem14" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_nlega")
+layout_mode = 2
+
+[node name="Gem15" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_ub0o4")
+layout_mode = 2
+
+[node name="Gem16" parent="ExpPad/ExpContainer" instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_2bbpm")
+layout_mode = 2
+
+[node name="EffectPad" type="MarginContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 1871.0
+offset_top = 64.0
+offset_right = -4.0
+offset_bottom = 1063.0
+grow_horizontal = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EffectContainer" type="VBoxContainer" parent="EffectPad"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="ActionPanel" type="ColorRect" parent="."]
@@ -350,9 +617,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -395.0
+offset_left = -412.0
 offset_top = -359.0
-offset_right = -36.0
+offset_right = -53.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -360,9 +627,9 @@ color = Color(0.227451, 0.176471, 0.164706, 1)
 
 [node name="MiniMap" parent="." instance=ExtResource("1_4iu7d")]
 layout_mode = 1
-offset_left = -387.0
+offset_left = -404.0
 offset_top = -353.0
-offset_right = -43.0
+offset_right = -60.0
 offset_bottom = -9.0
 mouse_filter = 0
 
@@ -520,9 +787,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -464.0
+offset_left = -481.0
 offset_top = -237.0
-offset_right = -403.0
+offset_right = -420.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -1097,13 +1364,13 @@ offset_right = 189.0
 offset_bottom = -4.0
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
-[node name="Back" type="ColorRect" parent="."]
+[node name="Back" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 1535.0
+offset_left = 1518.0
 offset_top = 1039.0
-offset_right = 1567.0
+offset_right = 1550.0
 offset_bottom = 1071.0
-color = Color(0.801324, 0.255313, 0.880208, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_xq8fq")
 
 [node name="BackLabel" type="Label" parent="Back"]
 layout_mode = 1
@@ -1113,15 +1380,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "B"
+label_settings = SubResource("LabelSettings_kx2yo")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Souls" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 1838.0
+offset_left = 1821.0
 offset_top = 1032.0
-offset_right = 1878.0
+offset_right = 1861.0
 offset_bottom = 1072.0
 texture = ExtResource("7_1ajdh")
 expand_mode = 1

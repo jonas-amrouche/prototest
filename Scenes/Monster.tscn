@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxbe73c6eo1wj"]
+[gd_scene load_steps=8 format=3 uid="uid://bxbe73c6eo1wj"]
 
 [ext_resource type="Script" path="res://Scripts/Monster.gd" id="1_dalmf"]
 [ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="2_8tuwq"]
 [ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Abilities.tscn" id="3_laeoi"]
+[ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Effects.tscn" id="4_e3cog"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mfdxe"]
 height = 2.2
@@ -59,6 +60,8 @@ wait_time = 0.3
 
 [node name="Roam" type="Timer" parent="."]
 wait_time = 7.0
+
+[node name="Effects" parent="." instance=ExtResource("4_e3cog")]
 
 [connection signal="body_shape_entered" from="Aggro" to="." method="_on_aggro_body_shape_entered"]
 [connection signal="body_shape_exited" from="Aggro" to="." method="_on_aggro_body_shape_exited"]

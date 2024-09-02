@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqguvdpt2gpe0"]
+
+[ext_resource type="Script" path="res://Scripts/EffectPreview.gd" id="1_eama0"]
+[ext_resource type="Texture2D" uid="uid://biv1bxbrokj4t" path="res://Assets/2D/Abilities/InstantShardstoneIcon.png" id="2_uxmg2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cg47"]
+bg_color = Color(0.0246748, 0.0983496, 0.059556, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjjdp"]
+bg_color = Color(0.266575, 0.266575, 0.266575, 0)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ai2w"]
+font_color = Color(0.409761, 0.398507, 0.345879, 1)
+
+[node name="EffectPreview" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+offset_right = 250.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4cg47")
+script = ExtResource("1_eama0")
+
+[node name="EffectPad" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EffectContainer" type="VBoxContainer" parent="EffectPad"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TitleContainer" type="HBoxContainer" parent="EffectPad/EffectContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="IconCont" type="PanelContainer" parent="EffectPad/EffectContainer/TitleContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="EffectPad/EffectContainer/TitleContainer/IconCont"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_uxmg2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Blur" type="PanelContainer" parent="EffectPad/EffectContainer/TitleContainer/IconCont"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sjjdp")
+
+[node name="Pad" type="MarginContainer" parent="EffectPad/EffectContainer/TitleContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EffectName" type="Label" parent="EffectPad/EffectContainer/TitleContainer/Pad"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "yep"
+
+[node name="Desc" type="RichTextLabel" parent="EffectPad/EffectContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/bold_italics_font_size = 13
+theme_override_font_sizes/italics_font_size = 13
+theme_override_font_sizes/mono_font_size = 13
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Duration" type="Label" parent="EffectPad"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "12 s"
+label_settings = SubResource("LabelSettings_6ai2w")
+horizontal_alignment = 2

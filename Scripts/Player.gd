@@ -52,12 +52,12 @@ var can_move := true
 @onready var camera := $Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
-#@onready var nav := $NavAgent
 @onready var recall_visual := $RecallVisual
 @onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
 @onready var vision := $Vision
 @onready var ability_machine := $Abilities
+@onready var effect_machine := $Effects
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
 @onready var health_bar := $SubViewport/Infos/HealthBar
@@ -67,6 +67,7 @@ var can_move := true
 
 func _ready():
 	add_to_group("player")
+	add_effect(preload("res://Ressources/Effects/BindedFire.tres"), self)
 	hud.viewport_map_cam.texture = small_view.get_texture()
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
@@ -295,7 +296,16 @@ func action_keys():
 		if Input.is_action_just_released("ability"+str(i+1)):
 			if abilities[i]:
 				ability_machine.release_ability(abilities[i], self)
-		
+
+func add_effect(effect : Effect, effect_dealer : Object) -> void:
+	effect_machine.spawn_effect(effect, effect_dealer)
+	if effect.duration > 0.0:
+		get_tree().create_timer(effect.duration).timeout.connect(remove_effect.bind(effect))
+	hud.update_effects()
+
+func remove_effect(effect : Effect) -> void:
+	effect_machine.destroy_effect(effect)
+	hud.update_effects()
 
 var channeling_tween
 func start_channeling(duration : float) -> void:

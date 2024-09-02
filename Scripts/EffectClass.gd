@@ -5,5 +5,6 @@ extends Resource
 @export var name : String
 @export_multiline var description : String
 @export var icon : Texture2D
-@export var lifetime : float
+@export var duration : float
 @export var debuff : bool
+@export var custom_data : Array

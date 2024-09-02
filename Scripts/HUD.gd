@@ -11,9 +11,11 @@ var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
 var pre_item_craft = preload("res://Scenes/UI/ItemCraft.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
 var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
+var pre_effect_hud = preload("res://Scenes/UI/EffectHud.tscn")
 var pre_item_preview = preload("res://Scenes/UI/ItemPreview.tscn")
 var pre_ability_preview = preload("res://Scenes/UI/AbilityPreview.tscn")
 var pre_component_preview = preload("res://Scenes/UI/ComponentPreview.tscn")
+var pre_effect_preview = preload("res://Scenes/UI/EffectPreview.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
@@ -35,13 +37,15 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var mini_map := $MiniMap
 @onready var item_craft_button := $CraftComponents/CraftAvailable/Pad/Order/Craft
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
-@onready var experience_gem_container := $Pad/ExpContainer
+@onready var experience_gem_container := $ExpPad/ExpContainer
+@onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $LevelPan/LevelInd
 @onready var viewport_map_cam := $CamView/Pad/SubViewport
 @onready var small_cam_view := $CamView
 
 var item_preview
 var component_preview
+var effect_preview
 var ability_preview
 
 func _process(_delta):
@@ -220,6 +224,29 @@ func update_components() -> void:
 		if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
 			_new_component_hud.component_change_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
 
+func update_effects() -> void:
+	for i in effect_container.get_children():
+		i.queue_free()
+	for i in range(player.effect_machine.active_effects.size()):
+		var _new_effect_hud = pre_effect_hud.instantiate()
+		_new_effect_hud.effect = player.effect_machine.active_effects.keys()[i]
+		_new_effect_hud.connect("mouse_entered_effect", Callable(self, "show_effect_preview"))
+		_new_effect_hud.connect("mouse_exited", Callable(self, "hide_effect_preview"))
+		effect_container.add_child(_new_effect_hud)
+
+func show_effect_preview(effect : Effect) -> void:
+	if effect_preview:
+		effect_preview.queue_free()
+	if effect:
+		effect_preview = pre_effect_preview.instantiate()
+		effect_preview.effect = effect
+		add_child(effect_preview)
+
+func hide_effect_preview() -> void:
+	if effect_preview:
+		effect_preview.queue_free()
+		effect_preview = null
+
 func show_component_preview(component : Component) -> void:
 	if component_preview:
 		component_preview.queue_free()
@@ -236,6 +263,8 @@ func hide_component_preview() -> void:
 func update_previews() -> void:
 	if component_preview:
 		component_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, component_preview.size.y)
+	if effect_preview:
+		effect_preview.position = get_viewport().get_mouse_position() - Vector2(effect_preview.size.x, effect_preview.size.y)
 	if item_preview:
 		item_preview.position = get_viewport().get_mouse_position() - Vector2(0.0, item_preview.size.y)
 

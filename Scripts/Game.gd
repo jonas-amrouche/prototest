@@ -132,7 +132,7 @@ func generate_points_and_paths() -> void:
 	
 	# Select random point, assign a size, then select the next one not in the range
 	while new_interest_points_list.size() < _interest_point_num:
-		var _rand_idx = randi_range(0, _grid_point_list.size()-1)
+		var _rand_idx = randi_range(1, _grid_point_list.size()-1)
 		var _is_valid = true
 		for i in range(new_interest_points_list.size()):
 			# ERROR au lancement (index trop grand (new_interest_points_list.keys()[i]))
@@ -339,7 +339,7 @@ func add_entity(entity : Object) -> void:
 func remove_entity(entity : Object) -> void:
 	entities.erase(entity)
 
-func vision_update(vision : Object, fog_map : Image) -> void:
+func vision_update(vision : Object, _fog_map : Image) -> void:
 	for e in entities:
 		if e:
 			e.set_visible(vision.has_vision(Vector2i(e.global_position.x, e.global_position.z)))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://duqyed1kqpwb"]
+[gd_scene load_steps=5 format=3 uid="uid://duqyed1kqpwb"]
 
 [ext_resource type="Script" path="res://Scripts/AbilityItemPreview.gd" id="1_dtegr"]
 [ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_pwvs0"]
@@ -9,10 +9,6 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
-
-[sub_resource type="LabelSettings" id="LabelSettings_tj4dl"]
-font_size = 10
-font_color = Color(0.635417, 0.635417, 0.635417, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
 resource_local_to_scene = true
@@ -48,14 +44,20 @@ mouse_filter = 2
 texture = ExtResource("2_pwvs0")
 expand_mode = 1
 
-[node name="AbilityDesc" type="Label" parent="AbilityContainer"]
+[node name="AbilityDesc" type="RichTextLabel" parent="AbilityContainer"]
 custom_minimum_size = Vector2(220, 31)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.635294, 0.635294, 0.635294, 1)
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
 text = "Throw a big slash of fire in the target direction."
-label_settings = SubResource("LabelSettings_tj4dl")
-autowrap_mode = 2
+scroll_active = false
 
 [node name="AbilityName" type="Label" parent="AbilityContainer"]
 custom_minimum_size = Vector2(220, 0)

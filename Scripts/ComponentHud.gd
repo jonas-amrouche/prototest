@@ -7,7 +7,6 @@ signal mouse_entered_component(comp : Component)
 
 @onready var icon := $CompCont/MarginIcon/Icon
 @onready var quantity_lab := $CompCont/MarginQuantity/Quantity
-@onready var comp_container := $CompCont
 
 func _ready():
 	update_component()

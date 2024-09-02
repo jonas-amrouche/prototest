@@ -25,7 +25,8 @@ var roam_point : Vector3
 
 @onready var camp = get_node("..")
 @onready var nav = $NavAgent
-@onready var abilities = $Abilities
+@onready var ability_machine = $Abilities
+@onready var effect_machine = $Effects
 @onready var agro_collision = $Aggro/Collision
 @onready var monster_collision = $Collision
 @onready var health_bar = $SubViewport/Infos/HealthBar
@@ -48,6 +49,14 @@ func _ready():
 	monster_model.rotation.y = randf() * PI * 2.0
 	level_label.text = str(level)
 	target_direction = global_transform.basis.x
+
+func add_effect(effect : Effect, effect_dealer : Object) -> void:
+	effect_machine.spawn_effect(effect, effect_dealer)
+	if effect.duration > 0.0:
+		get_tree().create_timer(effect.duration).timeout.connect(remove_effect.bind(effect))
+
+func remove_effect(effect : Effect) -> void:
+	effect_machine.destroy_effect(effect)
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	if !player_target:
@@ -107,7 +116,7 @@ func update_direction() -> void:
 	var _vec_look = -target_direction + Vector3(global_position.x, monster_model.global_position.y, global_position.z)
 	if _vec_look.is_equal_approx(monster_model.global_position):
 		return
-	abilities.look_at(_vec_look)
+	ability_machine.look_at(_vec_look)
 	monster_model.look_at(_vec_look)
 
 func movement() -> void:
@@ -164,8 +173,8 @@ func _on_aggro_body_shape_exited(_body_rid, _body, _body_shape_index, _local_sha
 func _on_attack_timeout():
 	if player_target:
 		for i in monster.abilities:
-			if abilities.get_ability_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
-				abilities.use_ability(i, self)
+			if ability_machine.get_ability_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
+				ability_machine.use_ability(i, self)
 
 func _on_roam_timeout():
 	roam_point = Vector3(randf_range(-monster.roam_range, monster.roam_range), 0.0, randf_range(-monster.roam_range, monster.roam_range))
