@@ -16,17 +16,19 @@ preload("res://Ressources/Camps/Grunters.tres"), \
 preload("res://Ressources/Camps/LostGhosts.tres")]
 
 var players : Array[Object]
-var entities : Array[Object]
 
 @onready var multi_tree = $MultiTrees
 #@onready var multi_tree2 = $MultiTrees2
 @onready var ground_mesh = $Ground
 @onready var rivers = $Rivers
+@onready var env = $WorldEnvironment.environment
 @onready var trees_body = $NavMesh/TreesBody
 @onready var ground_body = $NavMesh/GroundBody
 @onready var navmesh = $NavMesh
 @onready var beacons = $Beacons
 @onready var camps = $Camps
+@onready var monsters = $Monsters
+@onready var components = $Components
 @onready var temp_vision = $TempVision
 @onready var fog_plane = $FogPlane
 
@@ -333,16 +335,15 @@ func generate_decoration() -> void:
 		_new_decoration.rotation = Vector3(0.0, randf_range(-PI, PI), 0.0)
 		add_child(_new_decoration)
 
-func add_entity(entity : Object) -> void:
-	entities.append(entity)
-
-func remove_entity(entity : Object) -> void:
-	entities.erase(entity)
+func set_color_correction(grad : GradientTexture1D) -> void:
+	env.set_adjustment_color_correction(grad)
 
 func vision_update(vision : Object, _fog_map : Image) -> void:
-	for e in entities:
-		if e:
-			e.set_visible(vision.has_vision(Vector2i(e.global_position.x, e.global_position.z)))
+	for m in monsters.get_children():
+		m.set_visible(vision.has_vision(Vector2i(m.global_position.x, m.global_position.z)))
+	
+	for c in components.get_children():
+		c.set_visible(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))
 	
 	for c in camps.get_children():
 		c.change_camp_visibility(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))

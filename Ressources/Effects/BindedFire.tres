@@ -7,8 +7,8 @@
 script = ExtResource("1_badmi")
 id = "binded_fire"
 name = "Binded Fire"
-description = "Deal [color=Blueviolet] 25 magic damage[/color], each seconds. Could not be [i][color=Lightblue]extinguish[/color][/i]."
+description = "Deal [color=Blueviolet] 5 magic damage[/color], each 1/4 seconds. Could not be [i][color=Lightblue]extinguish[/color][/i]."
 icon = ExtResource("1_e33lj")
 duration = 4.0
 debuff = true
-custom_data = [25]
+custom_data = [5]

@@ -23,7 +23,7 @@ var in_attack_range : bool
 
 var roam_point : Vector3
 
-@onready var camp = get_node("..")
+var camp  : Object
 @onready var nav = $NavAgent
 @onready var ability_machine = $Abilities
 @onready var effect_machine = $Effects
@@ -34,12 +34,12 @@ var roam_point : Vector3
 @onready var update_path_timer = $UpdatePath
 @onready var attack_timer = $Attack
 @onready var roam_timer = $Roam
+@onready var world = get_node("..").get_node("..")
 
 var pre_component_drop = preload("res://Scenes/ComponentDrop.tscn")
 
 func _ready():
 	if monster.roam:
-		roam_point = position
 		roam_timer.start()
 		update_path_timer.start()
 	agro_collision.shape.set("radius", monster.aggro_range)
@@ -59,18 +59,23 @@ func remove_effect(effect : Effect) -> void:
 	effect_machine.destroy_effect(effect)
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
+	if is_dead():
+		return
 	if !player_target:
-		player_target = damage_dealer
 		update_path_timer.start()
 		update_path()
 		attack_timer.start()
+	player_target = damage_dealer
 	
 	var _final_damage : int
 	match damage_type:
 		0:
-			_final_damage = max(damage - stats.physical_armor, 0.0)
+			_final_damage = max(damage - damage * min(0.99, stats.physical_armor / damage), 0.0)
 		1:
-			_final_damage = max(damage - stats.magic_armor, 0.0)
+			_final_damage = max(damage - damage * min(0.99, stats.magic_armor / damage), 0.0)
+	
+	if damage_dealer.has_passive("jungle_way"):
+		_final_damage += 5
 	
 	health = max(health - _final_damage, 0.0)
 	health_bar.value = float(health) / float(stats.max_health) * 100.0
@@ -88,7 +93,6 @@ func gain_experience(_experience : float) -> void:
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
-	camp.world.remove_entity(self)
 	monster_collision.disabled = true
 	for i in range(monster.drop_components.size()):
 		var _new_component_ground = pre_component_drop.instantiate()
@@ -96,9 +100,9 @@ func die() -> void:
 		_new_component_ground.position = _vector_drop + position
 		_new_component_ground.component = monster.drop_components[i]
 		_new_component_ground.quantity = monster.drop_quantities[i]
-		get_node("..").add_child(_new_component_ground)
+		world.components.add_child(_new_component_ground)
 	set_physics_process(false)
-	get_node("..").monster_died()
+	camp.monster_died()
 	get_tree().create_timer(1.0).timeout.connect(Callable(func():
 		queue_free()))
 
@@ -124,7 +128,7 @@ func movement() -> void:
 	if !nav.is_navigation_finished():
 		var _direction_result = global_position.direction_to(nav.get_next_path_position())
 		input_dir = Vector2(_direction_result.x, _direction_result.z)
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if direction:
 		velocity.x = direction.x * stats.movement_speed
 		velocity.z = direction.z * stats.movement_speed
@@ -151,7 +155,7 @@ func update_path(stop : bool = false) -> void:
 		nav.target_position = player_target.global_position
 	elif monster.roam:
 		nav.path_desired_distance = STOP_DISTANCE_ROAM_POINT
-		nav.target_position = get_node("..").global_position + roam_point
+		nav.target_position = Vector3(camp.global_position.x, global_position.y, camp.global_position.z) + roam_point
 	else:
 		nav.path_desired_distance = STOP_DISTANCE_CAMP
 		nav.target_position = default_point

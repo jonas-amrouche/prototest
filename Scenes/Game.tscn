@@ -111,6 +111,10 @@ collision_mask = 8
 
 [node name="Camps" type="Node3D" parent="."]
 
+[node name="Monsters" type="Node3D" parent="."]
+
+[node name="Components" type="Node3D" parent="."]
+
 [node name="FogPlane" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_20jko")
 

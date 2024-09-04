@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dg165vqh1ixp"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dg165vqh1ixp"]
 
 [ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_0teh4"]
 [ext_resource type="Resource" uid="uid://didxnfenvjk1o" path="res://Ressources/Abilities/DirectSlash.tres" id="2_j4vr7"]
 [ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="3_hs6gf"]
-[ext_resource type="Resource" uid="uid://bkwym8ejgyxvn" path="res://Ressources/Abilities/BurningLine.tres" id="3_ix2kh"]
 [ext_resource type="Texture2D" uid="uid://be1s4sdsyh66v" path="res://Assets/2D/Items/BroadswordOfMisfortuneIcon.png" id="4_jb4y3"]
 [ext_resource type="Script" path="res://Scripts/PassiveClass.gd" id="6_isogs"]
 [ext_resource type="Script" path="res://Scripts/ItemClass.gd" id="7_k5yj5"]
@@ -18,7 +17,7 @@ rarity = 1
 craft_recipe = {
 ExtResource("3_hs6gf"): 3
 }
-abilities = Array[ExtResource("1_0teh4")]([ExtResource("2_j4vr7"), ExtResource("3_ix2kh")])
+abilities = Array[ExtResource("1_0teh4")]([ExtResource("2_j4vr7")])
 passives = Array[ExtResource("6_isogs")]([])
 stats = {
 "physical_damage": 30

@@ -23,10 +23,11 @@ func spawn_monsters(monsters : Array[Monster]) -> void:
 	camp_flames_model.set_visible(true)
 	for m in range(monsters.size()):
 		var _new_monster = pre_monster.instantiate()
+		_new_monster.camp = self
 		_new_monster.monster = monsters[m]
-		_new_monster.position = get_node("MonsterPos" + str(m+1)).position
-		add_child(_new_monster)
-		world.add_entity(_new_monster)
+		_new_monster.rotation = Vector3(0, randf_range(-PI, PI), 0)
+		_new_monster.position = get_node("MonsterPos" + str(m+1)).position + position
+		world.monsters.add_child(_new_monster)
 
 var monster_dead := int()
 func monster_died() -> void:

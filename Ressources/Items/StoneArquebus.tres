@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="Item" load_steps=10 format=3 uid="uid://bqvrju3tnlkpk"]
+[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://bqvrju3tnlkpk"]
 
 [ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_wk1br"]
 [ext_resource type="Resource" uid="uid://etadmlsde31a" path="res://Ressources/Abilities/InstantShardStone.tres" id="2_au5l6"]
-[ext_resource type="Resource" uid="uid://c7oys33odk6hw" path="res://Ressources/Abilities/SpontaneousCombustion.tres" id="3_j84sg"]
 [ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="3_mlkmu"]
 [ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="4_ysfse"]
 [ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Ressources/Components/ExplosiveStone.tres" id="5_2i2fl"]
@@ -22,7 +21,7 @@ ExtResource("3_mlkmu"): 3,
 ExtResource("4_ysfse"): 2,
 ExtResource("5_2i2fl"): 1
 }
-abilities = Array[ExtResource("1_wk1br")]([ExtResource("2_au5l6"), ExtResource("3_j84sg")])
+abilities = Array[ExtResource("1_wk1br")]([ExtResource("2_au5l6")])
 passives = Array[ExtResource("5_l0e6k")]([])
 stats = {
 "physical_damage": 10

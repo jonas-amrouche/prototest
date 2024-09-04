@@ -7,8 +7,8 @@
 script = ExtResource("2_ivljb")
 id = "vision_beacon"
 name = "Vision Beacon"
-description = "Cost 1 Vision Stone.
-Create a vision beacon."
+description = "Cost 1 [color=aqua]Vision Stone.[/color]
+Create a 100s vision beacon."
 icon = ExtResource("1_migv4")
 cooldown = 3.0
 attack_time = 0.0

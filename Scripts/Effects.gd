@@ -4,7 +4,7 @@ var active_effects : Dictionary  # Contains effect in keys and scene effect ref 
 
 @onready var entity = get_node("..") # It can either be a player or a monster
 
-func spawn_effect(effect : Effect, effect_dealer : Object):
+func spawn_effect(effect : Effect, effect_dealer : Object) -> void:
 	var _new_effect = load("res://Scenes/Effects/" + effect.id + ".tscn").instantiate()
 	_new_effect.effect_dealer = effect_dealer
 	_new_effect.effect_victim = entity

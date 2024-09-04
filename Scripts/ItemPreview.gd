@@ -53,7 +53,7 @@ func clear_passives() -> void:
 func add_stat(stat_value : int, stat : Stat) -> void:
 	var _new_stat = Label.new()
 	var _new_lab_settings = LabelSettings.new()
-	_new_lab_settings.font_color = Color.CRIMSON
+	_new_lab_settings.font_color = Basics.STATS_COLOR[stat.id]
 	_new_lab_settings.font_size = 13
 	_new_stat.label_settings = _new_lab_settings
 	_new_stat.set_text("+" + str(stat_value) + " " + stat.name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d045faearnedw"]
+[gd_scene load_steps=7 format=3 uid="uid://d045faearnedw"]
 
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_8aamf"]
 [ext_resource type="Script" path="res://Scripts/ItemPreview.gd" id="1_h6i7p"]
@@ -17,10 +17,6 @@ font_size = 13
 font_size = 17
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44vsf"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_25gjd"]
-font_size = 13
-font_color = Color(0.463542, 0.463542, 0.463542, 1)
 
 [node name="ItemPreview" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -79,13 +75,19 @@ mouse_filter = 2
 theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
-[node name="DescLine" type="Label" parent="MarginContainer/ItemData"]
+[node name="DescLine" type="RichTextLabel" parent="MarginContainer/ItemData"]
 custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "\"blade of akila\""
-label_settings = SubResource("LabelSettings_25gjd")
+theme_override_colors/default_color = Color(0.43134, 0.43134, 0.43134, 1)
+theme_override_font_sizes/bold_italics_font_size = 13
+theme_override_font_sizes/italics_font_size = 13
+theme_override_font_sizes/mono_font_size = 13
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+text = "blade of akila"
+fit_content = true
 autowrap_mode = 2
 
 [node name="DataSpecsSep" type="HSeparator" parent="MarginContainer/ItemData"]

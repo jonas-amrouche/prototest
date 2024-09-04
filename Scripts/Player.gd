@@ -16,10 +16,10 @@ const LEVEL_MAX_EXPERIENCE := 16
 const KILL_REWARD_EXP := 10
 
 # Statistics
-var base_stats := {"physical_damage" : 5, \
-"magic_damage" : 0, \
-"physical_armor" : 0, \
-"magic_armor" : 0, \
+var base_stats := {"physical_damage" : 1, \
+"magic_damage" : 1, \
+"physical_armor" : 1, \
+"magic_armor" : 1, \
 "movement_speed" : 3.0, \
 "cooldown_reduction" : 0.0, \
 "health_regeneration" : 2.0, \
@@ -67,21 +67,22 @@ var can_move := true
 
 func _ready():
 	add_to_group("player")
-	add_effect(preload("res://Ressources/Effects/BindedFire.tres"), self)
 	hud.viewport_map_cam.texture = small_view.get_texture()
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
-	obtain_component(preload("res://Ressources/Components/GolemFragment.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/EssenceOfLife.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/EssenceOfPain.tres"), 7)
-	obtain_component(preload("res://Ressources/Components/FloatingMatter.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/UnstableCore.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/ExplosiveStone.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 7)
+	#obtain_component(preload("res://Ressources/Components/GolemFragment.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/EssenceOfLife.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/EssenceOfPain.tres"), 7)
+	#obtain_component(preload("res://Ressources/Components/FloatingMatter.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/UnstableCore.tres"), 3)
+	#obtain_component(preload("res://Ressources/Components/ExplosiveStone.tres"), 3)
 	obtain_item(preload("res://Ressources/Items/HunterMachette.tres"))
-	obtain_item(preload("res://Ressources/Items/BroadswordOfMisfortune.tres"))
-	obtain_item(preload("res://Ressources/Items/StoneArquebus.tres"))
+	#obtain_item(preload("res://Ressources/Items/BroadswordOfMisfortune.tres"))
+	#obtain_item(preload("res://Ressources/Items/StoneArquebus.tres"))
+	#obtain_item(preload("res://Ressources/Items/IncandescentBook.tres"))
+	#add_effect(preload("res://Ressources/Effects/BindedFire.tres"), self)
 	hud.update_info_bars()
 	hud.update_components()
 	hud.update_abilities()
@@ -164,6 +165,8 @@ func respawn_base() -> void:
 	camera.top_level = false
 
 func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> void:
+	if is_dead():
+		return
 	var _final_damage : int
 	match damage_type:
 		0:
@@ -226,13 +229,16 @@ func is_dead() -> bool:
 		return true
 	return false
 
+var dead_color_correction = preload("res://Ressources/ColorCorection/DeadColorCorrection.tres")
 func die() -> void:
 	can_move = false
 	camera.top_level = true
 	player_collision.disabled = true
+	world.set_color_correction(dead_color_correction)
 	get_tree().create_timer(5.0).timeout.connect(Callable(func():
 		health = stats.max_health
 		hud.update_info_bars()
+		world.set_color_correction(null)
 		player_collision.disabled = false
 		can_move = true
 		respawn_base()))
@@ -240,11 +246,6 @@ func die() -> void:
 func movement() -> void:
 	var input_dir = Vector2()
 	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	#if !nav.is_navigation_finished() and input_dir == Vector2(): # Problème à regler sans doute pour les build release parce que le navigation met des fois un temps pour s'initialisé
-		#var _direction_result = global_position.direction_to(nav.get_next_path_position())
-		#input_dir = Vector2(_direction_result.x, _direction_result.z)
-	#else:
-		#nav.target_position = global_position
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction and can_move:
@@ -333,6 +334,14 @@ func has_component(component_name : String) -> bool:
 			return true
 	return false
 
+func has_passive(passive_id : String) -> bool:
+	for i in items:
+		if i:
+			for p in i.passives:
+				if p.id == passive_id:
+					return true
+	return false
+
 func lose_component(comp : Component, quantity : int) -> void:
 	if components[comp] == quantity:
 		components.erase(comp)
@@ -387,6 +396,9 @@ func update_stats() -> void:
 	stats.max_health += (level-1) * MAX_HEALTH_PER_LEVEL
 	stats.physical_damage += (level-1) * PHYSICAL_DAMAGE_PER_LEVEL
 	stats.magic_damage += (level-1) * MAGIC_DAMAGE_PER_LEVEL
+	
+	# Add regens areas
+	stats.health_regeneration += area_health_regeneration
 	
 	# Add stats of items
 	for i in items:

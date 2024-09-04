@@ -26,6 +26,7 @@ process_material = SubResource("ParticleProcessMaterial_6v2c0")
 draw_pass_1 = SubResource("QuadMesh_r24mu")
 
 [node name="Tick" type="Timer" parent="."]
+wait_time = 0.25
 autostart = true
 
 [connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
