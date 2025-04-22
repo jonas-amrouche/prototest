@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var manager = get_node("..")
 
-var pre_temp_vision = preload("res://Scenes/Props/TempVision.tscn")
+var pre_temp_vision = preload("res://Scenes/Props/temp_vision.tscn")
 var temp_visions_list : Array[Object]
 var in_ability : bool
 

@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 var monster : Monster
 
-var monster_model
+var monster_model : Object
 
 @onready var stats := {"physical_damage" : monster.physical_damage, \
 "magic_damage" : monster.magic_damage, \
@@ -36,7 +36,7 @@ var camp  : Object
 @onready var roam_timer = $Roam
 @onready var world = get_node("..").get_node("..")
 
-var pre_component_drop = preload("res://Scenes/ComponentDrop.tscn")
+var pre_component_drop = preload("res://Scenes/Systems/component_drop.tscn")
 
 func _ready():
 	if monster.roam:
@@ -57,6 +57,22 @@ func add_effect(effect : Effect, effect_dealer : Object) -> void:
 
 func remove_effect(effect : Effect) -> void:
 	effect_machine.destroy_effect(effect)
+
+func hover_target() -> void:
+	print("hover_target")
+	hide()
+
+func stop_hovering_target() -> void:
+	print("stop_hover_target")
+	show()
+
+func select_target() -> void:
+	print("select_target")
+	show()
+
+func lose_target() -> void:
+	print("lose_target")
+	show()
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	if is_dead():

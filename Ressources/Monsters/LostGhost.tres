@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b00w1767dex2p" path="res://Ressources/Components/FloatingMatter.tres" id="2_6yqaf"]
 [ext_resource type="Resource" uid="uid://coy7gj003lu7h" path="res://Ressources/Abilities/HauntingShot.tres" id="2_c7mvp"]
 [ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_k20pt"]
-[ext_resource type="PackedScene" uid="uid://cmvjhexu3hgoy" path="res://Scenes/Models/LostGhostModel.tscn" id="3_mn240"]
+[ext_resource type="PackedScene" uid="uid://cmvjhexu3hgoy" path="res://Scenes/Models/lost_ghost_model.tscn" id="3_mn240"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_m6ddl"]
 
 [resource]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_fxnvg"]
 [ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Ressources/Components/ExplosiveStone.tres" id="3_gf6jv"]
 [ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Ressources/Components/Metal.tres" id="4_arnjp"]
-[ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/GrunterModel.tscn" id="4_hx8ec"]
+[ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/grunter_model.tscn" id="4_hx8ec"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
 
 [resource]

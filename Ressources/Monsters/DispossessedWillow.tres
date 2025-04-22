@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_xbuxr"]
 [ext_resource type="Resource" uid="uid://d3krt0jx5j86c" path="res://Ressources/Components/EssenceOfPain.tres" id="2_cvaj7"]
 [ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="2_kruqd"]
-[ext_resource type="PackedScene" uid="uid://cucsd3e0a0nt2" path="res://Scenes/Models/DispossessedWillowModel.tscn" id="3_66i8m"]
+[ext_resource type="PackedScene" uid="uid://cucsd3e0a0nt2" path="res://Scenes/Models/dispossessed_willow_model.tscn" id="3_66i8m"]
 [ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_clkw1"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="4_s78hj"]
 

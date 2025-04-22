@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://frf5th8n0tj2"]
+
+[ext_resource type="Script" uid="uid://bc4qlsqq4m6l2" path="res://Scripts/ward_beacon.gd" id="1_5x1fk"]
+[ext_resource type="PackedScene" uid="uid://c05spsivirxsh" path="res://Scenes/Models/vision_beacon_model.tscn" id="2_d1bis"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_t5m51"]
+density = -8.0
+
+[node name="WardBeacon" type="Node3D"]
+script = ExtResource("1_5x1fk")
+
+[node name="FogVolume" type="FogVolume" parent="."]
+size = Vector3(6, 20, 6)
+shape = 2
+material = SubResource("FogMaterial_t5m51")
+
+[node name="Destroy" type="Timer" parent="."]
+wait_time = 100.0
+one_shot = true
+autostart = true
+
+[node name="VisionBeacon" parent="." instance=ExtResource("2_d1bis")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -0.078674, 0)
+
+[node name="LightBeacon" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799118, 0)
+light_color = Color(5.77569e-07, 0.51104, 0.773417, 1)
+light_energy = 5.0
+
+[connection signal="timeout" from="Destroy" to="." method="_on_destroy_timeout"]

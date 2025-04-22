@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://csvi80b1pwc3r"]
+
+[ext_resource type="PackedScene" uid="uid://cvmebucasbg6x" path="res://Assets/3D/Decorations/TombStone1.glb" id="1_167l0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qqo3"]
+albedo_color = Color(0.207512, 0.207512, 0.207512, 1)
+metallic_specular = 0.05
+
+[node name="TombStone1" instance=ExtResource("1_167l0")]
+
+[node name="TombStone" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_7qqo3")

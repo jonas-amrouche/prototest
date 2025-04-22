@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://duqyed1kqpwb"]
+
+[ext_resource type="Script" uid="uid://j1nnxmhflllo" path="res://Scripts/ability_item_preview.gd" id="1_dtegr"]
+[ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_pwvs0"]
+[ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="3_3neig"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="4_vkuwt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un7te"]
+bg_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0728426, 0.0728427, 0.0728426, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
+resource_local_to_scene = true
+font = ExtResource("4_vkuwt")
+font_size = 11
+outline_color = Color(0.423453, 0.52643, 0.8125, 1)
+
+[node name="AbilityPanel" type="Panel"]
+custom_minimum_size = Vector2(0, 55)
+offset_right = 282.0
+offset_bottom = 55.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_un7te")
+script = ExtResource("1_dtegr")
+
+[node name="AbilityContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="AbilityIcon" type="TextureRect" parent="AbilityContainer"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("2_pwvs0")
+expand_mode = 1
+
+[node name="BorderOverlay" type="TextureRect" parent="AbilityContainer"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_3neig")
+expand_mode = 1
+
+[node name="AbilityDesc" type="RichTextLabel" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 31)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.635294, 0.635294, 0.635294, 1)
+theme_override_fonts/normal_font = ExtResource("4_vkuwt")
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "Throw a big slash of fire in the target direction."
+scroll_active = false
+
+[node name="AbilityName" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Big Forward Cut"
+label_settings = SubResource("LabelSettings_m4yqr")
+autowrap_mode = 2
+
+[node name="AbilityCap" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "->50"
+label_settings = SubResource("LabelSettings_m4yqr")
+horizontal_alignment = 2
+autowrap_mode = 2

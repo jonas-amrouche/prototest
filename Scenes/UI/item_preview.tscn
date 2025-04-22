@@ -1,0 +1,128 @@
+[gd_scene load_steps=11 format=3 uid="uid://d045faearnedw"]
+
+[ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_8aamf"]
+[ext_resource type="Script" uid="uid://cb1yhslcd8ho1" path="res://Scripts/item_preview.gd" id="1_h6i7p"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="3_u1riv"]
+[ext_resource type="FontFile" uid="uid://bwpmso3lfbfwh" path="res://Assets/Fonts/Stilu-Oblique.otf" id="4_7uyal"]
+[ext_resource type="FontFile" uid="uid://wvghs5e52vx3" path="res://Assets/Fonts/Stilu-BoldOblique.otf" id="5_uds6s"]
+[ext_resource type="FontFile" uid="uid://cxtw2vns1d3bj" path="res://Assets/Fonts/Stilu-Bold.otf" id="6_duutx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8i5vk"]
+bg_color = Color(0.03, 0.03, 0.03, 1)
+border_width_left = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ay13"]
+font_size = 13
+
+[sub_resource type="LabelSettings" id="LabelSettings_yrvhj"]
+font = ExtResource("3_u1riv")
+font_size = 17
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44vsf"]
+
+[node name="ItemPreview" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -99.0
+offset_right = 300.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8i5vk")
+script = ExtResource("1_h6i7p")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_edit_lock_ = true
+
+[node name="ItemIcon" type="TextureRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+texture = ExtResource("1_8aamf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemData" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = -5
+metadata/_edit_lock_ = true
+
+[node name="Rarity" type="Label" parent="MarginContainer/ItemData"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Starter"
+label_settings = SubResource("LabelSettings_6ay13")
+
+[node name="ItemName" type="Label" parent="MarginContainer/ItemData"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Item Name"
+label_settings = SubResource("LabelSettings_yrvhj")
+
+[node name="NameDescSep" type="HSeparator" parent="MarginContainer/ItemData"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
+
+[node name="DescLine" type="RichTextLabel" parent="MarginContainer/ItemData"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/default_color = Color(0.43134, 0.43134, 0.43134, 1)
+theme_override_fonts/normal_font = ExtResource("3_u1riv")
+theme_override_fonts/italics_font = ExtResource("4_7uyal")
+theme_override_fonts/bold_italics_font = ExtResource("5_uds6s")
+theme_override_fonts/bold_font = ExtResource("6_duutx")
+theme_override_font_sizes/bold_italics_font_size = 13
+theme_override_font_sizes/italics_font_size = 13
+theme_override_font_sizes/mono_font_size = 13
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+text = "blade of akila"
+fit_content = true
+autowrap_mode = 2
+
+[node name="DataSpecsSep" type="HSeparator" parent="MarginContainer/ItemData"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
+
+[node name="Specs" type="VBoxContainer" parent="MarginContainer/ItemData"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="StatsBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AbilitiesBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PassiveBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+layout_mode = 2
+mouse_filter = 2

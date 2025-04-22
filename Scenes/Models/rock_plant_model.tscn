@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://upbvgo28rudl"]
+
+[ext_resource type="PackedScene" uid="uid://cynll2ipbyid8" path="res://Assets/3D/RockPlant.glb" id="1_fsm76"]
+[ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="2_4ov6o"]
+
+[node name="RockPlant" instance=ExtResource("1_fsm76")]
+
+[node name="RocksFarm" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_4ov6o")

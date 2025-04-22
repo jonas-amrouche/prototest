@@ -6,17 +6,17 @@ var item_in_decompose
 var hover_craft_button : bool
 var auto_attack_id := 0
 
-var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
-var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
-var pre_ability_hud = preload("res://Scenes/UI/AbilityHud.tscn")
-var pre_item_craft = preload("res://Scenes/UI/ItemCraft.tscn")
-var pre_stat_hud = preload("res://Scenes/UI/StatHud.tscn")
-var pre_xp_gem_hud = preload("res://Scenes/UI/ExperienceGem.tscn")
-var pre_effect_hud = preload("res://Scenes/UI/EffectHud.tscn")
-var pre_item_preview = preload("res://Scenes/UI/ItemPreview.tscn")
-var pre_ability_preview = preload("res://Scenes/UI/AbilityPreview.tscn")
-var pre_component_preview = preload("res://Scenes/UI/ComponentPreview.tscn")
-var pre_effect_preview = preload("res://Scenes/UI/EffectPreview.tscn")
+var pre_component_hud = preload("res://Scenes/UI/component_hud.tscn")
+var pre_item_hud = preload("res://Scenes/UI/item_hud.tscn")
+var pre_ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
+var pre_item_craft = preload("res://Scenes/UI/item_craft.tscn")
+var pre_stat_hud = preload("res://Scenes/UI/stat_hud.tscn")
+var pre_xp_gem_hud = preload("res://Scenes/UI/experience_gem.tscn")
+var pre_effect_hud = preload("res://Scenes/UI/effect_hud.tscn")
+var pre_item_preview = preload("res://Scenes/UI/item_preview.tscn")
+var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
+var pre_component_preview = preload("res://Scenes/UI/component_preview.tscn")
+var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 
 var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 
@@ -34,6 +34,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
+@onready var channeling_label := $ChannelingBar/ChannelingLabel
 @onready var souls_label := $Souls/SoulsLabel
 @onready var mini_map := $MiniMap
 @onready var item_craft_button := $CraftComponents/CraftAvailable/Pad/Order/Craft
@@ -57,6 +58,7 @@ func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVe
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
+	player.health_label.text = str(player.health) + "/" + str(int(player.stats.max_health))
 	player.level_label.text = str(player.level)
 	health_bar_hud.value = float(player.health) / float(player.stats.max_health) * 100.0
 	level_label_hud.text = str(player.level)

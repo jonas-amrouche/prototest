@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4kqtbpot5wkn"]
+
+[ext_resource type="Texture2D" uid="uid://djt1kxw2o88j1" path="res://Assets/2D/Abilities/BurningLineIcon.png" id="1_rjsgo"]
+[ext_resource type="Script" uid="uid://bx2s3ushby3d6" path="res://Scripts/effect_hud.gd" id="1_x8k3u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e8nt"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrrrn"]
+bg_color = Color(0.266575, 0.266575, 0.266575, 0)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[node name="EffectHud" type="PanelContainer"]
+custom_minimum_size = Vector2(35, 35)
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_3e8nt")
+script = ExtResource("1_x8k3u")
+
+[node name="Pad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Icon" type="TextureRect" parent="Pad"]
+layout_mode = 2
+texture = ExtResource("1_rjsgo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Blur" type="PanelContainer" parent="Pad"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrrrn")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

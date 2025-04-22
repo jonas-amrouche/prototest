@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7a7xf75sbf22"]
 
-[ext_resource type="Script" uid="uid://ebprskaxi564" path="res://Scripts/minimap.gd" id="1_g4v1t"]
-[ext_resource type="Material" uid="uid://bxmj7jdx0lcex" path="res://Ressources/Materials/TechArt/map_mask.tres" id="2_5xb4l"]
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_sixjx"]
-[ext_resource type="Shader" uid="uid://6ye021vjbvuu" path="res://Ressources/Shaders/MinimapRiverShader.gdshader" id="3_o2jy8"]
+[ext_resource type="Script" uid="uid://ebprskaxi564" path="res://Scripts/minimap.gd" id="1_0hfpy"]
+[ext_resource type="Material" uid="uid://bxmj7jdx0lcex" path="res://Ressources/Materials/TechArt/map_mask.tres" id="2_ojnbh"]
+[ext_resource type="Shader" uid="uid://6ye021vjbvuu" path="res://Ressources/Shaders/MinimapRiverShader.gdshader" id="3_e3yhi"]
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="4_5oyd3"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yc34d"]
 
@@ -11,7 +11,7 @@
 noise = SubResource("FastNoiseLite_yc34d")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6xo5x"]
-shader = ExtResource("3_o2jy8")
+shader = ExtResource("3_e3yhi")
 shader_parameter/water_tint = Color(0.13019, 0.279723, 0.454728, 1)
 shader_parameter/noise = SubResource("NoiseTexture2D_e2h7s")
 shader_parameter/uv_noise_size = 0.8
@@ -38,7 +38,7 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 1
 color = Color(0.400698, 0.400698, 0.400698, 1)
-script = ExtResource("1_g4v1t")
+script = ExtResource("1_0hfpy")
 
 [node name="MapBorder" type="ColorRect" parent="."]
 layout_mode = 1
@@ -76,7 +76,7 @@ mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="MapMask" type="TextureRect" parent="."]
-material = ExtResource("2_5xb4l")
+material = ExtResource("2_ojnbh")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,7 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_sixjx")
+texture = ExtResource("4_5oyd3")
 expand_mode = 1
 stretch_mode = 5
 
@@ -113,7 +113,7 @@ offset_right = 7.0
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_sixjx")
+texture = ExtResource("4_5oyd3")
 expand_mode = 1
 
 [node name="MiniCamera" type="PanelContainer" parent="."]

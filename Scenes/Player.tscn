@@ -1,18 +1,18 @@
 [gd_scene load_steps=11 format=3 uid="uid://df1e6em0ealvc"]
 
-[ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_dq7lx"]
-[ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/HUD.tscn" id="2_hi5xs"]
-[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
-[ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="5_y7wx0"]
-[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Abilities.tscn" id="6_70mv7"]
-[ext_resource type="PackedScene" uid="uid://ck86813meoj4w" path="res://Scenes/Vision.tscn" id="6_0448q"]
-[ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Effects.tscn" id="7_hxg1i"]
+[ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_3smsa"]
+[ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/hud.tscn" id="2_8erm5"]
+[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="3_f1ek2"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/abilities.tscn" id="4_tx1dd"]
+[ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/info_bar.tscn" id="5_gymyn"]
+[ext_resource type="PackedScene" uid="uid://ck86813meoj4w" path="res://Scenes/vision.tscn" id="6_pu2lt"]
+[ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/effects.tscn" id="7_ukyrk"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
 radius = 0.387958
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
-albedo_color = Color(0.702981, 0.218569, 0.858824, 1)
+albedo_color = Color(0.165, 0.462, 0.66, 1)
 metallic_specular = 0.0
 emission = Color(0.621644, 0.414624, 0.8125, 1)
 
@@ -24,7 +24,7 @@ collision_layer = 2
 collision_mask = 9
 motion_mode = 1
 platform_wall_layers = 8
-script = ExtResource("1_dq7lx")
+script = ExtResource("1_3smsa")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_j70xh")
@@ -40,12 +40,12 @@ transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_hi5xs")]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_8erm5")]
 
-[node name="PlayerModel" parent="." instance=ExtResource("3_7gopy")]
+[node name="PlayerModel" parent="." instance=ExtResource("3_f1ek2")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
-[node name="Abilities" parent="." instance=ExtResource("6_70mv7")]
+[node name="Abilities" parent="." instance=ExtResource("4_tx1dd")]
 
 [node name="Recall" type="Timer" parent="."]
 wait_time = 5.0
@@ -65,7 +65,7 @@ material = SubResource("StandardMaterial3D_ag6sr")
 transparent_bg = true
 size = Vector2i(200, 30)
 
-[node name="Infos" parent="SubViewport" instance=ExtResource("5_y7wx0")]
+[node name="Infos" parent="SubViewport" instance=ExtResource("5_gymyn")]
 color = Color(0, 0.611765, 0.192157, 1)
 
 [node name="InfoBar" type="Sprite3D" parent="."]
@@ -75,9 +75,9 @@ billboard = 1
 no_depth_test = true
 texture = SubResource("ViewportTexture_najce")
 
-[node name="Vision" parent="." instance=ExtResource("6_0448q")]
+[node name="Vision" parent="." instance=ExtResource("6_pu2lt")]
 
-[node name="Effects" parent="." instance=ExtResource("7_hxg1i")]
+[node name="Effects" parent="." instance=ExtResource("7_ukyrk")]
 
 [node name="Nav" type="NavigationAgent3D" parent="."]
 

@@ -1,33 +1,101 @@
-[gd_scene load_steps=2 format=3 uid="uid://bobqe3ai8n1kp"]
+[gd_scene load_steps=8 format=3 uid="uid://bobqe3ai8n1kp"]
 
 [ext_resource type="Texture2D" uid="uid://dlwy50qkhg6uq" path="res://Assets/2D/UI/click_move.png" id="1_3rkgv"]
+[ext_resource type="Script" uid="uid://yuxhofbomlmy" path="res://Scripts/click_move_effect.gd" id="1_qp82y"]
+[ext_resource type="Texture2D" uid="uid://bexq1n4few45a" path="res://Assets/2D/UI/click_move_circle.png" id="2_mke5t"]
+[ext_resource type="Texture2D" uid="uid://w67hxjoa7l1j" path="res://Assets/2D/UI/click_move_hole.png" id="3_7ulx6"]
+
+[sub_resource type="Animation" id="Animation_7ulx6"]
+resource_name = "dissapear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scaler:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qp82y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scaler:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nsnrr"]
+_data = {
+&"RESET": SubResource("Animation_qp82y"),
+&"dissapear": SubResource("Animation_7ulx6")
+}
 
 [node name="ClickMoveEffect" type="Node3D"]
+script = ExtResource("1_qp82y")
 
-[node name="Effect" type="Sprite3D" parent="."]
-transform = Transform3D(0.33781, 0, 0, 0, 0.238868, 0.238868, 0, -0.238868, 0.238868, 0, 0.343358, -0.168905)
+[node name="Scaler" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.248, 0)
+
+[node name="Effect" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(0.33781, 0, 0, 0, 0.238868, 0.238868, 0, -0.238868, 0.238868, 0, 0.095358, -0.0116529)
+sorting_offset = 100.0
+modulate = Color(0.47, 0.43804, 0.3102, 1)
+texture_filter = 0
+texture = ExtResource("1_3rkgv")
+
+[node name="Effect2" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(-0.33781, 1.47661e-08, -2.55757e-08, -7.64352e-09, 0.238868, 0.238868, 2.8526e-08, 0.238868, -0.238868, 0, 0.095358, 0.168905)
+visible = false
 sorting_offset = 100.0
 modulate = Color(0.344076, 0.344076, 0.344076, 1)
 texture_filter = 0
 texture = ExtResource("1_3rkgv")
 
-[node name="Effect2" type="Sprite3D" parent="."]
-transform = Transform3D(-0.33781, 1.47661e-08, -2.55757e-08, -7.64352e-09, 0.238868, 0.238868, 2.8526e-08, 0.238868, -0.238868, 0, 0.343358, 0.168905)
+[node name="Effect3" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(-1.4263e-08, 0.238868, -0.238868, 3.82176e-09, 0.238868, 0.238868, 0.33781, 7.38307e-09, -1.27879e-08, 0.168905, 0.095358, 0)
+visible = false
 sorting_offset = 100.0
 modulate = Color(0.344076, 0.344076, 0.344076, 1)
 texture_filter = 0
 texture = ExtResource("1_3rkgv")
 
-[node name="Effect3" type="Sprite3D" parent="."]
-transform = Transform3D(-1.4263e-08, 0.238868, -0.238868, 3.82176e-09, 0.238868, 0.238868, 0.33781, 7.38307e-09, -1.27879e-08, 0.168905, 0.343358, 0)
+[node name="Effect4" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(3.23477e-08, -0.238868, 0.238868, 2.19065e-08, 0.238868, 0.238868, -0.33781, -7.38307e-09, 3.83636e-08, -0.168905, 0.095358, 0)
+visible = false
 sorting_offset = 100.0
 modulate = Color(0.344076, 0.344076, 0.344076, 1)
 texture_filter = 0
 texture = ExtResource("1_3rkgv")
 
-[node name="Effect4" type="Sprite3D" parent="."]
-transform = Transform3D(3.23477e-08, -0.238868, 0.238868, 2.19065e-08, 0.238868, 0.238868, -0.33781, -7.38307e-09, 3.83636e-08, -0.168905, 0.343358, 0)
+[node name="Effect5" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.000489086, 0)
 sorting_offset = 100.0
-modulate = Color(0.344076, 0.344076, 0.344076, 1)
+modulate = Color(0.27, 0.267975, 0.1485, 1)
+pixel_size = 0.008
 texture_filter = 0
-texture = ExtResource("1_3rkgv")
+texture = ExtResource("2_mke5t")
+
+[node name="Effect6" type="Sprite3D" parent="Scaler"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.000489086, 0)
+visible = false
+sorting_offset = 100.0
+pixel_size = 0.008
+texture_filter = 0
+texture = ExtResource("3_7ulx6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nsnrr")
+}

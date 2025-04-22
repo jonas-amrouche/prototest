@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://hxkknhv1vgbl"]
+
+[ext_resource type="PackedScene" uid="uid://c832cmfkpbfyd" path="res://Scenes/Models/altar_model.tscn" id="1_jqkxx"]
+[ext_resource type="AudioStream" uid="uid://b83wqmkdtgx8b" path="res://Assets/Audio/altar_fire.ogg" id="2_cmt54"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_x186m"]
+height = 1.62271
+radius = 0.882813
+
+[node name="Altar" type="Node3D"]
+
+[node name="AltarModel" parent="." instance=ExtResource("1_jqkxx")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+
+[node name="StaticBody" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="StaticBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.616422, 0)
+shape = SubResource("CylinderShape3D_x186m")
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04624, 0)
+light_color = Color(0.861603, 0.522246, 0.276303, 1)
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_cmt54")
+unit_size = 15.0
+autoplay = true
+max_distance = 20.0

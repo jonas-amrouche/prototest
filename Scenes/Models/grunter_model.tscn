@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglob3n00b1m"]
+
+[ext_resource type="PackedScene" uid="uid://cpmj4e2gqnrpg" path="res://Assets/3D/Monsters/Grunter.glb" id="1_tgdwe"]
+[ext_resource type="Material" uid="uid://dka3aah2jrvhb" path="res://Ressources/Materials/PBR/MetalOre1.tres" id="2_b38c2"]
+
+[node name="GrunterModel" instance=ExtResource("1_tgdwe")]
+
+[node name="Grunter" parent="." index="0"]
+transform = Transform3D(-0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0, -0.82383, 0)
+surface_material_override/0 = ExtResource("2_b38c2")

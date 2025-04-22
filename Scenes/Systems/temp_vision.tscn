@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://55457x6mvq78"]
+
+[ext_resource type="Script" uid="uid://dr1y1r27yem2w" path="res://Scripts/temp_vision.gd" id="1_fu24e"]
+
+[node name="TempVision" type="Marker3D"]
+script = ExtResource("1_fu24e")

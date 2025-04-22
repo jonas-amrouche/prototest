@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn8wumndn3rkk"]
+
+[ext_resource type="PackedScene" uid="uid://21ehc2j02kaq" path="res://Scenes/Models/tower_structur_model.tscn" id="1_4xwxu"]
+
+[node name="KnowledgeTower" type="Node3D"]
+
+[node name="TowerStructure" parent="." instance=ExtResource("1_4xwxu")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

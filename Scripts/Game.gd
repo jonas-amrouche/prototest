@@ -2,12 +2,11 @@ extends Node3D
 
 const CAMP_DISTANCE_TO_CENTER = 75.0
 var bases : Array[Object]
-var pre_base = preload("res://Scenes/Props/Base.tscn")
-var pre_player = preload("res://Scenes/Player.tscn")
-var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
-var pre_camp = preload("res://Scenes/Props/Camp.tscn")
-var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
-var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/SkullModel.tscn"), preload("res://Scenes/Models/TombStoneModel.tscn"), preload("res://Scenes/Models/SignModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn"), preload("res://Scenes/Props/Altar.tscn")]
+var pre_base = preload("res://Scenes/Structures/base.tscn")
+var pre_player = preload("res://Scenes/player.tscn")
+var pre_arena = preload("res://Scenes/Structures/water_arena.tscn")
+var pre_camp = preload("res://Scenes/Structures/camp.tscn")
+var pre_tower = preload("res://Scenes/Structures/knowledge_tower.tscn")
 
 var camps_list = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
 preload("res://Ressources/Camps/Gobedins.tres"), \
@@ -317,12 +316,12 @@ const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
 func generate_decoration() -> void:
 	for i in range(150):
-		var _decoration = randi_range(0, decorations.size()-1)
+		var _decoration = randi_range(0, Basics.decorations_models.size()-1)
 		var _new_position = Vector2(randf_range(-Basics.MAP_SIZE.x/2.0, Basics.MAP_SIZE.x/2.0), randf_range(-Basics.MAP_SIZE.y/2.0, Basics.MAP_SIZE.y/2.0))
 		if is_in_base(_new_position) or is_in_path(_new_position) or is_in_arena(_new_position):
 			continue
 		decorations_points.append(_new_position)
-		var _new_decoration = decorations[_decoration].instantiate()
+		var _new_decoration = Basics.decorations_models[_decoration].instantiate()
 		_new_decoration.position = Vector3(_new_position.x, 0.0, _new_position.y)
 		_new_decoration.rotation = Vector3(0.0, randf_range(-PI, PI), 0.0)
 		add_child(_new_decoration)

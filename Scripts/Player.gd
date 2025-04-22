@@ -3,7 +3,7 @@ extends CharacterBody3D
 # Controls
 const ACCELERATION := 0.3
 const CAMERA_MOVE_TRESHOLD := 1.0/100000.0
-const CAMERA_MOVE_SPEED := 0.25
+const CAMERA_MOVE_SPEED := 0.4
 const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.3
 var target_direction := Vector3()
@@ -63,6 +63,7 @@ var can_move := true
 @onready var player_model := $PlayerModel
 @onready var model_anims := $PlayerModel/AnimationPlayer
 @onready var health_bar := $SubViewport/Infos/HealthBar
+@onready var health_label := $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthLabel
 @onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
 
 func _ready():
@@ -99,6 +100,46 @@ func _process(delta):
 		border_cam_movement(delta)
 	update_camera_position()
 	update_direction()
+	check_for_target()
+
+func hover_target() -> void:
+	print("hover_target")
+	hide()
+
+func stop_hovering_target() -> void:
+	print("stop_hover_target")
+	show()
+
+func select_target() -> void:
+	print("select_target")
+	show()
+
+func lose_target() -> void:
+	print("lose_target")
+	show()
+
+var hovered_target : Object
+var selected_target : Object
+func check_for_target() -> void:
+	var _result = target_raycast()
+	if _result.is_empty():
+		if hovered_target and hovered_target.has_method("stop_hovering_target"):
+			hovered_target.stop_hovering_target()
+		hovered_target = null
+	else:
+		if _result.get("collider") == self: return
+		hovered_target = _result.get("collider")
+		if hovered_target.has_method("hover_target"):
+			hovered_target.hover_target()
+
+const RAY_LENGTH := 100.0
+func target_raycast() -> Dictionary:
+		var _mouse_pos = get_viewport().get_mouse_position()
+		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.from = camera.project_ray_origin(_mouse_pos)
+		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
+		_ray_query.collision_mask = pow(2, 2-1) + pow(2, 3-1) # Set collision for player and monsters
+		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
 func update_direction() -> void:
 	if target_direction == Vector3():
@@ -139,21 +180,31 @@ func move_camera_click(press : bool) -> void:
 		camera.position = camera_base_marker.position
 	
 func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton and event.button_index == 2 and event.pressed:
-		var _result = ability_machine.terrain_raycast()
-		if !_result.is_empty():
-			nav.target_position = _result.get("position")
-			spawn_move_effect(_result.get("position"))
-			if recall:
-				cancel_recall()
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == 2:
+			var _result = ability_machine.terrain_raycast()
+			if !_result.is_empty():
+				nav.target_position = _result.get("position")
+				spawn_move_effect(_result.get("position"))
+				if recall:
+					cancel_recall()
+		elif event.button_index == 1:
+			var _result = target_raycast()
+			if _result.is_empty():
+				if selected_target and selected_target.has_method("lose_target"):
+					selected_target.lose_target()
+				selected_target = null
+			else:
+				if _result.get("collider") == self: return
+				selected_target = _result.get("collider")
+				if selected_target.has_method("select_target"):
+					selected_target.select_target()
 
 var pre_move_effect = preload("res://Scenes/UI/click_move_effect.tscn")
 func spawn_move_effect(pos : Vector3) -> void:
-	var _new_effect = pre_move_effect.instantiate()
-	_new_effect.position = pos
-	world.add_child(_new_effect)
-	get_tree().create_timer(0.5).timeout.connect(func():
-		_new_effect.queue_free())
+	var _new_move_effect = pre_move_effect.instantiate()
+	_new_move_effect.position = pos
+	world.add_child(_new_move_effect)
 
 func cancel_recall() -> void:
 	recall_timer.stop()
@@ -259,7 +310,8 @@ func movement() -> void:
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
 			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed)
-		cancel_recall()
+		if recall:
+			cancel_recall()
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
 		face_direction(direction)
@@ -284,7 +336,7 @@ func action_keys():
 		nav.target_position = global_position
 		recall = true
 		recall_timer.start()
-		start_channeling(recall_timer.wait_time)
+		start_channeling(recall_timer.wait_time, "Recall")
 		recall_visual.set_visible(true)
 	if Input.is_action_just_pressed("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
@@ -297,6 +349,8 @@ func action_keys():
 			if abilities[i]:
 				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
+						if abilities[i].channeling:
+							start_channeling(abilities[i].attack_time, abilities[i].name)
 						hud.ability_list.get_children()[i].use_ability()
 		if Input.is_action_just_released("ability"+str(i+1)):
 			if abilities[i]:
@@ -313,12 +367,15 @@ func remove_effect(effect : Effect) -> void:
 	hud.update_effects()
 
 var channeling_tween
-func start_channeling(duration : float) -> void:
+func start_channeling(duration : float, title : String) -> void:
+	hud.channeling_label.text = title
 	hud.channeling_bar.set_visible(true)
 	if channeling_tween:
 		channeling_tween.kill()
 	channeling_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
 	channeling_tween.tween_method(Callable(hud.channeling_bar, "set_value"), 0.0, 100.0, duration)
+	channeling_tween.finished.connect(func():
+		stop_channeling())
 
 func stop_channeling() -> void:
 	hud.channeling_bar.set_visible(false)

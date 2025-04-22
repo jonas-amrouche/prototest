@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cev1a22ek6uvs"]
+
+[ext_resource type="PackedScene" uid="uid://buhjd3xvgpoc3" path="res://Assets/3D/MountSides.glb" id="1_2x0y3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1v7f"]
+albedo_color = Color(0.105186, 0.100625, 0.0943939, 1)
+
+[node name="MountSides" instance=ExtResource("1_2x0y3")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_x1v7f")

@@ -11,5 +11,6 @@ description = "Deal small damage in a circle."
 icon = ExtResource("1_iuxe5")
 cooldown = 0.3
 attack_time = 0.12
+channeling = false
 damage_type = 0
 damage_cap = 50
