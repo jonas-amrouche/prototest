@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://coy7gj003lu7h"]
 
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_q2ly0"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_q2ly0"]
 
 [resource]
 script = ExtResource("1_q2ly0")
@@ -8,8 +8,6 @@ id = "haunting_shot"
 name = "Haunting Shot"
 description = "Deal distance magic damage."
 cooldown = 0.5
-strength_cost = 0
 attack_time = 0.7
 damage_type = 1
-physical_damage_cap = 0
-magic_damage_cap = 0
+damage_cap = 0

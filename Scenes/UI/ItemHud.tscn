@@ -1,28 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=6 format=3 uid="uid://d5b6wj2vo2o6"]
 
-[ext_resource type="Script" path="res://Scripts/ItemHud.gd" id="1_desy6"]
+[ext_resource type="Script" uid="uid://dc8msiwaibx6d" path="res://Scripts/item_hud.gd" id="1_desy6"]
+[ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="2_88dof"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hayc8"]
 bg_color = Color(0.130208, 0.112717, 0.0898437, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubnyl"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17rjt"]
 bg_color = Color(0, 0, 0, 0.917647)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [node name="ItemHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
@@ -54,6 +51,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_17rjt")
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="BorderMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="BorderOverlay" type="TextureRect" parent="BorderMargin"]
+layout_mode = 2
+texture = ExtResource("2_88dof")
+expand_mode = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

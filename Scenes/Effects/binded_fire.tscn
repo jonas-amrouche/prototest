@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk7pw35s13auv"]
 
-[ext_resource type="Script" path="res://Scripts/Effects/binded_fire.gd" id="1_fsv4w"]
+[ext_resource type="Script" uid="uid://f4o0bidklr1" path="res://Scripts/Effects/binded_fire.gd" id="1_fsv4w"]
 [ext_resource type="Texture2D" uid="uid://dhrpqas71jg4w" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0020.png" id="2_37iog"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6v2c0"]

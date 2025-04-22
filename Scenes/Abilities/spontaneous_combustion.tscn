@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://edoiw8bew8t7"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/spontaneous_combustion.gd" id="1_t2hes"]
+[ext_resource type="Script" uid="uid://bd2gsgjohkbp1" path="res://Scripts/Abilities/spontaneous_combustion.gd" id="1_t2hes"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uc5iw"]
 size = Vector3(0.6, 1, 3)

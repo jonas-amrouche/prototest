@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://bobqe3ai8n1kp"]
+
+[ext_resource type="Texture2D" uid="uid://dlwy50qkhg6uq" path="res://Assets/2D/UI/click_move.png" id="1_3rkgv"]
+
+[node name="ClickMoveEffect" type="Node3D"]
+
+[node name="Effect" type="Sprite3D" parent="."]
+transform = Transform3D(0.33781, 0, 0, 0, 0.238868, 0.238868, 0, -0.238868, 0.238868, 0, 0.343358, -0.168905)
+sorting_offset = 100.0
+modulate = Color(0.344076, 0.344076, 0.344076, 1)
+texture_filter = 0
+texture = ExtResource("1_3rkgv")
+
+[node name="Effect2" type="Sprite3D" parent="."]
+transform = Transform3D(-0.33781, 1.47661e-08, -2.55757e-08, -7.64352e-09, 0.238868, 0.238868, 2.8526e-08, 0.238868, -0.238868, 0, 0.343358, 0.168905)
+sorting_offset = 100.0
+modulate = Color(0.344076, 0.344076, 0.344076, 1)
+texture_filter = 0
+texture = ExtResource("1_3rkgv")
+
+[node name="Effect3" type="Sprite3D" parent="."]
+transform = Transform3D(-1.4263e-08, 0.238868, -0.238868, 3.82176e-09, 0.238868, 0.238868, 0.33781, 7.38307e-09, -1.27879e-08, 0.168905, 0.343358, 0)
+sorting_offset = 100.0
+modulate = Color(0.344076, 0.344076, 0.344076, 1)
+texture_filter = 0
+texture = ExtResource("1_3rkgv")
+
+[node name="Effect4" type="Sprite3D" parent="."]
+transform = Transform3D(3.23477e-08, -0.238868, 0.238868, 2.19065e-08, 0.238868, 0.238868, -0.33781, -7.38307e-09, 3.83636e-08, -0.168905, 0.343358, 0)
+sorting_offset = 100.0
+modulate = Color(0.344076, 0.344076, 0.344076, 1)
+texture_filter = 0
+texture = ExtResource("1_3rkgv")

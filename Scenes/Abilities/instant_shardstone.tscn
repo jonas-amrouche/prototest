@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://erquakorne0r"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/instant_shardstone.gd" id="1_5rl3o"]
+[ext_resource type="Script" uid="uid://peblyb82ckh7" path="res://Scripts/Abilities/instant_shardstone.gd" id="1_5rl3o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ff2nd"]
 size = Vector3(0.1, 1, 6)

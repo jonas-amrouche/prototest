@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="click_move.svg"
+   inkscape:export-filename="..\2D\UI\click_move.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.8970539"
+     inkscape:cx="514.83337"
+     inkscape:cy="762.67136"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       markerWidth="0.52499998"
+       markerHeight="0.99999995"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       id="marker6"
+       viewBox="0 0 0.525 1"
+       inkscape:stockid="Triangle cap"
+       style="overflow:visible"
+       preserveAspectRatio="xMidYMid"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         style="fill:context-stroke;stroke-linecap:butt"
+         d="M 0,-1 1,0 0,1 -0.05,0 Z"
+         sodipodi:nodetypes="sssssscsss"
+         transform="scale(0.5)"
+         id="path6" />
+    </marker>
+    <marker
+       markerWidth="0.52499998"
+       markerHeight="0.99999995"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       id="CapTriangle"
+       viewBox="0 0 0.525 1"
+       inkscape:stockid="Triangle cap"
+       style="overflow:visible"
+       preserveAspectRatio="xMidYMid"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         style="fill:context-stroke;stroke-linecap:butt"
+         d="M 0,-1 1,0 0,1 -0.05,0 Z"
+         sodipodi:nodetypes="sssssscsss"
+         transform="scale(0.5)"
+         id="path61" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="display:none;fill:none;stroke:#48c70b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:24.4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 76.978096,120.11683 -4.391369,12.91578 h 28.931363 l -4.64968,-12.65747 z"
+       id="path1" />
+    <path
+       style="display:none;fill:none;stroke:#48c70b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:24.4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 76.978096,120.11683 24.539994,12.91578"
+       id="path2" />
+    <path
+       style="display:none;fill:none;stroke:#48c70b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:24.4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 96.86841,120.37514 72.586727,133.03261"
+       id="path3" />
+    <path
+       style="display:none;fill:none;stroke:#309300;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:24.4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#CapTriangle);marker-end:url(#marker6)"
+       d="m 143.10693,193.73682 9.51259,4.55403 9.38801,-15.4663"
+       id="path4"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#48c70b;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:24.4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#CapTriangle);marker-end:url(#marker6)"
+       d="m 162.00753,182.86874 -9.63925,15.44031 -9.26135,-15.4845"
+       id="path5"
+       sodipodi:nodetypes="ccc" />
+  </g>
+</svg>

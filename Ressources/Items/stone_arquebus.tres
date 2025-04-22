@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://bqvrju3tnlkpk"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_wk1br"]
+[ext_resource type="Resource" uid="uid://etadmlsde31a" path="res://Ressources/Abilities/InstantShardStone.tres" id="2_au5l6"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="3_mlkmu"]
+[ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="4_ysfse"]
+[ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Ressources/Components/ExplosiveStone.tres" id="5_2i2fl"]
+[ext_resource type="Texture2D" uid="uid://bwehd0eoequww" path="res://Assets/2D/Items/StoneArquebusIcon.png" id="5_ike2q"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_l0e6k"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="6_jjlxf"]
+
+[resource]
+script = ExtResource("6_jjlxf")
+id = "stone_arquebus"
+name = "Stone Arquebus"
+description = "Not very usefull but at least it's hard to miss."
+icon = ExtResource("5_ike2q")
+rarity = 1
+craft_recipe = {
+ExtResource("3_mlkmu"): 3,
+ExtResource("4_ysfse"): 2,
+ExtResource("5_2i2fl"): 1
+}
+abilities = Array[ExtResource("1_wk1br")]([ExtResource("2_au5l6")])
+passives = Array[ExtResource("5_l0e6k")]([])
+stats = {
+"physical_damage": 10
+}

@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://4eporiaa6egb"]
+[gd_scene load_steps=3 format=3 uid="uid://4eporiaa6egb"]
 
-[ext_resource type="Script" path="res://Scripts/PassiveItemPreview.gd" id="1_g661d"]
+[ext_resource type="Script" uid="uid://b6j83mjant2pn" path="res://Scripts/passive_item_preview.gd" id="1_g661d"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="1_wiocf"]
 
 [node name="Passive" type="RichTextLabel"]
 mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("1_wiocf")
 theme_override_font_sizes/italics_font_size = 13
 theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true

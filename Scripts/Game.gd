@@ -7,7 +7,7 @@ var pre_player = preload("res://Scenes/Player.tscn")
 var pre_arena = preload("res://Scenes/Models/MidArenaModel.tscn")
 var pre_camp = preload("res://Scenes/Props/Camp.tscn")
 var pre_tower = preload("res://Scenes/Props/KnowledgeTower.tscn")
-var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/SkullModel.tscn"), preload("res://Scenes/Models/TombStoneModel.tscn"), preload("res://Scenes/Models/SignModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn")]
+var decorations = [preload("res://Scenes/Models/TribalSanctuaryRoundModel.tscn"), preload("res://Scenes/Models/SkullModel.tscn"), preload("res://Scenes/Models/TombStoneModel.tscn"), preload("res://Scenes/Models/SignModel.tscn"), preload("res://Scenes/Models/TribalStoneSquareModel.tscn"), preload("res://Scenes/Props/Altar.tscn")]
 
 var camps_list = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
 preload("res://Ressources/Camps/Gobedins.tres"), \
@@ -93,8 +93,8 @@ func generate_lanes() -> void:
 				_temp_point_list.append(_pos + _point_pos)
 			paths_points_list.append(_temp_point_list)
 
-const POINT_CELL_DIVISION = 8#28
-const PATH_RANDOM_CELLS = 4.0#0.4
+const POINT_CELL_DIVISION = 8 # 28
+const PATH_RANDOM_CELLS = 4.0 #0.4
 const NO_PATH_BORDER_LENGTH = 20.0
 
 const MIN_INTEREST_POINTS = 18#12
@@ -123,7 +123,7 @@ func generate_points_and_paths() -> void:
 		for y in range(Basics.MAP_SIZE.y/POINT_CELL_DIVISION):
 			var _new_point = Vector2(x+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS), y+1 + randf_range(-PATH_RANDOM_CELLS, PATH_RANDOM_CELLS))*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
 			#var _new_point = Vector2(x+1, y+1)*float(POINT_CELL_DIVISION) - Vector2(Basics.MAP_SIZE)/2
-			if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH):
+			if is_close_to_square_border(Basics.MAP_SIZE, _new_point + Basics.MAP_SIZE/2.0, NO_PATH_BORDER_LENGTH) or is_in_base(_new_point):
 				continue
 			_grid_point_list.append(_new_point)
 	
@@ -145,7 +145,7 @@ func generate_points_and_paths() -> void:
 			#_is_valid = true
 			#break
 		if _is_valid:
-			#debug_box(Vector3(_grid_point_list[_rand_idx].x, 0.0, _grid_point_list[_rand_idx].y))
+			#DebugFeatures.debug_box(Vector3(_grid_point_list[_rand_idx].x, 0.0, _grid_point_list[_rand_idx].y))
 			new_interest_points_list[_grid_point_list[_rand_idx]] = randf_range(MIN_INTEREST_SIZE, MAX_INTEREST_SIZE)
 			
 			#TEMP
@@ -198,14 +198,6 @@ func generate_mid_arena() -> void:
 	var _new_arena = pre_arena.instantiate()
 	_new_arena.position = Vector3(0.0, 0.0, 0.0)
 	add_child(_new_arena)
-
-func debug_box(pos : Vector3, size : float = 1.0, color : Color = Color(1.0, 1.0, 1.0)) -> void:
-	var _box = CSGBox3D.new()
-	_box.position = pos
-	_box.scale *= size
-	_box.material = StandardMaterial3D.new()
-	_box.material.albedo_color = color
-	add_child(_box)
 
 func mirror_points() -> void:
 	var _removed_paths_count := 0
@@ -270,7 +262,7 @@ func is_close_to_square_border(square_size : Vector2, detection_point : Vector2,
 const DIVISION_FACTOR := 2.0
 const TREE_RANDOM_CELLS = 0.4
 const TREE_BORDER_LENGTH := 2.0
-const NO_TREE_BASE_DISTANCE := 8.0
+const NO_TREE_BASE_DISTANCE := 18.0
 const NO_TREE_PATH_DISTANCE := 2.5
 const TREE_ROTATION_MAX = PI/8.0
 const TREE_SCALE_MIN = 0.1#0.08
@@ -356,10 +348,18 @@ func is_in_decoration(pos : Vector2) -> bool:
 
 func is_in_base(pos : Vector2) -> bool:
 	for base in bases:
-		var _base_pos = Vector2(base.position.x+(NO_TREE_BASE_DISTANCE*sign(base.position.x)), base.position.z+(NO_TREE_BASE_DISTANCE*-sign(base.position.x)))
-		if pos.x > _base_pos.x - NO_TREE_BASE_DISTANCE and pos.x < _base_pos.x + NO_TREE_BASE_DISTANCE and pos.y > _base_pos.y - NO_TREE_BASE_DISTANCE and pos.y < _base_pos.y + NO_TREE_BASE_DISTANCE:
+		#var _base_pos = Vector2(base.position.x+(NO_TREE_BASE_DISTANCE*sign(base.position.x)), base.position.z+(NO_TREE_BASE_DISTANCE*-sign(base.position.x)))
+		var _base_pos = Vector2(base.position.x, base.position.z)
+		if pos.distance_to(_base_pos) < NO_TREE_BASE_DISTANCE:
 			return true
 	return false
+
+#func is_in_base(pos : Vector2) -> bool:
+	#for base in bases:
+		#var _base_pos = Vector2(base.position.x+(NO_TREE_BASE_DISTANCE*sign(base.position.x)), base.position.z+(NO_TREE_BASE_DISTANCE*-sign(base.position.x)))
+		#if pos.x > _base_pos.x - NO_TREE_BASE_DISTANCE and pos.x < _base_pos.x + NO_TREE_BASE_DISTANCE and pos.y > _base_pos.y - NO_TREE_BASE_DISTANCE and pos.y < _base_pos.y + NO_TREE_BASE_DISTANCE:
+			#return true
+	#return false
 
 func is_in_path(pos : Vector2) -> bool:
 	for paths in paths_points_list:

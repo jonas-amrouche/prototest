@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4kqtbpot5wkn"]
 
 [ext_resource type="Texture2D" uid="uid://djt1kxw2o88j1" path="res://Assets/2D/Abilities/BurningLineIcon.png" id="1_rjsgo"]
-[ext_resource type="Script" path="res://Scripts/EffectHud.gd" id="1_x8k3u"]
+[ext_resource type="Script" uid="uid://bx2s3ushby3d6" path="res://Scripts/effect_hud.gd" id="1_x8k3u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e8nt"]
 bg_color = Color(0, 0, 0, 1)

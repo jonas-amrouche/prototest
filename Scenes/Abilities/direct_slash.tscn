@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mn0dqjta8atv"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/direct_slash.gd" id="1_7q3up"]
+[ext_resource type="Script" uid="uid://dtc2k8hfkuc2t" path="res://Scripts/Abilities/direct_slash.gd" id="1_7q3up"]
 
 [node name="DirectSlash" type="Node3D"]
 script = ExtResource("1_7q3up")

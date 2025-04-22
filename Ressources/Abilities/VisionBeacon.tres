@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://bd6xn886jpo34"]
 
 [ext_resource type="Texture2D" uid="uid://bfuujbab158be" path="res://Assets/2D/Abilities/VisionBeaconIcon_v2.png" id="1_migv4"]
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="2_ivljb"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="2_ivljb"]
 
 [resource]
 script = ExtResource("2_ivljb")

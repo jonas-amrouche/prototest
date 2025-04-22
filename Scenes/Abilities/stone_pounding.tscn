@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0sa08gbr22ix"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/stone_pounding.gd" id="1_72fva"]
+[ext_resource type="Script" uid="uid://0w5t20kr40le" path="res://Scripts/Abilities/stone_pounding.gd" id="1_72fva"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2u4s7"]
 radius = 1.2

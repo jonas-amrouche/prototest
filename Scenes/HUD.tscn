@@ -1,14 +1,25 @@
-[gd_scene load_steps=60 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=70 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/MiniMap.tscn" id="1_4iu7d"]
-[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_ajh5x"]
+[ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
 [ext_resource type="PackedScene" uid="uid://dmsot177joet6" path="res://Scenes/UI/ExperienceGem.tscn" id="2_j4ssy"]
-[ext_resource type="Shader" path="res://Ressources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
+[ext_resource type="Shader" uid="uid://b6om6yu2stsmg" path="res://Ressources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
 [ext_resource type="PackedScene" uid="uid://k5hwxx3mfhp6" path="res://Scenes/UI/ComponentHud.tscn" id="3_rlkqk"]
 [ext_resource type="Texture2D" uid="uid://cx6f1ycmvqilj" path="res://Assets/2D/Shaders/gem_texture_ui.png" id="4_4sp2n"]
 [ext_resource type="Texture2D" uid="uid://c0m4who6u83m7" path="res://Assets/2D/UI/exp_shine.png" id="5_0cch0"]
+[ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="6_fbb48"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
+[ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="7_hhtw7"]
+[ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
+[ext_resource type="FontFile" uid="uid://d4e2auspm7orw" path="res://Assets/Fonts/TechnaSans-Regular.otf" id="9_w5mne"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhtw7"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1945
+border_color = Color(0, 0, 0, 0)
+border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
 bg_color = Color(0, 0, 0, 0.423529)
@@ -25,6 +36,7 @@ shadow_offset = Vector2(0, 2)
 anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
+font = ExtResource("9_w5mne")
 font_size = 25
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
@@ -33,170 +45,179 @@ outline_color = Color(0, 0, 0, 1)
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oy6ci"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gw64n"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ux5"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uflcv"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5uhqk"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s5hrv"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d1bji"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7pnvm"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gxkxr"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abb43"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n3vcj"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k8u7u"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nlega"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ub0o4"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2bbpm"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/filled = true
+shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
+shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
-shader_parameter/noise1 = ExtResource("4_4sp2n")
-shader_parameter/shine = ExtResource("5_0cch0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbb48"]
+bg_color = Color(0.0144486, 0.01589, 0.00248296, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
 border_color = Color(0.125911, 0.125911, 0.125911, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5sk5d"]
-bg_color = Color(0.180666, 0.468389, 4.81307e-07, 1)
-border_width_right = 3
-border_color = Color(1.86507e-07, 0.268013, 0.0425503, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o2vyp"]
+texture = ExtResource("6_fbb48")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2vyp"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+border_color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
+texture = ExtResource("7_hhtw7")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4d3t"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -226,20 +247,17 @@ corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4lrj"]
 bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqwct"]
 bg_color = Color(0.25098, 0.223529, 0.164706, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1q5o"]
-bg_color = Color(0.533333, 0.439216, 0.415686, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hhtw7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -307,17 +325,27 @@ font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq8fq"]
 bg_color = Color(0.454632, 0.318063, 0.842269, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
 border_color = Color(0.140274, 0.100208, 0.324716, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5mne"]
+bg_color = Color(0.454632, 0.318063, 0.842269, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_kx2yo"]
+font = ExtResource("10_xuldq")
+font_size = 32
 font_color = Color(0.0155536, 0, 0.28221, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpk8"]
@@ -362,6 +390,21 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
+
+[node name="EffectPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -100.0
+offset_right = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hhtw7")
 
 [node name="LevelPan" type="Panel" parent="."]
 layout_mode = 1
@@ -482,7 +525,7 @@ anchor_right = 1.0
 offset_left = 1871.0
 offset_top = 64.0
 offset_right = -4.0
-offset_bottom = 1063.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 size_flags_vertical = 8
 mouse_filter = 2
@@ -518,16 +561,21 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.5
-offset_top = 9.0
+offset_top = 100.0
 offset_right = 292.5
-offset_bottom = 23.0
+offset_bottom = 114.0
 grow_horizontal = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
 
 [node name="Pad" type="MarginContainer" parent="ActionPanel/BarContainer"]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
 [node name="HealthBar" type="ProgressBar" parent="ActionPanel/BarContainer/Pad"]
@@ -535,7 +583,40 @@ layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_57rek")
-theme_override_styles/fill = SubResource("StyleBoxFlat_5sk5d")
+theme_override_styles/fill = SubResource("StyleBoxTexture_o2vyp")
+value = 100.0
+show_percentage = false
+metadata/_edit_lock_ = true
+
+[node name="BarContainer2" type="PanelContainer" parent="ActionPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -292.5
+offset_top = 82.0
+offset_right = 292.5
+offset_bottom = 96.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
+
+[node name="Pad" type="MarginContainer" parent="ActionPanel/BarContainer2"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+metadata/_edit_lock_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="ActionPanel/BarContainer2/Pad"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_o2vyp")
+theme_override_styles/fill = SubResource("StyleBoxTexture_hhtw7")
 value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
@@ -548,9 +629,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -296.5
-offset_top = -91.0
+offset_top = -116.0
 offset_right = 296.5
-offset_bottom = -26.0
+offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -685,6 +766,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 8
 focus_mode = 0
+theme_override_fonts/font = ExtResource("10_xuldq")
 disabled = true
 text = "CRAFT"
 metadata/_edit_lock_ = true
@@ -740,6 +822,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
+theme_override_fonts/font = ExtResource("10_xuldq")
 disabled = true
 text = "DECOMPOSE"
 
@@ -780,6 +863,14 @@ theme_override_constants/v_separation = 3
 columns = 4
 metadata/_edit_lock_ = true
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1376.0
+offset_top = 776.0
+offset_right = 1528.0
+offset_bottom = 1079.0
+texture = ExtResource("8_o2vyp")
+
 [node name="Stats" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -787,13 +878,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -481.0
-offset_top = -237.0
-offset_right = -420.0
+offset_left = -497.0
+offset_top = -262.0
+offset_right = -438.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e1q5o")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hhtw7")
 
 [node name="MarginContainer" type="MarginContainer" parent="Stats"]
 layout_mode = 1
@@ -1201,9 +1292,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -47.0
+offset_left = -102.0
 offset_top = 4.0
-offset_right = -7.0
+offset_right = -62.0
 offset_bottom = 27.0
 grow_horizontal = 0
 text = "0:00"
@@ -1366,11 +1457,26 @@ color = Color(0.481053, 0.188391, 0.489583, 1)
 
 [node name="Back" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 1518.0
-offset_top = 1039.0
-offset_right = 1550.0
-offset_bottom = 1071.0
+offset_left = 342.0
+offset_top = 1012.0
+offset_right = 402.0
+offset_bottom = 1072.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xq8fq")
+
+[node name="Back2" type="Panel" parent="Back"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w5mne")
 
 [node name="BackLabel" type="Label" parent="Back"]
 layout_mode = 1
@@ -1386,6 +1492,7 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Souls" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1821.0
 offset_top = 1032.0
@@ -1405,6 +1512,20 @@ grow_vertical = 2
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 metadata/_edit_lock_ = true
 
 [node name="CamView" type="Panel" parent="."]

@@ -18,14 +18,14 @@ var pre_base_arena_texture = preload("res://Assets/2D/Ui/base_arena_path.png")
 var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
 var pre_interest_texture = preload("res://Assets/2D/UI/plant_icon.png")
 
-const BASE_OFFSET := 7.0
+const BASE_OFFSET := 0.0
 const MAP_PATH_WIDTH := 9.0
 const MAP_MID_WIDTH := 17.0
 const MAP_PATH_COLOR := Color(0.275, 0.339, 0.316)
 const MAP_INTEREST_COLOR := Color(0.275*0.7, 0.339*0.7, 0.316*0.7)
 const MAP_RIVER_COLOR := Color(0.226, 0.471, 0.564)
 const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
-const MAP_BASE_AREA_SIZE := Vector2(30.0, 30.0)
+const MAP_BASE_AREA_SIZE := Vector2(65.0, 65.0)
 const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
 const MAP_INTEREST_ICON_SIZE := Vector2(4.0, 4.0)
 func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
@@ -43,17 +43,17 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	for path in _new_paths_data:
 		draw_custom_line(path, MAP_PATH_WIDTH, MAP_PATH_COLOR)
 	
-	# Draw Bases Zone Icons
-	for base in bases_data:
-		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
-		draw_icon(_base_pos, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
-	
 	# Draw Arena Zone Icons
 	draw_icon(Vector2(0.0, 0.0), MAP_ARENA_SIZE, pre_base_arena_texture, MAP_PATH_COLOR)
 		
 	# Draw Interest Icons
 	for i in range(interests_data.size()):
 		draw_icon(interests_data.keys()[i], interests_data.values()[i] * MAP_INTEREST_ICON_SIZE, pre_base_arena_texture, MAP_INTEREST_COLOR)
+	
+	# Draw Bases Zone Icons
+	for base in bases_data:
+		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
+		draw_icon(_base_pos, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
 	
 	# Draw Bases Icons
 	for base in bases_data:
@@ -98,9 +98,9 @@ func draw_icon(pos : Vector2, icon_size : Vector2, icon : Texture2D, tint : Colo
 func world_to_minimap_position(pos : Vector2) -> Vector2:
 	return (pos + map_size/2.0)/map_size*mini_content.size
 
-func initialize_fog_display(bases_data : PackedVector2Array, fog_base_size : Vector2i, fog_player_size : Vector2i, fog_texture_size : Vector2i) -> void:
-	map_mask.material.set_shader_parameter("base_fog_size", float(fog_base_size.x)/2.0/float(fog_texture_size.x))
-	map_mask.material.set_shader_parameter("player_fog_size", float(fog_player_size.x)/4.5/float(fog_texture_size.x))
+func initialize_fog_display(bases_data : PackedVector2Array, fog_base_size : int, fog_player_size : int, fog_texture_size : Vector2i) -> void:
+	map_mask.material.set_shader_parameter("base_fog_size", float(fog_base_size)/2.0/float(fog_texture_size.x))
+	map_mask.material.set_shader_parameter("player_fog_size", float(fog_player_size)/4.5/float(fog_texture_size.x))
 	map_mask.material.set_shader_parameter("base1_pos", (bases_data[0]+map_size/2.0)/map_size)
 	map_mask.material.set_shader_parameter("base2_pos", (bases_data[1]+map_size/2.0)/map_size)
 
@@ -122,6 +122,10 @@ func _on_gui_input(event):
 				player.move_camera_click(true)
 			else:
 				player.move_camera_click(false)
+		elif event.button_index == 2:
+			if event.pressed:
+				cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0)
+				player.nav.target_position = Vector3(cursor_pos.x, 0, cursor_pos.y)
 	if event is InputEventMouseMotion:
 		cursor_pos = ((get_viewport().get_mouse_position() - position) / (size.x/(map_size.x/2.0))*2.0 - map_size/2.0) + CAMERA_PERSPECTIVE_OFFSET
 	player.move_camera_by_minimap(cursor_pos)

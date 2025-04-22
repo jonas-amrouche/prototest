@@ -1,15 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn57uxe8ha5k3"]
+[gd_scene load_steps=7 format=3 uid="uid://dn57uxe8ha5k3"]
 
-[ext_resource type="Script" path="res://Scripts/ItemCraft.gd" id="1_6tboc"]
+[ext_resource type="Script" uid="uid://byh1nc8r3ooge" path="res://Scripts/item_craft.gd" id="1_6tboc"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_g2ku8"]
+[ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="3_mmt0t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scd0q"]
 resource_local_to_scene = true
-bg_color = Color(0.1, 0.1, 0.1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0.1, 0.1, 0.1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 0.806)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fin58"]
 
@@ -24,10 +31,10 @@ script = ExtResource("1_6tboc")
 
 [node name="MarginIcon" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
 [node name="Icon" type="TextureRect" parent="MarginIcon"]
 layout_mode = 2
@@ -42,6 +49,12 @@ mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fin58")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ds11i")
 action_mode = 0
+
+[node name="BorderOverlay" type="TextureRect" parent="."]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_mmt0t")
+expand_mode = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="button_down" from="Select" to="." method="_on_select_button_down"]

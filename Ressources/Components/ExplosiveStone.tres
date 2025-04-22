@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://b0wommdwj1uw"]
 
 [ext_resource type="Texture2D" uid="uid://bmimvqqxrkel2" path="res://Assets/2D/Components/explosive_stone_icon.png" id="1_vkcig"]
-[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_h1uns"]
+[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="2_h1uns"]
 
 [resource]
 script = ExtResource("2_h1uns")

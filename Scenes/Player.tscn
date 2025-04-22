@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://df1e6em0ealvc"]
 
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_dq7lx"]
+[ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_dq7lx"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/HUD.tscn" id="2_hi5xs"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/WiseMageModel.tscn" id="3_7gopy"]
 [ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/InfoBar.tscn" id="5_y7wx0"]
@@ -22,6 +22,8 @@ viewport_path = NodePath("SubViewport")
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 9
+motion_mode = 1
+platform_wall_layers = 8
 script = ExtResource("1_dq7lx")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -35,15 +37,6 @@ far = 512.0
 
 [node name="CameraBaseMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 13, 7)
-
-[node name="MapSmallView" type="SubViewport" parent="."]
-size = Vector2i(640, 360)
-
-[node name="CameraMap" type="Camera3D" parent="MapSmallView"]
-transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 15, 7)
-current = true
-fov = 30.0
-far = 512.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -86,5 +79,12 @@ texture = SubResource("ViewportTexture_najce")
 
 [node name="Effects" parent="." instance=ExtResource("7_hxg1i")]
 
+[node name="Nav" type="NavigationAgent3D" parent="."]
+
+[node name="UpdateMovementLine" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]
+[connection signal="path_changed" from="Nav" to="." method="_on_nav_path_changed"]
+[connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]

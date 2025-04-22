@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://dd286pu246ain"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_8c8vf"]
+[ext_resource type="Resource" uid="uid://bd6xn886jpo34" path="res://Ressources/Abilities/VisionBeacon.tres" id="2_agnol"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="3_okp5e"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="4_dxuf5"]
+[ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Ressources/Components/Metal.tres" id="5_jra6k"]
+[ext_resource type="Texture2D" uid="uid://co4knl8ferfda" path="res://Assets/2D/Items/BeaconBagIcon.png" id="6_iec7m"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="8_rp40b"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="9_x5vxm"]
+
+[resource]
+script = ExtResource("9_x5vxm")
+id = "beacon_bag"
+name = "Beacon Bag"
+description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
+icon = ExtResource("6_iec7m")
+rarity = 1
+craft_recipe = {
+ExtResource("3_okp5e"): 3,
+ExtResource("4_dxuf5"): 2,
+ExtResource("5_jra6k"): 3
+}
+abilities = Array[ExtResource("1_8c8vf")]([ExtResource("2_agnol")])
+passives = Array[ExtResource("8_rp40b")]([])
+stats = {}

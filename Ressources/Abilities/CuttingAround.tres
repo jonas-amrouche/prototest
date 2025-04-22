@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://iflvcho70g2w"]
 
 [ext_resource type="Texture2D" uid="uid://csq4mrkog6nsd" path="res://Assets/2D/Abilities/CuttingAroundIcon.png" id="1_iuxe5"]
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_yaty1"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_yaty1"]
 
 [resource]
 script = ExtResource("1_yaty1")

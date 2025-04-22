@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Component" load_steps=3 format=3 uid="uid://dogntf7etk6bo"]
 
 [ext_resource type="Texture2D" uid="uid://c5pgoyl70uwgx" path="res://Assets/2D/Components/unstable_core_icon.png" id="1_25imd"]
-[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="2_n15ug"]
+[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="2_n15ug"]
 
 [resource]
 script = ExtResource("2_n15ug")

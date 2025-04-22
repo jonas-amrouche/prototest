@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://coduwttub088x"]
 
-[ext_resource type="Script" path="res://Scripts/ItemDrop.gd" id="1_eeql0"]
+[ext_resource type="Script" uid="uid://c7by323r15vrr" path="res://Scripts/item_drop.gd" id="1_eeql0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hmyda"]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://bhanvrm02h1ax"]
 
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_g5hh6"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_g5hh6"]
 
 [resource]
 script = ExtResource("1_g5hh6")
@@ -8,8 +8,6 @@ id = "angry_headbutt"
 name = "Angry Headbutt"
 description = "Deal quick damage."
 cooldown = 0.1
-strength_cost = 0
 attack_time = 0.6
 damage_type = 0
-physical_damage_cap = 0
-magic_damage_cap = 0
+damage_cap = 0

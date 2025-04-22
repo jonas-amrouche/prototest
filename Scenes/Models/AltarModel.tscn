@@ -3,11 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://cqteeojyot34k" path="res://Assets/3D/Altar.glb" id="1_blxq5"]
 [ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="2_g1oyw"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Ressources/Materials/PBR/Metal2.tres" id="3_bqj1g"]
-[ext_resource type="Material" uid="uid://35c7edmripbd" path="res://Ressources/Materials/TechArt/AltarFire.tres" id="4_x3iqv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyvty"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
 
 [node name="AltarModel" instance=ExtResource("1_blxq5")]
 
 [node name="AltarModel" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_g1oyw")
 surface_material_override/1 = ExtResource("3_bqj1g")
-surface_material_override/2 = ExtResource("4_x3iqv")
+surface_material_override/2 = SubResource("StandardMaterial3D_pyvty")

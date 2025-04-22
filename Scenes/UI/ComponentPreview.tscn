@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlypbug4tqkpr"]
+[gd_scene load_steps=5 format=3 uid="uid://dlypbug4tqkpr"]
 
-[ext_resource type="Script" path="res://Scripts/ComponentPreview.gd" id="1_b3xl7"]
+[ext_resource type="Script" uid="uid://dby2102vqka0k" path="res://Scripts/component_preview.gd" id="1_b3xl7"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="2_e3w1x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cg47"]
 bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_6gubv"]
+font = ExtResource("2_e3w1x")
 
 [node name="ComponentPreview" type="PanelContainer"]
 offset_right = 11.0
@@ -26,3 +30,4 @@ theme_override_constants/margin_bottom = 5
 
 [node name="ComponentName" type="Label" parent="Pad"]
 layout_mode = 2
+label_settings = SubResource("LabelSettings_6gubv")

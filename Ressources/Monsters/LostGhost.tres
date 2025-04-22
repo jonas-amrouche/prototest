@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="Monster" load_steps=7 format=3 uid="uid://bbsir61mjulr0"]
 
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_dsj7x"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dsj7x"]
 [ext_resource type="Resource" uid="uid://b00w1767dex2p" path="res://Ressources/Components/FloatingMatter.tres" id="2_6yqaf"]
 [ext_resource type="Resource" uid="uid://coy7gj003lu7h" path="res://Ressources/Abilities/HauntingShot.tres" id="2_c7mvp"]
-[ext_resource type="Script" path="res://Scripts/ComponentClass.gd" id="3_k20pt"]
+[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_k20pt"]
 [ext_resource type="PackedScene" uid="uid://cmvjhexu3hgoy" path="res://Scenes/Models/LostGhostModel.tscn" id="3_mn240"]
-[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="5_m6ddl"]
+[ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_m6ddl"]
 
 [resource]
 script = ExtResource("5_m6ddl")

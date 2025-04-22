@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Stat" load_steps=3 format=3 uid="uid://c8ulm2yveqssr"]
 
-[ext_resource type="Script" path="res://Scripts/StatClass.gd" id="1_3d7e8"]
+[ext_resource type="Script" uid="uid://bysgsh1niqsxm" path="res://Scripts/Classes/stat_class.gd" id="1_3d7e8"]
 [ext_resource type="Texture2D" uid="uid://tmkthfbg8j65" path="res://Assets/2D/UI/stat_armor_physical.png" id="1_i6xow"]
 
 [resource]

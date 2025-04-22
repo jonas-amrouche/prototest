@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Stat" load_steps=3 format=3 uid="uid://dxrmvq4fa1sg"]
 
 [ext_resource type="Texture2D" uid="uid://l53sbxc0tf2h" path="res://Assets/2D/UI/stat_armor_magic.png" id="1_h2qbt"]
-[ext_resource type="Script" path="res://Scripts/StatClass.gd" id="1_jenvk"]
+[ext_resource type="Script" uid="uid://bysgsh1niqsxm" path="res://Scripts/Classes/stat_class.gd" id="1_jenvk"]
 
 [resource]
 script = ExtResource("1_jenvk")

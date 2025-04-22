@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyx3pbamisavl"]
+[gd_scene load_steps=9 format=3 uid="uid://dyx3pbamisavl"]
 
-[ext_resource type="Script" path="res://Scripts/LevelHoverTip.gd" id="1_5vraw"]
+[ext_resource type="Script" uid="uid://iwi44s084b06" path="res://Scripts/level_hover_tip.gd" id="1_5vraw"]
+[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="2_6dlw1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un7te"]
 bg_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
@@ -10,21 +11,26 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_diboc"]
+font = ExtResource("2_6dlw1")
 font_color = Color(0.39327, 0.640913, 0.322547, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_oosv7"]
+font = ExtResource("2_6dlw1")
 font_size = 12
 font_color = Color(0.33123, 0.429209, 0.344766, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8gjo4"]
+font = ExtResource("2_6dlw1")
 font_size = 12
 font_color = Color(0.963876, 0.257608, 0.252901, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_e1sy5"]
+font = ExtResource("2_6dlw1")
 font_size = 12
 font_color = Color(0.740647, 0.387557, 0.81647, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cr2nj"]
+font = ExtResource("2_6dlw1")
 font_size = 12
 font_color = Color(0.443146, 0.622762, 0.14032, 1)
 

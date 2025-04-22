@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2rmvl6cqujbv"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/short_reveal.gd" id="1_cp4sx"]
+[ext_resource type="Script" uid="uid://cpsmltdp6ehn" path="res://Scripts/Abilities/short_reveal.gd" id="1_cp4sx"]
 
 [node name="ShortReveal" type="Node3D"]
 script = ExtResource("1_cp4sx")

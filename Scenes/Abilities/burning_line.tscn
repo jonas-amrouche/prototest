@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://dp6xgqckpjxe1"]
 
-[ext_resource type="Script" path="res://Scripts/Abilities/burning_line.gd" id="1_c8usx"]
+[ext_resource type="Script" uid="uid://bypftca3ttosv" path="res://Scripts/Abilities/burning_line.gd" id="1_c8usx"]
 [ext_resource type="Texture2D" uid="uid://0arsqjm6n17e" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0000.png" id="2_gue3p"]
 [ext_resource type="Texture2D" uid="uid://cilop3imwuur4" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0001.png" id="3_u8bq3"]
 [ext_resource type="Texture2D" uid="uid://pv2aypxuwwrl" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0002.png" id="4_kpb8k"]

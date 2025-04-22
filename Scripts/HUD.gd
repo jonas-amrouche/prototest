@@ -4,6 +4,7 @@ var category_selected := 0
 var item_craft_selected : Item
 var item_in_decompose
 var hover_craft_button : bool
+var auto_attack_id := 0
 
 var pre_component_hud = preload("res://Scenes/Ui/ComponentHud.tscn")
 var pre_item_hud = preload("res://Scenes/UI/ItemHud.tscn")
@@ -40,8 +41,6 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var experience_gem_container := $ExpPad/ExpContainer
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $LevelPan/LevelInd
-@onready var viewport_map_cam := $CamView/Pad/SubViewport
-@onready var small_cam_view := $CamView
 
 var item_preview
 var component_preview
@@ -55,9 +54,6 @@ func _process(_delta):
 
 func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
 	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, river_noise_tex)
-
-func update_souls() -> void:
-	souls_label.text = str(player.souls)
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
@@ -160,6 +156,8 @@ func update_abilities() -> void:
 				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
 			_new_ability_hud.ability = player.abilities[a]
 			_new_ability_hud.item = _item_link.get(player.abilities[a])
+		_new_ability_hud.is_auto_attack = a == auto_attack_id
+			
 		for i in InputMap.get_actions():
 			if i.begins_with("ability") and i.ends_with(str(a+1)):
 				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
@@ -167,6 +165,7 @@ func update_abilities() -> void:
 		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
 		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
 		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
+		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
 		ability_list.add_child(_new_ability_hud)
 
 func update_items() -> void:
@@ -210,6 +209,10 @@ func hide_ability_preview() -> void:
 	if ability_preview:
 		ability_preview.queue_free()
 		ability_preview = null
+
+func assign_auto_attack(ability_ref : Object) -> void:
+	auto_attack_id = ability_ref.get_index()
+	update_abilities()
 
 func update_components() -> void:
 	for i in component_list.get_children():

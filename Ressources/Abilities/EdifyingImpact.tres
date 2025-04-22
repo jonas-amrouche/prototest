@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://dhec1vbffd4ak"]
 
-[ext_resource type="Script" path="res://Scripts/AbilityClass.gd" id="1_nffl7"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_nffl7"]
 
 [resource]
 script = ExtResource("1_nffl7")
@@ -8,8 +8,6 @@ id = "edifying_impact"
 name = "Edifying Impact"
 description = "Deal quick damage in a small circle."
 cooldown = 0.2
-strength_cost = 0
 attack_time = 0.4
 damage_type = 0
-physical_damage_cap = 0
-magic_damage_cap = 0
+damage_cap = 0

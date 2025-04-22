@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://frf5th8n0tj2"]
 
-[ext_resource type="Script" path="res://Scripts/WardBeacon.gd" id="1_5x1fk"]
+[ext_resource type="Script" uid="uid://bc4qlsqq4m6l2" path="res://Scripts/ward_beacon.gd" id="1_5x1fk"]
 [ext_resource type="PackedScene" uid="uid://c05spsivirxsh" path="res://Scenes/Models/VisionBeacon.tscn" id="2_d1bis"]
 
 [sub_resource type="FogMaterial" id="FogMaterial_t5m51"]

@@ -7,9 +7,9 @@ var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png"
 var fog_map : Image
 const FOG_RESOLUTION = 2
 const FOG_TEXTURE_SIZE = Vector2i(int(Basics.MAP_SIZE.x), int(Basics.MAP_SIZE.y)) * FOG_RESOLUTION
-const FOG_PLAYER_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
-const FOG_BEACON_SIZE = Vector2i(10, 10) * FOG_RESOLUTION
-const FOG_BASE_SIZE = Vector2i(14, 14) * FOG_RESOLUTION
+const FOG_PLAYER_SIZE = 10 * FOG_RESOLUTION
+const FOG_BEACON_SIZE = 10 * FOG_RESOLUTION
+const FOG_BASE_SIZE = 30 * FOG_RESOLUTION
 func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	fog_map = Image.create(FOG_TEXTURE_SIZE.x, FOG_TEXTURE_SIZE.y, false, Image.FORMAT_RGBA8)
 	fog_map.fill(Color(1.0, 1.0, 1.0))
@@ -20,22 +20,21 @@ func update_map_fog() -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
 	#fog_map.fill(Color(0.0, 0.0, 0.0))
 	var _player_position = world_to_fog_position(Vector2(player.global_position.x, player.global_position.z))
-	var _ring_img = pre_circle_image.duplicate()
-	_ring_img.resize(FOG_PLAYER_SIZE.x, FOG_PLAYER_SIZE.y, Image.INTERPOLATE_NEAREST)
-	fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _player_position - _ring_img.get_size()/2)
+	var _player_circle = get_circle(FOG_PLAYER_SIZE)
+	fog_map.blend_rect(_player_circle, _player_circle.get_used_rect(), _player_position - _player_circle.get_size()/2)
 	for i in player.world.bases:
-		var _base_pos = Vector2(i.position.x + (FOG_BASE_SIZE.x/2.0 * min(0.0, sign(i.position.x))), i.position.z + (FOG_BASE_SIZE.y/2.0 * -max(0.0, sign(i.position.x))))
-		fog_map.fill_rect(Rect2i(world_to_fog_position(_base_pos), FOG_BASE_SIZE), Color(0.0, 0.0, 0.0))
-	
+		var _base_pos = world_to_fog_position(Vector2i(i.position.x, i.position.z))
+		var _base_circle = get_circle(FOG_BASE_SIZE)
+		fog_map.blend_rect(_base_circle, _base_circle.get_used_rect(), _base_pos - _base_circle.get_size()/2)
 	for i in player.world.beacons.get_children():
 		var _beacon_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
-		_ring_img.resize(FOG_BEACON_SIZE.x, FOG_BEACON_SIZE.y, Image.INTERPOLATE_NEAREST)
-		fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _beacon_position - _ring_img.get_size()/2)
+		var _beacon_circle = get_circle(FOG_BEACON_SIZE)
+		fog_map.blend_rect(_beacon_circle, _beacon_circle.get_used_rect(), _beacon_position - _beacon_circle.get_size()/2)
 	
 	for i in player.world.temp_vision.get_children():
 		var _temp_vision_position = world_to_fog_position(Vector2(i.global_position.x, i.global_position.z))
-		_ring_img.resize(i.radius, i.radius, Image.INTERPOLATE_NEAREST)
-		fog_map.blend_rect(_ring_img, _ring_img.get_used_rect(), _temp_vision_position - _ring_img.get_size()/2)
+		var _temp_vision_circle = get_circle(i.radius)
+		fog_map.blend_rect(_temp_vision_circle, _temp_vision_circle.get_used_rect(), _temp_vision_position - _temp_vision_circle.get_size()/2)
 	
 	player.hud.mini_map.update_fog_display(fog_map, player.global_position)
 	
@@ -46,6 +45,11 @@ func update_map_fog() -> void:
 	
 	# Send vision map to map script to manage entities visibility
 	player.world.vision_update(self, fog_map)
+
+func get_circle(size : float, resize_filter : Image.Interpolation = Image.INTERPOLATE_NEAREST) -> Image:
+	var _ring_img = pre_circle_image.duplicate()
+	_ring_img.resize(size, size, resize_filter)
+	return _ring_img
 
 func has_vision(pos : Vector2i) -> bool:
 	

@@ -1,20 +1,22 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=6 format=3 uid="uid://cc07448smpmar"]
+[gd_resource type="Resource" script_class="Monster" load_steps=8 format=3 uid="uid://cc07448smpmar"]
 
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_ecf7p"]
 [ext_resource type="PackedScene" uid="uid://x2llddu5ppon" path="res://Scenes/Models/OmniscientGolemModel.tscn" id="1_hujs5"]
 [ext_resource type="Resource" uid="uid://brfkpe863kyw4" path="res://Ressources/Abilities/StonePounding.tres" id="1_lcofg"]
 [ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="1_ydtuy"]
-[ext_resource type="Script" path="res://Scripts/MonsterClass.gd" id="2_5aff5"]
+[ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="2_5aff5"]
 [ext_resource type="Resource" uid="uid://dhsemaa7p2rt0" path="res://Ressources/Components/GolemFragment.tres" id="2_w0gid"]
+[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_ik10l"]
 
 [resource]
 script = ExtResource("2_5aff5")
 id = "omniscient_golem"
 name = "Omniscient Golem"
 monster_model = ExtResource("1_hujs5")
-drop_components = Array[Resource("res://Scripts/ComponentClass.gd")]([ExtResource("1_ydtuy"), ExtResource("2_w0gid")])
+drop_components = Array[ExtResource("3_ik10l")]([ExtResource("1_ydtuy"), ExtResource("2_w0gid")])
 drop_quantities = PackedInt32Array(2, 3)
 experience_drop = 1
-abilities = Array[Resource("res://Scripts/AbilityClass.gd")]([ExtResource("1_lcofg")])
+abilities = Array[ExtResource("1_ecf7p")]([ExtResource("1_lcofg")])
 aggro = false
 aggro_range = 4.0
 roam = false

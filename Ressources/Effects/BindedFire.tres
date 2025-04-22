@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Effect" load_steps=3 format=3 uid="uid://c7jc4iatf2heb"]
 
-[ext_resource type="Script" path="res://Scripts/EffectClass.gd" id="1_badmi"]
+[ext_resource type="Script" uid="uid://b12jipn3ybbcr" path="res://Scripts/effect_class.gd" id="1_badmi"]
 [ext_resource type="Texture2D" uid="uid://dhrpqas71jg4w" path="res://Assets/2D/AbilitySheets/BurningLine/burning_line_0020.png" id="1_e33lj"]
 
 [resource]
