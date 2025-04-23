@@ -14,7 +14,7 @@ id = "vision_staff"
 name = "Vision Staff"
 description = "A cool stick giving you short range vision."
 icon = ExtResource("5_wptx0")
-rarity = 0
+rarity = 2
 craft_recipe = {
 ExtResource("2_16frl"): 1,
 ExtResource("3_qxwdw"): 2

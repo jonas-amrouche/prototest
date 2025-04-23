@@ -41,7 +41,7 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
 @onready var experience_gem_container := $ExpPad/ExpContainer
 @onready var effect_container := $EffectPad/EffectContainer
-@onready var level_label_hud := $LevelPan/LevelInd
+@onready var level_label_hud := $ActionPanel/LevelInd
 
 var item_preview
 var component_preview
@@ -66,8 +66,9 @@ func update_info_bars() -> void:
 	for i in experience_gem_container.get_children():
 		i.free()
 	
-	for i in range(player.max_experience):
+	for i in range(16):
 		var new_xp_gem = pre_xp_gem_hud.instantiate()
+		new_xp_gem.material.set_shader_parameter("enabled", i < player.max_experience)
 		new_xp_gem.material.set_shader_parameter("filled", player.experience > i)
 		experience_gem_container.add_child(new_xp_gem)
 

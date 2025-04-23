@@ -16,7 +16,7 @@ id = "hunter_machete"
 name = "Hunter's Machete"
 description = "It starts like that in the jungle."
 icon = ExtResource("1_skpvv")
-rarity = 0
+rarity = 1
 mesh_model = ExtResource("2_fl4s8")
 craft_recipe = {
 ExtResource("2_q0swd"): 1,

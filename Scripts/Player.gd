@@ -51,6 +51,7 @@ var can_move := true
 
 @onready var world := get_node("..")
 @onready var camera := $Camera
+@onready var outline_camera := $Outline/OutlineVP/Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
 @onready var recall_visual := $RecallVisual
@@ -78,6 +79,7 @@ func _ready():
 	obtain_component(preload("res://Ressources/Components/FloatingMatter.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/UnstableCore.tres"), 3)
 	obtain_component(preload("res://Ressources/Components/ExplosiveStone.tres"), 3)
+	obtain_item(preload("res://Ressources/Items/recall_blob.tres"))
 	obtain_item(preload("res://Ressources/Items/hunter_machette.tres"))
 	obtain_item(preload("res://Ressources/Items/misfortune_broadsword.tres"))
 	obtain_item(preload("res://Ressources/Items/stone_arquebus.tres"))
@@ -101,36 +103,32 @@ func _process(delta):
 	update_camera_position()
 	update_direction()
 	check_for_target()
-
-func hover_target() -> void:
-	print("hover_target")
-	hide()
-
-func stop_hovering_target() -> void:
-	print("stop_hover_target")
-	show()
-
-func select_target() -> void:
-	print("select_target")
-	show()
-
-func lose_target() -> void:
-	print("lose_target")
-	show()
+	
+	outline_camera.global_transform = camera.global_transform
 
 var hovered_target : Object
 var selected_target : Object
 func check_for_target() -> void:
 	var _result = target_raycast()
 	if _result.is_empty():
+		if hovered_target == selected_target: return
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
 		hovered_target = null
+		DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.NORMAL])
 	else:
 		if _result.get("collider") == self: return
+		if hovered_target and hovered_target != selected_target and hovered_target.has_method("stop_hovering_target"):
+			hovered_target.stop_hovering_target()
 		hovered_target = _result.get("collider")
 		if hovered_target.has_method("hover_target"):
 			hovered_target.hover_target()
+		if hovered_target.is_dead():
+			DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.LOOT])
+			#TODO CURSOR NOT UPDATED WHEN KILLING, WHEN SELECTING AND DESELECTION
+		else:
+			DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.ATTACK])
+			
 
 const RAY_LENGTH := 100.0
 func target_raycast() -> Dictionary:
@@ -196,6 +194,8 @@ func _unhandled_input(event) -> void:
 				selected_target = null
 			else:
 				if _result.get("collider") == self: return
+				if selected_target and selected_target.has_method("lose_target"):
+					selected_target.lose_target()
 				selected_target = _result.get("collider")
 				if selected_target.has_method("select_target"):
 					selected_target.select_target()

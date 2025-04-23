@@ -1,20 +1,20 @@
-[gd_scene load_steps=74 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=72 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
 [ext_resource type="PackedScene" uid="uid://dmsot177joet6" path="res://Scenes/UI/experience_gem.tscn" id="2_j4ssy"]
 [ext_resource type="Shader" uid="uid://b6om6yu2stsmg" path="res://Ressources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
-[ext_resource type="PackedScene" uid="uid://k5hwxx3mfhp6" path="res://Scenes/UI/component_hud.tscn" id="3_rlkqk"]
 [ext_resource type="Texture2D" uid="uid://cx6f1ycmvqilj" path="res://Assets/2D/Shaders/gem_texture_ui.png" id="4_4sp2n"]
 [ext_resource type="Texture2D" uid="uid://c0m4who6u83m7" path="res://Assets/2D/UI/exp_shine.png" id="5_0cch0"]
 [ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="6_fbb48"]
+[ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 [ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="7_hhtw7"]
-[ext_resource type="Texture2D" uid="uid://c0q3dl1ybm5ev" path="res://Assets/2D/UI/lol_action_bar.png" id="7_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
 [ext_resource type="FontFile" uid="uid://d4e2auspm7orw" path="res://Assets/Fonts/TechnaSans-Regular.otf" id="9_w5mne"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
+[ext_resource type="Texture2D" uid="uid://b4c3huk8ufojl" path="res://Assets/2D/Items/mana_ball_v2.png" id="11_ssfue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhtw7"]
 bg_color = Color(0, 0, 0, 1)
@@ -22,29 +22,10 @@ border_width_top = 1945
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
-bg_color = Color(0, 0, 0, 0.423529)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 0.211765)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_offset = Vector2(0, 2)
-anti_aliasing = false
-
-[sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
-font = ExtResource("9_w5mne")
-font_size = 25
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -55,6 +36,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oy6ci"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -65,6 +47,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gw64n"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -75,6 +58,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ux5"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -85,6 +69,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uflcv"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -95,6 +80,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5uhqk"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -105,6 +91,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s5hrv"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -115,6 +102,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d1bji"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -125,6 +113,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7pnvm"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -135,6 +124,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gxkxr"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -145,6 +135,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abb43"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -155,6 +146,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n3vcj"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -165,6 +157,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k8u7u"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -175,6 +168,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nlega"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -185,6 +179,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ub0o4"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -195,6 +190,7 @@ shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2bbpm"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
+shader_parameter/enabled = false
 shader_parameter/filled = true
 shader_parameter/noise1 = ExtResource("4_4sp2n")
 shader_parameter/decay = 0.0
@@ -202,8 +198,19 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_8bf2m"]
+font = ExtResource("10_xuldq")
+font_size = 30
+font_color = Color(0.512742, 0.835049, 0.964941, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 0.556863)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbb48"]
 bg_color = Color(0.0144486, 0.01589, 0.00248296, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
@@ -226,6 +233,36 @@ border_color = Color(0.125911, 0.125911, 0.125911, 1)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
 texture = ExtResource("7_hhtw7")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssfue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtju"]
+bg_color = Color(0.398888, 0.000484629, 0.495384, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
+font = ExtResource("9_w5mne")
+font_size = 17
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqqyi"]
+bg_color = Color(0, 0, 0, 0.423529)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 0.211765)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_offset = Vector2(0, 2)
+anti_aliasing = false
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bf2m"]
 bg_color = Color(0.1078, 0.12229, 0.14, 1)
 border_width_left = 3
@@ -233,10 +270,10 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.1281, 0.16086, 0.21, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba8gd"]
 bg_color = Color(0.1512, 0.37604, 0.56, 1)
@@ -245,14 +282,14 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.13, 0.416, 0.65, 0)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ssfue"]
 font = ExtResource("10_xuldq")
-font_size = 12
+font_size = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
 bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
@@ -315,47 +352,8 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xl32f"]
-resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jluv6"]
-resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3t882"]
-resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4rr5"]
-resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5noq"]
-resource_local_to_scene = true
-bg_color = Color(0.12, 0.12, 0.12, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
+font = ExtResource("10_xuldq")
 font_size = 25
 font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
 
@@ -427,7 +425,7 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
 
-[node name="EffectPanel" type="Panel" parent="."]
+[node name="EffectsPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -442,39 +440,15 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hhtw7")
 
-[node name="LevelPan" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -303.0
-offset_top = 877.0
-offset_right = -246.0
-offset_bottom = 920.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oqqyi")
-
-[node name="LevelInd" type="Label" parent="LevelPan"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "1"
-label_settings = SubResource("LabelSettings_blu1a")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
 [node name="ExpPad" type="MarginContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 718.0
 offset_top = 881.0
-offset_right = -650.0
+offset_right = -657.0
 offset_bottom = 919.0
 grow_horizontal = 2
 size_flags_vertical = 8
@@ -576,6 +550,32 @@ size_flags_vertical = 8
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1333.0
+offset_top = 1014.0
+offset_right = 1402.0
+offset_bottom = 1083.0
+texture = ExtResource("11_ssfue")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TextureRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "B"
+label_settings = SubResource("LabelSettings_8bf2m")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="ActionPanel" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -583,14 +583,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -372.5
-offset_top = -151.0
-offset_right = 372.5
+offset_left = -649.0
+offset_top = -254.0
+offset_right = 649.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-texture = ExtResource("7_ssfue")
+texture = ExtResource("6_ssfue")
 expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [node name="BarContainer" type="PanelContainer" parent="ActionPanel"]
 layout_mode = 1
@@ -598,9 +600,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.5
-offset_top = 97.0
+offset_top = 221.0
 offset_right = 292.5
-offset_bottom = 115.0
+offset_bottom = 239.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
@@ -633,14 +635,15 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="BarContainer2" type="PanelContainer" parent="ActionPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.5
-offset_top = 118.0
+offset_top = 222.0
 offset_right = 292.5
-offset_bottom = 132.0
+offset_bottom = 236.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
@@ -673,9 +676,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -296.5
-offset_top = -126.0
+offset_top = -103.0
 offset_right = 296.5
-offset_bottom = -61.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -697,6 +700,53 @@ metadata/_edit_lock_ = true
 [node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad"]
 layout_mode = 2
 metadata/_edit_lock_ = true
+
+[node name="ExpBar" type="ProgressBar" parent="ActionPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -313.0
+offset_top = 137.0
+offset_right = 313.0
+offset_bottom = 142.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ssfue")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pbtju")
+value = 29.49
+show_percentage = false
+
+[node name="LevelInd" type="Label" parent="ActionPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.0
+offset_top = 117.0
+offset_right = 31.0
+offset_bottom = 135.0
+grow_horizontal = 2
+text = "1"
+label_settings = SubResource("LabelSettings_blu1a")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelPan" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -28.5
+offset_top = -176.0
+offset_right = 28.5
+offset_bottom = -133.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqqyi")
 
 [node name="ChannelingBar" type="ProgressBar" parent="."]
 visible = false
@@ -720,11 +770,14 @@ show_percentage = false
 
 [node name="ChannelingLabel" type="Label" parent="ChannelingBar"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -273.5
+offset_top = -21.0
+offset_right = 273.5
+offset_bottom = -2.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "Recall"
 label_settings = SubResource("LabelSettings_ssfue")
 horizontal_alignment = 1
@@ -1422,7 +1475,8 @@ offset_bottom = 1067.0
 mouse_filter = 2
 color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
 
-[node name="Craft" type="Panel" parent="."]
+[node name="CraftChar" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(249, 88)
 layout_mode = 2
 anchor_top = 1.0
@@ -1434,7 +1488,7 @@ offset_bottom = -166.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
 
-[node name="Pad" type="MarginContainer" parent="Craft"]
+[node name="Pad" type="MarginContainer" parent="CraftChar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1447,58 +1501,37 @@ theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 metadata/_edit_lock_ = true
 
-[node name="CraftSteps" type="HBoxContainer" parent="Craft/Pad"]
+[node name="CraftSteps" type="HBoxContainer" parent="CraftChar/Pad"]
 layout_mode = 2
 theme_override_constants/separation = 5
 metadata/_edit_lock_ = true
 
-[node name="Materials" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+[node name="Materials" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="ComponentHud" parent="Craft/Pad/CraftSteps/Materials" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xl32f")
-
-[node name="Substance" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+[node name="Substance" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="ComponentHud2" parent="Craft/Pad/CraftSteps/Substance" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jluv6")
-
-[node name="Catalyzer" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+[node name="Catalyzer" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="ComponentHud3" parent="Craft/Pad/CraftSteps/Catalyzer" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3t882")
-
-[node name="Enchantment" type="VBoxContainer" parent="Craft/Pad/CraftSteps"]
+[node name="Enchantment" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="ComponentHud4" parent="Craft/Pad/CraftSteps/Enchantment" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o4rr5")
-
-[node name="ColorRect" type="TextureRect" parent="Craft/Pad/CraftSteps"]
+[node name="ColorRect" type="TextureRect" parent="CraftChar/Pad/CraftSteps"]
 custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 
-[node name="ComponentHud14" parent="Craft/Pad/CraftSteps" instance=ExtResource("3_rlkqk")]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_r5noq")
-
-[node name="Bind" type="HBoxContainer" parent="Craft/Pad"]
+[node name="Bind" type="HBoxContainer" parent="CraftChar/Pad"]
 layout_mode = 2
 theme_override_constants/separation = 5
 metadata/_edit_lock_ = true
 
-[node name="1" type="Label" parent="Craft/Pad/Bind"]
+[node name="1" type="Label" parent="CraftChar/Pad/Bind"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "1"
@@ -1506,7 +1539,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="2" type="Label" parent="Craft/Pad/Bind"]
+[node name="2" type="Label" parent="CraftChar/Pad/Bind"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "2"
@@ -1514,7 +1547,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="3" type="Label" parent="Craft/Pad/Bind"]
+[node name="3" type="Label" parent="CraftChar/Pad/Bind"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "3"
@@ -1522,7 +1555,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="4" type="Label" parent="Craft/Pad/Bind"]
+[node name="4" type="Label" parent="CraftChar/Pad/Bind"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "4"
@@ -1530,7 +1563,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="Craft"]
+[node name="ColorRect" type="ColorRect" parent="CraftChar"]
 visible = false
 layout_mode = 0
 offset_left = 15.0
@@ -1539,7 +1572,7 @@ offset_right = 39.0
 offset_bottom = -4.0
 color = Color(0.489583, 0.297306, 0.140627, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="Craft"]
+[node name="ColorRect2" type="ColorRect" parent="CraftChar"]
 visible = false
 layout_mode = 0
 offset_left = 65.0
@@ -1548,7 +1581,7 @@ offset_right = 89.0
 offset_bottom = -4.0
 color = Color(0.249837, 0.337389, 0.489583, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="Craft"]
+[node name="ColorRect3" type="ColorRect" parent="CraftChar"]
 visible = false
 layout_mode = 0
 offset_left = 115.0
@@ -1557,7 +1590,94 @@ offset_right = 139.0
 offset_bottom = -4.0
 color = Color(0.489583, 0.149153, 0.198037, 1)
 
-[node name="ColorRect4" type="ColorRect" parent="Craft"]
+[node name="ColorRect4" type="ColorRect" parent="CraftChar"]
+visible = false
+layout_mode = 0
+offset_left = 165.0
+offset_top = -28.0
+offset_right = 189.0
+offset_bottom = -4.0
+color = Color(0.481053, 0.188391, 0.489583, 1)
+
+[node name="CraftCombine" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(249, 88)
+layout_mode = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -254.0
+offset_right = 299.0
+offset_bottom = -166.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
+
+[node name="Pad" type="MarginContainer" parent="CraftCombine"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="CraftSteps" type="MarginContainer" parent="CraftCombine/Pad"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+metadata/_edit_lock_ = true
+
+[node name="CraftComps" type="HBoxContainer" parent="CraftCombine/Pad/CraftSteps"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 5
+metadata/_edit_lock_ = true
+
+[node name="CraftResult" type="PanelContainer" parent="CraftCombine/Pad/CraftSteps"]
+layout_mode = 2
+size_flags_horizontal = 8
+metadata/_edit_lock_ = true
+
+[node name="Visuals" type="Label" parent="CraftCombine/Pad"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+text = "              +             ="
+label_settings = SubResource("LabelSettings_rr6i0")
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CraftCombine"]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = -28.0
+offset_right = 39.0
+offset_bottom = -4.0
+color = Color(0.489583, 0.297306, 0.140627, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CraftCombine"]
+visible = false
+layout_mode = 0
+offset_left = 65.0
+offset_top = -28.0
+offset_right = 89.0
+offset_bottom = -4.0
+color = Color(0.249837, 0.337389, 0.489583, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CraftCombine"]
+visible = false
+layout_mode = 0
+offset_left = 115.0
+offset_top = -28.0
+offset_right = 139.0
+offset_bottom = -4.0
+color = Color(0.489583, 0.149153, 0.198037, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="CraftCombine"]
 visible = false
 layout_mode = 0
 offset_left = 165.0

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dwvgl7ffg55nq"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_3bqtd"]
+[ext_resource type="Resource" uid="uid://dk8cvgldithxm" path="res://Ressources/Abilities/Recall.tres" id="2_2vhui"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="3_mnx74"]
+[ext_resource type="Resource" uid="uid://b00w1767dex2p" path="res://Ressources/Components/FloatingMatter.tres" id="4_3bqtd"]
+[ext_resource type="Texture2D" uid="uid://b4c3huk8ufojl" path="res://Assets/2D/Items/mana_ball_v2.png" id="5_mnx74"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="7_ec0bm"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="9_fbxwb"]
+
+[resource]
+script = ExtResource("9_fbxwb")
+id = "recall_blob"
+name = "Recall Blob"
+description = "Take a bite to return to your statue."
+icon = ExtResource("5_mnx74")
+rarity = 1
+craft_recipe = {
+ExtResource("3_mnx74"): 1,
+ExtResource("4_3bqtd"): 3
+}
+abilities = Array[ExtResource("1_3bqtd")]([ExtResource("2_2vhui")])
+passives = Array[ExtResource("7_ec0bm")]([])
+stats = {}

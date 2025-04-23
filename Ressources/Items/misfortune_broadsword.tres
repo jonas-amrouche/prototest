@@ -13,7 +13,7 @@ id = "misfortune_broadsword"
 name = "Misfortune Broadsword"
 description = "Forgotten aspirants sword"
 icon = ExtResource("4_dwhi6")
-rarity = 1
+rarity = 2
 craft_recipe = {
 ExtResource("3_q24h4"): 3
 }

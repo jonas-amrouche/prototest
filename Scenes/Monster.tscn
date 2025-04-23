@@ -25,7 +25,8 @@ script = ExtResource("1_ujuxu")
 shape = SubResource("CylinderShape3D_mfdxe")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
-path_desired_distance = 1.2
+target_desired_distance = 1.5
+height = 1.5
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

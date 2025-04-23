@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://dk8cvgldithxm"]
+
+[ext_resource type="Texture2D" uid="uid://ctbd6nif1a0q1" path="res://Assets/2D/UI/recall_spell_v1.png" id="1_3pylj"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="2_jg0ha"]
+
+[resource]
+script = ExtResource("2_jg0ha")
+id = "recall"
+name = "Recall"
+description = "[color=aqua]Call your statue for your return.[/color]"
+icon = ExtResource("1_3pylj")
+cooldown = 22.0
+attack_time = 0.3
+channeling = true
+damage_type = 0
+damage_cap = 0

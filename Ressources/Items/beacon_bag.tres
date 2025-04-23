@@ -15,7 +15,7 @@ id = "beacon_bag"
 name = "Beacon Bag"
 description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
 icon = ExtResource("6_iec7m")
-rarity = 1
+rarity = 2
 craft_recipe = {
 ExtResource("3_okp5e"): 3,
 ExtResource("4_dxuf5"): 2,

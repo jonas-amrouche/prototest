@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var manager = get_node("..")
 
-var pre_temp_vision = preload("res://Scenes/Props/temp_vision.tscn")
+var pre_temp_vision = preload("res://Scenes/Systems/temp_vision.tscn")
 var temp_visions_list : Array[Object]
 var in_ability : bool
 
@@ -44,6 +44,7 @@ func release(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR
 		manager.in_animation = false
 		manager.unblock_player_position(ability_dealer)
 		manager.start_ability_cooldown(ability)
+		manager.entity.stop_channeling()
 		for i in temp_visions_list:
 			i.queue_free()
 		queue_free()

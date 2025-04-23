@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://o8wpc1anmw73" path="res://Ressources/Materials/PBR/Stone2.tres" id="2_tf2ad"]
 [ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="3_cm8e1"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="4_lh7xk"]
-[ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Ressources/Materials/TechArt/SmallFire.tres" id="5_rg6x1"]
+[ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Ressources/Materials/TechArt/small_fire.tres" id="5_rg6x1"]
 [ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Ressources/Materials/PBR/DarkRope1.tres" id="6_3i87q"]
 
 [node name="TribalPillarTorch" instance=ExtResource("1_wnbpt")]

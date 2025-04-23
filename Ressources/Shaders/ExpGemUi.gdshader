@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform bool enabled = false;
 uniform bool filled = false;
 uniform sampler2D noise1 : repeat_enable;
 uniform float decay;
@@ -13,8 +14,10 @@ void fragment() {
 		COLOR *= texture(noise1, UV*0.1 + (vec2(0.01, -0.015) * (TIME + decay))) * color1 * 1.0;
 		COLOR /= texture(noise1, UV*0.1 + (vec2(-0.012, 0.01) * (TIME + decay))) * color2 * 1.0;
 		//COLOR /= 1.0 * texture(noise2, UV*0.2 + (vec2(-0.01, 0.02) * TIME)) * color2;
-	}else{
+	}else if (enabled){
 		COLOR = min(COLOR * 2.0, vec4(1.0));
 		COLOR *= vec4(vec3(0.1), 0.9);
+	}else{
+		COLOR = COLOR * vec4(0.05, 0.05, 0.05, 0.5);
 	}
 }

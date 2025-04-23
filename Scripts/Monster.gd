@@ -45,6 +45,9 @@ func _ready():
 	agro_collision.shape.set("radius", monster.aggro_range)
 	default_point = global_position
 	monster_model = monster.monster_model.instantiate()
+	for c in monster_model.get_children():
+		if c.is_class("MeshInstance3D"):
+			c.layers = 3
 	add_child(monster_model)
 	monster_model.rotation.y = randf() * PI * 2.0
 	level_label.text = str(level)
@@ -59,20 +62,24 @@ func remove_effect(effect : Effect) -> void:
 	effect_machine.destroy_effect(effect)
 
 func hover_target() -> void:
-	print("hover_target")
-	hide()
+	for c in monster_model.get_children():
+		if c.is_class("MeshInstance3D"):
+			c.layers = pow(2, 3-1) + pow(2, 7-1) # Set layers to keep monster and add outline layer
 
 func stop_hovering_target() -> void:
-	print("stop_hover_target")
-	show()
+	for c in monster_model.get_children():
+		if c.is_class("MeshInstance3D"):
+			c.layers = 3
 
 func select_target() -> void:
-	print("select_target")
-	show()
+	for c in monster_model.get_children():
+		if c.is_class("MeshInstance3D"):
+			c.layers = pow(2, 3-1) + pow(2, 7-1) # Set layers to keep monster and add outline layer
 
 func lose_target() -> void:
-	print("lose_target")
-	show()
+	for c in monster_model.get_children():
+		if c.is_class("MeshInstance3D"):
+			c.layers = 3
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	if is_dead():
@@ -109,7 +116,6 @@ func gain_experience(_experience : float) -> void:
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
-	monster_collision.disabled = true
 	for i in range(monster.drop_components.size()):
 		var _new_component_ground = pre_component_drop.instantiate()
 		var _vector_drop = Vector3.FORWARD.rotated(Vector3.UP, randf_range(-PI, PI)) * DROP_VECTOR_LENGTH
@@ -119,8 +125,8 @@ func die() -> void:
 		world.components.add_child(_new_component_ground)
 	set_physics_process(false)
 	camp.monster_died()
-	get_tree().create_timer(1.0).timeout.connect(Callable(func():
-		queue_free()))
+	#get_tree().create_timer(120.0).timeout.connect(Callable(func():
+		#queue_free()))
 
 func _physics_process(_delta) -> void:
 	update_direction()

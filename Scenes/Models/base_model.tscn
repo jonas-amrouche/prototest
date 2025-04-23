@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dh6758cu5qfq1" path="res://Assets/2D/PBR/dirt_v1.png" id="5_8bo6q"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Ressources/Materials/PBR/Metal2.tres" id="5_fcq0b"]
 [ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Ressources/Materials/PBR/DarkRope1.tres" id="8_pn6ex"]
-[ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Ressources/Materials/TechArt/SmallFire.tres" id="9_5wwe4"]
+[ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Ressources/Materials/TechArt/small_fire.tres" id="9_5wwe4"]
 
 [sub_resource type="Gradient" id="Gradient_bjoqs"]
 
@@ -52,13 +52,13 @@ albedo_color = Color(0.0594087, 0.0876395, 0.140625, 1)
 [node name="BaseModel" instance=ExtResource("1_6fxvf")]
 
 [node name="BaseCamp" parent="." index="0"]
-layers = 4
+layers = 8
 surface_material_override/0 = ExtResource("2_tlt1n")
 surface_material_override/1 = SubResource("ShaderMaterial_bjoqs")
 surface_material_override/2 = SubResource("StandardMaterial3D_jergw")
 
 [node name="BaseCampFurnitures" parent="." index="1"]
-layers = 4
+layers = 8
 surface_material_override/0 = ExtResource("3_tdck8")
 surface_material_override/1 = ExtResource("3_4m88m")
 surface_material_override/2 = ExtResource("4_qblyy")

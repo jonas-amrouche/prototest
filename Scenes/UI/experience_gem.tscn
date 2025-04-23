@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmsot177joet6"]
 
-[ext_resource type="Material" uid="uid://kruxqw4idyb2" path="res://Ressources/Materials/TechArt/ExperienceGemUi.tres" id="1_7g626"]
+[ext_resource type="Material" uid="uid://kruxqw4idyb2" path="res://Ressources/Materials/TechArt/experience_gem_ui.tres" id="1_7g626"]
 [ext_resource type="Texture2D" uid="uid://dsqwq43i0pd14" path="res://Assets/2D/UI/exp_icon.png" id="2_i0pu0"]
 
 [node name="Gem" type="TextureRect"]

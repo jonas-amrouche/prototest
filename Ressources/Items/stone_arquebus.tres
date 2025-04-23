@@ -15,7 +15,7 @@ id = "stone_arquebus"
 name = "Stone Arquebus"
 description = "Not very usefull but at least it's hard to miss."
 icon = ExtResource("5_ike2q")
-rarity = 1
+rarity = 2
 craft_recipe = {
 ExtResource("3_mlkmu"): 3,
 ExtResource("4_ysfse"): 2,

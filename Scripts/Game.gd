@@ -53,7 +53,7 @@ func map_generation() -> void:
 	generate_mid_arena()
 	mirror_points()
 	#generate_collisions() //
-	#generate_decoration()
+	generate_decoration()
 	generate_forest()
 	generate_camps()
 	#generate_structures()
@@ -74,7 +74,7 @@ var paths_points_list : Array[PackedVector2Array]
 const LANE_POINTS = 8
 const LANE_RESOLUTION = 1.0
 func generate_lanes() -> void:
-	for l in range(1, 2):
+	for l in range(0, 3):
 		for lp in range(LANE_POINTS):
 			var _first_base_pos = bases[0].get_node("PathStarts").get_node(str(l+1)).global_position
 			var _second_base_pos = bases[1].get_node("PathStarts").get_node(str(abs(l-3))).global_position

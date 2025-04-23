@@ -9,6 +9,10 @@ var in_animation : bool
 @onready var entity = get_node("..") # It can either be a player or a monster
 
 func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
+	var _path = "res://Scenes/Abilities/" + ability.id + ".tscn"
+	if !ResourceLoader.exists(_path):
+		push_warning("RESOURCE ABILITY DON'T EXIST")
+		return Basics.ABILITY_ERROR.SCRIPT_ERROR
 	var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
 	add_child(_new_ability)
 	_new_ability.rotation = Vector3()

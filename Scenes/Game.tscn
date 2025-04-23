@@ -1,12 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://jqgpx158nqee"]
+[gd_scene load_steps=18 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" uid="uid://dgad4akf3ced1" path="res://Scripts/game.gd" id="1_1l0tm"]
 [ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Ressources/Materials/PBR/Grass1.tres" id="2_v158k"]
-[ext_resource type="Material" uid="uid://bpu24nurmm7wb" path="res://Ressources/Materials/TechArt/Rivers.tres" id="3_h4fw4"]
+[ext_resource type="Material" uid="uid://bpu24nurmm7wb" path="res://Ressources/Materials/TechArt/rivers.tres" id="3_h4fw4"]
 [ext_resource type="ArrayMesh" uid="uid://ch1ywa5soxgd0" path="res://Ressources/Meshs/TorturedTree.tres" id="4_ldgsr"]
-[ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Ressources/Materials/TechArt/FogPass.tres" id="5_o5yvi"]
+[ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Ressources/Materials/TechArt/fog_pass.tres" id="5_o5yvi"]
 [ext_resource type="PackedScene" uid="uid://cev1a22ek6uvs" path="res://Scenes/Models/mount_sides_model.tscn" id="6_rku1e"]
 [ext_resource type="AudioStream" uid="uid://ds3mra2gs5ff" path="res://Assets/Audio/temp_sum_rift_music.ogg" id="7_rfjv2"]
+[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="8_v158k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
 sky_top_color = Color(0.289323, 0.449742, 0.52032, 1)
@@ -22,7 +23,6 @@ sky_material = SubResource("ProceduralSkyMaterial_iie7f")
 [sub_resource type="Environment" id="Environment_ajjs0"]
 background_mode = 1
 background_color = Color(0.75, 0.866667, 1, 1)
-background_energy_multiplier = 0.9
 sky = SubResource("Sky_hsrs7")
 tonemap_mode = 3
 ssao_radius = 1.2
@@ -100,10 +100,9 @@ multimesh = SubResource("MultiMesh_foaus")
 navigation_mesh = SubResource("NavigationMesh_p5o78")
 
 [node name="GroundBody" type="StaticBody3D" parent="NavMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.77369, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="NavMesh/GroundBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.227139, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_cosj4")
 
 [node name="TreesBody" type="StaticBody3D" parent="NavMesh"]
@@ -122,7 +121,6 @@ collision_mask = 8
 [node name="Components" type="Node3D" parent="."]
 
 [node name="FogPlane" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("PlaneMesh_20jko")
 
 [node name="MountSides" parent="." instance=ExtResource("6_rku1e")]
@@ -133,3 +131,5 @@ visible = false
 stream = ExtResource("7_rfjv2")
 volume_db = -15.0
 autoplay = true
+
+[node name="WiseMage" parent="." instance=ExtResource("8_v158k")]

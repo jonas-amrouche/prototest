@@ -16,7 +16,7 @@ id = "incandescent_book"
 name = "Incandescent Book"
 description = "An ancient tome of orange spells, perpetually ablaze since an [i]unknown[/i] wizard enchanted it."
 icon = ExtResource("7_6mym6")
-rarity = 2
+rarity = 3
 craft_recipe = {
 ExtResource("4_3xtfr"): 2,
 ExtResource("5_8xdmd"): 1,
