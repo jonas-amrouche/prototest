@@ -1,5 +1,7 @@
 extends Node3D
 
+var ad : AbilityData
+
 @onready var visual = $Visual
 @onready var collision = $Area
 @onready var manager = get_node("..")
@@ -7,27 +9,21 @@ extends Node3D
 @onready var fire_anim_angle_1 = $Visual/FireAngle1
 @onready var fire_anim_angle_2 = $Visual/FireAngle2
 
-func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
-	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
-		if !ability_dealer.is_dead():
-			manager.look_at_cursor()
-			manager.in_animation = true
-			fire_anim.play("fire")
-			fire_anim_angle_1.play("fire")
-			fire_anim_angle_2.play("fire")
-			manager.block_player_position(ability_dealer)
-			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
-				for p in collision.get_overlapping_bodies():
-					if p != ability_dealer:
-						p.take_damage(min(ability_dealer.stats.physical_damage, ability.damage_cap), 0, ability_dealer)
-				manager.in_animation = false
-				manager.unblock_player_position(ability_dealer)
-				manager.start_ability_cooldown(ability)
-				get_tree().create_timer(0.15).timeout.connect(Callable(func():
-					queue_free()))))
-			return Basics.ABILITY_ERROR.OK
-		else:
-			queue_free()
-			return Basics.ABILITY_ERROR.UNAVAILABLE
-	queue_free()
-	return Basics.ABILITY_ERROR.IN_COOLDOWN
+func press() -> Basics.ABILITY_ERROR:
+	manager.look_at_cursor()
+	manager.in_casting = true
+	fire_anim.play("fire")
+	fire_anim_angle_1.play("fire")
+	fire_anim_angle_2.play("fire")
+	manager.disable_player_movement(ad.ability_dealer)
+	get_tree().create_timer(ad.ability.action_time).timeout.connect(func():
+		for p in collision.get_overlapping_bodies():
+			if p != ad.ability_dealer:
+				p.take_damage(min(ad.ability_dealer.stats.physical_damage, ad.ability.damage_cap), 0, ad.ability_dealer)
+		manager.in_casting = false
+		manager.enable_player_movement(ad.ability_dealer)
+		manager.start_ability_cooldown(ad.ability))
+	return Basics.ABILITY_ERROR.OK
+
+func cancel_ability(reason : Basics.ABILITY_CANCEL) -> void:
+	pass

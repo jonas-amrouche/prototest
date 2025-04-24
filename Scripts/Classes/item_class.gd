@@ -7,7 +7,8 @@ extends Resource
 @export var icon : Texture2D
 @export var rarity : Basics.RARITY
 @export var mesh_model : PackedScene
-@export var craft_recipe : Dictionary
+@export var craft_1 : Item
+@export var craft_2 : Item
 @export var abilities : Array[Ability]
 @export var passives : Array[Passive]
 @export var stats : Dictionary

@@ -1,30 +1,27 @@
 extends Node3D
 
+var ad : AbilityData
+
 @onready var manager = get_node("..")
 
 var pre_beacon = preload("res://Scenes/Props/vision_beacon.tscn")
-var vision_stone = preload("res://Ressources/Components/VisionStone.tres")
+var vision_stone = preload("res://Ressources/Items/vision_stone.tres")
 
 var ward_position : Vector3
 
-func press(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
-	if !manager.in_animation and !manager.in_cooldown_dict.get(ability):
-		if !ability_dealer.is_dead() and manager.entity.components.has(vision_stone):
-			manager.look_at_cursor()
-			manager.entity.lose_component(vision_stone, 1)
-			manager.in_animation = true
-			ward_position = manager.get_cursor_world_position()
-			ward_position = (ward_position-manager.entity.position).limit_length(5.0) + manager.entity.position
-			get_tree().create_timer(ability.attack_time).timeout.connect(Callable(func():
-				manager.in_animation = false
-				var _new_beacon = pre_beacon.instantiate()
-				_new_beacon.position = Vector3(ward_position.x, -0.4, ward_position.z)
-				manager.entity.world.beacons.add_child(_new_beacon)
-				manager.start_ability_cooldown(ability)
-				queue_free()))
-			return Basics.ABILITY_ERROR.OK
-		else:
-			queue_free()
-			return Basics.ABILITY_ERROR.UNAVAILABLE
+func press() -> Basics.ABILITY_ERROR:
+	if manager.entity.has_item(vision_stone):
+		manager.look_at_cursor()
+		manager.entity.lose_item(vision_stone, 1)
+		manager.in_casting = true
+		ward_position = manager.get_cursor_world_position()
+		ward_position = (ward_position-manager.entity.position).limit_length(5.0) + manager.entity.position
+		get_tree().create_timer(ad.ability.action_time).timeout.connect(func():
+			manager.in_casting = false
+			var _new_beacon = pre_beacon.instantiate()
+			_new_beacon.position = Vector3(ward_position.x, -0.4, ward_position.z)
+			manager.entity.world.beacons.add_child(_new_beacon)
+			manager.start_ability_cooldown(ad.ability))
+		return Basics.ABILITY_ERROR.OK
 	queue_free()
-	return Basics.ABILITY_ERROR.IN_COOLDOWN
+	return Basics.ABILITY_ERROR.NEED_RESOURCE

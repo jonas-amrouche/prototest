@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://duqyed1kqpwb"]
+[gd_scene load_steps=8 format=3 uid="uid://duqyed1kqpwb"]
 
 [ext_resource type="Script" uid="uid://j1nnxmhflllo" path="res://Scripts/ability_item_preview.gd" id="1_dtegr"]
 [ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_pwvs0"]
@@ -18,6 +18,12 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
+resource_local_to_scene = true
+font = ExtResource("4_vkuwt")
+font_size = 11
+outline_color = Color(0.423453, 0.52643, 0.8125, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kb7u4"]
 resource_local_to_scene = true
 font = ExtResource("4_vkuwt")
 font_size = 11
@@ -91,5 +97,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "->50"
 label_settings = SubResource("LabelSettings_m4yqr")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="Cooldown" type="Label" parent="AbilityContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "10s"
+label_settings = SubResource("LabelSettings_kb7u4")
 horizontal_alignment = 2
 autowrap_mode = 2

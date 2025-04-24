@@ -1,8 +1,8 @@
 extends Control
 
-var category_selected := 0
-var item_craft_selected : Item
-var item_in_decompose
+#var category_selected := 0
+#var item_craft_selected : Item
+var item_in_craft : Array[ItemSlot] = [null, null, null]
 var hover_craft_button : bool
 var auto_attack_id := 0
 
@@ -11,7 +11,7 @@ var pre_item_hud = preload("res://Scenes/UI/item_hud.tscn")
 var pre_ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
 var pre_item_craft = preload("res://Scenes/UI/item_craft.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/stat_hud.tscn")
-var pre_xp_gem_hud = preload("res://Scenes/UI/experience_gem.tscn")
+#var pre_xp_gem_hud = preload("res://Scenes/UI/experience_gem.tscn")
 var pre_effect_hud = preload("res://Scenes/UI/effect_hud.tscn")
 var pre_item_preview = preload("res://Scenes/UI/item_preview.tscn")
 var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
@@ -23,23 +23,26 @@ var all_item_base = preload("res://Ressources/ItemBases/AllItems.tres")
 @onready var player := get_node("..").get_node("..")
 @onready var scoreboard := $ScoreBoard
 @onready var chat := $Chat
-@onready var craft_tab := $CraftComponents/CraftAvailable
-@onready var craft_available_container := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
-@onready var craft_available_nothing := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/Nothing
-@onready var decompose_tab := $DecomposeItem
-@onready var decompose_button := $DecomposeItem/Pad/Decompose
-@onready var decompose_container := $DecomposeItem/Pad/DecomposeCont
-@onready var component_list := $CraftComponents/Components/Pad/CompList
-@onready var item_list = $Items/Pad/ItemList
+#@onready var craft_tab := $CraftComponents/CraftAvailable
+#@onready var craft_available_container := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/CraftAvailable
+#@onready var craft_available_nothing := $CraftComponents/CraftAvailable/Pad/Order/CraftItemPanel/Nothing
+@onready var craft_tab := $ItemCraft
+@onready var craft_result_container := $ItemCraft/Pad/CraftResult
+@onready var craft_comps_container := $ItemCraft/Pad/CraftComps
+#@onready var decompose_button := $DecomposeItem/Pad/Decompose
+#@onready var decompose_container := $DecomposeItem/Pad/DecomposeCont
+#@onready var component_list := $CraftComponents/Components/Pad/CompList
+@onready var inventory_list = $Inventory/Pad/InventoryList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
 @onready var channeling_label := $ChannelingBar/ChannelingLabel
 @onready var souls_label := $Souls/SoulsLabel
 @onready var mini_map := $MiniMap
-@onready var item_craft_button := $CraftComponents/CraftAvailable/Pad/Order/Craft
-@onready var health_bar_hud := $ActionPanel/BarContainer/Pad/HealthBar
-@onready var experience_gem_container := $ExpPad/ExpContainer
+#@onready var item_craft_button := $CraftComponents/CraftAvailable/Pad/Order/Craft
+@onready var health_bar := $ActionPanel/BarContainer/Pad/HealthBar
+@onready var xp_bar := $ActionPanel/ExpBar
+#@onready var experience_gem_container := $ExpPad/ExpContainer
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
 
@@ -60,71 +63,78 @@ func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
 	player.health_label.text = str(player.health) + "/" + str(int(player.stats.max_health))
 	player.level_label.text = str(player.level)
-	health_bar_hud.value = float(player.health) / float(player.stats.max_health) * 100.0
+	health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
 	level_label_hud.text = str(player.level)
 	
-	for i in experience_gem_container.get_children():
-		i.free()
+	xp_bar.value = float(player.experience) / float(player.max_experience) * 100.0
 	
-	for i in range(16):
-		var new_xp_gem = pre_xp_gem_hud.instantiate()
-		new_xp_gem.material.set_shader_parameter("enabled", i < player.max_experience)
-		new_xp_gem.material.set_shader_parameter("filled", player.experience > i)
-		experience_gem_container.add_child(new_xp_gem)
+	#for i in experience_gem_container.get_children():
+		#i.free()
+	#
+	#for i in range(16):
+		#var new_xp_gem = pre_xp_gem_hud.instantiate()
+		#new_xp_gem.material.set_shader_parameter("enabled", i < player.max_experience)
+		#new_xp_gem.material.set_shader_parameter("filled", player.experience > i)
+		#experience_gem_container.add_child(new_xp_gem)
 
-func select_item(item : Item) -> void:
-	item_craft_selected = item
-	item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
-	for i in craft_available_container.get_children():
-		if i.item == item:
-			continue
-		i.unselect_item()
+#func select_item(item : Item) -> void:
+	#item_craft_selected = item
+	#item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
+	#for i in craft_available_container.get_children():
+		#if i.item == item:
+			#continue
+		#i.unselect_item()
 
-func add_item_in_decompose(item : Item) -> void:
-	if item_in_decompose:
-		player.obtain_item(item_in_decompose)
-	player.lose_item(item)
-	item_in_decompose = item
-	update_decompose()
+func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
+	if item_in_craft[craft_slot]:
+		player.obtain_item(item_in_craft[craft_slot].item)
+	player.lose_item(item_slot.item, item_slot.quantity)
+	item_in_craft[craft_slot] = item_slot
+	update_craft()
 
-func update_decompose() -> void:
-	for i in decompose_container.get_children():
+func update_craft() -> void:
+	for i in craft_comps_container.get_children():
 		i.queue_free()
+	#for i in craft_result_container.get_children():
+		#i.queue_free()
 	
-	var _new_item_slot = pre_item_hud.instantiate()
-	_new_item_slot.connect("drop_item", Callable(self, "drop_item_decompose"))
-	_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
-	_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
-	_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
-	if item_in_decompose:
-		_new_item_slot.item = item_in_decompose
-	decompose_container.add_child(_new_item_slot)
+	for i in range(3):
+		var _new_item_slot = pre_item_hud.instantiate()
+		_new_item_slot.connect("drop_item", Callable(self, "drop_item_craft_"+str(i+1)))
+		_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
+		_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+		_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
+		if item_in_craft[i]:
+			_new_item_slot.item_slot = item_in_craft[i]
+		craft_comps_container.add_child(_new_item_slot)
 
-func clear_decompose() -> void:
-	if item_in_decompose:
-		if player.is_items_full():
-			_on_decompose_pressed()
-			return
-		player.obtain_item(item_in_decompose)
-	item_in_decompose = null
-	update_decompose()
+# Used to clear the craft tab when exiting the base
+func clear_craft() -> void:
+	for i in range(item_in_craft.size()):
+		if item_in_craft[i]:
+			if player.is_inventory_full():
+				print("ALED") # TODO FIX THIS
+				return
+			player.obtain_item(item_in_craft[i].item, item_in_craft[i].quantity)
+			item_in_craft[i] = null
+	update_craft()
 
-func update_craft_available() -> void:
-	item_craft_selected = null
-	item_craft_button.disabled = true
-	for i in craft_available_container.get_children():
-		i.queue_free()
-	
-	for i in all_item_base.base:
-		if player.is_item_craftable(i):
-			var _new_item_craft = pre_item_craft.instantiate()
-			_new_item_craft.item = i
-			_new_item_craft.select_item.connect(Callable(self, "select_item"))
-			_new_item_craft.connect("mouse_entered_item", Callable(self, "show_item_preview"))
-			_new_item_craft.connect("mouse_exited", Callable(self, "hide_item_preview"))
-			craft_available_container.add_child(_new_item_craft)
-	
-	craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
+#func update_craft_available() -> void:
+	#item_craft_selected = null
+	#item_craft_button.disabled = true
+	#for i in craft_available_container.get_children():
+		#i.queue_free()
+	#
+	#for i in all_item_base.base:
+		#if player.is_item_craftable(i):
+			#var _new_item_craft = pre_item_craft.instantiate()
+			#_new_item_craft.item = i
+			#_new_item_craft.select_item.connect(Callable(self, "select_item"))
+			#_new_item_craft.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+			#_new_item_craft.connect("mouse_exited", Callable(self, "hide_item_preview"))
+			#craft_available_container.add_child(_new_item_craft)
+	#
+	#craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
 
 func update_abilities() -> void:
 	# Clear ability bar
@@ -134,12 +144,12 @@ func update_abilities() -> void:
 	# Get item data
 	var _abilities_had = []
 	var _item_link = Dictionary()
-	for i in player.items:
+	for i in player.inventory:
 		if i == null:
 			continue
-		for a in i.abilities:
+		for a in i.item.abilities:
 			_abilities_had.append(a)
-			_item_link.merge({a : i})
+			_item_link.merge({a : i.item})
 	
 	# Allow slot binding of ability
 	for a in _abilities_had:
@@ -160,7 +170,7 @@ func update_abilities() -> void:
 			_new_ability_hud.ability = player.abilities[a]
 			_new_ability_hud.item = _item_link.get(player.abilities[a])
 		_new_ability_hud.is_auto_attack = a == auto_attack_id
-			
+		
 		for i in InputMap.get_actions():
 			if i.begins_with("ability") and i.ends_with(str(a+1)):
 				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
@@ -171,21 +181,21 @@ func update_abilities() -> void:
 		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
 		ability_list.add_child(_new_ability_hud)
 
-func update_items() -> void:
+func update_inventory() -> void:
 	# Clear item bar
-	for i in item_list.get_children():
+	for i in inventory_list.get_children():
 		i.queue_free()
 	
 	# Populate item bar
-	for i in player.items:
+	for i in player.inventory:
 		var _new_item_hud = pre_item_hud.instantiate()
 		if i:
-			_new_item_hud.item = i
+			_new_item_hud.item_slot = i
 		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
-		item_list.add_child(_new_item_hud)
+		inventory_list.add_child(_new_item_hud)
 
 func show_item_preview(item : Item) -> void:
 	if item_preview:
@@ -217,18 +227,18 @@ func assign_auto_attack(ability_ref : Object) -> void:
 	auto_attack_id = ability_ref.get_index()
 	update_abilities()
 
-func update_components() -> void:
-	for i in component_list.get_children():
-		i.queue_free()
-	for i in range(player.components.size()):
-		var _new_component_hud = pre_component_hud.instantiate()
-		_new_component_hud.component = player.components.keys()[i]
-		_new_component_hud.quantity = player.components.values()[i]
-		_new_component_hud.connect("mouse_entered_component", Callable(self, "show_component_preview"))
-		_new_component_hud.connect("mouse_exited", Callable(self, "hide_component_preview"))
-		component_list.add_child(_new_component_hud)
-		if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
-			_new_component_hud.component_change_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
+#func update_components() -> void:
+	#for i in component_list.get_children():
+		#i.queue_free()
+	#for i in range(player.components.size()):
+		#var _new_component_hud = pre_component_hud.instantiate()
+		#_new_component_hud.component = player.components.keys()[i]
+		#_new_component_hud.quantity = player.components.values()[i]
+		#_new_component_hud.connect("mouse_entered_component", Callable(self, "show_component_preview"))
+		#_new_component_hud.connect("mouse_exited", Callable(self, "hide_component_preview"))
+		#component_list.add_child(_new_component_hud)
+		#if hover_craft_button and item_craft_selected and item_craft_selected.craft_recipe.has(player.components.keys()[i]):
+			#_new_component_hud.component_change_preview(player.components.values()[i] - item_craft_selected.craft_recipe.get(player.components.keys()[i]))
 
 func update_effects() -> void:
 	for i in effect_container.get_children():
@@ -296,75 +306,82 @@ func drop_ability(slot : Object) -> void:
 		update_abilities()
 		dragged_ability_slot = null
 
-var dragged_component_slot : Object
-func drag_component(slot : Object) -> void:
-	dragged_component_slot = slot
+#var dragged_component_slot : Object
+#func drag_component(slot : Object) -> void:
+	#dragged_component_slot = slot
 
-func drop_component(slot : Object) -> void:
-	if dragged_component_slot:
-		var _temp_component = slot.component
-		var _temp_quantity = slot.quantity if slot.component else null
-		player.components[component_list.get_children().find(slot)] = dragged_component_slot.component
-		player.comp_quantities[component_list.get_children().find(slot)] = dragged_component_slot.quantity
-		player.components[component_list.get_children().find(dragged_component_slot)] = _temp_component
-		player.comp_quantities[component_list.get_children().find(dragged_component_slot)] = _temp_quantity
-		update_components()
-		dragged_component_slot = null
+#func drop_component(slot : Object) -> void:
+	#if dragged_component_slot:
+		#var _temp_component = slot.component
+		#var _temp_quantity = slot.quantity if slot.component else null
+		#player.components[component_list.get_children().find(slot)] = dragged_component_slot.component
+		#player.comp_quantities[component_list.get_children().find(slot)] = dragged_component_slot.quantity
+		#player.components[component_list.get_children().find(dragged_component_slot)] = _temp_component
+		#player.comp_quantities[component_list.get_children().find(dragged_component_slot)] = _temp_quantity
+		#update_components()
+		#dragged_component_slot = null
 
 var dragged_item_slot : Object
 func drag_item(slot : Object) -> void:
 	dragged_item_slot = slot
-	if slot.item == item_in_decompose:
-		decompose_button.disabled = true
+	if item_in_craft.has(slot.item_slot):
+		pass
+		#decompose_button.disabled = true
 
 func drop_item(slot : Object) -> void:
 	if dragged_item_slot:
-		if dragged_item_slot.item == item_in_decompose:
-			player.items[item_list.get_children().find(slot)] = dragged_item_slot.item
-			item_in_decompose = null
-			update_items()
+		if item_in_craft.has(dragged_item_slot.item_slot):
+			player.inventory[inventory_list.get_children().find(slot)] = dragged_item_slot.item_slot
+			item_in_craft[item_in_craft.find(dragged_item_slot.item_slot)] = null
+			update_inventory()
 			update_abilities()
-			update_decompose()
+			update_craft()
 			dragged_item_slot = null
 			return
-		player.items[item_list.get_children().find(slot)] = dragged_item_slot.item
-		player.items[item_list.get_children().find(dragged_item_slot)] = slot.item
-		update_items()
+		player.inventory[inventory_list.get_children().find(slot)] = dragged_item_slot.item_slot
+		player.inventory[inventory_list.get_children().find(dragged_item_slot)] = slot.item_slot
+		update_inventory()
 		dragged_item_slot = null
 
-func drop_item_decompose(slot : Object) -> void:
+func drop_item_craft_1(slot : Object) -> void:
+	drop_item_craft(slot, 0)
+func drop_item_craft_2(slot : Object) -> void:
+	drop_item_craft(slot, 1)
+func drop_item_craft_3(slot : Object) -> void:
+	drop_item_craft(slot, 2)
+
+func drop_item_craft(slot : Object, craft_slot : int) -> void:
 	if dragged_item_slot:
-		item_in_decompose = dragged_item_slot.item
-		player.items[item_list.get_children().find(dragged_item_slot)] = slot.item
-		update_items()
+		item_in_craft[craft_slot]= dragged_item_slot.item_slot
+		player.inventory[inventory_list.get_children().find(dragged_item_slot)] = slot.item_slot
+		update_inventory()
 		update_abilities()
-		update_decompose()
+		update_craft()
 		dragged_item_slot = null
-		decompose_button.disabled = false
 
-func _on_craft_pressed():
-	if !player.is_items_full():
-		if player.in_base:
-			for c in range(item_craft_selected.craft_recipe.size()):
-				player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
-		player.obtain_item(item_craft_selected)
-		item_craft_selected = null
-		item_craft_button.disabled = true
-		update_components()
+#func _on_craft_pressed():
+	#if !player.is_items_full():
+		#if player.in_base:
+			#for c in range(item_craft_selected.craft_recipe.size()):
+				#player.lose_component(item_craft_selected.craft_recipe.keys()[c], item_craft_selected.craft_recipe.values()[c])
+		#player.obtain_item(item_craft_selected)
+		#item_craft_selected = null
+		#item_craft_button.disabled = true
+		#update_components()
 
-func _on_decompose_pressed():
-	if item_in_decompose:
-		for i in range(item_in_decompose.craft_recipe.size()):
-			player.obtain_component(item_in_decompose.craft_recipe.keys()[i], item_in_decompose.craft_recipe.values()[i])
-		player.lose_item(item_in_decompose)
-		item_in_decompose = null
-		update_decompose()
-		decompose_button.disabled = true
+#func _on_decompose_pressed():
+	#if item_in_decompose:
+		#for i in range(item_in_decompose.craft_recipe.size()):
+			#player.obtain_component(item_in_decompose.craft_recipe.keys()[i], item_in_decompose.craft_recipe.values()[i])
+		#player.lose_item(item_in_decompose)
+		#item_in_decompose = null
+		#update_decompose()
+		#decompose_button.disabled = true
 
-func _on_craft_mouse_entered():
-	hover_craft_button = true
-	update_components()
+#func _on_craft_mouse_entered():
+	#hover_craft_button = true
+	#update_components()
 
-func _on_craft_mouse_exited():
-	hover_craft_button = false
-	update_components()
+#func _on_craft_mouse_exited():
+	#hover_craft_button = false
+	#update_components()

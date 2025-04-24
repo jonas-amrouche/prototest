@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmyt1yx0mdkqt"]
+
+[ext_resource type="Script" uid="uid://dn5drcbqrkg1d" path="res://Scripts/Abilities/recall.gd" id="1_jg37b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
+albedo_color = Color(0.165, 0.462, 0.66, 1)
+metallic_specular = 0.0
+emission = Color(0.621644, 0.414624, 0.8125, 1)
+
+[node name="Recall" type="Node3D"]
+script = ExtResource("1_jg37b")
+
+[node name="Visual" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76372, 0)
+radius = 0.921418
+height = 0.0877011
+material = SubResource("StandardMaterial3D_ag6sr")
+
+[node name="RecallTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="RecallTimer" to="." method="_on_recall_timer_timeout"]

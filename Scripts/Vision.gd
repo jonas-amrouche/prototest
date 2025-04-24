@@ -7,7 +7,7 @@ var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png"
 var fog_map : Image
 const FOG_RESOLUTION = 2
 const FOG_TEXTURE_SIZE = Vector2i(int(Basics.MAP_SIZE.x), int(Basics.MAP_SIZE.y)) * FOG_RESOLUTION
-const FOG_PLAYER_SIZE = 10 * FOG_RESOLUTION
+const FOG_PLAYER_SIZE = 20 * FOG_RESOLUTION
 const FOG_BEACON_SIZE = 10 * FOG_RESOLUTION
 const FOG_BASE_SIZE = 30 * FOG_RESOLUTION
 func initialize_fog_map(bases_data : PackedVector2Array) -> void:

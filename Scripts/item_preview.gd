@@ -9,6 +9,8 @@ var item : Item
 @onready var stats_container = $MarginContainer/ItemData/Specs/StatsBox
 @onready var abilities_container = $MarginContainer/ItemData/Specs/AbilitiesBox
 @onready var passives_container = $MarginContainer/ItemData/Specs/PassiveBox
+@onready var spec_spacer = $MarginContainer/ItemData/DataSpecsSep
+@onready var spec_container = $MarginContainer/ItemData/DataSpecsSep
 
 var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
 var pre_passive_preview = preload("res://Scenes/UI/passive_item_preview.tscn")
@@ -19,8 +21,8 @@ func _ready():
 func update_content() -> void:
 	if item:
 		item_icon.set_texture(item.icon)
-		rarity_label.set_text(Basics.RARITY_TEXT[item.rarity])
-		item_name.label_settings.set("font_color", Basics.RARITY_COLORS[item.rarity])
+		rarity_label.set_text("R : " + Basics.RARITY_TEXT[item.rarity])
+		#rarity_label.label_settings.set("font_color", Basics.RARITY_COLORS[item.rarity])
 		item_name.set_text(item.name)
 		desc_line.set_text(item.description)
 		
@@ -59,14 +61,23 @@ func add_stat(stat_value : int, stat : Stat) -> void:
 	_new_lab_settings.font = stat_font
 	_new_stat.label_settings = _new_lab_settings
 	_new_stat.set_text("+" + str(stat_value) + " " + stat.name)
+	stats_container.show()
+	spec_spacer.show()
+	spec_container.show()
 	stats_container.add_child(_new_stat)
 
 func add_ability(ablty : Ability) -> void:
 	var _new_ability = pre_ability_preview.instantiate()
 	_new_ability.ability = ablty
+	abilities_container.show()
+	spec_spacer.show()
+	spec_container.show()
 	abilities_container.add_child(_new_ability)
 
 func add_passive(pasv : Passive) -> void:
 	var _new_passive = pre_passive_preview.instantiate()
 	_new_passive.passive = pasv
+	passives_container.show()
+	spec_spacer.show()
+	spec_container.show()
 	passives_container.add_child(_new_passive)

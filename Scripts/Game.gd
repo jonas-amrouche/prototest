@@ -137,6 +137,7 @@ func generate_points_and_paths() -> void:
 		var _is_valid = true
 		for i in range(new_interest_points_list.size()):
 			# ERROR au lancement (index trop grand (new_interest_points_list.keys()[i]))
+			if _rand_idx < 0 or _rand_idx > _grid_point_list.size()-1:continue
 			if _grid_point_list[_rand_idx].distance_to(new_interest_points_list.keys()[i]) < new_interest_points_list.values()[i] + INTEREST_BORDER:
 				_grid_point_list.remove_at(_rand_idx)
 				_is_valid = false

@@ -17,21 +17,23 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="LabelSettings" id="LabelSettings_6ay13"]
-font_size = 13
-
 [sub_resource type="LabelSettings" id="LabelSettings_yrvhj"]
 font = ExtResource("3_u1riv")
 font_size = 17
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44vsf"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_6ay13"]
+font_size = 13
+font_color = Color(0.262932, 0.262932, 0.262932, 1)
+
 [node name="ItemPreview" type="PanelContainer"]
+z_index = 1
 custom_minimum_size = Vector2(300, 0)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -99.0
+offset_top = -71.0
 offset_right = 300.0
 grow_vertical = 0
 mouse_filter = 2
@@ -60,16 +62,8 @@ stretch_mode = 5
 [node name="ItemData" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = -5
+theme_override_constants/separation = 2
 metadata/_edit_lock_ = true
-
-[node name="Rarity" type="Label" parent="MarginContainer/ItemData"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "Starter"
-label_settings = SubResource("LabelSettings_6ay13")
 
 [node name="ItemName" type="Label" parent="MarginContainer/ItemData"]
 layout_mode = 2
@@ -78,9 +72,10 @@ text = "Item Name"
 label_settings = SubResource("LabelSettings_yrvhj")
 
 [node name="NameDescSep" type="HSeparator" parent="MarginContainer/ItemData"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 4
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
 [node name="DescLine" type="RichTextLabel" parent="MarginContainer/ItemData"]
@@ -103,9 +98,10 @@ fit_content = true
 autowrap_mode = 2
 
 [node name="DataSpecsSep" type="HSeparator" parent="MarginContainer/ItemData"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 35
+theme_override_constants/separation = 8
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
 [node name="Specs" type="VBoxContainer" parent="MarginContainer/ItemData"]
@@ -113,16 +109,25 @@ layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 10
-metadata/_edit_lock_ = true
 
 [node name="StatsBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="AbilitiesBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="PassiveBox" type="VBoxContainer" parent="MarginContainer/ItemData/Specs"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
+
+[node name="Rarity" type="Label" parent="MarginContainer/ItemData"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Rarity : Starter"
+label_settings = SubResource("LabelSettings_6ay13")

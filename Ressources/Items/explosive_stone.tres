@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://b3u0g1edoebi8"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_unmqp"]
+[ext_resource type="Texture2D" uid="uid://bmimvqqxrkel2" path="res://Assets/2D/Components/explosive_stone_icon.png" id="2_unmqp"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="3_c1tpd"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="4_e2dax"]
+
+[resource]
+script = ExtResource("4_e2dax")
+id = "explosive_stone"
+name = "Explosive Stone"
+description = "Fragile natural stone."
+icon = ExtResource("2_unmqp")
+rarity = 0
+craft_recipe = {}
+abilities = Array[ExtResource("1_unmqp")]([])
+passives = Array[ExtResource("3_c1tpd")]([])
+stats = {}
+metadata/_custom_type_script = "uid://coumuhl7aj46k"

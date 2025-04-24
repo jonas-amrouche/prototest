@@ -7,10 +7,11 @@
 script = ExtResource("2_jg0ha")
 id = "recall"
 name = "Recall"
-description = "[color=aqua]Call your statue for your return.[/color]"
+description = "[color=Deepskyblue]Call your statue for your return.[/color]"
 icon = ExtResource("1_3pylj")
-cooldown = 22.0
-attack_time = 0.3
+cooldown = 0.3
+life_time = 0.0
+action_time = 0.3
 channeling = true
 damage_type = 0
 damage_cap = 0

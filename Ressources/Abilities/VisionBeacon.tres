@@ -11,6 +11,11 @@ description = "Cost 1 [color=aqua]Vision Stone.[/color]
 Create a 100s vision beacon."
 icon = ExtResource("1_migv4")
 cooldown = 3.0
+life_time = 0.0
 attack_time = 0.0
+action_time = 0.0
+time_markers = PackedFloat32Array()
+channeling = false
+channeling_time = 1.0
 damage_type = 0
 damage_cap = 0

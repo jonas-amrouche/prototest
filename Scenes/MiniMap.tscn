@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7a7xf75sbf22"]
+[gd_scene load_steps=11 format=3 uid="uid://b7a7xf75sbf22"]
 
 [ext_resource type="Script" uid="uid://ebprskaxi564" path="res://Scripts/minimap.gd" id="1_0hfpy"]
+[ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="2_e3yhi"]
 [ext_resource type="Material" uid="uid://bxmj7jdx0lcex" path="res://Ressources/Materials/TechArt/map_mask.tres" id="2_ojnbh"]
 [ext_resource type="Shader" uid="uid://6ye021vjbvuu" path="res://Ressources/Shaders/MinimapRiverShader.gdshader" id="3_e3yhi"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="4_5oyd3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5oyd3"]
+texture = ExtResource("2_e3yhi")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yc34d"]
 
@@ -37,23 +41,25 @@ offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 1
-color = Color(0.400698, 0.400698, 0.400698, 1)
+color = Color(0.105882, 0.0980392, 0.0627451, 1)
 script = ExtResource("1_0hfpy")
 
-[node name="MapBorder" type="ColorRect" parent="."]
+[node name="MapBorder" type="Panel" parent="."]
+self_modulate = Color(0.505344, 0.505344, 0.505344, 1)
+show_behind_parent = true
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.144063, 0.144063, 0.144063, 1)
-metadata/_edit_lock_ = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_5oyd3")
 
 [node name="Content" type="Control" parent="."]
 layout_mode = 1

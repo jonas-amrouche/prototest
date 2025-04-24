@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=12 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/hud.tscn" id="2_8erm5"]
@@ -17,11 +17,6 @@ background_mode = 1
 background_color = Color(0, 0, 0, 0)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ag6sr"]
-albedo_color = Color(0.165, 0.462, 0.66, 1)
-metallic_specular = 0.0
-emission = Color(0.621644, 0.414624, 0.8125, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
 viewport_path = NodePath("SubViewport")
@@ -77,19 +72,8 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
 [node name="Abilities" parent="." instance=ExtResource("4_tx1dd")]
 
-[node name="Recall" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
 [node name="StatRegen" type="Timer" parent="."]
 autostart = true
-
-[node name="RecallVisual" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76372, 0)
-visible = false
-radius = 0.921418
-height = 0.0877011
-material = SubResource("StandardMaterial3D_ag6sr")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -114,7 +98,6 @@ texture = SubResource("ViewportTexture_najce")
 [node name="UpdateMovementLine" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="Recall" to="." method="_on_recall_timeout"]
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]
 [connection signal="path_changed" from="Nav" to="." method="_on_nav_path_changed"]
 [connection signal="timeout" from="UpdateMovementLine" to="." method="_on_update_movement_line_timeout"]

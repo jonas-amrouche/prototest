@@ -36,8 +36,6 @@ var camp  : Object
 @onready var roam_timer = $Roam
 @onready var world = get_node("..").get_node("..")
 
-var pre_component_drop = preload("res://Scenes/Systems/component_drop.tscn")
-
 func _ready():
 	if monster.roam:
 		roam_timer.start()
@@ -116,17 +114,11 @@ func gain_experience(_experience : float) -> void:
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
-	for i in range(monster.drop_components.size()):
-		var _new_component_ground = pre_component_drop.instantiate()
-		var _vector_drop = Vector3.FORWARD.rotated(Vector3.UP, randf_range(-PI, PI)) * DROP_VECTOR_LENGTH
-		_new_component_ground.position = _vector_drop + position
-		_new_component_ground.component = monster.drop_components[i]
-		_new_component_ground.quantity = monster.drop_quantities[i]
-		world.components.add_child(_new_component_ground)
 	set_physics_process(false)
 	camp.monster_died()
-	#get_tree().create_timer(120.0).timeout.connect(Callable(func():
-		#queue_free()))
+
+func loot_body() -> void:
+	queue_free()
 
 func _physics_process(_delta) -> void:
 	update_direction()

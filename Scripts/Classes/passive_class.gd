@@ -1,5 +1,5 @@
-class_name Passive
 extends Resource
+class_name Passive
 
 @export var id : String
 @export var name : String

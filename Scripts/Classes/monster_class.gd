@@ -6,7 +6,7 @@ class_name Monster
 @export var monster_model : PackedScene
 @export var drop_components : Array[Component]
 @export var drop_quantities : PackedInt32Array
-@export var experience_drop : int = 1
+@export var experience_drop : int = 100
 @export var abilities : Array[Ability]
 @export var aggro : bool
 @export var aggro_range : float = 4.0

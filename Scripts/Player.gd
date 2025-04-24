@@ -12,8 +12,9 @@ const EMPTY_MOVEMENT_SPEED := 4.0
 const MAX_HEALTH_PER_LEVEL := 50.0
 const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
 const MAGIC_DAMAGE_PER_LEVEL := 10.0
-const LEVEL_MAX_EXPERIENCE := 16
-const KILL_REWARD_EXP := 10
+const MAX_XP_PER_LEVEL := 500
+const RESPAWN_TIME_PER_LEVEL : float = 5.0
+const KILL_REWARD_EXP := 750
 
 # Statistics
 var base_stats := {"physical_damage" : 1, \
@@ -34,7 +35,8 @@ var area_health_regeneration := 0.0
 
 var health : int = base_stats.max_health
 var souls := 0
-var max_experience := 1
+var max_experience := MAX_XP_PER_LEVEL
+var respawn_time : float = 5.0
 var experience := 0
 var level := 1
 
@@ -43,8 +45,9 @@ var recall := false
 const SPAWN_REGEN = 100.0
 var in_base := false
 
-var components := Dictionary()
-var items := [null, null, null, null, null, null, null, null]
+#var components := Dictionary()
+#var items := [null, null, null, null, null, null, null, null]
+var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null]
 var abilities := [null, null, null, null, null, null, null, null, null, null]
 
 var can_move := true
@@ -54,8 +57,6 @@ var can_move := true
 @onready var outline_camera := $Outline/OutlineVP/Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
-@onready var recall_visual := $RecallVisual
-@onready var recall_timer := $Recall
 @onready var hud := $CanvasLayer/HUD
 @onready var nav := $Nav
 @onready var vision := $Vision
@@ -70,15 +71,6 @@ var can_move := true
 func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	obtain_component(preload("res://Ressources/Components/Wood.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/Metal.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/VisionStone.tres"), 52)
-	obtain_component(preload("res://Ressources/Components/GolemFragment.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/EssenceOfLife.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/EssenceOfPain.tres"), 7)
-	obtain_component(preload("res://Ressources/Components/FloatingMatter.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/UnstableCore.tres"), 3)
-	obtain_component(preload("res://Ressources/Components/ExplosiveStone.tres"), 3)
 	obtain_item(preload("res://Ressources/Items/recall_blob.tres"))
 	obtain_item(preload("res://Ressources/Items/hunter_machette.tres"))
 	obtain_item(preload("res://Ressources/Items/misfortune_broadsword.tres"))
@@ -86,12 +78,19 @@ func _ready():
 	obtain_item(preload("res://Ressources/Items/incandescent_book.tres"))
 	obtain_item(preload("res://Ressources/Items/vision_staff.tres"))
 	obtain_item(preload("res://Ressources/Items/beacon_bag.tres"))
+	
+	obtain_item(preload("res://Ressources/Items/vision_stone.tres"), 52)
+	obtain_item(preload("res://Ressources/Items/golem_fragment.tres"), 3)
+	obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
+	obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
+	obtain_item(preload("res://Ressources/Items/floating_matter.tres"), 3)
+	obtain_item(preload("res://Ressources/Items/essence_of_pain.tres"), 7)
+	obtain_item(preload("res://Ressources/Items/essence_of_used_life.tres"), 3)
+	
 	add_effect(preload("res://Ressources/Effects/BindedFire.tres"), self)
 	hud.update_info_bars()
-	hud.update_components()
 	hud.update_abilities()
-	hud.update_items()
-	hud.update_craft_available()
+	hud.update_inventory()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -111,23 +110,22 @@ var selected_target : Object
 func check_for_target() -> void:
 	var _result = target_raycast()
 	if _result.is_empty():
+		DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.NORMAL])
 		if hovered_target == selected_target: return
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
 		hovered_target = null
-		DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.NORMAL])
 	else:
 		if _result.get("collider") == self: return
+		
+		var _cursor = Basics.CURSOR_MODE.LOOT if hovered_target and hovered_target.is_dead() else Basics.CURSOR_MODE.ATTACK
+		DisplayServer.cursor_set_custom_image(Basics.cursors[_cursor])
+		
 		if hovered_target and hovered_target != selected_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
 		hovered_target = _result.get("collider")
 		if hovered_target.has_method("hover_target"):
 			hovered_target.hover_target()
-		if hovered_target.is_dead():
-			DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.LOOT])
-			#TODO CURSOR NOT UPDATED WHEN KILLING, WHEN SELECTING AND DESELECTION
-		else:
-			DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.ATTACK])
 			
 
 const RAY_LENGTH := 100.0
@@ -176,7 +174,7 @@ func move_camera_click(press : bool) -> void:
 		camera.position.z = clamp(target_cam_pos.y, CAM_LIMITS.position.y, CAM_LIMITS.size.y)
 	elif Input.is_action_pressed("center_cam"):
 		camera.position = camera_base_marker.position
-	
+
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == 2:
@@ -184,8 +182,7 @@ func _unhandled_input(event) -> void:
 			if !_result.is_empty():
 				nav.target_position = _result.get("position")
 				spawn_move_effect(_result.get("position"))
-				if recall:
-					cancel_recall()
+				ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
 		elif event.button_index == 1:
 			var _result = target_raycast()
 			if _result.is_empty():
@@ -205,12 +202,6 @@ func spawn_move_effect(pos : Vector3) -> void:
 	var _new_move_effect = pre_move_effect.instantiate()
 	_new_move_effect.position = pos
 	world.add_child(_new_move_effect)
-
-func cancel_recall() -> void:
-	recall_timer.stop()
-	recall = false
-	stop_channeling()
-	recall_visual.set_visible(false)
 
 func respawn_base() -> void:
 	global_position = get_node("..").get_node("NavMesh/Base/PlayerSpawn/1").global_position
@@ -232,6 +223,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 			_final_damage = max(damage - stats.physical_armor - stats.magic_armor, 0.0)
 	
 	model_anims.play("take_damage")
+	ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.TAKING_DAMAGE)
 	health = max(health - _final_damage, 0.0)
 	hud.update_info_bars()
 	if is_dead():
@@ -255,7 +247,8 @@ func lose_experience(experience_loss : int) -> void:
 	while is_leveling_down():
 		experience = max_experience - abs(experience)
 		level -= 1
-		max_experience = min(level, LEVEL_MAX_EXPERIENCE)
+		respawn_time = level * RESPAWN_TIME_PER_LEVEL
+		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
 	update_stats()
 
@@ -264,7 +257,8 @@ func gain_experience(experience_gained : int) -> void:
 	while is_leveling_up():
 		experience = experience - max_experience
 		level += 1
-		max_experience = min(level, LEVEL_MAX_EXPERIENCE)
+		respawn_time = level * RESPAWN_TIME_PER_LEVEL
+		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
 	update_stats()
 
@@ -289,7 +283,7 @@ func die() -> void:
 	camera.top_level = true
 	player_collision.disabled = true
 	world.set_color_correction(dead_color_correction)
-	get_tree().create_timer(5.0).timeout.connect(Callable(func():
+	get_tree().create_timer(respawn_time).timeout.connect(Callable(func():
 		health = stats.max_health
 		hud.update_info_bars()
 		world.set_color_correction(null)
@@ -310,8 +304,8 @@ func movement() -> void:
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
 			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed)
-		if recall:
-			cancel_recall()
+		if ability_machine.has_active_abilities():
+			ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
 		face_direction(direction)
@@ -332,12 +326,6 @@ func action_keys():
 			camera.position = camera_base_marker.position
 	else:
 		camera.top_level = true
-	if Input.is_action_just_pressed("recall"):
-		nav.target_position = global_position
-		recall = true
-		recall_timer.start()
-		start_channeling(recall_timer.wait_time, "Recall")
-		recall_visual.set_visible(true)
 	if Input.is_action_just_pressed("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
@@ -350,11 +338,11 @@ func action_keys():
 				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
 						if abilities[i].channeling:
-							start_channeling(abilities[i].attack_time, abilities[i].name)
+							ability_machine.start_channeling(abilities[i].action_time, abilities[i].name)
 						hud.ability_list.get_children()[i].use_ability()
 		if Input.is_action_just_released("ability"+str(i+1)):
 			if abilities[i]:
-				ability_machine.release_ability(abilities[i], self)
+				ability_machine.release_ability(abilities[i])
 
 func add_effect(effect : Effect, effect_dealer : Object) -> void:
 	effect_machine.spawn_effect(effect, effect_dealer)
@@ -366,91 +354,67 @@ func remove_effect(effect : Effect) -> void:
 	effect_machine.destroy_effect(effect)
 	hud.update_effects()
 
-var channeling_tween
-func start_channeling(duration : float, title : String) -> void:
-	hud.channeling_label.text = title
-	hud.channeling_bar.set_visible(true)
-	if channeling_tween:
-		channeling_tween.kill()
-	channeling_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
-	channeling_tween.tween_method(Callable(hud.channeling_bar, "set_value"), 0.0, 100.0, duration)
-	channeling_tween.finished.connect(func():
-		stop_channeling())
-
-func stop_channeling() -> void:
-	hud.channeling_bar.set_visible(false)
-
-func obtain_component(comp : Component, quantity : int) -> void:
-	if components.has(comp):
-		components[comp] += quantity
-	else:
-		components[comp] = quantity
-	
-	hud.update_components()
-	hud.update_craft_available()
-
-func has_component(component_name : String) -> bool:
-	for i in range(components.size()):
-		if components.values[i].name == component_name:
-			return true
-	return false
-
 func has_passive(passive_id : String) -> bool:
-	for i in items:
+	for i in inventory:
 		if i:
-			for p in i.passives:
+			for p in i.item.passives:
 				if p.id == passive_id:
 					return true
 	return false
 
-func lose_component(comp : Component, quantity : int) -> void:
-	if components[comp] == quantity:
-		components.erase(comp)
-	else:
-		components[comp] -= quantity
-	hud.update_components()
+func is_inventory_full() -> bool:
+	return inventory.find(null) == -1
 
-func is_items_full() -> bool:
-	return items.find(null) == -1
-
-func obtain_item(item : Item) -> void:
-	items[items.find(null)] = item
+func obtain_item(item : Item, quantity : int = 1) -> void:
+	var _item_slot = ItemSlot.new()
+	_item_slot.item = item
+	_item_slot.quantity = quantity
+	inventory[inventory.find(null)] = _item_slot
 	
 	update_stats()
 	hud.update_abilities()
-	hud.update_items()
-	hud.update_craft_available()
+	hud.update_inventory()
 
-func lose_item(item : Item) -> void:
-	items[items.find(item)] = null
+func lose_item(item : Item, quantity : int) -> void:
+	var _item_slot = get_item_slot(item)
+	_item_slot.quantity -= quantity
+	if _item_slot.quantity <= 0:
+		inventory[inventory.find(_item_slot)] = null
 	
 	update_stats()
 	hud.update_abilities()
-	hud.update_items()
+	hud.update_inventory()
+
+func get_item_slot(itm : Item) -> ItemSlot:
+	for i in inventory:
+		if i.item == itm:
+			return i
+	return null
+
+func has_item(itm : Item) -> bool:
+	for i in inventory:
+		if i.item == itm:
+			return true
+	return false
 
 func entering_base() -> void:
 	area_health_regeneration = SPAWN_REGEN
 	update_stats()
-	hud.update_craft_available()
 	in_base = true
-	hud.craft_tab.show()
-	hud.decompose_tab.show()
-	hud.update_decompose()
+	hud.update_craft()
 
 func exit_base() -> void:
 	area_health_regeneration = 0.0
 	update_stats()
 	in_base = false
-	hud.craft_tab.hide()
-	hud.decompose_tab.hide()
-	hud.clear_decompose()
+	hud.clear_craft()
 
 func update_stats() -> void:
 	# Set all stats to base value to recalculate
 	stats = base_stats.duplicate()
 	
 	# Run fast when no items
-	if items.count(null) == items.size():
+	if inventory.count(null) == inventory.size():
 		stats.movement_speed = EMPTY_MOVEMENT_SPEED
 	
 	# Add stats of levels
@@ -464,23 +428,12 @@ func update_stats() -> void:
 	stats.health_regeneration += area_health_regeneration
 	
 	# Add stats of items
-	for i in items:
+	for i in inventory:
 		if i == null:
 			continue
-		for s in range(i.stats.size()):
-			stats[i.stats.keys()[s]] += i.stats.values()[s]
+		for s in range(i.item.stats.size()):
+			stats[i.item.stats.keys()[s]] += i.item.stats.values()[s]
 	hud.update_stats_hud()
-
-func is_item_craftable(item : Item) -> bool:
-	var _component_had = 0
-	for r in range(item.craft_recipe.size()):
-		for c in range(components.size()):
-			if item.craft_recipe.keys()[r] == components.keys()[c]:
-				if item.craft_recipe.values()[r] <= components.values()[c]:
-					_component_had += 1
-	if _component_had == item.craft_recipe.size():
-		return true
-	return false
 
 func _on_nav_path_changed() -> void:
 	hud.mini_map.update_movement_line(nav)
@@ -489,10 +442,6 @@ func _on_update_movement_line_timeout():
 	if nav.target_position == Vector3(0.0, 0.0, 0.0):
 		nav.target_position = global_position
 	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
-
-func _on_recall_timeout() -> void:
-	respawn_base()
-	cancel_recall()
 
 func _on_stat_regen_timeout():
 	heal(int(stats.health_regeneration))

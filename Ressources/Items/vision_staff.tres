@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_ubpcj"]
 [ext_resource type="Resource" uid="uid://pe1nilt2e2f0" path="res://Ressources/Abilities/ShortReveal.tres" id="1_udich"]
-[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/Components/VisionStone.tres" id="2_16frl"]
-[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/Components/Wood.tres" id="3_qxwdw"]
+[ext_resource type="Resource" uid="uid://5y0yu22dmv1j" path="res://Ressources/ComponentsOld/VisionStone.tres" id="2_16frl"]
+[ext_resource type="Resource" uid="uid://cdcjflhpdi034" path="res://Ressources/ComponentsOld/Wood.tres" id="3_qxwdw"]
 [ext_resource type="Texture2D" uid="uid://big7l7wgt30id" path="res://Assets/2D/Items/VisionStaffIcon.png" id="5_wptx0"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="6_3n4vu"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="7_kvno1"]
