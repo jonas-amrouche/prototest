@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Monster" load_steps=9 format=3 uid="uid://bjuh036cbr3yl"]
+
+[ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Resources/Abilities/angry_headbutt.tres" id="1_0c6gm"]
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dg4mi"]
+[ext_resource type="Resource" uid="uid://dogntf7etk6bo" path="res://Resources/ComponentsOld/UnstableCore.tres" id="2_v2xv3"]
+[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_fxnvg"]
+[ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Resources/ComponentsOld/ExplosiveStone.tres" id="3_gf6jv"]
+[ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Resources/ComponentsOld/Metal.tres" id="4_arnjp"]
+[ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/grunter_model.tscn" id="4_hx8ec"]
+[ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
+
+[resource]
+script = ExtResource("5_0m2nj")
+id = "grunter"
+name = "Grunter"
+monster_model = ExtResource("4_hx8ec")
+drop_components = Array[ExtResource("3_fxnvg")]([ExtResource("2_v2xv3"), ExtResource("3_gf6jv"), ExtResource("4_arnjp")])
+drop_quantities = PackedInt32Array(1, 2, 3)
+experience_drop = 47
+abilities = Array[ExtResource("1_dg4mi")]([ExtResource("1_0c6gm")])
+aggro = false
+aggro_range = 4.0
+roam = true
+roam_range = 5.0
+turn_speed = 0.04
+max_health = 300
+physical_damage = 55
+magic_damage = 5
+physical_armor = 15
+magic_armor = 5
+movement_speed = 1.5
+health_regeneration = 2.0

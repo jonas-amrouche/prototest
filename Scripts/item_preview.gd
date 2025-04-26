@@ -23,7 +23,7 @@ func update_content() -> void:
 		item_icon.set_texture(item.icon)
 		rarity_label.set_text("R : " + Basics.RARITY_TEXT[item.rarity])
 		#rarity_label.label_settings.set("font_color", Basics.RARITY_COLORS[item.rarity])
-		item_name.set_text(item.name)
+		item_name.set_text(item.id.capitalize())
 		desc_line.set_text(item.description)
 		
 		clear_stats()

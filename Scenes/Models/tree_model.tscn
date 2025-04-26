@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://qcemey517fdi"]
 
 [ext_resource type="PackedScene" uid="uid://bm0eeq50vpudu" path="res://Assets/3D/Tree.glb" id="1_xnwlv"]
-[ext_resource type="Material" uid="uid://b634th0obwe8d" path="res://Ressources/Materials/PBR/DarkTree1.tres" id="2_l3ums"]
-[ext_resource type="Material" uid="uid://c07befayl7cf" path="res://Ressources/Materials/PBR/DarkTreeTrunk1.tres" id="3_jy4bm"]
+[ext_resource type="Material" uid="uid://b634th0obwe8d" path="res://Resources/Materials/PBR/DarkTree1.tres" id="2_l3ums"]
+[ext_resource type="Material" uid="uid://c07befayl7cf" path="res://Resources/Materials/PBR/DarkTreeTrunk1.tres" id="3_jy4bm"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_80f3d"]
 _surfaces = [{

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c05spsivirxsh"]
 
 [ext_resource type="PackedScene" uid="uid://dar6wkf80taom" path="res://Assets/3D/VisionBeacon.glb" id="1_q30w7"]
-[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="2_k4bws"]
-[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="3_k1wgr"]
-[ext_resource type="Material" uid="uid://dyy5axgdb8bl6" path="res://Ressources/Materials/TechArt/vision_fire.tres" id="4_pgc8t"]
-[ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Ressources/Materials/PBR/DarkRope1.tres" id="5_6q8u5"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Resources/Materials/PBR/Metal1.tres" id="2_k4bws"]
+[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Resources/Materials/PBR/Wood1.tres" id="3_k1wgr"]
+[ext_resource type="Material" uid="uid://dyy5axgdb8bl6" path="res://Resources/Materials/TechArt/vision_fire.tres" id="4_pgc8t"]
+[ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Resources/Materials/PBR/DarkRope1.tres" id="5_6q8u5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmhbn"]
 albedo_color = Color(0.0940533, 0.320813, 0.513863, 1)

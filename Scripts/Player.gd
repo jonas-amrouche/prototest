@@ -45,8 +45,6 @@ var recall := false
 const SPAWN_REGEN = 100.0
 var in_base := false
 
-#var components := Dictionary()
-#var items := [null, null, null, null, null, null, null, null]
 var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null]
 var abilities := [null, null, null, null, null, null, null, null, null, null]
 
@@ -54,7 +52,8 @@ var can_move := true
 
 @onready var world := get_node("..")
 @onready var camera := $Camera
-@onready var outline_camera := $Outline/OutlineVP/Camera
+@onready var hover_outline_camera := $HoverOutline/HoverOutlineVP/Camera
+@onready var select_outline_camera := $SelectOutline/SelectOutlineVP/Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
 @onready var hud := $CanvasLayer/HUD
@@ -71,23 +70,24 @@ var can_move := true
 func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	obtain_item(preload("res://Ressources/Items/recall_blob.tres"))
-	obtain_item(preload("res://Ressources/Items/hunter_machette.tres"))
-	obtain_item(preload("res://Ressources/Items/misfortune_broadsword.tres"))
-	obtain_item(preload("res://Ressources/Items/stone_arquebus.tres"))
-	obtain_item(preload("res://Ressources/Items/incandescent_book.tres"))
-	obtain_item(preload("res://Ressources/Items/vision_staff.tres"))
-	obtain_item(preload("res://Ressources/Items/beacon_bag.tres"))
+	obtain_item(preload("res://Resources/Items/recall_blob.tres"))
+	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
+	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
+	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
+	obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
+	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
+	obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
+	obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
 	
-	obtain_item(preload("res://Ressources/Items/vision_stone.tres"), 52)
-	obtain_item(preload("res://Ressources/Items/golem_fragment.tres"), 3)
-	obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
-	obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
-	obtain_item(preload("res://Ressources/Items/floating_matter.tres"), 3)
-	obtain_item(preload("res://Ressources/Items/essence_of_pain.tres"), 7)
-	obtain_item(preload("res://Ressources/Items/essence_of_used_life.tres"), 3)
+	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
+	obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
+	#obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
+	#obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
+	#obtain_item(preload("res://Ressources/Items/floating_matter.tres"), 3)
+	#obtain_item(preload("res://Ressources/Items/essence_of_pain.tres"), 7)
+	#obtain_item(preload("res://Ressources/Items/essence_of_used_life.tres"), 3)
 	
-	add_effect(preload("res://Ressources/Effects/BindedFire.tres"), self)
+	add_effect(preload("res://Resources/Effects/BindedFire.tres"), self)
 	hud.update_info_bars()
 	hud.update_abilities()
 	hud.update_inventory()
@@ -103,7 +103,8 @@ func _process(delta):
 	update_direction()
 	check_for_target()
 	
-	outline_camera.global_transform = camera.global_transform
+	hover_outline_camera.global_transform = camera.global_transform
+	select_outline_camera.global_transform = camera.global_transform
 
 var hovered_target : Object
 var selected_target : Object
@@ -277,7 +278,7 @@ func is_dead() -> bool:
 		return true
 	return false
 
-var dead_color_correction = preload("res://Ressources/ColorCorection/DeadColorCorrection.tres")
+var dead_color_correction = preload("res://Resources/ColorCorection/DeadColorCorrection.tres")
 func die() -> void:
 	can_move = false
 	camera.top_level = true
@@ -293,7 +294,6 @@ func die() -> void:
 
 func movement() -> void:
 	var input_dir = Vector2()
-	#input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	if !nav.is_navigation_finished() and input_dir == Vector2(): # Problème à regler sans doute pour les build release parce que le navigation met des fois un temps pour s'initialisé
 		var _direction_result = global_position.direction_to(nav.get_next_path_position())
 		input_dir = Vector2(_direction_result.x, _direction_result.z)
@@ -369,7 +369,8 @@ func obtain_item(item : Item, quantity : int = 1) -> void:
 	var _item_slot = ItemSlot.new()
 	_item_slot.item = item
 	_item_slot.quantity = quantity
-	inventory[inventory.find(null)] = _item_slot
+	_item_slot.slot_id = inventory.find(null)
+	inventory[_item_slot.slot_id] = _item_slot
 	
 	update_stats()
 	hud.update_abilities()
@@ -387,13 +388,13 @@ func lose_item(item : Item, quantity : int) -> void:
 
 func get_item_slot(itm : Item) -> ItemSlot:
 	for i in inventory:
-		if i.item == itm:
+		if i and i.item == itm:
 			return i
 	return null
 
 func has_item(itm : Item) -> bool:
 	for i in inventory:
-		if i.item == itm:
+		if i and i.item == itm:
 			return true
 	return false
 
@@ -434,6 +435,10 @@ func update_stats() -> void:
 		for s in range(i.item.stats.size()):
 			stats[i.item.stats.keys()[s]] += i.item.stats.values()[s]
 	hud.update_stats_hud()
+
+func is_item_craftable(item : Item, craft_components : Array[Item]) -> bool:
+	var craft_recipe = [item.craft_1, item.craft_2]
+	return craft_components[0] in craft_recipe and craft_components[1] in craft_recipe
 
 func _on_nav_path_changed() -> void:
 	hud.mini_map.update_movement_line(nav)

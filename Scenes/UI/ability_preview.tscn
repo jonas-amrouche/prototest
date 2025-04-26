@@ -45,28 +45,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="AbilityIcon" type="TextureRect" parent="AbilityContainer"]
-custom_minimum_size = Vector2(50, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("2_pwvs0")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="BorderOverlay" type="TextureRect" parent="AbilityContainer"]
-custom_minimum_size = Vector2(50, 40)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 4
 texture = ExtResource("3_3neig")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="AbilityDesc" type="RichTextLabel" parent="AbilityContainer"]
-custom_minimum_size = Vector2(220, 31)
+custom_minimum_size = Vector2(225, 31)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -82,7 +86,7 @@ text = "Throw a big slash of fire in the target direction."
 scroll_active = false
 
 [node name="AbilityName" type="Label" parent="AbilityContainer"]
-custom_minimum_size = Vector2(220, 0)
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -91,7 +95,7 @@ label_settings = SubResource("LabelSettings_m4yqr")
 autowrap_mode = 2
 
 [node name="AbilityCap" type="Label" parent="AbilityContainer"]
-custom_minimum_size = Vector2(220, 0)
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0

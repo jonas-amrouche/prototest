@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmu2hwip58g51"]
 
 [ext_resource type="PackedScene" uid="uid://rx763neh1a7m" path="res://Assets/3D/Items/HunterMachete.glb" id="1_d7v3y"]
-[ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Ressources/Materials/PBR/Metal2.tres" id="2_kg3vm"]
-[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="3_km5um"]
+[ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Resources/Materials/PBR/Metal2.tres" id="2_kg3vm"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Resources/Materials/PBR/Metal1.tres" id="3_km5um"]
 
 [node name="HunterMachete" instance=ExtResource("1_d7v3y")]
 

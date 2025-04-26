@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://bvy4fm7lpya0a"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_svsnj"]
+[ext_resource type="Resource" uid="uid://bkwym8ejgyxvn" path="res://Resources/Abilities/burning_line.tres" id="2_l71xv"]
+[ext_resource type="Resource" uid="uid://c7oys33odk6hw" path="res://Resources/Abilities/spontaneous_combustion.tres" id="3_rbfp6"]
+[ext_resource type="Texture2D" uid="uid://7y2xerj3oe7" path="res://Assets/2D/Items/IncandescentBookIcon.png" id="7_6mym6"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="8_c1omx"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="9_7ndfw"]
+
+[resource]
+script = ExtResource("9_7ndfw")
+id = "incandescent_book"
+name = "Incandescent Book"
+description = "An ancient tome of orange spells, perpetually ablaze since an [i]unknown[/i] wizard enchanted it."
+icon = ExtResource("7_6mym6")
+rarity = 3
+abilities = Array[ExtResource("1_svsnj")]([ExtResource("2_l71xv"), ExtResource("3_rbfp6")])
+passives = Array[ExtResource("8_c1omx")]([])
+stats = {
+"magic_damage": 45
+}

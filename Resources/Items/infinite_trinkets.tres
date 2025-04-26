@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://dd286pu246ain"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_2jqly"]
+[ext_resource type="Resource" uid="uid://bd6xn886jpo34" path="res://Resources/Abilities/trinket_creation.tres" id="2_2jqly"]
+[ext_resource type="Texture2D" uid="uid://bk7xi7p7f83h" path="res://Assets/2D/Shaders/tritex_test.png" id="3_2jqly"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="4_qtd40"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="5_uesv5"]
+
+[resource]
+script = ExtResource("5_uesv5")
+id = "infinite_trinket"
+description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
+icon = ExtResource("3_2jqly")
+rarity = 4
+consumable = false
+abilities = Array[ExtResource("1_2jqly")]([ExtResource("2_2jqly")])
+passives = Array[ExtResource("4_qtd40")]([])
+stats = {}

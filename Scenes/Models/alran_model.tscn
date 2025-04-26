@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://4o8enu7hi243"]
 
 [ext_resource type="PackedScene" uid="uid://c1bsn4yc8c361" path="res://Assets/3D/Alran.glb" id="1_jqi2w"]
-[ext_resource type="Material" uid="uid://blyt8qvjtvtqj" path="res://Ressources/Materials/PBR/stone_statue.tres" id="2_slhvg"]
-[ext_resource type="Material" uid="uid://jilkuc5hg0re" path="res://Ressources/Materials/PBR/glowing_eyes.tres" id="3_bchx5"]
-[ext_resource type="Material" uid="uid://cv7l5206uurjd" path="res://Ressources/Materials/PBR/Stone1.tres" id="4_tbrq0"]
+[ext_resource type="Material" uid="uid://blyt8qvjtvtqj" path="res://Resources/Materials/PBR/stone_statue.tres" id="2_slhvg"]
+[ext_resource type="Material" uid="uid://jilkuc5hg0re" path="res://Resources/Materials/PBR/glowing_eyes.tres" id="3_bchx5"]
+[ext_resource type="Material" uid="uid://cv7l5206uurjd" path="res://Resources/Materials/PBR/Stone1.tres" id="4_tbrq0"]
 
 [node name="AlranModel" instance=ExtResource("1_jqi2w")]
 

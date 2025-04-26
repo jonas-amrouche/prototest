@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://br5jpfgw2drx5"]
 
 [ext_resource type="PackedScene" uid="uid://bcko2mejy6wub" path="res://Assets/3D/Decorations/TribalSanctuaryRound.glb" id="1_2u6pk"]
-[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Ressources/Materials/PBR/Metal1.tres" id="2_pgdu4"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Resources/Materials/PBR/Metal1.tres" id="2_pgdu4"]
 
 [node name="TribalSanctuaryRound" instance=ExtResource("1_2u6pk")]
 

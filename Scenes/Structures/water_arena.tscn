@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=4 uid="uid://c7q883y7gksyr"]
 
-[ext_resource type="Shader" uid="uid://g6sjp7s27got" path="res://Ressources/Shaders/water_arena.gdshader" id="1_tmwto"]
+[ext_resource type="Shader" uid="uid://g6sjp7s27got" path="res://Resources/Shaders/water_arena.gdshader" id="1_tmwto"]
 [ext_resource type="Texture2D" uid="uid://bh4ffuktox0h4" path="res://Assets/2D/PBR/water_v1.png" id="2_q1ib1"]
 [ext_resource type="AudioStream" uid="uid://crol7jmiyesbn" path="res://Assets/Audio/water_calm.ogg" id="3_7yggm"]
-[ext_resource type="Material" uid="uid://ch50pmqgyurhh" path="res://Ressources/Materials/PBR/Pavement1.tres" id="4_2e0og"]
+[ext_resource type="Material" uid="uid://ch50pmqgyurhh" path="res://Resources/Materials/PBR/Pavement1.tres" id="4_2e0og"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_q1ib1"]
 top_radius = 17.0

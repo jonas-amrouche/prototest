@@ -62,7 +62,7 @@ func remove_effect(effect : Effect) -> void:
 func hover_target() -> void:
 	for c in monster_model.get_children():
 		if c.is_class("MeshInstance3D"):
-			c.layers = pow(2, 3-1) + pow(2, 7-1) # Set layers to keep monster and add outline layer
+			c.set_layer_mask_value(14, true)
 
 func stop_hovering_target() -> void:
 	for c in monster_model.get_children():
@@ -72,7 +72,8 @@ func stop_hovering_target() -> void:
 func select_target() -> void:
 	for c in monster_model.get_children():
 		if c.is_class("MeshInstance3D"):
-			c.layers = pow(2, 3-1) + pow(2, 7-1) # Set layers to keep monster and add outline layer
+			c.set_layer_mask_value(14, false)
+			c.set_layer_mask_value(15, true)
 
 func lose_target() -> void:
 	for c in monster_model.get_children():

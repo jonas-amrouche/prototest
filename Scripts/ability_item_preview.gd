@@ -14,6 +14,9 @@ func _ready():
 		adility_desc.text = ability.description
 		adility_icon.texture = ability.icon
 		adility_name.label_settings.set("font_color", Basics.DAMAGE_COLOR[ability.damage_type])
-		cooldown_lab.text = str(ability.cooldown) + "s"
+		if ability.cooldown == round(ability.cooldown):
+			cooldown_lab.text = str(int(ability.cooldown)) + "s"
+		else:
+			cooldown_lab.text = str(ability.cooldown) + "s"
 		adility_cap.set_visible(ability.damage_cap > 0)
 		adility_cap.text = "->" + str(ability.damage_cap)

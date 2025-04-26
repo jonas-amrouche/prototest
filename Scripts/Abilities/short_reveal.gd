@@ -22,7 +22,8 @@ func press() -> Basics.ABILITY_ERROR:
 		manager.in_casting = false
 		manager.start_ability_cooldown(ad.ability)
 		for i in temp_visions_list:
-			i.queue_free())
+			i.queue_free()
+		queue_free())
 	return Basics.ABILITY_ERROR.OK
 
 func _process(_delta: float) -> void:

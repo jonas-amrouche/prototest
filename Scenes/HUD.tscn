@@ -1,16 +1,15 @@
-[gd_scene load_steps=84 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=87 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
 [ext_resource type="PackedScene" uid="uid://dmsot177joet6" path="res://Scenes/UI/experience_gem.tscn" id="2_j4ssy"]
-[ext_resource type="Shader" uid="uid://b6om6yu2stsmg" path="res://Ressources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
+[ext_resource type="Shader" uid="uid://b6om6yu2stsmg" path="res://Resources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
 [ext_resource type="Texture2D" uid="uid://cx6f1ycmvqilj" path="res://Assets/2D/Shaders/gem_texture_ui.png" id="4_4sp2n"]
 [ext_resource type="Texture2D" uid="uid://c0m4who6u83m7" path="res://Assets/2D/UI/exp_shine.png" id="5_0cch0"]
 [ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="6_fbb48"]
 [ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
-[ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="7_hhtw7"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
 [ext_resource type="FontFile" uid="uid://d4e2auspm7orw" path="res://Assets/Fonts/TechnaSans-Regular.otf" id="9_w5mne"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
@@ -201,6 +200,16 @@ border_width_right = 2
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssfue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtju"]
+bg_color = Color(0.70647, 0.00167899, 0.868358, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbb48"]
 bg_color = Color(0.0144486, 0.01589, 0.00248296, 1)
 corner_radius_top_left = 1
@@ -227,17 +236,7 @@ bg_color = Color(0.237539, 0.237539, 0.237539, 1)
 border_color = Color(0.125911, 0.125911, 0.125911, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
-texture = ExtResource("7_hhtw7")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssfue"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtju"]
-bg_color = Color(0.398888, 0.000484629, 0.495384, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("6_fbb48")
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
 font = ExtResource("9_w5mne")
@@ -290,9 +289,9 @@ font_size = 15
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ba8gd"]
 texture = ExtResource("12_8bf2m")
 texture_margin_left = 15.0
-texture_margin_top = 15.0
+texture_margin_top = 18.0
 texture_margin_right = 15.0
-texture_margin_bottom = 15.0
+texture_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36s6t"]
 resource_local_to_scene = true
@@ -462,6 +461,79 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bf2m"]
+texture = ExtResource("12_8bf2m")
+texture_margin_left = 15.0
+texture_margin_top = 18.0
+texture_margin_right = 15.0
+texture_margin_bottom = 18.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
+font = ExtResource("10_xuldq")
+font_size = 25
+font_color = Color(0.28, 0.25984, 0.2296, 1)
+shadow_color = Color(0, 0, 0, 0.409)
+shadow_offset = Vector2(1.5, 1.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lr1mr"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs582"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q562m"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8r83"]
+bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.129558, 0.129559, 0.129558, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5hjn"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bf2m"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hhtw7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
@@ -503,53 +575,6 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
-
-[sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
-font = ExtResource("10_xuldq")
-font_size = 25
-font_color = Color(0.0885417, 0.0885417, 0.0885417, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lr1mr"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs582"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53yd6"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq8fq"]
 bg_color = Color(0.454632, 0.318063, 0.842269, 1)
@@ -744,6 +769,22 @@ size_flags_vertical = 8
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
+[node name="ExpBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -313.0
+offset_top = 963.0
+offset_right = 313.0
+offset_bottom = 968.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_ssfue")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pbtju")
+value = 29.49
+show_percentage = false
+
 [node name="ActionPanel" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -826,7 +867,7 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
-[node name="HealthBar" type="ProgressBar" parent="ActionPanel/BarContainer2/Pad"]
+[node name="ManaBar" type="ProgressBar" parent="ActionPanel/BarContainer2/Pad"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -868,22 +909,6 @@ metadata/_edit_lock_ = true
 [node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad"]
 layout_mode = 2
 metadata/_edit_lock_ = true
-
-[node name="ExpBar" type="ProgressBar" parent="ActionPanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -313.0
-offset_top = 137.0
-offset_right = 313.0
-offset_bottom = 142.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_ssfue")
-theme_override_styles/fill = SubResource("StyleBoxFlat_pbtju")
-value = 29.49
-show_percentage = false
 
 [node name="LevelInd" type="Label" parent="ActionPanel"]
 layout_mode = 1
@@ -1067,6 +1092,165 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jnyvx")
 [node name="ItemHud12" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qtyhc")
+
+[node name="ItemCraft" type="PanelContainer" parent="."]
+layout_mode = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 351.0
+offset_top = -100.0
+offset_right = 570.0
+offset_bottom = 28.0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_8bf2m")
+
+[node name="Pad" type="MarginContainer" parent="ItemCraft"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_edit_lock_ = true
+
+[node name="Visuals" type="Label" parent="ItemCraft/Pad"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "        +         ="
+label_settings = SubResource("LabelSettings_rr6i0")
+vertical_alignment = 1
+
+[node name="CraftComps" type="HBoxContainer" parent="ItemCraft/Pad"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 22
+
+[node name="ItemHud" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lr1mr")
+
+[node name="ItemHud2" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vs582")
+
+[node name="ItemHud3" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q562m")
+available = false
+
+[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ProgressPad" type="MarginContainer" parent="ItemCraft"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 21
+
+[node name="CraftBar" type="ProgressBar" parent="ItemCraft/ProgressPad"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_l8r83")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v5hjn")
+show_percentage = false
+
+[node name="NonBindedAbilities" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = -216.0
+offset_right = 295.0
+offset_bottom = -116.0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
+
+[node name="Pad" type="MarginContainer" parent="NonBindedAbilities"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
+
+[node name="AbilitiesList" type="GridContainer" parent="NonBindedAbilities/Pad"]
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 6
+metadata/_edit_lock_ = true
+
+[node name="TargetData" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 363.0
+offset_bottom = 107.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
+
+[node name="TargCont" type="VBoxContainer" parent="TargetData"]
+layout_mode = 2
+
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont"]
+layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = -3
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = -3
+
+[node name="EntityIcon" type="TextureRect" parent="TargetData/TargCont/Pad"]
+custom_minimum_size = Vector2(53, 53)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2_2e34d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad"]
+custom_minimum_size = Vector2(260.22, 53)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_bottom = 7
+
+[node name="EntityName" type="Label" parent="TargetData/TargCont/Pad/Pad"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Endossed Willow"
+
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HealthBar" type="ProgressBar" parent="TargetData/TargCont/Pad/Pad/Pad"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_o2vyp")
+theme_override_styles/fill = SubResource("StyleBoxTexture_hhtw7")
+value = 100.0
+show_percentage = false
+
+[node name="HSeparator" type="HSeparator" parent="TargetData/TargCont"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8bf2m")
+
+[node name="Items" type="GridContainer" parent="TargetData/TargCont"]
+layout_mode = 2
+columns = 5
+metadata/_edit_lock_ = true
 
 [node name="StatScroll" type="TextureRect" parent="."]
 layout_mode = 0
@@ -1693,74 +1877,6 @@ offset_left = 165.0
 offset_top = -28.0
 offset_right = 189.0
 offset_bottom = -4.0
-color = Color(0.481053, 0.188391, 0.489583, 1)
-
-[node name="ItemCraft" type="PanelContainer" parent="."]
-layout_mode = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 362.0
-offset_top = -101.0
-offset_right = 551.0
-offset_bottom = -46.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
-
-[node name="Pad" type="MarginContainer" parent="ItemCraft"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_edit_lock_ = true
-
-[node name="Visuals" type="Label" parent="ItemCraft/Pad"]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-size_flags_horizontal = 0
-text = "        +         ="
-label_settings = SubResource("LabelSettings_rr6i0")
-vertical_alignment = 1
-
-[node name="CraftComps" type="HBoxContainer" parent="ItemCraft/Pad"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 22
-
-[node name="ItemHud" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lr1mr")
-
-[node name="ItemHud2" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vs582")
-
-[node name="ItemHud3" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_53yd6")
-
-[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="ColorRect" type="ColorRect" parent="ItemCraft"]
-visible = false
-layout_mode = 2
-color = Color(0.489583, 0.297306, 0.140627, 1)
-
-[node name="ColorRect2" type="ColorRect" parent="ItemCraft"]
-visible = false
-layout_mode = 2
-color = Color(0.249837, 0.337389, 0.489583, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="ItemCraft"]
-visible = false
-layout_mode = 2
-color = Color(0.489583, 0.149153, 0.198037, 1)
-
-[node name="ColorRect4" type="ColorRect" parent="ItemCraft"]
-visible = false
-layout_mode = 2
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
 [node name="Back" type="Panel" parent="."]

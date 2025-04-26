@@ -8,11 +8,11 @@ var pre_arena = preload("res://Scenes/Structures/water_arena.tscn")
 var pre_camp = preload("res://Scenes/Structures/camp.tscn")
 var pre_tower = preload("res://Scenes/Structures/knowledge_tower.tscn")
 
-var camps_list = [preload("res://Ressources/Camps/OmniscientGolem.tres"), \
-preload("res://Ressources/Camps/Gobedins.tres"), \
-preload("res://Ressources/Camps/DispossessedWillow.tres"), \
-preload("res://Ressources/Camps/Grunters.tres"), \
-preload("res://Ressources/Camps/LostGhosts.tres")]
+var camps_list = [preload("res://Resources/Camps/OmniscientGolem.tres"), \
+preload("res://Resources/Camps/Gobedins.tres"), \
+preload("res://Resources/Camps/DispossessedWillow.tres"), \
+preload("res://Resources/Camps/Grunters.tres"), \
+preload("res://Resources/Camps/LostGhosts.tres")]
 
 var players : Array[Object]
 

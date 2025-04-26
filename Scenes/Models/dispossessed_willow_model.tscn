@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cucsd3e0a0nt2"]
 
 [ext_resource type="PackedScene" uid="uid://bsxegbonyihna" path="res://Assets/3D/Monsters/DispossessedWillow.glb" id="1_c4f6p"]
-[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Ressources/Materials/PBR/Wood1.tres" id="2_2ffu7"]
+[ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Resources/Materials/PBR/Wood1.tres" id="2_2ffu7"]
 
 [node name="DispossessedWillowModel" instance=ExtResource("1_c4f6p")]
 

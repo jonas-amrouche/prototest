@@ -1,0 +1,6 @@
+[gd_resource type="GradientTexture1D" load_steps=2 format=3 uid="uid://mcpqsoajg5fm"]
+
+[ext_resource type="Gradient" uid="uid://ssrh070rpsfn" path="res://Resources/ColorCorection/DeadColorCorrectionGradient.tres" id="1_lm4ns"]
+
+[resource]
+gradient = ExtResource("1_lm4ns")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bhyctxxx1rk87"]
 
 [ext_resource type="PackedScene" uid="uid://b7vybysd84sie" path="res://Assets/3D/KokaPlant.glb" id="1_ej0wk"]
-[ext_resource type="Material" uid="uid://b80n148qehj6w" path="res://Ressources/Materials/PBR/KokaBody1.tres" id="2_bcumn"]
-[ext_resource type="Material" uid="uid://bi5oisr4lvrhi" path="res://Ressources/Materials/PBR/KokaPetals1.tres" id="3_67t0v"]
-[ext_resource type="Material" uid="uid://bnksr5bujjnfi" path="res://Ressources/Materials/PBR/KokaSeeds1.tres" id="4_d1glq"]
+[ext_resource type="Material" uid="uid://b80n148qehj6w" path="res://Resources/Materials/PBR/KokaBody1.tres" id="2_bcumn"]
+[ext_resource type="Material" uid="uid://bi5oisr4lvrhi" path="res://Resources/Materials/PBR/KokaPetals1.tres" id="3_67t0v"]
+[ext_resource type="Material" uid="uid://bnksr5bujjnfi" path="res://Resources/Materials/PBR/KokaSeeds1.tres" id="4_d1glq"]
 
 [node name="KokaPlantModel" instance=ExtResource("1_ej0wk")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.0945504, 0)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=13 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/hud.tscn" id="2_8erm5"]
-[ext_resource type="Material" uid="uid://bh62wkeal0hto" path="res://Ressources/Materials/TechArt/target_outline.tres" id="2_f1ek2"]
+[ext_resource type="Material" uid="uid://bxdm6eppdf28l" path="res://Resources/Materials/TechArt/target_outline_hover.tres" id="2_f1ek2"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="3_f1ek2"]
+[ext_resource type="Material" uid="uid://bbedg08s8c1q0" path="res://Resources/Materials/TechArt/target_outline_select.tres" id="3_tx1dd"]
 [ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/abilities.tscn" id="4_tx1dd"]
 [ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/info_bar.tscn" id="5_gymyn"]
 [ext_resource type="PackedScene" uid="uid://ck86813meoj4w" path="res://Scenes/vision.tscn" id="6_pu2lt"]
@@ -31,7 +32,7 @@ script = ExtResource("1_3smsa")
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_j70xh")
 
-[node name="Outline" type="SubViewportContainer" parent="."]
+[node name="HoverOutline" type="SubViewportContainer" parent="."]
 material = ExtResource("2_f1ek2")
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,15 +41,38 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="OutlineVP" type="SubViewport" parent="Outline"]
+[node name="HoverOutlineVP" type="SubViewport" parent="HoverOutline"]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Camera" type="Camera3D" parent="Outline/OutlineVP"]
+[node name="Camera" type="Camera3D" parent="HoverOutline/HoverOutlineVP"]
 transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 13, 7)
-cull_mask = 64
+cull_mask = 8192
+environment = SubResource("Environment_8erm5")
+current = true
+fov = 50.0
+far = 512.0
+
+[node name="SelectOutline" type="SubViewportContainer" parent="."]
+material = ExtResource("3_tx1dd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SelectOutlineVP" type="SubViewport" parent="SelectOutline"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="SelectOutline/SelectOutlineVP"]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 13, 7)
+cull_mask = 16384
 environment = SubResource("Environment_8erm5")
 current = true
 fov = 50.0
