@@ -6,7 +6,7 @@ var ad : AbilityData
 @onready var collision = $Area
 @onready var manager = get_node("..")
 
-var binded_fire = preload("res://Ressources/Effects/BindedFire.tres")
+var binded_fire = preload("res://Resources/Effects/BindedFire.tres")
 
 func press() -> Basics.ABILITY_ERROR:
 	manager.look_at_cursor()

@@ -90,6 +90,14 @@ func get_ability_cooldown(ability : Ability):
 	else:
 		return null
 
+func get_targeted_ability_range(ability_id : String) -> float:
+	var ab = load("res://Scenes/Abilities/" + ability_id + ".tscn").instantiate()
+	
+	if ab.has_node("Area/Col") and ab.get_node("Area/Col").shape.is_class("CylinderShape3D"):
+		ab.queue_free()
+		return ab.get_node("Area/Col").shape.get("radius")
+	return -1.0
+
 func get_ability_range(ability_id : String) -> float:
 	var ab = load("res://Scenes/Abilities/" + ability_id + ".tscn").instantiate()
 	if ab.get_node("Area/Col").shape.is_class("CylinderShape3D"):

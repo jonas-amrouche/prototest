@@ -57,31 +57,34 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_axs84")
 script = ExtResource("1_desy6")
 
-[node name="ItemCont" type="MarginContainer" parent="."]
+[node name="BlackCont" type="PanelContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_17rjt")
+
+[node name="DragCont" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="BlackCont" type="PanelContainer" parent="ItemCont"]
+[node name="Icon" type="TextureRect" parent="DragCont"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_17rjt")
-
-[node name="Icon" type="TextureRect" parent="ItemCont"]
-layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="QuantityCont" type="MarginContainer" parent="."]
+[node name="QuantityCont" type="MarginContainer" parent="DragCont"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 0
 
-[node name="Quantity" type="Label" parent="QuantityCont"]
+[node name="Quantity" type="Label" parent="DragCont/QuantityCont"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0

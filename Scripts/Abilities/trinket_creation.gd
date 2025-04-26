@@ -5,7 +5,7 @@ var ad : AbilityData
 @onready var manager = get_node("..")
 
 var pre_beacon = preload("res://Scenes/Props/vision_beacon.tscn")
-var vision_stone = preload("res://Ressources/Items/vision_stone.tres")
+var vision_stone = preload("res://Resources/Items/vision_stone.tres")
 
 var ward_position : Vector3
 

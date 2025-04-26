@@ -16,7 +16,7 @@ var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png"
 var pre_base_area_texture = preload("res://Assets/2D/Ui/base_area_path.png")
 var pre_base_arena_texture = preload("res://Assets/2D/Ui/base_arena_path.png")
 var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
-var pre_interest_texture = preload("res://Assets/2D/UI/plant_icon.png")
+var pre_camp_texture = preload("res://Assets/2D/UI/plant_icon.png")
 
 const BASE_OFFSET := 0.0
 const MAP_PATH_WIDTH := 9.0
@@ -28,7 +28,8 @@ const MAP_BASE_ICON_SIZE := Vector2(30.0, 30.0)
 const MAP_BASE_AREA_SIZE := Vector2(65.0, 65.0)
 const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
 const MAP_INTEREST_ICON_SIZE := Vector2(4.0, 4.0)
-func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
+const MAP_CAMP_ICON_SIZE := Vector2(10.0, 10.0)
+func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array, river_noise_tex : NoiseTexture2D) -> void:
 	# Set map_size
 	map_size = m_size
 	
@@ -49,6 +50,10 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	# Draw Interest Icons
 	for i in range(interests_data.size()):
 		draw_icon(interests_data.keys()[i], interests_data.values()[i] * MAP_INTEREST_ICON_SIZE, pre_base_arena_texture, MAP_INTEREST_COLOR)
+		
+	# Draw Camps Icons
+	for i in range(camps_data.size()):
+		draw_icon(camps_data[i], MAP_CAMP_ICON_SIZE, pre_camp_texture)
 	
 	# Draw Bases Zone Icons
 	for base in bases_data:

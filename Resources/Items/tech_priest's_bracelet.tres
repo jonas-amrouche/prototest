@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cy4ner4oke7fu"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_m66gg"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="3_wrqxw"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="4_ps4w6"]
+
+[resource]
+script = ExtResource("4_ps4w6")
+id = "tech_priest's_braclet"
+description = "Bracelet of gildalan."
+rarity = 4
+consumable = false
+abilities = Array[ExtResource("1_m66gg")]([])
+passives = Array[ExtResource("3_wrqxw")]([])
+stats = {}
+metadata/_custom_type_script = "uid://coumuhl7aj46k"

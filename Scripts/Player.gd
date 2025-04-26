@@ -46,9 +46,16 @@ const SPAWN_REGEN = 100.0
 var in_base := false
 
 var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null]
-var abilities := [null, null, null, null, null, null, null, null, null, null]
+var abilities : Array[Ability]
 
 var can_move := true
+
+var hovered_target : Object
+var selected_target : Object
+var cursor_mode : Basics.CURSOR_MODE
+
+var auto_attack_target : Object
+var loot_target : Object
 
 @onready var world := get_node("..")
 @onready var camera := $Camera
@@ -78,6 +85,7 @@ func _ready():
 	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
 	obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
 	obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
+	obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
 	
 	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
 	obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
@@ -91,6 +99,7 @@ func _ready():
 	hud.update_info_bars()
 	hud.update_abilities()
 	hud.update_inventory()
+	hud.bind_default_abilities()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -102,31 +111,41 @@ func _process(delta):
 	update_camera_position()
 	update_direction()
 	check_for_target()
+	auto_attacking()
 	
 	hover_outline_camera.global_transform = camera.global_transform
 	select_outline_camera.global_transform = camera.global_transform
 
-var hovered_target : Object
-var selected_target : Object
+func auto_attacking() -> void:
+	if auto_attack_target:
+		nav.target_position = auto_attack_target.global_position
+		var _range = ability_machine.get_targeted_ability_range(abilities[hud.auto_attack_id].id)
+		var _distance_to_target = auto_attack_target.global_position.distance_to(global_position) - auto_attack_target.get_node("Collision").shape.get("radius")/2.0
+		if _range > _distance_to_target:
+			ability_machine.use_ability(abilities[hud.auto_attack_id], self)
+
 func check_for_target() -> void:
 	var _result = target_raycast()
 	if _result.is_empty():
-		DisplayServer.cursor_set_custom_image(Basics.cursors[Basics.CURSOR_MODE.NORMAL])
-		if hovered_target == selected_target: return
+		cursor_mode = Basics.CURSOR_MODE.NORMAL
+		DisplayServer.cursor_set_custom_image(Basics.cursors[cursor_mode])
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
+			hud.update_target()
 		hovered_target = null
 	else:
 		if _result.get("collider") == self: return
 		
-		var _cursor = Basics.CURSOR_MODE.LOOT if hovered_target and hovered_target.is_dead() else Basics.CURSOR_MODE.ATTACK
-		DisplayServer.cursor_set_custom_image(Basics.cursors[_cursor])
+		cursor_mode = Basics.CURSOR_MODE.LOOT if hovered_target and hovered_target.is_dead() else Basics.CURSOR_MODE.ATTACK
+		DisplayServer.cursor_set_custom_image(Basics.cursors[cursor_mode])
 		
-		if hovered_target and hovered_target != selected_target and hovered_target.has_method("stop_hovering_target"):
+		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
+			hud.update_target()
 		hovered_target = _result.get("collider")
 		if hovered_target.has_method("hover_target"):
 			hovered_target.hover_target()
+			hud.update_target()
 			
 
 const RAY_LENGTH := 100.0
@@ -179,24 +198,42 @@ func move_camera_click(press : bool) -> void:
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == 2:
-			var _result = ability_machine.terrain_raycast()
-			if !_result.is_empty():
-				nav.target_position = _result.get("position")
-				spawn_move_effect(_result.get("position"))
-				ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
+			if hovered_target:
+				match cursor_mode:
+					Basics.CURSOR_MODE.ATTACK:
+						auto_attack_target = hovered_target
+					Basics.CURSOR_MODE.LOOT:
+						loot_target = hovered_target
+						nav.target_position = auto_attack_target.global_position
+			else:
+				var _result = ability_machine.terrain_raycast()
+				if !_result.is_empty():
+					auto_attack_target = null
+					nav.target_position = _result.get("position")
+					spawn_move_effect(_result.get("position"))
+					ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
 		elif event.button_index == 1:
 			var _result = target_raycast()
 			if _result.is_empty():
 				if selected_target and selected_target.has_method("lose_target"):
 					selected_target.lose_target()
+					if selected_target.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.state_changed.disconnect(Callable(hud, "update_target"))
 				selected_target = null
+				hud.update_target()
 			else:
 				if _result.get("collider") == self: return
 				if selected_target and selected_target.has_method("lose_target"):
 					selected_target.lose_target()
+					if selected_target.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.state_changed.disconnect(Callable(hud, "update_target"))
+					hud.update_target()
 				selected_target = _result.get("collider")
 				if selected_target.has_method("select_target"):
 					selected_target.select_target()
+					if !selected_target.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.state_changed.connect(Callable(hud, "update_target"))
+					hud.update_target()
 
 var pre_move_effect = preload("res://Scenes/UI/click_move_effect.tscn")
 func spawn_move_effect(pos : Vector3) -> void:
@@ -308,7 +345,10 @@ func movement() -> void:
 			ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
-		face_direction(direction)
+		if auto_attack_target:
+			face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
+		else:
+			face_direction(direction)
 	else:
 		model_anims.play("idle_stand")
 		velocity.x = lerp(velocity.x, 0.0, ACCELERATION)
@@ -332,14 +372,14 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
-	for i in range(10):
-		if Input.is_action_just_pressed("ability"+str(i+1)):
-			if abilities[i]:
+	for i in range(abilities.size()):
+		if abilities[i] and abilities[i].slot_id >= 0:
+			if Input.is_action_just_pressed("ability"+str(abilities[i].slot_id+1)):
 				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
 						if abilities[i].channeling:
 							ability_machine.start_channeling(abilities[i].action_time, abilities[i].name)
-						hud.ability_list.get_children()[i].use_ability()
+						hud.ability_list.get_children()[abilities[i].slot_id  ].use_ability()
 		if Input.is_action_just_released("ability"+str(i+1)):
 			if abilities[i]:
 				ability_machine.release_ability(abilities[i])

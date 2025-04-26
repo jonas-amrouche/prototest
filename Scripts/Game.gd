@@ -8,7 +8,7 @@ var pre_arena = preload("res://Scenes/Structures/water_arena.tscn")
 var pre_camp = preload("res://Scenes/Structures/camp.tscn")
 var pre_tower = preload("res://Scenes/Structures/knowledge_tower.tscn")
 
-var camps_list = [preload("res://Resources/Camps/OmniscientGolem.tres"), \
+var pre_camps = [preload("res://Resources/Camps/OmniscientGolem.tres"), \
 preload("res://Resources/Camps/Gobedins.tres"), \
 preload("res://Resources/Camps/DispossessedWillow.tres"), \
 preload("res://Resources/Camps/Grunters.tres"), \
@@ -36,7 +36,7 @@ func _ready() -> void:
 	DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
-	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
+	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, camp_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
 
 func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
 	var _new_player = pre_player.instantiate()
@@ -249,10 +249,10 @@ func generate_collisions() -> void:
 				continue
 			add_collision_cube(_new_position)
 
-func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : Dictionary, river_noise_tex : NoiseTexture2D):
+func send_map_data_to_player(paths_list : Array[PackedVector2Array], bases_list : PackedVector2Array, interests_list : Dictionary, camps_list : PackedVector2Array, river_noise_tex : NoiseTexture2D):
 	for p in players:
 		p.vision.initialize_fog_map(bases_list)
-		p.hud.init_map_data(paths_list, bases_list, interests_list, river_noise_tex)
+		p.hud.init_map_data(paths_list, bases_list, interests_list, camps_list, river_noise_tex)
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -295,14 +295,16 @@ func add_collision_cube(pos : Vector2) -> void:
 
 const CAMPS_RATIO := 2.25
 const DISPLACEMENT_TO_CENTER := 3.0
+var camp_points_list : PackedVector2Array
 func generate_camps() -> void:
 	for i in range(new_interest_points_list.size()):
 		var _camps_num : int = ceil((new_interest_points_list.values()[i] - MIN_INTEREST_SIZE)/CAMPS_RATIO)
 		for c in range(_camps_num):
 			var _new_camp = pre_camp.instantiate()
 			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
+			camp_points_list.append(Vector2(new_interest_points_list.keys()[i].x + _added_vec.x, new_interest_points_list.keys()[i].y + _added_vec.z))
 			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.2, new_interest_points_list.keys()[i].y) + _added_vec
-			_new_camp.camp = camps_list[randi_range(0, camps_list.size()-1)]
+			_new_camp.camp = pre_camps[randi_range(0, pre_camps.size()-1)]
 			camps.add_child(_new_camp)
 
 const CHANCE_TO_SPAWN_TOWER := 0.05

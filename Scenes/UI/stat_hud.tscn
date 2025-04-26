@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmckpfbf2u4kh"]
+[gd_scene load_steps=5 format=3 uid="uid://bmckpfbf2u4kh"]
 
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_7xpcj"]
 [ext_resource type="Script" uid="uid://dsfp1qs3hnwd8" path="res://Scripts/stat_hud.gd" id="1_qs0rs"]
-[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="2_o0bd5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6uytu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
-font = ExtResource("2_o0bd5")
 font_size = 11
 font_color = Color(0, 0, 0, 1)
 outline_size = 3

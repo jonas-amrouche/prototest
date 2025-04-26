@@ -9,6 +9,7 @@ signal drag_ability(slot : Object)
 signal drop_ability(slot : Object)
 signal mouse_entered_ability(slot : Object)
 signal assign_auto_attack(slot : Object)
+signal unbind(slot : Object)
 
 @onready var icon = $MarginContainer/IconContainer/Icon
 @onready var item_icon = $ItemIconContainer/ItemIcon
@@ -27,6 +28,8 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("assign_auto_attack") and is_mouse_on_ability:
 		assign_auto_attack.emit(self)
+	if Input.is_action_just_pressed("unbind_ability") and is_mouse_on_ability:
+		unbind.emit(self)
 
 func update_slot() -> void:
 	keybind_label.set_text(keybind.replace("(Physical)", ""))

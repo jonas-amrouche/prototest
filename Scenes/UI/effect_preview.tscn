@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqguvdpt2gpe0"]
+[gd_scene load_steps=7 format=3 uid="uid://bqguvdpt2gpe0"]
 
 [ext_resource type="Script" uid="uid://dmampdcujnxku" path="res://Scripts/effect_preview.gd" id="1_eama0"]
 [ext_resource type="Texture2D" uid="uid://biv1bxbrokj4t" path="res://Assets/2D/Abilities/InstantShardstoneIcon.png" id="2_uxmg2"]
-[ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="3_t5lfd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cg47"]
-bg_color = Color(0.0246748, 0.0983496, 0.059556, 1)
+bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -21,10 +20,9 @@ border_color = Color(0, 0, 0, 1)
 border_blend = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_gom6e"]
-font = ExtResource("3_t5lfd")
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ai2w"]
-font_color = Color(0.409761, 0.398507, 0.345879, 1)
+font_color = Color(0.41, 0.41, 0.41, 1)
 
 [node name="EffectPreview" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 0)

@@ -7,13 +7,13 @@ signal drop_item(slot : Object)
 signal update_item_preview()
 signal mouse_entered_item(itm : Item)
 
-@onready var icon = $ItemCont/Icon
-@onready var black_cont = $ItemCont/BlackCont
+@onready var icon = $DragCont/Icon
+@onready var drag_cont = $DragCont
+@onready var black_cont = $BlackCont
 @onready var boder_overlay = $BorderMargin/BorderOverlay
 @onready var select_pan = $Select
 @onready var unavailable_pan = $Unavailable
-@onready var quantity_lab = $QuantityCont/Quantity
-@onready var item_cont = $ItemCont/Icon
+@onready var quantity_lab = $DragCont/QuantityCont/Quantity
 
 func _ready():
 	update_slot()
@@ -51,16 +51,16 @@ func _on_gui_input(event):
 		if event.pressed:
 			if item_slot:
 				grabbed = true
-				item_cont.z_index = 1
+				drag_cont.z_index = 1
 				drag_item.emit(self)
 				mouse_exited.emit()
 		else:
-			item_cont.z_index = 0
-			item_cont.position = Vector2(2.0, 2.0)
+			drag_cont.z_index = 0
+			drag_cont.position = Vector2(2.0, 2.0)
 			grabbed = false
 	if event is InputEventMouseMotion:
 		if grabbed:
-			item_cont.position = get_viewport().get_mouse_position() - global_position - size/2.0
+			drag_cont.position = get_viewport().get_mouse_position() - global_position - size/2.0
 		else:
 			update_item_preview.emit()
 

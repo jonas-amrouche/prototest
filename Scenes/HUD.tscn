@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=88 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -239,7 +239,6 @@ border_color = Color(0.125911, 0.125911, 0.125911, 1)
 texture = ExtResource("6_fbb48")
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
-font = ExtResource("9_w5mne")
 font_size = 17
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
@@ -259,31 +258,30 @@ shadow_offset = Vector2(0, 2)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bf2m"]
-bg_color = Color(0.1078, 0.12229, 0.14, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.1281, 0.16086, 0.21, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+bg_color = Color(0.19, 0.19, 0.19, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.270588)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba8gd"]
-bg_color = Color(0.1512, 0.37604, 0.56, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.13, 0.416, 0.65, 0)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+bg_color = Color(0.240711, 0.519062, 0.751137, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_ssfue"]
-font = ExtResource("10_xuldq")
 font_size = 15
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ba8gd"]
@@ -469,7 +467,6 @@ texture_margin_right = 15.0
 texture_margin_bottom = 18.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
-font = ExtResource("10_xuldq")
 font_size = 25
 font_color = Color(0.28, 0.25984, 0.2296, 1)
 shadow_color = Color(0, 0, 0, 0.409)
@@ -531,6 +528,12 @@ border_width_left = 1
 border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8bf2m"]
+font_size = 15
+font_color = Color(0.28, 0.25984, 0.2296, 1)
+shadow_color = Color(0, 0, 0, 0.409)
+shadow_offset = Vector2(1.5, 1.5)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bf2m"]
 
@@ -916,9 +919,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -15.0
-offset_top = 117.0
+offset_top = 112.0
 offset_right = 31.0
-offset_bottom = 135.0
+offset_bottom = 136.0
 grow_horizontal = 2
 text = "1"
 label_settings = SubResource("LabelSettings_blu1a")
@@ -950,15 +953,15 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -295.0
-offset_top = -232.0
+offset_top = -193.0
 offset_right = 296.0
-offset_bottom = -212.0
+offset_bottom = -182.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_8bf2m")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ba8gd")
-value = 100.0
+value = 91.8
 show_percentage = false
 
 [node name="ChannelingLabel" type="Label" parent="ChannelingBar"]
@@ -1118,24 +1121,24 @@ metadata/_edit_lock_ = true
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "        +         ="
+text = "       +        ="
 label_settings = SubResource("LabelSettings_rr6i0")
 vertical_alignment = 1
 
-[node name="CraftComps" type="HBoxContainer" parent="ItemCraft/Pad"]
+[node name="CraftList" type="HBoxContainer" parent="ItemCraft/Pad"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 22
 
-[node name="ItemHud" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+[node name="ItemHud" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lr1mr")
 
-[node name="ItemHud2" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+[node name="ItemHud2" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vs582")
 
-[node name="ItemHud3" parent="ItemCraft/Pad/CraftComps" instance=ExtResource("12_ssfue")]
+[node name="ItemHud3" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q562m")
 available = false
@@ -1162,19 +1165,35 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_v5hjn")
 show_percentage = false
 
 [node name="NonBindedAbilities" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 54.0
-offset_top = -216.0
-offset_right = 295.0
-offset_bottom = -116.0
+offset_left = 38.0
+offset_top = -190.0
+offset_right = 311.0
+offset_bottom = -125.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="Pad" type="MarginContainer" parent="NonBindedAbilities"]
+[node name="Container" type="VBoxContainer" parent="NonBindedAbilities"]
+layout_mode = 2
+
+[node name="PadLabel" type="MarginContainer" parent="NonBindedAbilities/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = -10
+
+[node name="Label" type="Label" parent="NonBindedAbilities/Container/PadLabel"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Non-Binded Abilities"
+label_settings = SubResource("LabelSettings_8bf2m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pad" type="MarginContainer" parent="NonBindedAbilities/Container"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
@@ -1182,7 +1201,7 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 10
 metadata/_edit_lock_ = true
 
-[node name="AbilitiesList" type="GridContainer" parent="NonBindedAbilities/Pad"]
+[node name="AbilitiesList" type="GridContainer" parent="NonBindedAbilities/Container/Pad"]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
@@ -1190,6 +1209,7 @@ columns = 6
 metadata/_edit_lock_ = true
 
 [node name="TargetData" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 offset_left = 10.0
 offset_top = 9.0

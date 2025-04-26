@@ -2,15 +2,15 @@ extends PanelContainer
 
 var item : Item
 
-@onready var item_icon = $MarginContainer/ItemIcon
-@onready var rarity_label = $MarginContainer/ItemData/Rarity
-@onready var item_name = $MarginContainer/ItemData/ItemName
-@onready var desc_line = $MarginContainer/ItemData/DescLine
-@onready var stats_container = $MarginContainer/ItemData/Specs/StatsBox
-@onready var abilities_container = $MarginContainer/ItemData/Specs/AbilitiesBox
-@onready var passives_container = $MarginContainer/ItemData/Specs/PassiveBox
-@onready var spec_spacer = $MarginContainer/ItemData/DataSpecsSep
-@onready var spec_container = $MarginContainer/ItemData/DataSpecsSep
+@onready var item_icon = $Pad/Pad/ItemIcon
+@onready var rarity_label = $Pad/ItemData/Rarity
+@onready var item_name = $Pad/ItemData/ItemName
+@onready var desc_line = $Pad/ItemData/DescLine
+@onready var stats_container = $Pad/ItemData/Specs/StatsBox
+@onready var abilities_container = $Pad/ItemData/Specs/AbilitiesBox
+@onready var passives_container = $Pad/ItemData/Specs/PassiveBox
+@onready var spec_spacer = $Pad/ItemData/DataSpecsSep
+@onready var spec_container = $Pad/ItemData/DataSpecsSep
 
 var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
 var pre_passive_preview = preload("res://Scenes/UI/passive_item_preview.tscn")

@@ -7,11 +7,15 @@
 script = ExtResource("1_yaty1")
 id = "cutting_around"
 name = "Cutting Around"
-description = "Deal small damage in a circle."
+description = "Deal small damage to a target."
 icon = ExtResource("1_iuxe5")
+targeted = true
 cooldown = 0.3
 life_time = 0.12
 action_time = 0.12
 channeling = false
 damage_type = 0
 damage_cap = 50
+toggle = false
+charging = false
+charges = 0

@@ -32,8 +32,8 @@ shadow_color = Color(0, 0, 0, 0.615686)
 
 [node name="AbilityHud" type="PanelContainer"]
 custom_minimum_size = Vector2(55, 55)
-offset_right = 50.0
-offset_bottom = 50.0
+offset_right = 37.0
+offset_bottom = 37.0
 size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apy5x")

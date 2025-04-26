@@ -36,6 +36,8 @@ var camp  : Object
 @onready var roam_timer = $Roam
 @onready var world = get_node("..").get_node("..")
 
+signal state_changed
+
 func _ready():
 	if monster.roam:
 		roam_timer.start()
@@ -67,7 +69,7 @@ func hover_target() -> void:
 func stop_hovering_target() -> void:
 	for c in monster_model.get_children():
 		if c.is_class("MeshInstance3D"):
-			c.layers = 3
+			c.set_layer_mask_value(14, false)
 
 func select_target() -> void:
 	for c in monster_model.get_children():
@@ -78,7 +80,7 @@ func select_target() -> void:
 func lose_target() -> void:
 	for c in monster_model.get_children():
 		if c.is_class("MeshInstance3D"):
-			c.layers = 3
+			c.set_layer_mask_value(15, false)
 
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	if is_dead():
@@ -101,6 +103,7 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	
 	health = max(health - _final_damage, 0.0)
 	health_bar.value = float(health) / float(stats.max_health) * 100.0
+	state_changed.emit()
 	if is_dead():
 		damage_dealer.gain_experience(monster.experience_drop)
 		die()

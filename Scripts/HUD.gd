@@ -1,8 +1,5 @@
 extends Control
 
-#var category_selected := 0
-#var item_craft_selected : Item
-#var hover_craft_button : bool
 var item_in_craft : Array[ItemSlot] = [null, null, null]
 var auto_attack_id := 0
 
@@ -20,17 +17,22 @@ var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
 var pre_component_preview = preload("res://Scenes/UI/component_preview.tscn")
 var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 
-#var all_item_base = preload("res://Resources/ItemBases/AllItems.tres")
-
 @onready var player := get_node("..").get_node("..")
 @onready var scoreboard := $ScoreBoard
 @onready var chat := $Chat
+@onready var target_tab := $TargetData
+@onready var target_name := $TargetData/TargCont/Pad/Pad/EntityName
+@onready var target_icon := $TargetData/TargCont/Pad/EntityIcon
+@onready var target_health := $TargetData/TargCont/Pad/Pad/Pad/HealthBar
+@onready var target_inventory_list := $TargetData/TargCont/Items
 @onready var craft_tab := $ItemCraft
 @onready var craft_result_container := $ItemCraft/Pad/CraftResult
-@onready var craft_comps_container := $ItemCraft/Pad/CraftComps
+@onready var craft_list := $ItemCraft/Pad/CraftList
 @onready var craft_bar := $ItemCraft/ProgressPad/CraftBar
 @onready var inventory_list = $Inventory/Pad/InventoryList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
+@onready var non_binded_abilities_tab = $NonBindedAbilities
+@onready var non_binded_abilities_list = $NonBindedAbilities/Container/Pad/AbilitiesList
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
 @onready var channeling_label := $ChannelingBar/ChannelingLabel
@@ -46,13 +48,16 @@ var component_preview
 var effect_preview
 var ability_preview
 
+var dragged_ability_slot : Object
+var dragged_item_ref : Object
+
 func _process(_delta):
 	mini_map.update_camera_position(player.camera.global_position, player.camera_base_marker.position)
 	mini_map.update_player_position(player.global_position)
 	update_previews()
 
-func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, river_noise_tex : NoiseTexture2D) -> void:
-	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, river_noise_tex)
+func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array, river_noise_tex : NoiseTexture2D) -> void:
+	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, camps_data, river_noise_tex)
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
@@ -80,23 +85,31 @@ func update_info_bars() -> void:
 			#continue
 		#i.unselect_item()
 
-func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
-	if item_in_craft[craft_slot]:
-		player.obtain_item(item_in_craft[craft_slot].item)
-	player.lose_item(item_slot.item, item_slot.quantity)
-	item_in_craft[craft_slot] = item_slot
-	update_craft()
+func bind_default_abilities() -> void:
+	for i in range(player.abilities.size()):
+		if player.abilities[i].id == "recall":
+			player.abilities[i].slot_id = 9
+		if player.abilities[i].id == "cutting_around":
+			player.abilities[i].slot_id = 0
+	update_abilities()
+
+#func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
+	#if item_in_craft[craft_slot]:
+		#player.obtain_item(item_in_craft[craft_slot].item)
+	#player.lose_item(item_slot.item, item_slot.quantity)
+	#item_in_craft[craft_slot] = item_slot
+	#update_craft()
 
 var craft_tween : Tween
 func update_craft() -> void:
-	for i in craft_comps_container.get_children():
+	for i in craft_list.get_children():
 		i.queue_free()
 	
 	if craft_tween:
 		craft_tween.kill()
 		craft_bar.value = 0.0
 	
-	if item_in_craft[0] and item_in_craft[1]:
+	if item_in_craft[0] and item_in_craft[1] and !item_in_craft[2]:
 		craft_tween = get_tree().create_tween()
 		craft_tween.tween_property(craft_bar, "value", 100.0, CRAFT_TIME)
 		craft_tween.finished.connect(craft_item)
@@ -112,7 +125,7 @@ func update_craft() -> void:
 		elif i == 2 and !item_in_craft[2]:
 			_new_item_slot.available = false
 		#_new_item_slot.available = player.in_base
-		craft_comps_container.add_child(_new_item_slot)
+		craft_list.add_child(_new_item_slot)
 
 func get_all_items() -> Array[Item]:
 	var _item_base: Array[Item] = []
@@ -161,25 +174,17 @@ func clear_craft() -> void:
 			item_in_craft[i] = null
 	update_craft()
 
-#func update_craft_available() -> void:
-	#item_craft_selected = null
-	#item_craft_button.disabled = true
-	#for i in craft_available_container.get_children():
-		#i.queue_free()
-	#
-	#for i in all_item_base.base:
-		#if player.is_item_craftable(i):
-			#var _new_item_craft = pre_item_craft.instantiate()
-			#_new_item_craft.item = i
-			#_new_item_craft.select_item.connect(Callable(self, "select_item"))
-			#_new_item_craft.connect("mouse_entered_item", Callable(self, "show_item_preview"))
-			#_new_item_craft.connect("mouse_exited", Callable(self, "hide_item_preview"))
-			#craft_available_container.add_child(_new_item_craft)
-	#
-	#craft_available_nothing.set_visible(craft_available_container.get_child_count() == 0)
+func update_target() -> void:
+	target_tab.set_visible(player.selected_target != null)
+	if player.selected_target:
+		target_name.set_text(player.selected_target.monster.name)
+		target_health.set_value(float(player.selected_target.health) / float(player.selected_target.stats.max_health) * 100.0)
+		#target_icon.set_texture()
 
 func update_abilities() -> void:
-	# Clear ability bar
+	# Clear ability bars
+	for a_slot in non_binded_abilities_list.get_children():
+		a_slot.queue_free()
 	for a_slot in ability_list.get_children():
 		a_slot.queue_free()
 	
@@ -193,24 +198,37 @@ func update_abilities() -> void:
 			_abilities_had.append(a)
 			_item_link.merge({a : i.item})
 	
-	# Allow slot binding of ability
+	# Update player abilities array
+	# Gather all abilities from items and add them to player if not yet added
 	for a in _abilities_had:
 		if player.abilities.has(a):
 			continue
-		player.abilities[player.abilities.find(null)] = a
+		player.abilities.append(a)
+	
+	# Remove all abilities that should not be in player ability array anymore
 	for a in player.abilities:
-		if !_abilities_had.has(a):
-			player.abilities[player.abilities.find(a)] = null
-			#TODO Si il y a trop de sort pour l'instant ça va faire de la merde
+		if !_abilities_had.has(a): # TODO : VERIFY if this work (cant verify now because no way of losing an item)
+			player.abilities.erase(a)
+	
+	# Sort abilities in an array for ability_hud spawning
+	var _sorted_ability_bar : Array[Ability]
+	for a in range(10):
+		for aa in range(player.abilities.size()):
+			if player.abilities[aa].slot_id == a:
+				_sorted_ability_bar.append(player.abilities[aa])
+				break
+		if _sorted_ability_bar.size() != a+1:
+			_sorted_ability_bar.append(null)
+	
 	
 	# Populate ability bar
-	for a in range(player.abilities.size()):
+	for a in range(_sorted_ability_bar.size()):
 		var _new_ability_hud = pre_ability_hud.instantiate()
-		if player.abilities[a]:
-			if player.ability_machine.get_ability_cooldown(player.abilities[a]):
-				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
-			_new_ability_hud.ability = player.abilities[a]
-			_new_ability_hud.item = _item_link.get(player.abilities[a])
+		if _sorted_ability_bar[a]:
+			if player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a]):
+				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a])
+			_new_ability_hud.ability = _sorted_ability_bar[a]
+			_new_ability_hud.item = _item_link.get(_sorted_ability_bar[a])
 		_new_ability_hud.is_auto_attack = a == auto_attack_id
 		
 		for i in InputMap.get_actions():
@@ -221,7 +239,30 @@ func update_abilities() -> void:
 		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
 		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
 		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
+		_new_ability_hud.connect("unbind", Callable(self, "unbind_ability"))
+		
 		ability_list.add_child(_new_ability_hud)
+	
+	# Populate nonbinded bar
+	non_binded_abilities_tab.hide()
+	for a in range(player.abilities.size()):
+		if player.abilities[a].slot_id != -1:
+			continue
+		non_binded_abilities_tab.show()
+		var _new_ability_hud = pre_ability_hud.instantiate()
+		_new_ability_hud.custom_minimum_size = Vector2(37.0, 37.0)
+		if player.abilities[a]:
+			if player.ability_machine.get_ability_cooldown(player.abilities[a]):
+				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
+			_new_ability_hud.ability = player.abilities[a]
+			_new_ability_hud.item = _item_link.get(player.abilities[a])
+		
+		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
+		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
+		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
+		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
+		
+		non_binded_abilities_list.add_child(_new_ability_hud)
 
 func update_inventory() -> void:
 	# Clear item bar
@@ -258,7 +299,14 @@ func show_ability_preview(ability_ref : Object) -> void:
 		ability_preview = pre_ability_preview.instantiate()
 		ability_preview.ability = ability_ref.ability
 		add_child(ability_preview)
-		ability_preview.position = ability_ref.global_position - Vector2(ability_preview.size.x/2.0 - ability_ref.size.x/2.0, ability_preview.size.y + 10.0)
+		var _position_offset = Vector2(ability_preview.size.x/2.0 - ability_ref.size.x/2.0, ability_preview.size.y + 10.0)
+		
+		# For abilities in the binded abilities list (avoid preview from going outside the screen)
+		if ability_ref.custom_minimum_size.x != 55.0: 
+			_position_offset = Vector2(ability_ref.size.x, ability_preview.size.y + 10.0)
+		
+		ability_preview.position = ability_ref.global_position - _position_offset
+		
 
 func hide_ability_preview() -> void:
 	if ability_preview:
@@ -267,6 +315,10 @@ func hide_ability_preview() -> void:
 
 func assign_auto_attack(ability_ref : Object) -> void:
 	auto_attack_id = ability_ref.get_index()
+	update_abilities()
+
+func unbind_ability(ability_ref : Object) -> void:
+	ability_ref.ability.slot_id = -1
 	update_abilities()
 
 func update_effects() -> void:
@@ -323,20 +375,41 @@ func update_stats_hud() -> void:
 		_new_stat_hud.stat = Basics.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
 
-var dragged_ability_slot : Object
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot
 
 func drop_ability(slot : Object) -> void:
 	if dragged_ability_slot:
-		var _temp_ability = slot.ability
-		player.abilities[ability_list.get_children().find(slot)] = dragged_ability_slot.ability
-		player.abilities[ability_list.get_children().find(dragged_ability_slot)] = _temp_ability
+		if slot.ability:
+			var _temp_dragged_slot_id = dragged_ability_slot.ability.slot_id
+			player.abilities[player.abilities.find(dragged_ability_slot.ability)].slot_id = slot.ability.slot_id
+			player.abilities[player.abilities.find(slot.ability)].slot_id = _temp_dragged_slot_id
+		else:
+			player.abilities[player.abilities.find(dragged_ability_slot.ability)].slot_id = ability_list.get_children().find(slot)
+		#player.abilities[ability_list.get_children().find(slot)] = dragged_ability_slot.ability
+		#player.abilities[ability_list.get_children().find(dragged_ability_slot)] = _temp_ability
 		update_abilities()
 		dragged_ability_slot = null
 
-var dragged_item_ref : Object
 func drag_item(slot : Object) -> void:
+	if Input.is_action_pressed("quick_item_move"):
+		if slot.item_slot in item_in_craft: # Quick move from craft to inventory
+			for i in range(item_in_craft.size()):
+				if item_in_craft[i] == slot.item_slot:
+					player.obtain_item(item_in_craft[i].item, item_in_craft[i].quantity)
+					item_in_craft[i] = null
+					update_craft()
+					break
+		else:
+			# Quick move from inventory to craft
+			for i in range(2):
+				if item_in_craft[i] == null:
+					dragged_item_ref = slot
+					drop_item_craft(craft_list.get_child(i), i)
+					update_craft()
+					break
+		update_inventory()
+		return
 	dragged_item_ref = slot
 
 func drop_item_inventory(slot : Object) -> void:
