@@ -7,7 +7,7 @@ var ad : AbilityData
 @onready var manager = get_node("..")
 
 func press() -> Basics.ABILITY_ERROR:
-	manager.look_at_cursor()
+	manager.look_at_target(ad.ability)
 	manager.in_casting = true
 	manager.disable_player_movement(ad.ability_dealer)
 	get_tree().create_timer(ad.ability.action_time).timeout.connect(func():

@@ -5,16 +5,6 @@
 [node name="CuttingAround" type="Node3D"]
 script = ExtResource("1_hcc6o")
 
-[node name="Area" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 6
-monitorable = false
-
-[node name="Col" type="CollisionPolygon3D" parent="Area"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-depth = 0.1
-polygon = PackedVector2Array(0, 0, -0.8, 0.5, -0.5, 0.8, 0, 1, 0.5, 0.8, 0.8, 0.5)
-
 [node name="Visual" type="CSGPolygon3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 polygon = PackedVector2Array(0, 0, -0.8, 0.5, -0.5, 0.8, 0, 1, 0.5, 0.8, 0.8, 0.5)

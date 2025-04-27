@@ -23,17 +23,20 @@ var in_attack_range : bool
 
 var roam_point : Vector3
 
+var loot : Array[ItemSlot]
+
 var camp  : Object
 @onready var nav = $NavAgent
 @onready var ability_machine = $Abilities
 @onready var effect_machine = $Effects
 @onready var agro_collision = $Aggro/Collision
 @onready var monster_collision = $Collision
-@onready var health_bar = $SubViewport/Infos/HealthBar
-@onready var level_label = $SubViewport/Infos/LevelPan/LevelLab
+@onready var health_bar = $SubViewport/MonsterHealthBar/HealthBar
+@onready var health_bar_display = $HealthBarDisplay
 @onready var update_path_timer = $UpdatePath
 @onready var attack_timer = $Attack
 @onready var roam_timer = $Roam
+@onready var looting_particles = $LootingStars
 @onready var world = get_node("..").get_node("..")
 
 signal state_changed
@@ -50,7 +53,6 @@ func _ready():
 			c.layers = 3
 	add_child(monster_model)
 	monster_model.rotation.y = randf() * PI * 2.0
-	level_label.text = str(level)
 	target_direction = global_transform.basis.x
 
 func add_effect(effect : Effect, effect_dealer : Object) -> void:
@@ -91,6 +93,8 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 		attack_timer.start()
 	player_target = damage_dealer
 	
+	health_bar_display.show()
+	
 	var _final_damage : int
 	match damage_type:
 		0:
@@ -118,11 +122,30 @@ func gain_experience(_experience : float) -> void:
 
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
+	generate_loot()
+	looting_particles.emitting = true
+	health_bar_display.hide()
 	set_physics_process(false)
 	camp.monster_died()
 
+func generate_loot() -> void:
+	randomize()
+	for id in monster.item_drops:
+		var _new_item_slot = ItemSlot.new()
+		_new_item_slot.item = id.item
+		_new_item_slot.quantity = 0
+		for q in id.quantity_max:
+			if randf() < id.chances:
+				_new_item_slot.quantity += 1
+		if _new_item_slot.quantity > 0:
+			loot.append(_new_item_slot)
+
 func loot_body() -> void:
-	queue_free()
+	monster_collision.disabled = true
+	var _dissapear_tween = get_tree().create_tween()
+	_dissapear_tween.tween_property(self, "position", position + Vector3(0, -1.0, 0),0.5)
+	_dissapear_tween.finished.connect(func():
+		queue_free())
 
 func _physics_process(_delta) -> void:
 	update_direction()
@@ -176,6 +199,7 @@ func update_path(stop : bool = false) -> void:
 		nav.target_position = Vector3(camp.global_position.x, global_position.y, camp.global_position.z) + roam_point
 	else:
 		nav.path_desired_distance = STOP_DISTANCE_CAMP
+		health_bar_display.hide()
 		nav.target_position = default_point
 
 func _on_aggro_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):

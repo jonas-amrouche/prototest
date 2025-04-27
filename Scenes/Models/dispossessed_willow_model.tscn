@@ -1,13 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cucsd3e0a0nt2"]
+[gd_scene load_steps=4 format=3 uid="uid://cucsd3e0a0nt2"]
 
 [ext_resource type="PackedScene" uid="uid://bsxegbonyihna" path="res://Assets/3D/Monsters/DispossessedWillow.glb" id="1_c4f6p"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Resources/Materials/PBR/Wood1.tres" id="2_2ffu7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62jho"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 0.24
+metallic_specular = 0.15
+roughness = 0.55
 
 [node name="DispossessedWillowModel" instance=ExtResource("1_c4f6p")]
 
 [node name="DispossessedWillow" parent="." index="0"]
 transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.806663, 0)
 surface_material_override/0 = ExtResource("2_2ffu7")
+surface_material_override/1 = SubResource("StandardMaterial3D_62jho")
 
 [node name="DispossessedWillowTrunk" parent="." index="1"]
 transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.806663, 0)

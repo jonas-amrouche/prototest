@@ -8,13 +8,14 @@ extends PanelContainer
 signal drag_ability(slot : Object)
 signal drop_ability(slot : Object)
 signal mouse_entered_ability(slot : Object)
-signal assign_auto_attack(slot : Object)
+#signal assign_auto_attack(slot : Object)
 signal unbind(slot : Object)
 
 @onready var icon = $MarginContainer/IconContainer/Icon
-@onready var item_icon = $ItemIconContainer/ItemIcon
-@onready var keybind_label = $MarginContainer/Keybind
-@onready var auto_attack_border = $BorderContainer/AutoAttackBorder
+@onready var item_icon = $ItemIconContainer/PanelContainer/ItemIcon
+@onready var keybind_label = $MarginContainer/KeyCont/Keybind
+@onready var auto_attack_border = $MarginContainer/AutoAttackBorder
+@onready var auto_attack_label = $BorderContainer/AutoAttackLabel
 @onready var cooldown_label = $CooldownLabel
 @onready var cooldown_progress = $MarginContainer/CoolDownProgress
 
@@ -26,14 +27,14 @@ func _ready() -> void:
 	update_slot()
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("assign_auto_attack") and is_mouse_on_ability:
-		assign_auto_attack.emit(self)
+	#if Input.is_action_just_pressed("assign_auto_attack") and is_mouse_on_ability:
+		#assign_auto_attack.emit(self)
 	if Input.is_action_just_pressed("unbind_ability") and is_mouse_on_ability:
 		unbind.emit(self)
 
 func update_slot() -> void:
 	keybind_label.set_text(keybind.replace("(Physical)", ""))
-	if ability:
+	if ability and item:
 		icon.set_texture(ability.icon)
 		item_icon.set_texture(item.icon)
 	else:
@@ -41,6 +42,7 @@ func update_slot() -> void:
 		item_icon.set_texture(null)
 	
 	auto_attack_border.set_visible(is_auto_attack)
+	auto_attack_label.set_visible(is_auto_attack)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == 1 and !event.pressed:
@@ -76,7 +78,7 @@ func _on_gui_input(event):
 		if event.pressed:
 			if ability:
 				grabbed = true
-				icon.z_index = 1
+				icon.z_index = 2
 				drag_ability.emit(self)
 				mouse_exited.emit()
 		else:

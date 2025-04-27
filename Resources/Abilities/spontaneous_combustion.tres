@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://c7oys33odk6hw"]
 
-[ext_resource type="Texture2D" uid="uid://cl15ufj7a7cbb" path="res://Assets/2D/Abilities/BigForwardCutIcon_v2.png" id="1_k3la3"]
+[ext_resource type="Texture2D" uid="uid://bawuna5u6cn67" path="res://Assets/2D/Abilities/spontaneous_combustion.png" id="1_8jlg5"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="2_nrogt"]
 
 [resource]
@@ -8,10 +8,15 @@ script = ExtResource("2_nrogt")
 id = "spontaneous_combustion"
 name = "Spontaneous Combustion"
 description = "Set the target ennemy on fire. ([color=Peru]Binded Fire[/color])"
-icon = ExtResource("1_k3la3")
+icon = ExtResource("1_8jlg5")
+spell_range = 2.0
+targeted = false
 cooldown = 9.0
 life_time = 1.3
 action_time = 1.3
 channeling = true
 damage_type = 0
 damage_cap = 0
+toggle = false
+charging = false
+charges = 0

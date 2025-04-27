@@ -26,6 +26,8 @@ func _physics_process(_delta: float) -> void:
 			AudioServer.set_bus_volume_db(0, 0.0)
 		else:
 			AudioServer.set_bus_volume_db(0, -100.0)
+	if Input.is_action_just_pressed("debug_range"):
+		_player.debug_range.set_visible(!_player.debug_range.visible)
 
 func debug_box(parent : Object, pos : Vector3, size : float = 1.0, color : Color = Color(1.0, 1.0, 1.0)) -> void:
 	var _box = CSGBox3D.new()

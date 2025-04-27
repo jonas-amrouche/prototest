@@ -16,7 +16,7 @@ void fragment() {
 	
 	vec2 AR = vec2(TEXTURE_PIXEL_SIZE.x/TEXTURE_PIXEL_SIZE.y, 1.);
 	
-	vec2 right_vec = vec2(outline_size*0.1, 0);
+	vec2 right_vec = vec2(outline_size*0.01, 0);
 	float amax = 0.;
 
 	for (float i = 0.; i<samples; i++) {

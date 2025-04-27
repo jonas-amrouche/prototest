@@ -121,6 +121,8 @@ transform = Transform3D(0.529, 0, 0, 0, -3.4838e-08, 0.664, 0, -0.797, -2.90244e
 no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_80fho")
 animation = &"fire"
+frame = 4
+frame_progress = 0.474214
 
 [node name="FireAngle1" type="AnimatedSprite3D" parent="Visual"]
 transform = Transform3D(0.374059, -1.02038e-08, 0.469519, -0.374059, -2.46342e-08, 0.469519, 6.77266e-09, -0.797, -2.05233e-08, 0, 0, -0.437045)

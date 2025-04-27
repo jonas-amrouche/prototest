@@ -25,7 +25,11 @@ func update_slot() -> void:
 		quantity_lab.text = str(item_slot.quantity)
 		
 		if item_slot.item.rarity == Basics.RARITY.COMPONENTS:
-			black_cont.get("theme_override_styles/panel").set("bg_color", Color(0.0, 0.1, 0.0, 0.918))
+			#black_cont.get("theme_override_styles/panel").set("corner_radius_top_left", 22.0)
+			#black_cont.get("theme_override_styles/panel").set("corner_radius_top_right", 22.0)
+			#black_cont.get("theme_override_styles/panel").set("corner_radius_bottom_left", 22.0)
+			#black_cont.get("theme_override_styles/panel").set("corner_radius_bottom_right", 22.0)
+			black_cont.get("theme_override_styles/panel").set("border_color", Color(0.737, 0.635, 0.455))
 		if item_slot.item.consumable:
 			boder_overlay.show()
 	else:

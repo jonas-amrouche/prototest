@@ -16,3 +16,4 @@ consumable = false
 abilities = Array[ExtResource("1_df84g")]([])
 passives = Array[ExtResource("5_jiwn2")]([])
 stats = {}
+adding_slots = 6

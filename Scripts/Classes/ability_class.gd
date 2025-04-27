@@ -3,12 +3,12 @@ class_name Ability
 
 ## ID for script functions only
 @export var id : String
-## Name displayed in-game
-@export var name : String
 ## Description displayed in-game
 @export_multiline var description : String
 ## Icon displayed in-game
 @export var icon : Texture2D
+## Spell range for targeted spells and auto attack trigger of other spells
+@export var spell_range : float
 ## If the spell is targeted
 @export var targeted : bool
 ## Cooldown when ability is finished

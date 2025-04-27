@@ -11,7 +11,7 @@ var ward_position : Vector3
 
 func press() -> Basics.ABILITY_ERROR:
 	if manager.entity.has_item(vision_stone):
-		manager.look_at_cursor()
+		manager.look_at_target(ad.ability)
 		manager.entity.lose_item(vision_stone, 1)
 		manager.in_casting = true
 		ward_position = manager.get_cursor_world_position()

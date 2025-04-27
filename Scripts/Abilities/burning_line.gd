@@ -10,7 +10,7 @@ var ad : AbilityData
 @onready var fire_anim_angle_2 = $Visual/FireAngle2
 
 func press() -> Basics.ABILITY_ERROR:
-	manager.look_at_cursor()
+	manager.look_at_target(ad.ability)
 	manager.in_casting = true
 	fire_anim.play("fire")
 	fire_anim_angle_1.play("fire")

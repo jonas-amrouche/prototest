@@ -9,7 +9,7 @@ var temp_visions_list : Array[Object]
 var in_ability : bool
 
 func press() -> Basics.ABILITY_ERROR:
-	manager.look_at_cursor()
+	manager.look_at_target(ad.ability)
 	in_ability = true
 	manager.in_casting = true
 	for i in range(get_child_count()):
@@ -27,7 +27,7 @@ func press() -> Basics.ABILITY_ERROR:
 	return Basics.ABILITY_ERROR.OK
 
 func _process(_delta: float) -> void:
-	manager.look_at_cursor()
+	manager.look_at_target(ad.ability)
 	update_vision_probe_position()
 
 func update_vision_probe_position() -> void:

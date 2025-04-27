@@ -11,23 +11,29 @@ var in_casting : bool
 func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
 	if !in_casting and !in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead():
-			var _ability_data = AbilityData.new()
-			_ability_data.ability = ability
-			_ability_data.ability_dealer = ability_dealer
-			
-			var _path = "res://Scenes/Abilities/" + ability.id + ".tscn"
-			if !ResourceLoader.exists(_path):
-				push_warning("RESOURCE ABILITY DON'T EXIST")
-				return Basics.ABILITY_ERROR.SCRIPT_ERROR
-			var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
-			_new_ability.rotation = Vector3()
-			_new_ability.ad = _ability_data
-			add_child(_new_ability)
-			active_abilities[ability] = _new_ability
-			_new_ability.connect("tree_exiting", Callable(self, "destroy_ability").bind(ability))
-			
-			start_ability_life_time(_new_ability)
-			return _new_ability.call("press")
+			if !ability.targeted or get_target(ability):
+				if !ability.targeted or is_in_range(ability):
+					var _ability_data = AbilityData.new()
+					_ability_data.ability = ability
+					_ability_data.ability_dealer = ability_dealer
+					_ability_data.is_auto_attack = ability.slot_id == 10
+					var _path = "res://Scenes/Abilities/" + ability.id + ".tscn"
+					if !ResourceLoader.exists(_path):
+						push_warning("RESOURCE ABILITY DON'T EXIST")
+						return Basics.ABILITY_ERROR.SCRIPT_ERROR
+					var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
+					_new_ability.rotation = Vector3()
+					_new_ability.ad = _ability_data
+					add_child(_new_ability)
+					active_abilities[ability] = _new_ability
+					_new_ability.connect("tree_exiting", Callable(self, "destroy_ability").bind(ability))
+					
+					start_ability_life_time(_new_ability)
+					return _new_ability.call("press")
+				else:
+					return Basics.ABILITY_ERROR.NO_TARGET
+			else:
+				return Basics.ABILITY_ERROR.OUT_OF_RANGE
 		else:
 			return Basics.ABILITY_ERROR.UNAVAILABLE
 	return Basics.ABILITY_ERROR.IN_COOLDOWN
@@ -37,7 +43,8 @@ func start_ability_life_time(ability_scene : Object) -> void:
 	if _life_time == 0.0:
 		return
 	get_tree().create_timer(_life_time).timeout.connect(func():
-		ability_scene.queue_free())
+		if ability_scene:
+			ability_scene.queue_free())
 
 func release_ability(ability : Ability) -> Basics.ABILITY_ERROR:
 	if active_abilities.has(ability) and active_abilities.get(ability).has_method("release"):
@@ -98,6 +105,11 @@ func get_targeted_ability_range(ability_id : String) -> float:
 		return ab.get_node("Area/Col").shape.get("radius")
 	return -1.0
 
+func is_in_range(ab : Ability) -> bool:
+	var _entity_pos = Vector2(entity.global_position.x, entity.global_position.z)
+	var _target_pos = Vector2(get_target(ab).global_position.x, get_target(ab).global_position.z)
+	return _entity_pos.distance_to(_target_pos) < (ab.spell_range if ab.spell_range > 0 else 100000.0)
+
 func get_ability_range(ability_id : String) -> float:
 	var ab = load("res://Scenes/Abilities/" + ability_id + ".tscn").instantiate()
 	if ab.get_node("Area/Col").shape.is_class("CylinderShape3D"):
@@ -120,10 +132,20 @@ func terrain_raycast() -> Dictionary:
 		_ray_query.collision_mask = 1
 		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
-func look_at_cursor() -> void:
-	var _result = terrain_raycast()
-	if !_result.is_empty():
-		look_at(Vector3(_result.get("position").x, global_position.y, _result.get("position").z))
+func look_at_target(ab : Ability) -> void:
+	if ab.slot_id == 10 or ab.targeted:
+		var _target = get_target(ab)
+		look_at(Vector3(_target.global_position.x, global_position.y, _target.global_position.z))
+	else:
+		var _result = terrain_raycast()
+		if !_result.is_empty():
+			look_at(Vector3(_result.get("position").x, global_position.y, _result.get("position").z))
+
+func get_target(ab : Ability) -> Object:
+	if ab.slot_id == 10:
+		return entity.auto_attack_target
+	else:
+		return entity.hovered_target
 
 func get_cursor_world_position() -> Vector3:
 	var _result = terrain_raycast()

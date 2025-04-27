@@ -53,6 +53,7 @@ albedo_color = Color(0.0594087, 0.0876395, 0.140625, 1)
 
 [node name="BaseCamp" parent="." index="0"]
 layers = 8
+sorting_offset = -50.0
 surface_material_override/0 = ExtResource("2_tlt1n")
 surface_material_override/1 = SubResource("ShaderMaterial_bjoqs")
 surface_material_override/2 = SubResource("StandardMaterial3D_jergw")

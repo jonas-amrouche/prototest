@@ -1,7 +1,6 @@
 extends Control
 
 var item_in_craft : Array[ItemSlot] = [null, null, null]
-var auto_attack_id := 0
 
 const CRAFT_TIME = 2.0
 
@@ -29,7 +28,7 @@ var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 @onready var craft_result_container := $ItemCraft/Pad/CraftResult
 @onready var craft_list := $ItemCraft/Pad/CraftList
 @onready var craft_bar := $ItemCraft/ProgressPad/CraftBar
-@onready var inventory_list = $Inventory/Pad/InventoryList
+@onready var inventory_list = $Inventory/Container/InventoryList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
 @onready var non_binded_abilities_tab = $NonBindedAbilities
 @onready var non_binded_abilities_list = $NonBindedAbilities/Container/Pad/AbilitiesList
@@ -38,7 +37,8 @@ var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 @onready var channeling_label := $ChannelingBar/ChannelingLabel
 @onready var souls_label := $Souls/SoulsLabel
 @onready var mini_map := $MiniMap
-@onready var health_bar := $ActionPanel/BarContainer/Pad/HealthBar
+@onready var health_bar := $ActionPanel/HealthBarContainer/Pad/HealthBar
+@onready var health_label := $ActionPanel/HealthBarContainer/Pad/HealthLabel
 @onready var xp_bar := $ExpBar
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
@@ -61,9 +61,9 @@ func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVe
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
-	player.health_label.text = str(player.health) + "/" + str(int(player.stats.max_health))
-	player.level_label.text = str(player.level)
+	#player.level_label.text = str(player.level)
 	health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
+	health_label.text = str(player.health) + "/" + str(int(player.stats.max_health))
 	level_label_hud.text = str(player.level)
 	
 	xp_bar.value = float(player.experience) / float(player.max_experience) * 100.0
@@ -77,21 +77,25 @@ func update_info_bars() -> void:
 		#new_xp_gem.material.set_shader_parameter("filled", player.experience > i)
 		#experience_gem_container.add_child(new_xp_gem)
 
-#func select_item(item : Item) -> void:
-	#item_craft_selected = item
-	#item_craft_button.disabled = !player.is_item_craftable(item) or player.items.has(item)
-	#for i in craft_available_container.get_children():
-		#if i.item == item:
-			#continue
-		#i.unselect_item()
-
 func bind_default_abilities() -> void:
 	for i in range(player.abilities.size()):
 		if player.abilities[i].id == "recall":
 			player.abilities[i].slot_id = 9
 		if player.abilities[i].id == "cutting_around":
-			player.abilities[i].slot_id = 0
+			player.abilities[i].slot_id = 10
 	update_abilities()
+
+func bind_ability_auto(ab : Ability) -> void:
+	var _slot_taken : PackedInt32Array
+	for i in range(player.abilities.size()):
+		_slot_taken.append(player.abilities[i].slot_id)
+	
+	for i in range(10):
+		if i in _slot_taken:
+			continue
+		player.abilities[player.abilities.find(ab)].slot_id = i
+		update_abilities()
+		return
 
 #func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
 	#if item_in_craft[craft_slot]:
@@ -151,9 +155,9 @@ func craft_item() -> void:
 				var _new_item_slot = ItemSlot.new()
 				_new_item_slot.item = i
 				_new_item_slot.quantity = 1
-				item_in_craft[2] = _new_item_slot
 				item_in_craft[0] = null
 				item_in_craft[1] = null
+				item_in_craft[2] = _new_item_slot
 				break
 		
 		# If craft failed destroy all items
@@ -212,7 +216,7 @@ func update_abilities() -> void:
 	
 	# Sort abilities in an array for ability_hud spawning
 	var _sorted_ability_bar : Array[Ability]
-	for a in range(10):
+	for a in range(11):
 		for aa in range(player.abilities.size()):
 			if player.abilities[aa].slot_id == a:
 				_sorted_ability_bar.append(player.abilities[aa])
@@ -229,16 +233,18 @@ func update_abilities() -> void:
 				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a])
 			_new_ability_hud.ability = _sorted_ability_bar[a]
 			_new_ability_hud.item = _item_link.get(_sorted_ability_bar[a])
-		_new_ability_hud.is_auto_attack = a == auto_attack_id
 		
-		for i in InputMap.get_actions():
-			if i.begins_with("ability") and i.ends_with(str(a+1)):
-				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
+		if a == 10:
+			_new_ability_hud.is_auto_attack = true
+		else:
+			for i in InputMap.get_actions():
+				if i.begins_with("ability") and i.ends_with(str(a+1)):
+					_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
 		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
 		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
 		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
 		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
-		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
+		#_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
 		_new_ability_hud.connect("unbind", Callable(self, "unbind_ability"))
 		
 		ability_list.add_child(_new_ability_hud)
@@ -268,6 +274,33 @@ func update_inventory() -> void:
 	# Clear item bar
 	for i in inventory_list.get_children():
 		i.queue_free()
+	
+	# Automaticaly stack components
+	#var _all_items : Dictionary
+	#for i in player.inventory:
+		#if i:
+			#_all_items[i.item] = i
+	#for i in range(_all_items.size()):
+		#if _all_items[i].keys() and _all_items.keys()[i].find(i) != _all_items.rfind(i):
+			#player.inventory[player.inventory.find(i)].quantity += player.inventory[player.inventory.rfind(i)]
+			#player.inventory[player.inventory.rfind(i)] = null
+	
+	# Manage slot additions
+	#var _slots_added = 0
+	#for i in player.inventory:
+		#if i:
+			#_slots_added += i.item.adding_slots
+	
+	#player.inventory.resize(player.INVENTORY_BASE_SIZE + _slots_added)
+	# Add slots if inventory is too small
+	#if player.inventory.size() < player.INVENTORY_BASE_SIZE + _slots_added:
+		#for i in range(player.INVENTORY_BASE_SIZE + _slots_added - player.inventory.size()):
+			#player.inventory.append(null)
+	#if player.inventory.size() > player.INVENTORY_BASE_SIZE + _slots_added:
+		#player.inventory.resize()
+		#for i in range(player.INVENTORY_BASE_SIZE + _slots_added, player.inventory.size()):
+			#player.inventory[i].append(null) # TODO fix deesign
+			#Array().resize()
 	
 	# Populate item bar
 	for i in player.inventory:
@@ -313,9 +346,9 @@ func hide_ability_preview() -> void:
 		ability_preview.queue_free()
 		ability_preview = null
 
-func assign_auto_attack(ability_ref : Object) -> void:
-	auto_attack_id = ability_ref.get_index()
-	update_abilities()
+#func assign_auto_attack(ability_ref : Object) -> void:
+	#auto_attack_id = ability_ref.get_index()
+	#update_abilities()
 
 func unbind_ability(ability_ref : Object) -> void:
 	ability_ref.ability.slot_id = -1

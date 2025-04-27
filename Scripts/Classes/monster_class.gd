@@ -4,8 +4,7 @@ class_name Monster
 @export var id : String
 @export var name : String
 @export var monster_model : PackedScene
-@export var drop_components : Array[Component]
-@export var drop_quantities : PackedInt32Array
+@export var item_drops : Array[ItemDrop]
 @export var experience_drop : int = 100
 @export var abilities : Array[Ability]
 @export var aggro : bool

@@ -1,21 +1,39 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=9 format=3 uid="uid://bjuh036cbr3yl"]
+[gd_resource type="Resource" script_class="Monster" load_steps=11 format=3 uid="uid://bjuh036cbr3yl"]
 
 [ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Resources/Abilities/angry_headbutt.tres" id="1_0c6gm"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dg4mi"]
-[ext_resource type="Resource" uid="uid://dogntf7etk6bo" path="res://Resources/ComponentsOld/UnstableCore.tres" id="2_v2xv3"]
-[ext_resource type="Script" uid="uid://b3lj5y4d26o8x" path="res://Scripts/Classes/component_class.gd" id="3_fxnvg"]
-[ext_resource type="Resource" uid="uid://b0wommdwj1uw" path="res://Resources/ComponentsOld/ExplosiveStone.tres" id="3_gf6jv"]
-[ext_resource type="Resource" uid="uid://du5yisagvu7vl" path="res://Resources/ComponentsOld/Metal.tres" id="4_arnjp"]
+[ext_resource type="Script" uid="uid://cn77duvoc7bc" path="res://Scripts/Classes/item_drop_class.gd" id="3_3uqtl"]
 [ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/grunter_model.tscn" id="4_hx8ec"]
+[ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="4_ws1yw"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
+[ext_resource type="Resource" uid="uid://b3u0g1edoebi8" path="res://Resources/Items/explosive_stone.tres" id="5_ws1yw"]
+
+[sub_resource type="Resource" id="Resource_srh1n"]
+script = ExtResource("3_3uqtl")
+item = ExtResource("4_ws1yw")
+chances = 0.1
+quantity_max = 1
+metadata/_custom_type_script = "uid://cn77duvoc7bc"
+
+[sub_resource type="Resource" id="Resource_6m15x"]
+script = ExtResource("3_3uqtl")
+item = ExtResource("5_ws1yw")
+chances = 0.3
+quantity_max = 3
+metadata/_custom_type_script = "uid://cn77duvoc7bc"
+
+[sub_resource type="Resource" id="Resource_2lrla"]
+script = ExtResource("3_3uqtl")
+chances = 0.0
+quantity_max = 1
+metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]
 script = ExtResource("5_0m2nj")
 id = "grunter"
 name = "Grunter"
 monster_model = ExtResource("4_hx8ec")
-drop_components = Array[ExtResource("3_fxnvg")]([ExtResource("2_v2xv3"), ExtResource("3_gf6jv"), ExtResource("4_arnjp")])
-drop_quantities = PackedInt32Array(1, 2, 3)
+item_drops = Array[ExtResource("3_3uqtl")]([SubResource("Resource_srh1n"), SubResource("Resource_6m15x"), SubResource("Resource_2lrla")])
 experience_drop = 47
 abilities = Array[ExtResource("1_dg4mi")]([ExtResource("1_0c6gm")])
 aggro = false

@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc3vy722upu52"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ufy8"]
+font_size = 20
+font_color = Color(0.969137, 0.969137, 0.969137, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjqhs"]
+bg_color = Color(0.125911, 0.125911, 0.125911, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55ole"]
+bg_color = Color(0.134218, 0.335408, 0.0301, 1)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="PlayerHealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelLab" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.5
+offset_top = -28.0
+offset_right = 20.5
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_5ufy8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 2.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_styles/background = SubResource("StyleBoxFlat_sjqhs")
+theme_override_styles/fill = SubResource("StyleBoxFlat_55ole")
+value = 100.0
+show_percentage = false
+
+[node name="PseudoLab" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -26.0
+offset_right = 36.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_5ufy8")
+horizontal_alignment = 1
+vertical_alignment = 1

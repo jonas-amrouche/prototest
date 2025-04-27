@@ -9,6 +9,7 @@ const ROTATION_LERP_SPEED := 0.3
 var target_direction := Vector3()
 
 const EMPTY_MOVEMENT_SPEED := 4.0
+const LOOT_RANGE := 1.0
 const MAX_HEALTH_PER_LEVEL := 50.0
 const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
 const MAGIC_DAMAGE_PER_LEVEL := 10.0
@@ -45,7 +46,7 @@ var recall := false
 const SPAWN_REGEN = 100.0
 var in_base := false
 
-var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null]
+var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 var abilities : Array[Ability]
 
 var can_move := true
@@ -59,6 +60,7 @@ var loot_target : Object
 
 @onready var world := get_node("..")
 @onready var camera := $Camera
+@onready var hover_outline_vpc := $HoverOutline
 @onready var hover_outline_camera := $HoverOutline/HoverOutlineVP/Camera
 @onready var select_outline_camera := $SelectOutline/SelectOutlineVP/Camera
 @onready var camera_base_marker := $CameraBaseMarker
@@ -69,23 +71,24 @@ var loot_target : Object
 @onready var ability_machine := $Abilities
 @onready var effect_machine := $Effects
 @onready var player_model := $PlayerModel
+@onready var health_bar := $SubViewport/PlayerHealthBar/HealthBar
 @onready var model_anims := $PlayerModel/AnimationPlayer
-@onready var health_bar := $SubViewport/Infos/HealthBar
-@onready var health_label := $CanvasLayer/HUD/ActionPanel/BarContainer/Pad/HealthLabel
-@onready var level_label := $SubViewport/Infos/LevelPan/LevelLab
+#@onready var level_label := $SubViewport/PlayerHealthBar/LevelPan/LevelLab
+@onready var debug_range := $DebugRange
 
 func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	obtain_item(preload("res://Resources/Items/recall_blob.tres"))
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
+	hud.bind_default_abilities()
 	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
-	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
 	obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
+	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
 	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
 	obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
 	obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
-	obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
+	#obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
 	
 	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
 	obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
@@ -99,7 +102,6 @@ func _ready():
 	hud.update_info_bars()
 	hud.update_abilities()
 	hud.update_inventory()
-	hud.bind_default_abilities()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -112,17 +114,37 @@ func _process(delta):
 	update_direction()
 	check_for_target()
 	auto_attacking()
+	looting()
 	
 	hover_outline_camera.global_transform = camera.global_transform
 	select_outline_camera.global_transform = camera.global_transform
 
+func looting() -> void:
+	if loot_target:
+		var _loot_pos = Vector2(loot_target.global_position.x, loot_target.global_position.z)
+		var _player_pos = Vector2(global_position.x, global_position.z)
+		if _loot_pos.distance_to(_loot_pos) < LOOT_RANGE:
+			for lo in loot_target.loot:
+				obtain_item(lo.item, lo.quantity)
+			loot_target.loot_body()
+			loot_target = null
+		
+
 func auto_attacking() -> void:
 	if auto_attack_target:
+		if auto_attack_target.is_dead():
+			auto_attack_target = null
+			return
 		nav.target_position = auto_attack_target.global_position
-		var _range = ability_machine.get_targeted_ability_range(abilities[hud.auto_attack_id].id)
-		var _distance_to_target = auto_attack_target.global_position.distance_to(global_position) - auto_attack_target.get_node("Collision").shape.get("radius")/2.0
-		if _range > _distance_to_target:
-			ability_machine.use_ability(abilities[hud.auto_attack_id], self)
+		var _auto_ability : Ability
+		for ab in abilities:
+			if ab.slot_id == 10:
+				_auto_ability = ab
+		if _auto_ability and ability_machine.is_in_range(_auto_ability):
+			nav.target_position = global_position
+			ability_machine.use_ability(_auto_ability, self)
+			if _auto_ability.spell_range == 0.0:
+				nav.target_position = global_position
 
 func check_for_target() -> void:
 	var _result = target_raycast()
@@ -195,6 +217,7 @@ func move_camera_click(press : bool) -> void:
 	elif Input.is_action_pressed("center_cam"):
 		camera.position = camera_base_marker.position
 
+var outline_tween : Tween
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == 2:
@@ -204,7 +227,12 @@ func _unhandled_input(event) -> void:
 						auto_attack_target = hovered_target
 					Basics.CURSOR_MODE.LOOT:
 						loot_target = hovered_target
-						nav.target_position = auto_attack_target.global_position
+						nav.target_position = loot_target.global_position
+				if outline_tween:
+					outline_tween.kill()
+				outline_tween = get_tree().create_tween()
+				hover_outline_vpc.material.set_shader_parameter("outline_size", 1.0)
+				outline_tween.tween_property(hover_outline_vpc.material, "shader_parameter/outline_size", 0.05, 0.3)
 			else:
 				var _result = ability_machine.terrain_raycast()
 				if !_result.is_empty():
@@ -373,15 +401,14 @@ func action_keys():
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
 	for i in range(abilities.size()):
-		if abilities[i] and abilities[i].slot_id >= 0:
+		if abilities[i] and abilities[i].slot_id >= 0 and abilities[i].slot_id < 10:
 			if Input.is_action_just_pressed("ability"+str(abilities[i].slot_id+1)):
 				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
 						if abilities[i].channeling:
-							ability_machine.start_channeling(abilities[i].action_time, abilities[i].name)
+							ability_machine.start_channeling(abilities[i].action_time, abilities[i].id.capitalize())
 						hud.ability_list.get_children()[abilities[i].slot_id  ].use_ability()
-		if Input.is_action_just_released("ability"+str(i+1)):
-			if abilities[i]:
+			if Input.is_action_just_released("ability"+str(abilities[i].slot_id+1)):
 				ability_machine.release_ability(abilities[i])
 
 func add_effect(effect : Effect, effect_dealer : Object) -> void:
@@ -409,12 +436,17 @@ func obtain_item(item : Item, quantity : int = 1) -> void:
 	var _item_slot = ItemSlot.new()
 	_item_slot.item = item
 	_item_slot.quantity = quantity
-	_item_slot.slot_id = inventory.find(null)
-	inventory[_item_slot.slot_id] = _item_slot
+	if has_item(item):
+		get_item_slot(item).quantity += quantity
+	else:
+		_item_slot.slot_id = inventory.find(null)
+		inventory[_item_slot.slot_id] = _item_slot
 	
 	update_stats()
 	hud.update_abilities()
 	hud.update_inventory()
+	for ab in item.abilities:
+		hud.bind_ability_auto(ab)
 
 func lose_item(item : Item, quantity : int) -> void:
 	var _item_slot = get_item_slot(item)
@@ -476,9 +508,9 @@ func update_stats() -> void:
 			stats[i.item.stats.keys()[s]] += i.item.stats.values()[s]
 	hud.update_stats_hud()
 
-func is_item_craftable(item : Item, craft_components : Array[Item]) -> bool:
-	var craft_recipe = [item.craft_1, item.craft_2]
-	return craft_components[0] in craft_recipe and craft_components[1] in craft_recipe
+func is_item_craftable(item : Item, comps : Array[Item]) -> bool:
+	var recipe = [item.craft_1, item.craft_2]
+	return (comps[0] == recipe[0] and comps[1] == recipe[1]) or (comps[0] == recipe[1] and comps[1] == recipe[0])
 
 func _on_nav_path_changed() -> void:
 	hud.mini_map.update_movement_line(nav)

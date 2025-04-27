@@ -10,7 +10,7 @@ var ability : Ability
 
 func _ready():
 	if ability:
-		adility_name.text = ability.name
+		adility_name.text = ability.id.capitalize()
 		adility_desc.text = ability.description
 		adility_icon.texture = ability.icon
 		adility_cap.label_settings.set("font_color", Basics.DAMAGE_COLOR[ability.damage_type])

@@ -5,6 +5,6 @@
 [resource]
 shader = ExtResource("1_lvor3")
 shader_parameter/outline_color = Color(1, 0, 0, 0.5)
-shader_parameter/outline_size = 0.005
+shader_parameter/outline_size = 0.05
 shader_parameter/alpha_threshold = 0.2
 shader_parameter/samples = 4.0

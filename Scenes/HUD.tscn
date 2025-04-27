@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=108 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -11,10 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
+[ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="9_8bf2m"]
 [ext_resource type="FontFile" uid="uid://d4e2auspm7orw" path="res://Assets/Fonts/TechnaSans-Regular.otf" id="9_w5mne"]
+[ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
+[ext_resource type="Texture2D" uid="uid://583q7pnc0yp0" path="res://Assets/2D/UI/recall_spell_v2.png" id="18_36s6t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
 resource_local_to_scene = true
@@ -231,12 +234,12 @@ font_size = 11
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2vyp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buji0"]
 bg_color = Color(0.237539, 0.237539, 0.237539, 1)
 border_color = Color(0.125911, 0.125911, 0.125911, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
-texture = ExtResource("6_fbb48")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fqfc"]
+texture = ExtResource("9_8bf2m")
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
 font_size = 17
@@ -459,6 +462,196 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbkfx"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53yd6"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vjej"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba8gd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fqfc"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj5bi"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn45h"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jysg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmo6y"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_xbkfx"]
+font_size = 15
+font_color = Color(0.28, 0.25984, 0.2296, 1)
+shadow_color = Color(0, 0, 0, 0.409)
+shadow_offset = Vector2(1.5, 1.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2aa"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfo6n"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqxyv"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnip7"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bf2m"]
 texture = ExtResource("12_8bf2m")
 texture_margin_left = 15.0
@@ -535,6 +728,13 @@ font_color = Color(0.28, 0.25984, 0.2296, 1)
 shadow_color = Color(0, 0, 0, 0.409)
 shadow_offset = Vector2(1.5, 1.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2vyp"]
+bg_color = Color(0.237539, 0.237539, 0.237539, 1)
+border_color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
+texture = ExtResource("6_fbb48")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bf2m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hhtw7"]
@@ -579,31 +779,6 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq8fq"]
-bg_color = Color(0.454632, 0.318063, 0.842269, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color(0.140274, 0.100208, 0.324716, 1)
-border_blend = true
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5mne"]
-bg_color = Color(0.454632, 0.318063, 0.842269, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-
-[sub_resource type="LabelSettings" id="LabelSettings_kx2yo"]
-font = ExtResource("10_xuldq")
-font_size = 32
-font_color = Color(0.0155536, 0, 0.28221, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qpk8"]
 bg_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
 corner_radius_bottom_right = 10
@@ -620,6 +795,31 @@ font_color = Color(0.56, 0.56, 0.56, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_ut4rx"]
 font_size = 25
 font_color = Color(0.257466, 0.434664, 0.21107, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3njvo"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_36s6t"]
+font_size = 15
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nah2"]
+bg_color = Color(0, 0, 0, 0.294118)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -806,20 +1006,20 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="BarContainer" type="PanelContainer" parent="ActionPanel"]
+[node name="HealthBarContainer" type="PanelContainer" parent="ActionPanel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.5
-offset_top = 221.0
+offset_top = 213.0
 offset_right = 292.5
-offset_bottom = 239.0
+offset_bottom = 231.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
 
-[node name="Pad" type="MarginContainer" parent="ActionPanel/BarContainer"]
+[node name="Pad" type="MarginContainer" parent="ActionPanel/HealthBarContainer"]
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 2
 theme_override_constants/margin_left = 2
@@ -828,7 +1028,7 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
-[node name="HealthBar" type="ProgressBar" parent="ActionPanel/BarContainer/Pad"]
+[node name="HealthBar" type="ProgressBar" parent="ActionPanel/HealthBarContainer/Pad"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -838,7 +1038,7 @@ value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
-[node name="HealthLabel" type="Label" parent="ActionPanel/BarContainer/Pad"]
+[node name="HealthLabel" type="Label" parent="ActionPanel/HealthBarContainer/Pad"]
 layout_mode = 2
 text = "560/560"
 label_settings = SubResource("LabelSettings_1a2va")
@@ -846,63 +1046,54 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="BarContainer2" type="PanelContainer" parent="ActionPanel"]
-visible = false
+[node name="ManaBarContainer" type="PanelContainer" parent="ActionPanel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -292.5
-offset_top = 222.0
-offset_right = 292.5
-offset_bottom = 236.0
+offset_left = -292.0
+offset_top = 233.0
+offset_right = 293.0
+offset_bottom = 241.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
 
-[node name="Pad" type="MarginContainer" parent="ActionPanel/BarContainer2"]
-custom_minimum_size = Vector2(0, 14)
+[node name="Pad" type="MarginContainer" parent="ActionPanel/ManaBarContainer"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
-[node name="ManaBar" type="ProgressBar" parent="ActionPanel/BarContainer2/Pad"]
+[node name="ManaBar" type="ProgressBar" parent="ActionPanel/ManaBarContainer/Pad"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_o2vyp")
-theme_override_styles/fill = SubResource("StyleBoxTexture_hhtw7")
+theme_override_styles/background = SubResource("StyleBoxFlat_buji0")
+theme_override_styles/fill = SubResource("StyleBoxTexture_5fqfc")
 value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
-[node name="AbilityBar" type="ColorRect" parent="ActionPanel"]
+[node name="AbilityBar" type="PanelContainer" parent="ActionPanel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -296.5
-offset_top = -103.0
-offset_right = 296.5
-offset_bottom = -38.0
+offset_left = -297.0
+offset_top = -101.0
+offset_right = 299.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
-color = Color(0.19, 0.19, 0.19, 0)
 
 [node name="Pad" type="MarginContainer" parent="ActionPanel/AbilityBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
@@ -912,6 +1103,39 @@ metadata/_edit_lock_ = true
 [node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad"]
 layout_mode = 2
 metadata/_edit_lock_ = true
+
+[node name="AbilityHud" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud2" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud3" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud4" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud5" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud6" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud7" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud8" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud9" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud10" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
+
+[node name="AbilityHud11" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+layout_mode = 2
 
 [node name="LevelInd" type="Label" parent="ActionPanel"]
 layout_mode = 1
@@ -1025,84 +1249,191 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -117.0
-offset_right = 335.0
-offset_bottom = 19.0
+offset_left = 33.0
+offset_top = -227.0
+offset_right = 304.0
+offset_bottom = 26.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="Pad" type="MarginContainer" parent="Inventory"]
+[node name="Container" type="VBoxContainer" parent="Inventory"]
+layout_mode = 2
+
+[node name="InventoryList" type="GridContainer" parent="Inventory/Container"]
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 5
+metadata/_edit_lock_ = true
+
+[node name="ItemHud" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_36s6t")
+
+[node name="ItemHud2" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yidpd")
+
+[node name="ItemHud3" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0iicw")
+
+[node name="ItemHud4" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ajim5")
+
+[node name="ItemHud5" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxf74")
+
+[node name="ItemHud6" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oersf")
+
+[node name="ItemHud7" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_484xk")
+
+[node name="ItemHud8" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lkt4f")
+
+[node name="ItemHud9" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wfkbc")
+
+[node name="ItemHud10" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s17ah")
+
+[node name="ItemHud11" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jnyvx")
+
+[node name="ItemHud12" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qtyhc")
+
+[node name="ItemHud13" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xbkfx")
+
+[node name="ItemHud14" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_53yd6")
+
+[node name="ItemHud15" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0vjej")
+
+[node name="HSeparator" type="HSeparator" parent="Inventory/Container"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ba8gd")
+
+[node name="ConsummableList" type="HBoxContainer" parent="Inventory/Container"]
+layout_mode = 2
+
+[node name="ItemHud" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5fqfc")
+available = false
+
+[node name="ItemHud2" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tj5bi")
+available = false
+
+[node name="ItemHud3" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dn45h")
+available = false
+
+[node name="ItemHud4" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jysg")
+available = false
+
+[node name="ItemHud5" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
+available = false
+
+[node name="Loot" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -136.5
+offset_top = -258.0
+offset_right = 136.5
+offset_bottom = -159.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
+
+[node name="Pad" type="MarginContainer" parent="Loot"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 3
 metadata/_edit_lock_ = true
 
-[node name="InventoryList" type="GridContainer" parent="Inventory/Pad"]
+[node name="Container" type="VBoxContainer" parent="Loot"]
+layout_mode = 2
+
+[node name="PanelContainer" type="MarginContainer" parent="Loot/Container"]
+layout_mode = 2
+theme_override_constants/margin_top = -8
+
+[node name="Label" type="Label" parent="Loot/Container/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Loot"
+label_settings = SubResource("LabelSettings_xbkfx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LootList" type="GridContainer" parent="Loot/Container"]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
-columns = 6
+columns = 5
 metadata/_edit_lock_ = true
 
-[node name="ItemHud" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud16" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_36s6t")
+theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
 
-[node name="ItemHud2" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud17" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yidpd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7c2aa")
 
-[node name="ItemHud3" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud18" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0iicw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yfo6n")
 
-[node name="ItemHud4" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud19" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ajim5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_eqxyv")
 
-[node name="ItemHud5" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud20" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vxf74")
-
-[node name="ItemHud6" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oersf")
-
-[node name="ItemHud7" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_484xk")
-
-[node name="ItemHud8" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lkt4f")
-
-[node name="ItemHud9" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wfkbc")
-
-[node name="ItemHud10" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_s17ah")
-
-[node name="ItemHud11" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jnyvx")
-
-[node name="ItemHud12" parent="Inventory/Pad/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qtyhc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gnip7")
 
 [node name="ItemCraft" type="PanelContainer" parent="."]
 layout_mode = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 351.0
+offset_left = 326.0
 offset_top = -100.0
-offset_right = 570.0
+offset_right = 545.0
 offset_bottom = 28.0
 grow_vertical = 0
 mouse_filter = 1
@@ -1170,10 +1501,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 38.0
-offset_top = -190.0
-offset_right = 311.0
-offset_bottom = -125.0
+offset_left = 27.0
+offset_top = -333.0
+offset_right = 300.0
+offset_bottom = -268.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
@@ -1899,43 +2230,6 @@ offset_right = 189.0
 offset_bottom = -4.0
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
-[node name="Back" type="Panel" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 342.0
-offset_top = 1012.0
-offset_right = 402.0
-offset_bottom = 1072.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xq8fq")
-
-[node name="Back2" type="Panel" parent="Back"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -23.0
-offset_right = 23.0
-offset_bottom = 23.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w5mne")
-
-[node name="BackLabel" type="Label" parent="Back"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "B"
-label_settings = SubResource("LabelSettings_kx2yo")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
 [node name="Souls" type="TextureRect" parent="."]
 visible = false
 layout_mode = 0
@@ -2040,6 +2334,48 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "30"
 label_settings = SubResource("LabelSettings_ut4rx")
+
+[node name="Back" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -578.0
+offset_top = -52.0
+offset_right = -530.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3njvo")
+
+[node name="MarginContainer" type="MarginContainer" parent="Back"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Back/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("18_36s6t")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Back/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "B"
+label_settings = SubResource("LabelSettings_36s6t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="Back"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5nah2")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
 [connection signal="pressed" from="CraftBook/CloseBook" to="." method="_on_close_workshop_pressed"]
