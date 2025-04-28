@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=11 format=3 uid="uid://bjuh036cbr3yl"]
+[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://bjuh036cbr3yl"]
 
 [ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Resources/Abilities/angry_headbutt.tres" id="1_0c6gm"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dg4mi"]
@@ -7,11 +7,12 @@
 [ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="4_ws1yw"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
 [ext_resource type="Resource" uid="uid://b3u0g1edoebi8" path="res://Resources/Items/explosive_stone.tres" id="5_ws1yw"]
+[ext_resource type="Resource" uid="uid://b1fbjsrmtw2do" path="res://Resources/Items/eternal_flame.tres" id="6_srh1n"]
 
 [sub_resource type="Resource" id="Resource_srh1n"]
 script = ExtResource("3_3uqtl")
 item = ExtResource("4_ws1yw")
-chances = 0.1
+chances = 0.3
 quantity_max = 1
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
@@ -24,8 +25,9 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [sub_resource type="Resource" id="Resource_2lrla"]
 script = ExtResource("3_3uqtl")
-chances = 0.0
-quantity_max = 1
+item = ExtResource("6_srh1n")
+chances = 0.2
+quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]

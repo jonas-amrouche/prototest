@@ -13,7 +13,7 @@ func press() -> Basics.ABILITY_ERROR:
 		manager.enable_player_movement(ad.ability_dealer)
 		manager.stop_player_path(ad.ability_dealer)
 		recall_timer.start()
-		manager.start_channeling(recall_timer.wait_time, "Recall", true)
+		manager.start_channeling(recall_timer.wait_time, "Recall")
 		visual.set_visible(true))
 	return Basics.ABILITY_ERROR.OK
 

@@ -279,7 +279,7 @@ func generate_forest() -> void:
 			
 			var _basis_vec = Vector3(randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0, randf()*PI*4.0-PI*2.0).normalized()
 			var _basis = Basis(_basis_vec, randf_range(-TREE_ROTATION_MAX, TREE_ROTATION_MAX)).rotated(Vector3.UP, randf_range(-PI, PI))
-			var _transform = Transform3D(_basis * randf_range(TREE_SCALE_MIN, TREE_SCALE_MAX), Vector3(_new_position.x, 0, _new_position.y))
+			var _transform = Transform3D(_basis * randf_range(TREE_SCALE_MIN, TREE_SCALE_MAX), Vector3(_new_position.x, ground_mesh.position.y, _new_position.y))
 			multi_tree.multimesh.set_instance_transform(tree_count, _transform)
 			add_collision_cube(_new_position)
 			tree_count += 1
@@ -303,7 +303,7 @@ func generate_camps() -> void:
 			var _new_camp = pre_camp.instantiate()
 			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
 			camp_points_list.append(Vector2(new_interest_points_list.keys()[i].x + _added_vec.x, new_interest_points_list.keys()[i].y + _added_vec.z))
-			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.2, new_interest_points_list.keys()[i].y) + _added_vec
+			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.22, new_interest_points_list.keys()[i].y) + _added_vec
 			_new_camp.camp = pre_camps[randi_range(0, pre_camps.size()-1)]
 			camps.add_child(_new_camp)
 
@@ -325,7 +325,7 @@ func generate_decoration() -> void:
 			continue
 		decorations_points.append(_new_position)
 		var _new_decoration = Basics.decorations_models[_decoration].instantiate()
-		_new_decoration.position = Vector3(_new_position.x, 0.0, _new_position.y)
+		_new_decoration.position = Vector3(_new_position.x, ground_mesh.position.y, _new_position.y)
 		_new_decoration.rotation = Vector3(0.0, randf_range(-PI, PI), 0.0)
 		add_child(_new_decoration)
 

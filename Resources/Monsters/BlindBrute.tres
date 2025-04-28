@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=9 format=3 uid="uid://jvq266hvj65c"]
+[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://jvq266hvj65c"]
 
 [ext_resource type="Resource" uid="uid://dhec1vbffd4ak" path="res://Resources/Abilities/edifying_impact.tres" id="1_as5bv"]
 [ext_resource type="PackedScene" uid="uid://dx51lvdhwysho" path="res://Scenes/Models/blind_brute_model.tscn" id="1_jlu1d"]
@@ -6,20 +6,28 @@
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="2_j4i6c"]
 [ext_resource type="Script" uid="uid://cn77duvoc7bc" path="res://Scripts/Classes/item_drop_class.gd" id="3_u6k6m"]
 [ext_resource type="Resource" uid="uid://cpxm7kalcwjys" path="res://Resources/Items/robust_skin.tres" id="4_hig06"]
+[ext_resource type="Resource" uid="uid://p2blnjobsde8" path="res://Resources/Items/weak_flame.tres" id="5_hig06"]
+[ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="6_sqnke"]
 
 [sub_resource type="Resource" id="Resource_sqnke"]
 script = ExtResource("3_u6k6m")
 item = ExtResource("4_hig06")
-chances = 0.5
-quantity_min = 1
+chances = 0.6
 quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [sub_resource type="Resource" id="Resource_wahnd"]
 script = ExtResource("3_u6k6m")
-chances = 0.0
-quantity_min = 1
+item = ExtResource("5_hig06")
+chances = 0.6
 quantity_max = 1
+metadata/_custom_type_script = "uid://cn77duvoc7bc"
+
+[sub_resource type="Resource" id="Resource_qftos"]
+script = ExtResource("3_u6k6m")
+item = ExtResource("6_sqnke")
+chances = 0.5
+quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]
@@ -27,7 +35,7 @@ script = ExtResource("2_j4i6c")
 id = "blind_brute"
 name = "Blind Brute"
 monster_model = ExtResource("1_jlu1d")
-item_drops = Array[ExtResource("3_u6k6m")]([SubResource("Resource_sqnke"), SubResource("Resource_wahnd")])
+item_drops = Array[ExtResource("3_u6k6m")]([SubResource("Resource_sqnke"), SubResource("Resource_wahnd"), SubResource("Resource_qftos")])
 experience_drop = 53
 abilities = Array[ExtResource("1_kby06")]([ExtResource("1_as5bv")])
 aggro = false

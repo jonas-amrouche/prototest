@@ -41,8 +41,6 @@ var respawn_time : float = 5.0
 var experience := 0
 var level := 1
 
-var recall := false
-
 const SPAWN_REGEN = 100.0
 var in_base := false
 
@@ -79,29 +77,30 @@ var loot_target : Object
 func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
-	obtain_item(preload("res://Resources/Items/recall_blob.tres"))
+	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
 	hud.bind_default_abilities()
-	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
-	obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
-	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
-	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
-	obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
-	obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
+	#obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
+	#obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
+	#obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
+	#obtain_item(preload("res://Resources/Items/vision_staff.tres"))
+	#obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
+	#obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
 	#obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
 	
-	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
-	obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
+	#obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
+	#obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/floating_matter.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/essence_of_pain.tres"), 7)
 	#obtain_item(preload("res://Ressources/Items/essence_of_used_life.tres"), 3)
 	
-	add_effect(preload("res://Resources/Effects/BindedFire.tres"), self)
+	#add_effect(preload("res://Resources/Effects/BindedFire.tres"), self)
 	hud.update_info_bars()
 	hud.update_abilities()
 	hud.update_inventory()
+	hud.update_knowledge_book()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -119,16 +118,31 @@ func _process(delta):
 	hover_outline_camera.global_transform = camera.global_transform
 	select_outline_camera.global_transform = camera.global_transform
 
+var loot_timer : SceneTreeTimer
 func looting() -> void:
 	if loot_target:
 		var _loot_pos = Vector2(loot_target.global_position.x, loot_target.global_position.z)
 		var _player_pos = Vector2(global_position.x, global_position.z)
-		if _loot_pos.distance_to(_loot_pos) < LOOT_RANGE:
-			for lo in loot_target.loot:
-				obtain_item(lo.item, lo.quantity)
-			loot_target.loot_body()
-			loot_target = null
-		
+		if _player_pos.distance_to(_loot_pos) < LOOT_RANGE:
+			if loot_timer:
+				return
+			loot_timer = get_tree().create_timer(1.0)
+			nav.target_position = global_position
+			ability_machine.start_channeling(1.0, "Looting")
+			loot_timer.timeout.connect(loot_corpse.bind())
+	else:
+		if loot_timer and loot_timer.timeout.is_connected(loot_corpse):
+			loot_timer.timeout.disconnect(loot_corpse)
+			ability_machine.stop_channeling()
+			loot_timer = null
+
+func loot_corpse() -> void:
+	hud.open_and_display_loot(loot_target.loot)
+	for lo in loot_target.loot:
+		obtain_item(lo.item, lo.quantity)
+	loot_target.loot_body()
+	loot_target = null
+	loot_timer = null
 
 func auto_attacking() -> void:
 	if auto_attack_target:
@@ -142,7 +156,9 @@ func auto_attacking() -> void:
 				_auto_ability = ab
 		if _auto_ability and ability_machine.is_in_range(_auto_ability):
 			nav.target_position = global_position
-			ability_machine.use_ability(_auto_ability, self)
+			
+			if ability_machine.use_ability(_auto_ability, self) == Basics.ABILITY_ERROR.OK and _auto_ability.channeling:
+				ability_machine.start_channeling(_auto_ability.action_time, _auto_ability.id.capitalize())
 			if _auto_ability.spell_range == 0.0:
 				nav.target_position = global_position
 
@@ -237,6 +253,7 @@ func _unhandled_input(event) -> void:
 				var _result = ability_machine.terrain_raycast()
 				if !_result.is_empty():
 					auto_attack_target = null
+					loot_target = null
 					nav.target_position = _result.get("position")
 					spawn_move_effect(_result.get("position"))
 					ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
@@ -343,12 +360,11 @@ func is_dead() -> bool:
 		return true
 	return false
 
-var dead_color_correction = preload("res://Resources/ColorCorection/DeadColorCorrection.tres")
 func die() -> void:
 	can_move = false
 	camera.top_level = true
 	player_collision.disabled = true
-	world.set_color_correction(dead_color_correction)
+	world.set_color_correction(Basics.dead_color_correction)
 	get_tree().create_timer(respawn_time).timeout.connect(Callable(func():
 		health = stats.max_health
 		hud.update_info_bars()
@@ -373,10 +389,10 @@ func movement() -> void:
 			ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
-		if auto_attack_target:
-			face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
-		else:
-			face_direction(direction)
+		#if auto_attack_target:
+			#face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
+		#else:
+		face_direction(direction)
 	else:
 		model_anims.play("idle_stand")
 		velocity.x = lerp(velocity.x, 0.0, ACCELERATION)
@@ -398,6 +414,12 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
+	if Input.is_action_just_pressed("craft_book"):
+		hud.set_knowledge_book(!hud.craft_book_tab.visible)
+	if Input.is_action_just_pressed("recall"):
+		var _recall = Basics.recall_ability
+		if ability_machine.use_ability(_recall, self) == Basics.ABILITY_ERROR.OK:
+			ability_machine.start_channeling(_recall.action_time, _recall.id.capitalize())
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
 	for i in range(abilities.size()):
@@ -407,7 +429,7 @@ func action_keys():
 					Basics.ABILITY_ERROR.OK:
 						if abilities[i].channeling:
 							ability_machine.start_channeling(abilities[i].action_time, abilities[i].id.capitalize())
-						hud.ability_list.get_children()[abilities[i].slot_id  ].use_ability()
+						hud.ability_list.get_children()[abilities[i].slot_id].use_ability()
 			if Input.is_action_just_released("ability"+str(abilities[i].slot_id+1)):
 				ability_machine.release_ability(abilities[i])
 

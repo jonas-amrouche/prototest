@@ -10,6 +10,7 @@ var pre_ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
 var pre_item_craft = preload("res://Scenes/UI/item_craft.tscn")
 var pre_stat_hud = preload("res://Scenes/UI/stat_hud.tscn")
 #var pre_xp_gem_hud = preload("res://Scenes/UI/experience_gem.tscn")
+var pre_recipe_hud = preload("res://Scenes/UI/recipe_hud.tscn")
 var pre_effect_hud = preload("res://Scenes/UI/effect_hud.tscn")
 var pre_item_preview = preload("res://Scenes/UI/item_preview.tscn")
 var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
@@ -42,6 +43,10 @@ var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 @onready var xp_bar := $ExpBar
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
+@onready var craft_book_tab := $CraftBook
+@onready var recipe_container := $CraftBook/Pad/RecipeList
+@onready var loot_tab := $Loot
+@onready var loot_container := $Loot/Container/LootList
 
 var item_preview
 var component_preview
@@ -79,8 +84,6 @@ func update_info_bars() -> void:
 
 func bind_default_abilities() -> void:
 	for i in range(player.abilities.size()):
-		if player.abilities[i].id == "recall":
-			player.abilities[i].slot_id = 9
 		if player.abilities[i].id == "cutting_around":
 			player.abilities[i].slot_id = 10
 	update_abilities()
@@ -93,9 +96,20 @@ func bind_ability_auto(ab : Ability) -> void:
 	for i in range(10):
 		if i in _slot_taken:
 			continue
-		player.abilities[player.abilities.find(ab)].slot_id = i
+		bind_ability_to(player.abilities[player.abilities.find(ab)], i)
 		update_abilities()
 		return
+
+## Bind ability to a slot_id, swap it, if one already there
+func bind_ability_to(ab : Ability, id : int) -> void:
+	var ability_to_swap : Ability
+	for i in range(player.abilities.size()):
+		if player.abilities[i].slot_id == id:
+			ability_to_swap = player.abilities[i]
+			break
+	if ability_to_swap:
+		ability_to_swap.slot_id = ab.slot_id
+	ab.slot_id = id
 
 #func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
 	#if item_in_craft[craft_slot]:
@@ -130,6 +144,26 @@ func update_craft() -> void:
 			_new_item_slot.available = false
 		#_new_item_slot.available = player.in_base
 		craft_list.add_child(_new_item_slot)
+
+var loot_times : int
+func open_and_display_loot(loot : Array[ItemSlot]) -> void:
+	for l in loot_container.get_children():
+		l.queue_free()
+	
+	loot_tab.show()
+	
+	for l in loot:
+		var _new_item_hud = pre_item_hud.instantiate()
+		_new_item_hud.item_slot = l
+		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
+		loot_container.add_child(_new_item_hud)
+	
+	loot_times += 1
+	get_tree().create_timer(2.0).timeout.connect(func():
+		loot_times -= 1
+		if loot_times == 0:
+			loot_tab.hide())
 
 func get_all_items() -> Array[Item]:
 	var _item_base: Array[Item] = []
@@ -244,7 +278,7 @@ func update_abilities() -> void:
 		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
 		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
 		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
-		#_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
+		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
 		_new_ability_hud.connect("unbind", Callable(self, "unbind_ability"))
 		
 		ability_list.add_child(_new_ability_hud)
@@ -346,9 +380,9 @@ func hide_ability_preview() -> void:
 		ability_preview.queue_free()
 		ability_preview = null
 
-#func assign_auto_attack(ability_ref : Object) -> void:
-	#auto_attack_id = ability_ref.get_index()
-	#update_abilities()
+func assign_auto_attack(ability_ref : Object) -> void:
+	bind_ability_to(ability_ref.ability, 10)
+	update_abilities()
 
 func unbind_ability(ability_ref : Object) -> void:
 	ability_ref.ability.slot_id = -1
@@ -407,6 +441,19 @@ func update_stats_hud() -> void:
 		_new_stat_hud.stat_value = player.stats.values()[i]
 		_new_stat_hud.stat = Basics.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
+
+func set_knowledge_book(open : bool) -> void:
+	craft_book_tab.set_visible(open)
+
+func update_knowledge_book() -> void:
+	for i in recipe_container.get_children():
+		i.queue_free()
+	
+	for i in get_all_items():
+		if i.craft_1 and i.craft_2:
+			var _new_recipe_hud = pre_recipe_hud.instantiate()
+			_new_recipe_hud.item = i
+			recipe_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot

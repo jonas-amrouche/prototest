@@ -87,7 +87,7 @@ theme_override_font_sizes/mono_font_size = 13
 theme_override_font_sizes/normal_font_size = 13
 theme_override_font_sizes/bold_font_size = 13
 bbcode_enabled = true
-text = "blade of akila, long sword of eden, father of mcdonalds, yep"
+text = "blade of akila"
 fit_content = true
 autowrap_mode = 2
 
@@ -95,10 +95,11 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
 [node name="Specs" type="VBoxContainer" parent="Pad/ItemData"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=109 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -12,11 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
 [ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="9_8bf2m"]
-[ext_resource type="FontFile" uid="uid://d4e2auspm7orw" path="res://Assets/Fonts/TechnaSans-Regular.otf" id="9_w5mne"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
+[ext_resource type="Texture2D" uid="uid://cv2elk33c1ivf" path="res://Assets/2D/UI/knowledge_book.png" id="16_pbtju"]
+[ext_resource type="PackedScene" uid="uid://bci1gtg23l7p6" path="res://Scenes/UI/recipe_hud.tscn" id="17_yidpd"]
 [ext_resource type="Texture2D" uid="uid://583q7pnc0yp0" path="res://Assets/2D/UI/recall_spell_v2.png" id="18_36s6t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
@@ -729,8 +730,7 @@ shadow_color = Color(0, 0, 0, 0.409)
 shadow_offset = Vector2(1.5, 1.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2vyp"]
-bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-border_color = Color(0.125911, 0.125911, 0.125911, 1)
+bg_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hhtw7"]
 texture = ExtResource("6_fbb48")
@@ -759,18 +759,8 @@ texture = ExtResource("6_fbb48")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssfue"]
-bg_color = Color(0.61, 0.11468, 0.0793, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.458824, 0.117647, 0.0901961, 1)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0iicw"]
+texture = ExtResource("16_pbtju")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m76n"]
 bg_color = Color(0.145098, 0.129412, 0.0941176, 1)
@@ -1363,17 +1353,14 @@ available = false
 [node name="Loot" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 offset_left = -136.5
-offset_top = -258.0
+offset_top = 43.0
 offset_right = 136.5
-offset_bottom = -159.0
+offset_bottom = 142.0
 grow_horizontal = 2
-grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
@@ -1545,7 +1532,7 @@ layout_mode = 1
 offset_left = 10.0
 offset_top = 9.0
 offset_right = 363.0
-offset_bottom = 107.0
+offset_bottom = 96.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
@@ -1584,16 +1571,28 @@ custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 size_flags_vertical = 8
 
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad/Pad"]
+layout_mode = 2
+theme_override_constants/margin_left = -2
+theme_override_constants/margin_top = -2
+theme_override_constants/margin_right = -2
+theme_override_constants/margin_bottom = -2
+
+[node name="HealthBorder" type="ColorRect" parent="TargetData/TargCont/Pad/Pad/Pad/Pad"]
+layout_mode = 2
+color = Color(0.12549, 0.12549, 0.12549, 1)
+
 [node name="HealthBar" type="ProgressBar" parent="TargetData/TargCont/Pad/Pad/Pad"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_o2vyp")
 theme_override_styles/fill = SubResource("StyleBoxTexture_hhtw7")
-value = 100.0
+value = 87.99
 show_percentage = false
 
-[node name="HSeparator" type="HSeparator" parent="TargetData/TargCont"]
+[node name="Spacer" type="HSeparator" parent="TargetData/TargCont"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 theme_override_styles/separator = SubResource("StyleBoxEmpty_8bf2m")
@@ -2027,7 +2026,7 @@ focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ua7hb")
 text = "X"
 
-[node name="CraftBook" type="ColorRect" parent="."]
+[node name="CraftBook" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -2035,53 +2034,58 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -498.0
-offset_top = -435.0
-offset_right = 498.0
-offset_bottom = 233.0
+offset_left = -377.0
+offset_top = -320.0
+offset_right = 378.0
+offset_bottom = 196.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.49323, 0.441988, 0.325897, 1)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0iicw")
 
-[node name="Page1" type="ColorRect" parent="CraftBook"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 11.0
-offset_right = 474.0
-offset_bottom = -11.0
-grow_vertical = 2
-color = Color(0.576471, 0.556863, 0.490196, 1)
+[node name="Pad" type="MarginContainer" parent="CraftBook"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 135
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 10
 
-[node name="Page2" type="ColorRect" parent="CraftBook"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -485.0
-offset_top = 11.0
-offset_right = -10.0
-offset_bottom = -11.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(0.577698, 0.557512, 0.490262, 1)
+[node name="RecipeList" type="GridContainer" parent="CraftBook/Pad"]
+layout_mode = 2
+theme_override_constants/h_separation = 95
+theme_override_constants/v_separation = 25
+columns = 2
 
-[node name="CloseBook" type="Button" parent="CraftBook"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -34.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = 34.0
-grow_horizontal = 0
-focus_mode = 0
-theme_override_fonts/font = ExtResource("9_w5mne")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ssfue")
-text = "X"
+[node name="RecipeHud" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud2" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud3" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud4" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud5" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud6" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud7" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud8" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud9" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
+
+[node name="RecipeHud10" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+layout_mode = 2
 
 [node name="GameTime" type="Label" parent="."]
 layout_mode = 1
@@ -2096,15 +2100,28 @@ grow_horizontal = 0
 text = "0:00"
 horizontal_alignment = 2
 
-[node name="Chat" type="ColorRect" parent="."]
+[node name="Chat" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 261.0
-offset_top = 757.0
-offset_right = 637.0
-offset_bottom = 1067.0
+offset_left = 47.0
+offset_top = 619.0
+offset_right = 477.0
+offset_bottom = 838.0
 mouse_filter = 2
-color = Color(0.0901961, 0.0901961, 0.0901961, 0.529412)
+
+[node name="Container" type="VBoxContainer" parent="Chat"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Chat/Container"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Chat/Container/MarginContainer"]
+layout_mode = 2
+text = "gregrez"
+
+[node name="ChatInput" type="LineEdit" parent="Chat/Container"]
+layout_mode = 2
+size_flags_vertical = 8
 
 [node name="CraftChar" type="Panel" parent="."]
 visible = false
@@ -2378,4 +2395,3 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5nah2")
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]
-[connection signal="pressed" from="CraftBook/CloseBook" to="." method="_on_close_workshop_pressed"]

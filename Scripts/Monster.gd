@@ -123,6 +123,7 @@ func gain_experience(_experience : float) -> void:
 const DROP_VECTOR_LENGTH = 1.2
 func die() -> void:
 	generate_loot()
+	rotation.x = PI/2.0
 	looting_particles.emitting = true
 	health_bar_display.hide()
 	set_physics_process(false)

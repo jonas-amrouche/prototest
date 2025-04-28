@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://jqgpx158nqee"]
+[gd_scene load_steps=21 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" uid="uid://dgad4akf3ced1" path="res://Scripts/game.gd" id="1_1l0tm"]
 [ext_resource type="Material" uid="uid://bntex5mq7ww0j" path="res://Resources/Materials/PBR/Grass1.tres" id="2_v158k"]
@@ -69,6 +69,18 @@ size = Vector3(200, 1, 200)
 material = ExtResource("5_o5yvi")
 size = Vector2(200, 200)
 
+[sub_resource type="FogMaterial" id="FogMaterial_v158k"]
+density = 0.06
+albedo = Color(0.352194, 0.856245, 1, 1)
+
+[sub_resource type="FogMaterial" id="FogMaterial_h4fw4"]
+density = 0.04
+albedo = Color(0.899655, 0.881529, 0, 1)
+
+[sub_resource type="FogMaterial" id="FogMaterial_ldgsr"]
+density = 0.08
+albedo = Color(0.848618, 0.862731, 0.999998, 1)
+
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1l0tm")
 
@@ -133,3 +145,23 @@ volume_db = -15.0
 autoplay = true
 
 [node name="WiseMage" parent="." instance=ExtResource("8_v158k")]
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58698, 0)
+size = Vector3(44.113, 9.17395, 44.8232)
+shape = 2
+material = SubResource("FogMaterial_v158k")
+
+[node name="FogVolume2" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 3.58698, 32)
+visible = false
+size = Vector3(100, 9.17, 100)
+shape = 2
+material = SubResource("FogMaterial_h4fw4")
+
+[node name="FogVolume3" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 3.58698, -32)
+visible = false
+size = Vector3(100, 9.17, 100)
+shape = 2
+material = SubResource("FogMaterial_ldgsr")

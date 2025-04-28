@@ -7,12 +7,11 @@
 
 [resource]
 script = ExtResource("4_f7ed1")
-id = "vision_stone"
-name = "Essence of pain"
+id = "essence_of_pain"
 description = "Bad essence."
 icon = ExtResource("2_bukyr")
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_bukyr")]([])
 passives = Array[ExtResource("3_8kyoc")]([])
 stats = {}

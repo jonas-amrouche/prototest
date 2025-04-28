@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxbe73c6eo1wj"]
+[gd_scene load_steps=15 format=3 uid="uid://bxbe73c6eo1wj"]
 
 [ext_resource type="Script" uid="uid://b507hfjfi48i8" path="res://Scripts/monster.gd" id="1_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://dow4dk0os7bac" path="res://Scenes/UI/monster_health_bar.tscn" id="2_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/abilities.tscn" id="3_6ks7b"]
 [ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/effects.tscn" id="4_bua6k"]
-[ext_resource type="Texture2D" uid="uid://cqw8n17jeyx2y" path="res://Assets/2D/Alpha-Textures/light_flare.png" id="5_cyu0s"]
+[ext_resource type="Texture2D" uid="uid://40uj3kkawuq6" path="res://Assets/2D/Alpha-Textures/star_particle.png" id="5_6ks7b"]
+[ext_resource type="Texture2D" uid="uid://4yflxf6lhk0i" path="res://Assets/2D/Alpha-Textures/star_particle_emission.png" id="6_bua6k"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mfdxe"]
 height = 2.2
@@ -19,12 +20,12 @@ radius = 4.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ks7b"]
 transparency = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.829941, 0.776578, 0, 1)
-albedo_texture = ExtResource("5_cyu0s")
+albedo_texture = ExtResource("5_6ks7b")
 emission_enabled = true
-emission = Color(0.854531, 0.668612, 0, 1)
-emission_energy_multiplier = 10.0
+emission_energy_multiplier = 95.75
+emission_texture = ExtResource("6_bua6k")
 billboard_mode = 1
+billboard_keep_scale = true
 
 [sub_resource type="Curve" id="Curve_cyu0s"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -34,13 +35,14 @@ point_count = 2
 curve = SubResource("Curve_cyu0s")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bua6k"]
-emission_shape = 3
-emission_box_extents = Vector3(0.5, 0.085, 0.5)
-gravity = Vector3(0, 0.1, 0)
+emission_shape = 1
+emission_sphere_radius = 1.5
+gravity = Vector3(0, 0.2, 0)
+scale_min = 0.1
 alpha_curve = SubResource("CurveTexture_6ks7b")
 
 [sub_resource type="QuadMesh" id="QuadMesh_auidl"]
-size = Vector2(0.25, 0.5)
+size = Vector2(0.1, 0.1)
 
 [node name="Monster" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16156, 0)
@@ -90,10 +92,12 @@ wait_time = 7.0
 [node name="Effects" parent="." instance=ExtResource("4_bua6k")]
 
 [node name="LootingStars" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03686, 0)
 material_override = SubResource("StandardMaterial3D_6ks7b")
 emitting = false
-amount = 10
-lifetime = 5.0
+amount = 30
+lifetime = 3.0
+randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_bua6k")
 draw_pass_1 = SubResource("QuadMesh_auidl")
 

@@ -25,6 +25,10 @@ var stats_data := {"physical_damage" : preload("res://Resources/Stats/PhysicalDa
 "life_steal" : preload("res://Resources/Stats/LifeSteal.tres"), \
 "souls" : preload("res://Resources/Stats/Souls.tres")}
 
+var recall_ability = preload("res://Resources/Abilities/recall.tres")
+
+var dead_color_correction = preload("res://Resources/ColorCorection/DeadColorCorrection.tres")
+
 var decorations_models = [preload("res://Scenes/Models/tribal_sanctuary_round_model.tscn"), \
 preload("res://Scenes/Models/tribal_stone_square_model.tscn"), \
 preload("res://Scenes/Decorations/altar.tscn")]

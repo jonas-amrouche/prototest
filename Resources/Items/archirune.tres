@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://dwei2y318rlu7"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_ku35t"]
+[ext_resource type="Resource" uid="uid://cpcvieg2iy02y" path="res://Resources/Items/rune.tres" id="2_oe2e6"]
+[ext_resource type="Texture2D" uid="uid://40uj3kkawuq6" path="res://Assets/2D/Alpha-Textures/star_particle.png" id="3_oe2e6"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="6_hx31w"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="7_7rgdt"]
+
+[resource]
+script = ExtResource("7_7rgdt")
+id = "archirune"
+description = "It seems like a powerfull things, but it do nothing"
+icon = ExtResource("3_oe2e6")
+rarity = 0
+consumable = false
+craft_1 = ExtResource("2_oe2e6")
+craft_2 = ExtResource("2_oe2e6")
+abilities = Array[ExtResource("1_ku35t")]([])
+passives = Array[ExtResource("6_hx31w")]([])
+stats = {}

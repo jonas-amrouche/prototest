@@ -76,13 +76,16 @@ func start_ability_cooldown(ability : Ability) -> void:
 	cooldown_dict[ability] = _timer
 
 var channeling_tween
-func start_channeling(duration : float, title : String) -> void:
+func start_channeling(duration : float, title : String, inverse : bool = false) -> void:
 	entity.hud.channeling_label.text = title
 	entity.hud.channeling_bar.set_visible(true)
 	if channeling_tween:
 		channeling_tween.kill()
 	channeling_tween = get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
-	channeling_tween.tween_method(Callable(entity.hud.channeling_bar, "set_value"), 0.0, 100.0, duration)
+	if inverse:
+		channeling_tween.tween_method(Callable(entity.hud.channeling_bar, "set_value"), 100.0, 0.0, duration)
+	else:
+		channeling_tween.tween_method(Callable(entity.hud.channeling_bar, "set_value"), 0.0, 100.0, duration)
 	channeling_tween.finished.connect(func():
 		stop_channeling())
 
@@ -135,7 +138,8 @@ func terrain_raycast() -> Dictionary:
 func look_at_target(ab : Ability) -> void:
 	if ab.slot_id == 10 or ab.targeted:
 		var _target = get_target(ab)
-		look_at(Vector3(_target.global_position.x, global_position.y, _target.global_position.z))
+		if _target:
+			look_at(Vector3(_target.global_position.x, global_position.y, _target.global_position.z))
 	else:
 		var _result = terrain_raycast()
 		if !_result.is_empty():
