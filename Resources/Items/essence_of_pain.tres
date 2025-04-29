@@ -10,6 +10,7 @@ script = ExtResource("4_f7ed1")
 id = "essence_of_pain"
 description = "Bad essence."
 icon = ExtResource("2_bukyr")
+type = 1
 rarity = 0
 consumable = false
 abilities = Array[ExtResource("1_bukyr")]([])

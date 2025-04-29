@@ -14,6 +14,7 @@ const MAX_HEALTH_PER_LEVEL := 50.0
 const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
 const MAGIC_DAMAGE_PER_LEVEL := 10.0
 const MAX_XP_PER_LEVEL := 500
+const SLOT_PER_LEVEL := 1
 const RESPAWN_TIME_PER_LEVEL : float = 5.0
 const KILL_REWARD_EXP := 750
 
@@ -44,7 +45,23 @@ var level := 1
 const SPAWN_REGEN = 100.0
 var in_base := false
 
-var inventory : Array[ItemSlot] = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+# INVENTORY
+const INVENTORY_BASE_SIZE := 5
+const INVENTORY_MAX_SIZE := 20
+var inventory_size = INVENTORY_BASE_SIZE
+var inventory : Array[ItemSlot]
+
+# CONSUMABLES
+const CONSUMABLES_BASE_SIZE := 1
+const CONSUMABLES_MAX_SIZE := 5
+var consumables_size = CONSUMABLES_BASE_SIZE
+var consummables : Array[ItemSlot]
+
+# CRAFTS
+const CRAFT_MAX_SIZE := 3
+var craft_size = CRAFT_MAX_SIZE
+var crafts : Array[ItemSlot]
+
 var abilities : Array[Ability]
 
 var can_move := true
@@ -77,6 +94,9 @@ var loot_target : Object
 func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	inventory = fill_inventory(INVENTORY_MAX_SIZE)
+	consummables = fill_consumables(CONSUMABLES_MAX_SIZE)
+	crafts = fill_crafts(CRAFT_MAX_SIZE)
 	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
 	hud.bind_default_abilities()
@@ -99,7 +119,6 @@ func _ready():
 	#add_effect(preload("res://Resources/Effects/BindedFire.tres"), self)
 	hud.update_info_bars()
 	hud.update_abilities()
-	hud.update_inventory()
 	hud.update_knowledge_book()
 
 func _physics_process(_delta) -> void:
@@ -331,8 +350,11 @@ func lose_experience(experience_loss : int) -> void:
 		experience = max_experience - abs(experience)
 		level -= 1
 		respawn_time = level * RESPAWN_TIME_PER_LEVEL
+		inventory_size = min(level * SLOT_PER_LEVEL + INVENTORY_BASE_SIZE, INVENTORY_MAX_SIZE)
+		consumables_size = min(CONSUMABLES_BASE_SIZE + floor(float(level-3)/3.0), CONSUMABLES_MAX_SIZE)
 		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
+	hud.update_inventory()
 	update_stats()
 
 func gain_experience(experience_gained : int) -> void:
@@ -341,8 +363,11 @@ func gain_experience(experience_gained : int) -> void:
 		experience = experience - max_experience
 		level += 1
 		respawn_time = level * RESPAWN_TIME_PER_LEVEL
+		inventory_size = min(level * SLOT_PER_LEVEL + INVENTORY_BASE_SIZE, INVENTORY_MAX_SIZE)
+		consumables_size = min(CONSUMABLES_BASE_SIZE + floor(float(level-3)/3.0), CONSUMABLES_MAX_SIZE)
 		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
+	hud.update_inventory()
 	update_stats()
 
 func is_leveling_up() -> bool:
@@ -362,6 +387,7 @@ func is_dead() -> bool:
 
 func die() -> void:
 	can_move = false
+	hud.clear_craft()
 	camera.top_level = true
 	player_collision.disabled = true
 	world.set_color_correction(Basics.dead_color_correction)
@@ -445,52 +471,125 @@ func remove_effect(effect : Effect) -> void:
 
 func has_passive(passive_id : String) -> bool:
 	for i in inventory:
-		if i:
-			for p in i.item.passives:
-				if p.id == passive_id:
-					return true
+		for p in i.item.passives:
+			if p.id == passive_id:
+				return true
 	return false
 
-func is_inventory_full() -> bool:
-	return inventory.find(null) == -1
+func fill_inventory(max_size : int) -> Array[ItemSlot]:
+	var _inv : Array[ItemSlot]
+	for i in range(max_size):
+		var _new_item_slot = ItemSlot.new()
+		_new_item_slot.slot_type = Basics.SLOT_TYPE.INVENTORY
+		_new_item_slot.slot_id = i
+		_inv.push_back(_new_item_slot)
+	return _inv
 
-func obtain_item(item : Item, quantity : int = 1) -> void:
-	var _item_slot = ItemSlot.new()
-	_item_slot.item = item
-	_item_slot.quantity = quantity
-	if has_item(item):
-		get_item_slot(item).quantity += quantity
-	else:
-		_item_slot.slot_id = inventory.find(null)
-		inventory[_item_slot.slot_id] = _item_slot
+func fill_consumables(max_size : int) -> Array[ItemSlot]:
+	var _cons : Array[ItemSlot]
+	for i in range(max_size):
+		var _new_item_slot = ItemSlot.new()
+		_new_item_slot.slot_type = Basics.SLOT_TYPE.CONSUMABLE
+		_new_item_slot.slot_id = i
+		_cons.push_back(_new_item_slot)
+	return _cons
+
+func fill_crafts(max_size : int) -> Array[ItemSlot]:
+	var _cra : Array[ItemSlot]
+	for i in range(max_size):
+		var _new_item_slot = ItemSlot.new()
+		_new_item_slot.slot_type = Basics.SLOT_TYPE.CRAFT
+		_new_item_slot.slot_id = i
+		_cra.push_back(_new_item_slot)
+	return _cra
+
+func update_items() -> void:
+	inventory.sort_custom(sort_slot_id)
+	consummables.sort_custom(sort_slot_id)
+	crafts.sort_custom(sort_slot_id)
 	
+	hud.update_inventory()
+
+func sort_slot_id(a : ItemSlot, b : ItemSlot) -> bool:
+	return a.slot_id < b.slot_id
+
+func is_inventory_full() -> bool:
+	return false if get_empty_slot(inventory) else true
+
+func get_empty_slot(item_source : Array[ItemSlot]) -> ItemSlot:
+	for i in item_source:
+		if !i.item:
+			return i
+	return null
+
+func has_item(itm : Item, item_source : Array[ItemSlot]) -> bool:
+	for i in item_source:
+		if i.item == itm:
+			return true
+	return false
+
+func get_item_slot(itm : Item, item_source : Array[ItemSlot]) -> ItemSlot:
+	for i in item_source:
+		if i.item == itm:
+			return i
+	return null
+
+# Only works with inventory
+func obtain_item(item : Item, quantity : int = 1) -> void:
+	if has_item(item, inventory):
+		get_item_slot(item, inventory).quantity += quantity
+	else:
+		var _empty_slot = get_empty_slot(inventory)
+		_empty_slot.item = item
+		_empty_slot.quantity = quantity
+	update_items()
 	update_stats()
 	hud.update_abilities()
-	hud.update_inventory()
+	
 	for ab in item.abilities:
 		hud.bind_ability_auto(ab)
 
 func lose_item(item : Item, quantity : int) -> void:
-	var _item_slot = get_item_slot(item)
+	var _item_slot : ItemSlot = get_item_slot(item, inventory)
 	_item_slot.quantity -= quantity
 	if _item_slot.quantity <= 0:
-		inventory[inventory.find(_item_slot)] = null
+		_item_slot.quantity = 0
+		_item_slot.item = null
 	
+	update_items()
 	update_stats()
 	hud.update_abilities()
-	hud.update_inventory()
 
-func get_item_slot(itm : Item) -> ItemSlot:
-	for i in inventory:
-		if i and i.item == itm:
-			return i
-	return null
+func craft_item() -> void:
+	if crafts[0].item and crafts[1].item:
+		
+		# If craft success the item
+		for i in Basics.get_all_items():
+			var _craft_comp : Array[Item] = [crafts[0].item, crafts[1].item]
+			if is_item_craftable(i, _craft_comp):
+				crafts[0].item = null
+				crafts[1].item = null
+				crafts[2].item = i
+				break
+		
+		# If craft failed destroy all items
+		if !crafts[2]:
+			for i in range(crafts.size()):
+				crafts[i].item = null
+		
+		hud.update_craft()
 
-func has_item(itm : Item) -> bool:
-	for i in inventory:
-		if i and i.item == itm:
-			return true
-	return false
+# Used to clear the craft tab when exiting the base
+func clear_craft() -> void:
+	for i in range(crafts.size()):
+		if crafts[i].item:
+			if is_inventory_full():
+				print("ALED") # TODO FIX THIS
+				return
+			obtain_item(crafts[i].item, crafts[i].quantity)
+			crafts[i].item = null
+			crafts[i].quantity = 0
+	hud.update_craft()
 
 func entering_base() -> void:
 	area_health_regeneration = SPAWN_REGEN
@@ -502,14 +601,14 @@ func exit_base() -> void:
 	area_health_regeneration = 0.0
 	update_stats()
 	in_base = false
-	hud.clear_craft()
+	clear_craft()
 
 func update_stats() -> void:
 	# Set all stats to base value to recalculate
 	stats = base_stats.duplicate()
 	
 	# Run fast when no items
-	if inventory.count(null) == inventory.size():
+	if inventory.size() == 0:
 		stats.movement_speed = EMPTY_MOVEMENT_SPEED
 	
 	# Add stats of levels
@@ -524,8 +623,7 @@ func update_stats() -> void:
 	
 	# Add stats of items
 	for i in inventory:
-		if i == null:
-			continue
+		if !i.item: continue
 		for s in range(i.item.stats.size()):
 			stats[i.item.stats.keys()[s]] += i.item.stats.values()[s]
 	hud.update_stats_hud()

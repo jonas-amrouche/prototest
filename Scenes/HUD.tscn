@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=116 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -16,9 +16,10 @@
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
-[ext_resource type="Texture2D" uid="uid://cv2elk33c1ivf" path="res://Assets/2D/UI/knowledge_book.png" id="16_pbtju"]
+[ext_resource type="Texture2D" uid="uid://muxs8ujlhk1w" path="res://Assets/2D/UI/knowledge_book_v2.png" id="16_pbtju"]
 [ext_resource type="PackedScene" uid="uid://bci1gtg23l7p6" path="res://Scenes/UI/recipe_hud.tscn" id="17_yidpd"]
 [ext_resource type="Texture2D" uid="uid://583q7pnc0yp0" path="res://Assets/2D/UI/recall_spell_v2.png" id="18_36s6t"]
+[ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="20_yidpd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
 resource_local_to_scene = true
@@ -505,6 +506,76 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8vqp"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wosp2"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1x1q1"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1mdok"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8qfe"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba8gd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fqfc"]
@@ -787,29 +858,26 @@ font_size = 25
 font_color = Color(0.257466, 0.434664, 0.21107, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3njvo"]
-bg_color = Color(0, 0, 0, 1)
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="LabelSettings" id="LabelSettings_36s6t"]
-font_size = 15
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nah2"]
-bg_color = Color(0, 0, 0, 0.294118)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nah2"]
+bg_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ajim5"]
+texture = ExtResource("20_yidpd")
+
+[sub_resource type="LabelSettings" id="LabelSettings_36s6t"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -1240,9 +1308,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 33.0
-offset_top = -227.0
+offset_top = -273.0
 offset_right = 304.0
-offset_bottom = 26.0
+offset_bottom = 60.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
@@ -1317,6 +1385,26 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_53yd6")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0vjej")
 
+[node name="ItemHud16" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g8vqp")
+
+[node name="ItemHud17" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wosp2")
+
+[node name="ItemHud18" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1x1q1")
+
+[node name="ItemHud19" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1mdok")
+
+[node name="ItemHud20" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w8qfe")
+
 [node name="HSeparator" type="HSeparator" parent="Inventory/Container"]
 layout_mode = 2
 theme_override_constants/separation = 5
@@ -1324,6 +1412,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_ba8gd")
 
 [node name="ConsummableList" type="HBoxContainer" parent="Inventory/Container"]
 layout_mode = 2
+theme_override_constants/separation = 3
 
 [node name="ItemHud" parent="Inventory/Container/ConsummableList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
@@ -2034,10 +2123,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -377.0
-offset_top = -320.0
-offset_right = 378.0
-offset_bottom = 196.0
+offset_left = -441.5
+offset_top = -476.0
+offset_right = 441.5
+offset_bottom = 476.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -2046,10 +2135,11 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_0iicw")
 [node name="Pad" type="MarginContainer" parent="CraftBook"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 135
-theme_override_constants/margin_top = 55
+theme_override_constants/margin_left = 190
+theme_override_constants/margin_top = 305
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
 
 [node name="RecipeList" type="GridContainer" parent="CraftBook/Pad"]
 layout_mode = 2
@@ -2360,19 +2450,23 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -578.0
-offset_top = -52.0
+offset_top = -57.0
 offset_right = -530.0
-offset_bottom = -4.0
+offset_bottom = -9.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3njvo")
 
+[node name="TextureRect" type="Panel" parent="Back"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5nah2")
+
 [node name="MarginContainer" type="MarginContainer" parent="Back"]
 layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Back/MarginContainer"]
@@ -2381,17 +2475,22 @@ texture = ExtResource("18_36s6t")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Back/MarginContainer"]
+[node name="Panel" type="Panel" parent="Back/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
-text = "B"
-label_settings = SubResource("LabelSettings_36s6t")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="Back"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5nah2")
+theme_override_styles/panel = SubResource("StyleBoxTexture_ajim5")
 metadata/_edit_lock_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Back"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Back/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "B "
+label_settings = SubResource("LabelSettings_36s6t")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

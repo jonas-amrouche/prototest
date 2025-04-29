@@ -10,6 +10,7 @@ script = ExtResource("4_vual4")
 id = "willow_bark"
 description = "Ripped off bark from a living willow."
 icon = ExtResource("2_bflwv")
+type = 1
 rarity = 0
 consumable = false
 abilities = Array[ExtResource("1_bflwv")]([])

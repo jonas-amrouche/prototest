@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("4_e2dax")
 id = "explosive_stone"
-name = "Explosive Stone"
 description = "Fragile natural stone."
 icon = ExtResource("2_unmqp")
+type = 1
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_unmqp")]([])
 passives = Array[ExtResource("3_c1tpd")]([])
 stats = {}

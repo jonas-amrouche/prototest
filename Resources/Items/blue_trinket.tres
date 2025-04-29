@@ -12,6 +12,7 @@ script = ExtResource("5_e53ia")
 id = "blue_trinket"
 description = "Place it on the ground to keep vision for 120 seconds."
 icon = ExtResource("4_c2i3l")
+type = 2
 rarity = 2
 consumable = true
 craft_1 = ExtResource("2_c2i3l")

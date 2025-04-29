@@ -11,6 +11,7 @@ script = ExtResource("4_jr0wn")
 id = "vision_core"
 description = "Core of vision for ready to use."
 icon = ExtResource("3_lu0w3")
+type = 1
 rarity = 0
 consumable = false
 craft_1 = ExtResource("2_eq7wg")

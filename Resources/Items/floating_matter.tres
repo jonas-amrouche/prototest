@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("4_fty17")
 id = "floating_matter"
-name = "Floating matter"
 description = "Captured with magic, it can be used in enchantement."
 icon = ExtResource("2_ckah8")
+type = 1
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_ckah8")]([])
 passives = Array[ExtResource("3_okns8")]([])
 stats = {}

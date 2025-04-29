@@ -10,6 +10,7 @@ script = ExtResource("5_qdewl")
 id = "eternal_flame"
 description = "Flame for permanent item enchantments."
 icon = ExtResource("3_2ke2k")
+type = 1
 rarity = 0
 consumable = false
 abilities = Array[ExtResource("1_2ke2k")]([])

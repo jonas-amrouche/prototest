@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://csne4oaw8j17v"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_kvcqt"]
+[ext_resource type="Resource" uid="uid://cjtsyn22irgqw" path="res://Resources/Items/golem_fragment.tres" id="2_6it7u"]
+[ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="3_35ww4"]
+[ext_resource type="Texture2D" uid="uid://4yflxf6lhk0i" path="res://Assets/2D/Alpha-Textures/star_particle_emission.png" id="4_mh6x6"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_m8wjo"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="6_3n5tn"]
+
+[resource]
+script = ExtResource("6_3n5tn")
+id = "rune"
+description = "Basic non-enchanted rune."
+icon = ExtResource("4_mh6x6")
+type = 1
+rarity = 0
+consumable = false
+craft_1 = ExtResource("2_6it7u")
+craft_2 = ExtResource("3_35ww4")
+abilities = Array[ExtResource("1_kvcqt")]([])
+passives = Array[ExtResource("5_m8wjo")]([])
+stats = {}

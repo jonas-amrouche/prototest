@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("4_mst8m")
 id = "golem_fragment"
-name = "Golem fragment"
 description = "Rest of a golem."
 icon = ExtResource("2_7wr6r")
+type = 1
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_7wr6r")]([])
 passives = Array[ExtResource("3_stopa")]([])
 stats = {}

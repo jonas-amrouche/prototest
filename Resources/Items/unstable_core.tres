@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("4_tlo73")
 id = "unstable_core"
-name = "Unstable core"
 description = "Core of tembling ore, originated from the soil."
 icon = ExtResource("2_yjg7h")
+type = 1
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_yjg7h")]([])
 passives = Array[ExtResource("3_n8368")]([])
 stats = {}

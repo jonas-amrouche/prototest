@@ -10,6 +10,7 @@ script = ExtResource("4_i3cad")
 id = "robust_skin"
 description = "Piece of hard skin, from an healty creature."
 icon = ExtResource("2_5lqfo")
+type = 1
 rarity = 0
 consumable = true
 abilities = Array[ExtResource("1_5lqfo")]([])

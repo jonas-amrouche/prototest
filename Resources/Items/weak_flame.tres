@@ -8,9 +8,9 @@
 [resource]
 script = ExtResource("5_aivwo")
 id = "weak_flame"
-name = "Weak flame"
 description = "Flame from a dying soul, can serve to craft temporary consumable."
 icon = ExtResource("3_8wmbe")
+type = 1
 rarity = 0
 consumable = true
 abilities = Array[ExtResource("1_8wmbe")]([])

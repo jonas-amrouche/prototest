@@ -8,11 +8,11 @@
 [resource]
 script = ExtResource("3_3q6av")
 id = "vision_stone"
-name = "Vision Stone"
 description = "Stone containing hidden powers."
 icon = ExtResource("2_3q6av")
+type = 1
 rarity = 0
-craft_recipe = {}
+consumable = false
 abilities = Array[ExtResource("1_eowxm")]([])
 passives = Array[ExtResource("2_ksuv4")]([])
 stats = {}

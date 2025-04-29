@@ -11,6 +11,7 @@ script = ExtResource("7_7rgdt")
 id = "archirune"
 description = "It seems like a powerfull things, but it do nothing"
 icon = ExtResource("3_oe2e6")
+type = 2
 rarity = 0
 consumable = false
 craft_1 = ExtResource("2_oe2e6")

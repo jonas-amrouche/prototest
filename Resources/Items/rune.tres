@@ -12,6 +12,7 @@ script = ExtResource("7_jjldo")
 id = "rune"
 description = "Basic non-enchanted rune."
 icon = ExtResource("4_7gb02")
+type = 1
 rarity = 0
 consumable = false
 craft_1 = ExtResource("2_13tl2")

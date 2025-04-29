@@ -10,7 +10,9 @@ signal mouse_entered_item(itm : Item)
 @onready var icon = $DragCont/Icon
 @onready var drag_cont = $DragCont
 @onready var black_cont = $BlackCont
-@onready var boder_overlay = $BorderMargin/BorderOverlay
+@onready var rarity_overlay = $BorderMargin/RarityOverlay
+@onready var consumable_overlay = $BorderMargin/ConsumableOverlay
+@onready var component_overlay = $BorderMargin/ComponentOverlay
 @onready var select_pan = $Select
 @onready var unavailable_pan = $Unavailable
 @onready var quantity_lab = $DragCont/QuantityCont/Quantity
@@ -19,19 +21,17 @@ func _ready():
 	update_slot()
 
 func update_slot() -> void:
-	if item_slot:
+	if item_slot and item_slot.item:
 		icon.texture = item_slot.item.icon
 		quantity_lab.set_visible(item_slot.quantity > 1)
 		quantity_lab.text = str(item_slot.quantity)
-		
-		if item_slot.item.rarity == Basics.RARITY.COMPONENTS:
-			#black_cont.get("theme_override_styles/panel").set("corner_radius_top_left", 22.0)
-			#black_cont.get("theme_override_styles/panel").set("corner_radius_top_right", 22.0)
-			#black_cont.get("theme_override_styles/panel").set("corner_radius_bottom_left", 22.0)
-			#black_cont.get("theme_override_styles/panel").set("corner_radius_bottom_right", 22.0)
-			black_cont.get("theme_override_styles/panel").set("border_color", Color(0.737, 0.635, 0.455))
-		if item_slot.item.consumable:
-			boder_overlay.show()
+		var types_to_load = ["classic", "elite", "fantastic", "legendary", "mythic", "theoretical"]
+		rarity_overlay.set_texture(load("res://Assets/2D/UI/item_overlay_" + types_to_load[item_slot.item.rarity] + ".png"))
+		match item_slot.item.type:
+			Basics.ITEM_TYPE.COMPONENTS:
+				black_cont.get("theme_override_styles/panel").set("border_color", Color(0.737, 0.635, 0.455))
+			Basics.ITEM_TYPE.CONSUMABLE:
+				consumable_overlay.show()
 	else:
 		icon.texture = null
 	
