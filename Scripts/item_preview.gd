@@ -31,8 +31,9 @@ func update_content() -> void:
 			add_stat(item.stats.values()[s], Basics.stats_data[item.stats.keys()[s]])
 			
 		clear_abilities()
-		for a in item.abilities:
-			add_ability(a)
+		if item.type != Basics.ITEM_TYPE.CONSUMABLE:
+			for a in item.abilities:
+				add_ability(a)
 			
 		clear_passives()
 		for p in item.passives:

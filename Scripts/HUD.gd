@@ -26,6 +26,7 @@ var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 @onready var craft_list := $ItemCraft/Pad/CraftList
 @onready var craft_bar := $ItemCraft/ProgressPad/CraftBar
 @onready var inventory_list = $Inventory/Container/InventoryList
+@onready var consumables_list = $Inventory/Container/ConsumableList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
 @onready var non_binded_abilities_tab = $NonBindedAbilities
 @onready var non_binded_abilities_list = $NonBindedAbilities/Container/Pad/AbilitiesList
@@ -89,7 +90,6 @@ func bind_ability_auto(ab : Ability) -> void:
 	for i in range(player.abilities.size()):
 		_slot_taken.append(player.abilities[i].slot_id)
 	
-	print(_slot_taken)
 	for i in range(10):
 		if i in _slot_taken:
 			continue
@@ -108,13 +108,6 @@ func bind_ability_to(ab : Ability, id : int) -> void:
 		ability_to_swap.slot_id = ab.slot_id
 	ab.slot_id = id
 
-#func add_item_in_craft(item_slot : ItemSlot, craft_slot : int) -> void:
-	#if item_in_craft[craft_slot]:
-		#player.obtain_item(item_in_craft[craft_slot].item)
-	#player.lose_item(item_slot.item, item_slot.quantity)
-	#item_in_craft[craft_slot] = item_slot
-	#update_craft()
-
 var craft_tween : Tween
 func update_craft() -> void:
 	for i in craft_list.get_children():
@@ -132,14 +125,14 @@ func update_craft() -> void:
 			player.craft_item())
 	for i in range(player.crafts.size()):
 		var _new_item_slot = pre_item_hud.instantiate()
-		_new_item_slot.connect("drop_item", Callable(self, "drop_item_craft_"+str(i+1)))
+		_new_item_slot.connect("drop_item", Callable(self, "drop_item_craft"))
 		_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
 		_new_item_slot.item_slot = player.crafts[i]
+		_new_item_slot.available = player.in_base
 		if i == 2 and !player.crafts[2].item:
 			_new_item_slot.available = false
-		_new_item_slot.available = player.in_base
 		craft_list.add_child(_new_item_slot)
 
 var loot_times : int
@@ -167,7 +160,6 @@ func update_target() -> void:
 	if player.selected_target:
 		target_name.set_text(player.selected_target.monster.name)
 		target_health.set_value(float(player.selected_target.health) / float(player.selected_target.stats.max_health) * 100.0)
-		#target_icon.set_texture()
 
 func update_abilities() -> void:
 	# Clear ability bars
@@ -190,6 +182,7 @@ func update_abilities() -> void:
 	for a in _abilities_had:
 		if player.abilities.has(a):
 			continue
+		a.slot_id = -1
 		player.abilities.append(a)
 	
 	# Remove all abilities that should not be in player ability array anymore
@@ -253,21 +246,37 @@ func update_abilities() -> void:
 		non_binded_abilities_list.add_child(_new_ability_hud)
 
 func update_inventory() -> void:
-	# Clear item bar
 	for i in inventory_list.get_children():
+		i.queue_free()
+	for i in consumables_list.get_children():
 		i.queue_free()
 	
 	# Populate item bar
 	for i in range(player.inventory.size()):
 		var _new_item_hud = pre_item_hud.instantiate()
 		_new_item_hud.item_slot = player.inventory[i]
-		_new_item_hud.connect("drop_item", Callable(self, "drop_item_inventory"))
+		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
 		if i >= player.inventory_size:
 			_new_item_hud.available = false
 		inventory_list.add_child(_new_item_hud)
+	
+	# Populate consumables bar
+	for c in range(player.consumables.size()):
+		var _new_item_hud = pre_item_hud.instantiate()
+		_new_item_hud.item_slot = player.consumables[c]
+		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
+		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
+		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
+		for k in InputMap.get_actions():
+			if k.begins_with("consumable") and k.ends_with(str(c+1)):
+				_new_item_hud.keybind = InputMap.action_get_events(k)[0].as_text()
+		if c >= player.consumables_size:
+			_new_item_hud.available = false
+		consumables_list.add_child(_new_item_hud)
 
 func show_item_preview(item : Item) -> void:
 	if item_preview:
@@ -376,50 +385,58 @@ func drop_ability(slot : Object) -> void:
 		dragged_ability_slot = null
 
 func drag_item(slot : Object) -> void:
-	if Input.is_action_pressed("quick_item_move") and slot.item_slot.item:
-		if slot.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT: 
-			# Quick move from craft to inventory
-			player.obtain_item(slot.item_slot.item, slot.item_slot.quantity)
-			slot.item_slot.item = null
-			slot.item_slot.quantity = 0
-		else:
-			# Quick move from inventory to craft
-			if !player.crafts[0].item or !player.crafts[1].item:
-				var _empty_slot = player.get_empty_slot(player.crafts)
-				_empty_slot.item = slot.item_slot.item
-				_empty_slot.quantity = 1
-				player.lose_item(slot.item_slot.item, 1)
-		player.update_items()
-		update_craft()
-		return
-	dragged_item_ref = slot
+	if Input.is_action_pressed("quick_item_move"):
+		if slot.item_slot.item:
+			if slot.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
+				# Quick move from craft or consummables to inventory
+				player.obtain_item(slot.item_slot.item, slot.item_slot.quantity)
+				slot.item_slot.item = null
+				slot.item_slot.quantity = 0
+				update_craft()
+			else:
+				# Quick move from inventory or consummables to craft
+				if !player.crafts[0].item or !player.crafts[1].item:
+					var _empty_slot = player.get_empty_slot(player.crafts)
+					_empty_slot.item = slot.item_slot.item
+					_empty_slot.quantity = 1
+					player.lose_item(slot.item_slot.item, 1)
+					update_craft()
+			player.update_items()
+			return
+	else:
+		dragged_item_ref = slot
 
-func drop_item_inventory(slot : Object) -> void:
+func drop_item(slot : Object) -> void:
 	if dragged_item_ref:
-		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
-			var _drag_slot = dragged_item_ref.item_slot.duplicate()
-			dragged_item_ref.item_slot.item = slot.item_slot.item
-			dragged_item_ref.item_slot.quantity = slot.item_slot.quantity
-			slot.item_slot.item = _drag_slot.item
-			slot.item_slot.quantity = _drag_slot.quantity
+		
+		# Droped from a craft cell to inventory or consummables
+		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT: # verif l'item draged est bien du même type que le slot
+			if player.get_item_source(dragged_item_ref.item_slot.item) == player.get_item_slot_source(slot.item_slot):
+				if player.has_item(dragged_item_ref.item_slot.item, player.get_item_source(dragged_item_ref.item_slot.item)):
+					var _drop_slot = player.get_item_slot(dragged_item_ref.item_slot.item, player.get_item_source(dragged_item_ref.item_slot.item))
+					_drop_slot.quantity += dragged_item_ref.item_slot.quantity
+					dragged_item_ref.item_slot.item = null
+					dragged_item_ref.item_slot.quantity = 0
+				else:
+					var _drag_slot = dragged_item_ref.item_slot.duplicate()
+					dragged_item_ref.item_slot.item = slot.item_slot.item
+					dragged_item_ref.item_slot.quantity = slot.item_slot.quantity
+					slot.item_slot.item = _drag_slot.item
+					slot.item_slot.quantity = _drag_slot.quantity
+				update_craft()
 		else:
-			var _dragged_slot_id = dragged_item_ref.item_slot.slot_id
-			dragged_item_ref.item_slot.slot_id = slot.item_slot.slot_id
-			slot.item_slot.slot_id = _dragged_slot_id
+			# Droped from and to inventory or consummables
+			if dragged_item_ref.item_slot.slot_type == slot.item_slot.slot_type:
+				var _dragged_slot_id = dragged_item_ref.item_slot.slot_id
+				dragged_item_ref.item_slot.slot_id = slot.item_slot.slot_id
+				slot.item_slot.slot_id = _dragged_slot_id
 		
 		player.update_items()
 		update_abilities()
-		update_craft()
 		
 		dragged_item_ref = null
 
-func drop_item_craft_1(slot : Object) -> void:
-	drop_item_craft(slot, 0)
-func drop_item_craft_2(slot : Object) -> void:
-	drop_item_craft(slot, 1)
-
-func drop_item_craft(slot : Object, craft_slot : int) -> void:
-	pass
+func drop_item_craft(slot : Object) -> void:
 	if dragged_item_ref and slot != dragged_item_ref:
 		# Droped from a craft cell to a craft cell
 		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
@@ -427,8 +444,8 @@ func drop_item_craft(slot : Object, craft_slot : int) -> void:
 			slot.item_slot.item = dragged_item_ref.item_slot.item
 			dragged_item_ref.item_slot.item = _slot_item.item
 		else:
-		# Droped from a inventory cell to a craft cell
-			if dragged_item_ref.item_slot.item.type == Basics.ITEM_TYPE.COMPONENTS and dragged_item_ref.item_slot.quantity > 1:
+			# Droped from a inventory cell to a craft cell
+			if dragged_item_ref.item_slot.quantity > 1 and !slot.item_slot.item:
 				dragged_item_ref.item_slot.quantity -= 1
 				slot.item_slot.item = dragged_item_ref.item_slot.item
 				slot.item_slot.quantity = 1

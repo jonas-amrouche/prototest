@@ -25,5 +25,5 @@ func press() -> Basics.ABILITY_ERROR:
 		manager.start_ability_cooldown(ad.ability))
 	return Basics.ABILITY_ERROR.OK
 
-func cancel_ability(reason : Basics.ABILITY_CANCEL) -> void:
+func cancel_ability(_reason : Basics.ABILITY_CANCEL) -> void:
 	pass

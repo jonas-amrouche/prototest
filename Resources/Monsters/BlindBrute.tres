@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 script = ExtResource("3_u6k6m")
 item = ExtResource("5_hig06")
 chances = 0.6
-quantity_max = 1
+quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [sub_resource type="Resource" id="Resource_qftos"]

@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 [sub_resource type="Resource" id="Resource_2lrla"]
 script = ExtResource("3_3uqtl")
 item = ExtResource("6_srh1n")
-chances = 0.2
+chances = 0.3
 quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 

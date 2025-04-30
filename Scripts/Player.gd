@@ -8,7 +8,7 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.3
 var target_direction := Vector3()
 
-const EMPTY_MOVEMENT_SPEED := 4.0
+const EMPTY_MOVEMENT_SPEED := 120.0
 const LOOT_RANGE := 1.0
 const MAX_HEALTH_PER_LEVEL := 50.0
 const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
@@ -23,7 +23,7 @@ var base_stats := {"physical_damage" : 1, \
 "magic_damage" : 1, \
 "physical_armor" : 1, \
 "magic_armor" : 1, \
-"movement_speed" : 3.0, \
+"movement_speed" : 100.0, \
 "cooldown_reduction" : 0.0, \
 "health_regeneration" : 2.0, \
 "max_health" : 450, \
@@ -46,16 +46,16 @@ const SPAWN_REGEN = 100.0
 var in_base := false
 
 # INVENTORY
-const INVENTORY_BASE_SIZE := 5
+const INVENTORY_BASE_SIZE := 10
 const INVENTORY_MAX_SIZE := 20
-var inventory_size = INVENTORY_BASE_SIZE
+var inventory_size = 10
 var inventory : Array[ItemSlot]
 
 # CONSUMABLES
-const CONSUMABLES_BASE_SIZE := 1
+const CONSUMABLES_BASE_SIZE := 2
 const CONSUMABLES_MAX_SIZE := 5
 var consumables_size = CONSUMABLES_BASE_SIZE
-var consummables : Array[ItemSlot]
+var consumables : Array[ItemSlot]
 
 # CRAFTS
 const CRAFT_MAX_SIZE := 3
@@ -65,6 +65,7 @@ var crafts : Array[ItemSlot]
 var abilities : Array[Ability]
 
 var can_move := true
+var can_cast := true
 
 var hovered_target : Object
 var selected_target : Object
@@ -95,20 +96,21 @@ func _ready():
 	add_to_group("player")
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
 	inventory = fill_inventory(INVENTORY_MAX_SIZE)
-	consummables = fill_consumables(CONSUMABLES_MAX_SIZE)
+	consumables = fill_consumables(CONSUMABLES_MAX_SIZE)
 	crafts = fill_crafts(CRAFT_MAX_SIZE)
-	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
 	hud.bind_default_abilities()
-	#obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
+	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
+	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
 	#obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
 	#obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
 	#obtain_item(preload("res://Resources/Items/vision_staff.tres"))
 	#obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
 	#obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
-	#obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
+	obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
 	
-	#obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
+	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
+	obtain_item(preload("res://Resources/Items/weak_flame.tres"), 3)
 	#obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
@@ -117,6 +119,8 @@ func _ready():
 	#obtain_item(preload("res://Ressources/Items/essence_of_used_life.tres"), 3)
 	
 	#add_effect(preload("res://Resources/Effects/BindedFire.tres"), self)
+	update_items()
+	update_stats()
 	hud.update_info_bars()
 	hud.update_abilities()
 	hud.update_knowledge_book()
@@ -387,7 +391,7 @@ func is_dead() -> bool:
 
 func die() -> void:
 	can_move = false
-	hud.clear_craft()
+	clear_craft()
 	camera.top_level = true
 	player_collision.disabled = true
 	world.set_color_correction(Basics.dead_color_correction)
@@ -410,11 +414,11 @@ func movement() -> void:
 	
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
-			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed)
+			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed/40.0)
 		if ability_machine.has_active_abilities():
 			ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
-		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed, ACCELERATION)
-		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed, ACCELERATION)
+		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed/40.0, ACCELERATION)
+		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed/40.0, ACCELERATION)
 		#if auto_attack_target:
 			#face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
 		#else:
@@ -448,8 +452,9 @@ func action_keys():
 			ability_machine.start_channeling(_recall.action_time, _recall.id.capitalize())
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
+		can_cast = hud.chat.visible
 	for i in range(abilities.size()):
-		if abilities[i] and abilities[i].slot_id >= 0 and abilities[i].slot_id < 10:
+		if abilities[i] and can_cast and abilities[i].slot_id >= 0 and abilities[i].slot_id < 10:
 			if Input.is_action_just_pressed("ability"+str(abilities[i].slot_id+1)):
 				match ability_machine.use_ability(abilities[i], self):
 					Basics.ABILITY_ERROR.OK:
@@ -458,6 +463,16 @@ func action_keys():
 						hud.ability_list.get_children()[abilities[i].slot_id].use_ability()
 			if Input.is_action_just_released("ability"+str(abilities[i].slot_id+1)):
 				ability_machine.release_ability(abilities[i])
+	
+	for i in range(consumables.size()):
+		if consumables[i].item and can_cast:
+			if Input.is_action_just_pressed("consumable"+str(consumables[i].slot_id+1)):
+				var ability = consumables[i].item.abilities[0]
+				match ability_machine.use_ability(ability, self):
+					Basics.ABILITY_ERROR.OK:
+						lose_item(consumables[i].item, 1)
+						if abilities[i].channeling:
+							ability_machine.start_channeling(ability.action_time, ability.id.capitalize())
 
 func add_effect(effect : Effect, effect_dealer : Object) -> void:
 	effect_machine.spawn_effect(effect, effect_dealer)
@@ -471,6 +486,7 @@ func remove_effect(effect : Effect) -> void:
 
 func has_passive(passive_id : String) -> bool:
 	for i in inventory:
+		if !i.item: continue
 		for p in i.item.passives:
 			if p.id == passive_id:
 				return true
@@ -505,13 +521,20 @@ func fill_crafts(max_size : int) -> Array[ItemSlot]:
 
 func update_items() -> void:
 	inventory.sort_custom(sort_slot_id)
-	consummables.sort_custom(sort_slot_id)
+	consumables.sort_custom(sort_slot_id)
 	crafts.sort_custom(sort_slot_id)
 	
 	hud.update_inventory()
 
 func sort_slot_id(a : ItemSlot, b : ItemSlot) -> bool:
 	return a.slot_id < b.slot_id
+
+func get_slot_taken_count() -> int:
+	var _item_count : int = 0
+	for i in inventory:
+		if i.item:
+			_item_count += 1
+	return _item_count
 
 func is_inventory_full() -> bool:
 	return false if get_empty_slot(inventory) else true
@@ -536,10 +559,13 @@ func get_item_slot(itm : Item, item_source : Array[ItemSlot]) -> ItemSlot:
 
 # Only works with inventory
 func obtain_item(item : Item, quantity : int = 1) -> void:
-	if has_item(item, inventory):
-		get_item_slot(item, inventory).quantity += quantity
+	if get_slot_taken_count() >= inventory_size:
+		return
+	
+	if has_item(item, get_item_source(item)):
+		get_item_slot(item, get_item_source(item)).quantity += quantity
 	else:
-		var _empty_slot = get_empty_slot(inventory)
+		var _empty_slot = get_empty_slot(get_item_source(item))
 		_empty_slot.item = item
 		_empty_slot.quantity = quantity
 	update_items()
@@ -550,7 +576,7 @@ func obtain_item(item : Item, quantity : int = 1) -> void:
 		hud.bind_ability_auto(ab)
 
 func lose_item(item : Item, quantity : int) -> void:
-	var _item_slot : ItemSlot = get_item_slot(item, inventory)
+	var _item_slot : ItemSlot = get_item_slot(item, get_item_source(item))
 	_item_slot.quantity -= quantity
 	if _item_slot.quantity <= 0:
 		_item_slot.quantity = 0
@@ -560,6 +586,12 @@ func lose_item(item : Item, quantity : int) -> void:
 	update_stats()
 	hud.update_abilities()
 
+func get_item_source(item : Item) -> Array[ItemSlot]:
+	return consumables if item.type == Basics.ITEM_TYPE.CONSUMABLE else inventory
+
+func get_item_slot_source(item_slot : ItemSlot) -> Array[ItemSlot]:
+	return consumables if item_slot.slot_type == Basics.SLOT_TYPE.CONSUMABLE else inventory
+
 func craft_item() -> void:
 	if crafts[0].item and crafts[1].item:
 		
@@ -567,15 +599,18 @@ func craft_item() -> void:
 		for i in Basics.get_all_items():
 			var _craft_comp : Array[Item] = [crafts[0].item, crafts[1].item]
 			if is_item_craftable(i, _craft_comp):
-				crafts[0].item = null
-				crafts[1].item = null
+				for c in range(2):
+					crafts[c].item = null
+					crafts[c].quantity = 0
 				crafts[2].item = i
+				crafts[2].quantity = 1
 				break
 		
 		# If craft failed destroy all items
-		if !crafts[2]:
-			for i in range(crafts.size()):
+		if !crafts[2].item:
+			for i in range(2):
 				crafts[i].item = null
+				crafts[i].quantity = 0
 		
 		hud.update_craft()
 

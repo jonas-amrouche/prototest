@@ -13,11 +13,10 @@ description = "A small pouch for a short hike."
 icon = ExtResource("4_df84g")
 type = 0
 rarity = 0
-consumable = false
 craft_1 = ExtResource("2_vywuc")
 craft_2 = ExtResource("2_vywuc")
 abilities = Array[ExtResource("1_df84g")]([])
 passives = Array[ExtResource("5_jiwn2")]([])
 stats = {
-"movement_speed": 50
+"movement_speed": 30
 }

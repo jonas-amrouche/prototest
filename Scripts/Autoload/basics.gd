@@ -6,10 +6,9 @@ const RARITY_TEXT = ["Classic", "Elite", "Fantastic", "Legendary", "Mythical", "
 #const RARITY_COLORS = [Color(0.627, 0.322, 0.176), Color(0.659, 0.584, 0.561), Color(0.36, 0.56, 0.252), Color(0.322, 0.553, 0.698), Color(0.957, 0.882, 0.184), Color(0.506, 0.255, 0.686), Color(0.537, 0, 0.016), Color(0.62, 0.804, 0.561)]
 
 enum ITEM_TYPE {ITEM, COMPONENTS, CONSUMABLE}
-
 enum SLOT_TYPE {INVENTORY, CRAFT, CONSUMABLE}
 
-const STATS_COLOR = {"magic_damage" : Color.SLATE_BLUE, "physical_damage" : Color.FIREBRICK, "magic_armor" : Color.DARK_SLATE_BLUE, "physical_armor" : Color.BROWN}
+const STATS_COLOR = {"magic_damage" : Color.SLATE_BLUE, "physical_damage" : Color.FIREBRICK, "magic_armor" : Color.DARK_SLATE_BLUE, "physical_armor" : Color.BROWN, "movement_speed" : Color.DARK_SLATE_BLUE}
 enum ABILITY_ERROR {OK, IN_COOLDOWN, NO_TARGET, OUT_OF_RANGE, UNAVAILABLE, NEED_RESOURCE, SCRIPT_ERROR}
 enum ABILITY_CANCEL {MOVING, TAKING_DAMAGE}
 enum ABILITY_VICTIM {TARGET, AREA, GROUP, LOGIC}

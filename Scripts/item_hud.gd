@@ -2,6 +2,7 @@ extends PanelContainer
 
 @export var item_slot : ItemSlot
 @export var available := true
+@export var keybind : String
 signal drag_item(slot : Object)
 signal drop_item(slot : Object)
 signal update_item_preview()
@@ -15,6 +16,7 @@ signal mouse_entered_item(itm : Item)
 @onready var component_overlay = $BorderMargin/ComponentOverlay
 @onready var select_pan = $Select
 @onready var unavailable_pan = $Unavailable
+@onready var keybind_label = $KeybindPad/Keybind
 @onready var quantity_lab = $DragCont/QuantityCont/Quantity
 
 func _ready():
@@ -23,18 +25,20 @@ func _ready():
 func update_slot() -> void:
 	if item_slot and item_slot.item:
 		icon.texture = item_slot.item.icon
+		match item_slot.item.type:
+			Basics.ITEM_TYPE.COMPONENTS:
+				component_overlay.show()
 		quantity_lab.set_visible(item_slot.quantity > 1)
 		quantity_lab.text = str(item_slot.quantity)
 		var types_to_load = ["classic", "elite", "fantastic", "legendary", "mythic", "theoretical"]
 		rarity_overlay.set_texture(load("res://Assets/2D/UI/item_overlay_" + types_to_load[item_slot.item.rarity] + ".png"))
-		match item_slot.item.type:
-			Basics.ITEM_TYPE.COMPONENTS:
-				black_cont.get("theme_override_styles/panel").set("border_color", Color(0.737, 0.635, 0.455))
-			Basics.ITEM_TYPE.CONSUMABLE:
-				consumable_overlay.show()
 	else:
 		icon.texture = null
-	
+	if item_slot:
+		match item_slot.slot_type:
+			Basics.SLOT_TYPE.CONSUMABLE:
+				keybind_label.set_text(keybind.replace("(Physical)", ""))
+				consumable_overlay.show()
 	if !available:
 		unavailable_pan.show()
 

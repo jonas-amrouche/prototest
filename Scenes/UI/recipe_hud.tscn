@@ -3,7 +3,12 @@
 [ext_resource type="Script" uid="uid://c5k0ke2u1rucq" path="res://Scripts/recipe_hud.gd" id="1_h13hr"]
 [ext_resource type="Texture2D" uid="uid://co4knl8ferfda" path="res://Assets/2D/Items/BeaconBagIcon.png" id="1_yki3j"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yki3j"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h13hr"]
+bg_color = Color(0, 0, 0, 0.121569)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
 font_size = 25
@@ -14,7 +19,7 @@ shadow_offset = Vector2(1.5, 1.5)
 [node name="RecipeHud" type="PanelContainer"]
 custom_minimum_size = Vector2(200, 50)
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_yki3j")
+theme_override_styles/panel = SubResource("StyleBoxFlat_h13hr")
 script = ExtResource("1_h13hr")
 
 [node name="Visuals" type="Label" parent="."]

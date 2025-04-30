@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://dg165vqh1ixp"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://dg165vqh1ixp"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_ikx0q"]
 [ext_resource type="Resource" uid="uid://didxnfenvjk1o" path="res://Resources/Abilities/direct_slash.tres" id="2_a24ep"]
+[ext_resource type="Resource" uid="uid://cjtsyn22irgqw" path="res://Resources/Items/golem_fragment.tres" id="3_3qp6d"]
 [ext_resource type="Texture2D" uid="uid://be1s4sdsyh66v" path="res://Assets/2D/Items/BroadswordOfMisfortuneIcon.png" id="4_dwhi6"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_86q02"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="6_tw56m"]
@@ -13,7 +14,8 @@ description = "Forgotten aspirants sword"
 icon = ExtResource("4_dwhi6")
 type = 0
 rarity = 0
-consumable = false
+craft_1 = ExtResource("3_3qp6d")
+craft_2 = ExtResource("3_3qp6d")
 abilities = Array[ExtResource("1_ikx0q")]([ExtResource("2_a24ep")])
 passives = Array[ExtResource("5_86q02")]([])
 stats = {

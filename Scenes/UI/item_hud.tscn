@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=12 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" uid="uid://dc8msiwaibx6d" path="res://Scripts/item_hud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://cmvn7u2wk1qbf" path="res://Assets/2D/UI/craft_unavailable.png" id="2_axs84"]
-[ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="2_iufqr"]
 [ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="3_axs84"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axs84"]
@@ -48,6 +47,16 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ugiu5"]
 texture = ExtResource("2_axs84")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_snyey"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ugiu5"]
+blend_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_axs84"]
+resource_local_to_scene = true
+font_size = 13
+font_color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="ItemHud" type="PanelContainer"]
 custom_minimum_size = Vector2(45, 45)
@@ -127,19 +136,34 @@ stretch_mode = 5
 
 [node name="ConsumableOverlay" type="TextureRect" parent="BorderMargin"]
 visible = false
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("2_iufqr")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="ComponentOverlay" type="TextureRect" parent="BorderMargin"]
-visible = false
+modulate = Color(0.81043, 0.401609, 0.364147, 1)
+material = SubResource("CanvasItemMaterial_snyey")
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("3_axs84")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="ComponentOverlay" type="TextureRect" parent="BorderMargin"]
+visible = false
+modulate = Color(1, 0.7, 0, 1)
+material = SubResource("CanvasItemMaterial_ugiu5")
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_axs84")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="KeybindPad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 2
+
+[node name="Keybind" type="Label" parent="KeybindPad"]
+layout_mode = 2
+size_flags_vertical = 8
+label_settings = SubResource("LabelSettings_axs84")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

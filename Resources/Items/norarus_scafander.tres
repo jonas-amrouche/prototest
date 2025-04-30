@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dcvywdrwhg4uh"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_yjbax"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="2_i312n"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="3_fdyjg"]
+
+[resource]
+script = ExtResource("3_fdyjg")
+id = "norarus_scafender"
+description = "A scafender from norarus, build for long, deep dives on the seafloor undercity."
+type = 0
+rarity = 1
+abilities = Array[ExtResource("1_yjbax")]([])
+passives = Array[ExtResource("2_i312n")]([])
+stats = {}

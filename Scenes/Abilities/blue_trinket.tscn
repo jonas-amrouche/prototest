@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbyxfw6madf83"]
+
+[ext_resource type="Script" uid="uid://dnyvlu8q3j5b3" path="res://Scripts/Abilities/blue_trinket.gd" id="1_gwt2i"]
+
+[node name="BlueTrinket" type="Node3D"]
+script = ExtResource("1_gwt2i")
