@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d045faearnedw"]
+[gd_scene load_steps=9 format=3 uid="uid://d045faearnedw"]
 
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_8aamf"]
 [ext_resource type="Script" uid="uid://cb1yhslcd8ho1" path="res://Scripts/item_preview.gd" id="1_h6i7p"]
 [ext_resource type="Texture2D" uid="uid://cn6i4uf8n36if" path="res://Assets/2D/UI/window_frame_without_corners.png" id="1_uds6s"]
+[ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="4_yd0pb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_duutx"]
 texture = ExtResource("1_uds6s")
@@ -54,6 +55,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 mouse_filter = 2
 texture = ExtResource("1_8aamf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Rarity" type="TextureRect" parent="Pad/Pad"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("4_yd0pb")
 expand_mode = 1
 stretch_mode = 5
 

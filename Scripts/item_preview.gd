@@ -9,6 +9,7 @@ var item : Item
 @onready var stats_container = $Pad/ItemData/Specs/StatsBox
 @onready var abilities_container = $Pad/ItemData/Specs/AbilitiesBox
 @onready var passives_container = $Pad/ItemData/Specs/PassiveBox
+@onready var rarity_icon = $Pad/Pad/Rarity
 @onready var spec_spacer = $Pad/ItemData/DataSpecsSep
 @onready var spec_container = $Pad/ItemData/Specs
 
@@ -21,6 +22,8 @@ func _ready():
 func update_content() -> void:
 	if item:
 		item_icon.set_texture(item.icon)
+		var types_to_load = ["classic", "elite", "fantastic", "legendary", "mythic", "theoretical"]
+		rarity_icon.set_texture(load("res://Assets/2D/UI/item_overlay_" + types_to_load[item.rarity] + ".png"))
 		rarity_label.set_text("R : " + Basics.RARITY_TEXT[item.rarity])
 		#rarity_label.label_settings.set("font_color", Basics.RARITY_COLORS[item.rarity])
 		item_name.set_text(item.id.capitalize())

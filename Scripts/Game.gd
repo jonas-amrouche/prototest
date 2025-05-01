@@ -182,7 +182,7 @@ func generate_points_and_paths() -> void:
 				var _point_pos = (_closest_point-p)/p.distance_to(_closest_point)/PATH_RESOLUTION * i
 				_point_pos += cos(_point_pos.length()/SIN_DIVISION) * p.direction_to(_closest_point).rotated(PI/2.0) * SIN_FORCE
 				_temp_point_list.append(p + _point_pos)
-				DebugFeatures.debug_box(self, Vector3(p.x + _point_pos.x, 0.0, p.y + _point_pos.y))
+				#DebugFeatures.debug_box(self, Vector3(p.x + _point_pos.x, 0.0, p.y + _point_pos.y))
 			paths_points_list.append(_temp_point_list)
 			
 	
