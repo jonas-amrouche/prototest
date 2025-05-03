@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmckpfbf2u4kh"]
+[gd_scene load_steps=6 format=3 uid="uid://bmckpfbf2u4kh"]
 
 [ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_7xpcj"]
 [ext_resource type="Script" uid="uid://dsfp1qs3hnwd8" path="res://Scripts/stat_hud.gd" id="1_qs0rs"]
+[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="2_bw8sp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6uytu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kj53"]
-font_size = 11
+font = ExtResource("2_bw8sp")
+font_size = 12
 font_color = Color(0, 0, 0, 1)
-outline_size = 3
+outline_size = 1
 outline_color = Color(0.54763, 0.521224, 0.437949, 1)
 
 [node name="Stat" type="PanelContainer"]
@@ -26,11 +28,11 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="StatLabel" type="Label" parent="MarginCont"]
+custom_minimum_size = Vector2(23, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "4000"
 label_settings = SubResource("LabelSettings_2kj53")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StatIcon" type="TextureRect" parent="MarginCont"]

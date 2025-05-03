@@ -6,8 +6,7 @@
 [resource]
 script = ExtResource("2_nrogt")
 id = "spontaneous_combustion"
-name = "Spontaneous Combustion"
-description = "Set the target ennemy on fire. ([color=Peru]Binded Fire[/color])"
+description = "Set the target ennemy on fire for [color=B0C4DE]4 seconds[/color]. ([color=Peru]Binded Fire[/color])"
 icon = ExtResource("1_8jlg5")
 spell_range = 2.0
 targeted = false

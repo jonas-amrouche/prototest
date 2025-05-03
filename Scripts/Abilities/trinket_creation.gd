@@ -10,7 +10,7 @@ var vision_stone = preload("res://Resources/Items/vision_stone.tres")
 var ward_position : Vector3
 
 func press() -> Basics.ABILITY_ERROR:
-	if manager.entity.has_item(vision_stone):
+	if manager.entity.has_item(vision_stone, manager.entity.inventory):
 		manager.look_at_target(ad.ability)
 		manager.entity.lose_item(vision_stone, 1)
 		manager.in_casting = true

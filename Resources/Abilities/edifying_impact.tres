@@ -5,11 +5,15 @@
 [resource]
 script = ExtResource("1_nffl7")
 id = "edifying_impact"
-name = "Edifying Impact"
 description = "Deal quick damage in a small circle."
+spell_range = 1.5
+targeted = true
 cooldown = 0.2
 life_time = 0.4
 action_time = 0.4
 channeling = false
 damage_type = 0
 damage_cap = 0
+toggle = false
+charging = false
+charges = 0

@@ -11,6 +11,7 @@ signal mouse_entered_item(itm : Item)
 @onready var icon = $DragCont/Icon
 @onready var drag_cont = $DragCont
 @onready var black_cont = $BlackCont
+@onready var rarity_filter = $BorderMargin/RarityFilter
 @onready var rarity_overlay = $BorderMargin/RarityOverlay
 @onready var consumable_overlay = $BorderMargin/ConsumableOverlay
 @onready var component_overlay = $BorderMargin/ComponentOverlay
@@ -30,8 +31,11 @@ func update_slot() -> void:
 				component_overlay.show()
 		quantity_lab.set_visible(item_slot.quantity > 1)
 		quantity_lab.text = str(item_slot.quantity)
-		var types_to_load = ["classic", "elite", "fantastic", "legendary", "mythic", "theoretical"]
-		rarity_overlay.set_texture(load("res://Assets/2D/UI/item_overlay_" + types_to_load[item_slot.item.rarity] + ".png"))
+		var _color = Basics.RARITY_COLORS[item_slot.item.rarity]
+		_color *= 0.4
+		rarity_filter.get_theme_stylebox("panel").set("bg_color", _color)
+		#black_cont.get_theme_stylebox("panel").set("bg_color", Basics.RARITY_COLORS[item_slot.item.rarity])
+		rarity_overlay.set_texture(load("res://Assets/2D/UI/item_overlay_" + Basics.RARITY_TEXT[item_slot.item.rarity] + ".png"))
 	else:
 		icon.texture = null
 	if item_slot:

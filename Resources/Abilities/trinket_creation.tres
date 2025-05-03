@@ -6,13 +6,17 @@
 [resource]
 script = ExtResource("2_ivljb")
 id = "trinket_creation"
-name = "Trinket creation"
 description = "Cost 1 [color=aqua]Vision Stone.[/color]
-Create a 100s vision trinket."
+Create a [color=B0C4DE]100s[/color] vision trinket."
 icon = ExtResource("1_migv4")
+spell_range = 0.0
+targeted = false
 cooldown = 3.0
 life_time = 0.0
 action_time = 0.0
 channeling = false
 damage_type = 0
 damage_cap = 0
+toggle = false
+charging = false
+charges = 0

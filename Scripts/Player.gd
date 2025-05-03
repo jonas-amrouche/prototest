@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+var entity_type = Basics.ENTITY_TYPE.PLAYER
+
 # Controls
 const ACCELERATION := 0.3
 const CAMERA_MOVE_TRESHOLD := 1.0/100000.0
@@ -102,7 +104,7 @@ func _ready():
 	hud.bind_default_abilities()
 	obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
-	obtain_item(preload("res://Resources/Items/incandescent_book.tres"))
+	obtain_item(preload("res://Resources/Items/incandescent_pages.tres"))
 	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
 	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
 	#obtain_item(preload("res://Resources/Items/blue_trinket.tres"))

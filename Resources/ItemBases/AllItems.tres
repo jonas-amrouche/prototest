@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://dwwqw1umaopnp" path="res://Resources/Items/vision_staff.tres" id="3_j1cni"]
 [ext_resource type="Resource" uid="uid://dd286pu246ain" path="res://Resources/Items/infinite_trinkets.tres" id="5_elu74"]
 [ext_resource type="Resource" uid="uid://bqvrju3tnlkpk" path="res://Resources/Items/stone_arquebus.tres" id="6_htena"]
-[ext_resource type="Resource" uid="uid://bvy4fm7lpya0a" path="res://Resources/Items/incandescent_book.tres" id="7_2ybqb"]
+[ext_resource type="Resource" uid="uid://bvy4fm7lpya0a" path="res://Resources/Items/incandescent_pages.tres" id="7_2ybqb"]
 [ext_resource type="Resource" uid="uid://ctnt2nn3ieg8p" path="res://Resources/Items/blue_trinket.tres" id="8_rp7ve"]
 [ext_resource type="Resource" uid="uid://7ni0w2l0cw05" path="res://Resources/Items/vision_core.tres" id="9_pvfc2"]
 

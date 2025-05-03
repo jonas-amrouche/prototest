@@ -113,15 +113,15 @@ func is_in_range(ab : Ability) -> bool:
 	var _target_pos = Vector2(get_target(ab).global_position.x, get_target(ab).global_position.z)
 	return _entity_pos.distance_to(_target_pos) < (ab.spell_range if ab.spell_range > 0 else 100000.0)
 
-func get_ability_range(ability_id : String) -> float:
-	var ab = load("res://Scenes/Abilities/" + ability_id + ".tscn").instantiate()
-	if ab.get_node("Area/Col").shape.is_class("CylinderShape3D"):
-		ab.queue_free()
-		return ab.get_node("Area/Col").shape.get("radius")
-	else:
-		#print(ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z)
-		ab.queue_free()
-		return ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z
+#func get_ability_range(ability_id : String) -> float:
+	#var ab = load("res://Scenes/Abilities/" + ability_id + ".tscn").instantiate()
+	#if ab.get_node("Area/Col").shape.is_class("CylinderShape3D"):
+		#ab.queue_free()
+		#return ab.get_node("Area/Col").shape.get("radius")
+	#else:
+		##print(ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z)
+		#ab.queue_free()
+		#return ab.get_node("Area/Col").shape.get("size").z/2.0 + ab.get_node("Area/Col").position.z
 
 func has_active_abilities() -> bool:
 	return active_abilities.size() > 0
@@ -145,8 +145,26 @@ func look_at_target(ab : Ability) -> void:
 		if !_result.is_empty():
 			look_at(Vector3(_result.get("position").x, global_position.y, _result.get("position").z))
 
+func get_damage(ad : AbilityData) -> Dictionary:
+	var _dict = Dictionary()
+	_dict["damage_type"] = ad.ability.damage_type
+	
+	var _damage : int
+	if ad.ability.damage_type == Basics.DAMAGE_TYPE.PHYSIC:
+		_damage = ad.ability_dealer.stats.physical_damage
+	else:
+		_damage = ad.ability_dealer.stats.magic_damage
+	
+	# If monster don't care about damage cap
+	if ad.ability_dealer.entity_type == Basics.ENTITY_TYPE.MONSTER:
+		_dict["damage"] = _damage
+	else:
+		_dict["damage"] = min(_damage, ad.ability.damage_cap)
+	
+	return _dict
+
 func get_target(ab : Ability) -> Object:
-	if ab.slot_id == 10:
+	if ab.slot_id == 10 or ab.slot_id == -1: # Second condition identify monsters
 		return entity.auto_attack_target
 	else:
 		return entity.hovered_target

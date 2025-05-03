@@ -1,20 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn8qt55ktvy0e"]
+[gd_scene load_steps=2 format=3 uid="uid://bn8qt55ktvy0e"]
 
 [ext_resource type="Script" uid="uid://bgrrxaclrvw5w" path="res://Scripts/Abilities/haunting_shot.gd" id="1_dwvbo"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_8p0dj"]
-radius = 3.0
-
 [node name="HauntingShot" type="Node3D"]
 script = ExtResource("1_dwvbo")
-
-[node name="Area" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="Col" type="CollisionShape3D" parent="Area"]
-shape = SubResource("CylinderShape3D_8p0dj")
 
 [node name="Visual" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.699, 0, 0)

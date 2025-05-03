@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+var entity_type = Basics.ENTITY_TYPE.MONSTER
 var monster : Monster
 
 var monster_model : Object
@@ -14,7 +15,7 @@ var monster_model : Object
 
 @onready var health : int = monster.max_health
 var level := int(1)
-var player_target : Object
+var auto_attack_target : Object
 
 const ROTATION_LERP_SPEED := 0.04
 var target_direction := Vector3()
@@ -87,11 +88,11 @@ func lose_target() -> void:
 func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 	if is_dead():
 		return
-	if !player_target:
+	if !auto_attack_target:
 		update_path_timer.start()
 		update_path()
 		attack_timer.start()
-	player_target = damage_dealer
+	auto_attack_target = damage_dealer
 	
 	health_bar_display.show()
 	
@@ -176,8 +177,8 @@ func movement() -> void:
 		velocity.z = direction.z * stats.movement_speed
 		face_direction(direction.rotated(Vector3.UP, PI/2.0))
 	else:
-		if player_target:
-			face_direction(global_position.direction_to(Vector3(player_target.global_position.x, global_position.y, player_target.global_position.z)).rotated(Vector3.UP, PI/2.0))
+		if auto_attack_target:
+			face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)).rotated(Vector3.UP, PI/2.0))
 		velocity.x = move_toward(velocity.x, 0, stats.movement_speed)
 		velocity.z = move_toward(velocity.z, 0, stats.movement_speed)
 	
@@ -192,9 +193,9 @@ const STOP_DISTANCE_ROAM_POINT := 0.7
 func update_path(stop : bool = false) -> void:
 	if stop:
 		nav.target_position = global_position
-	if player_target:
+	if auto_attack_target:
 		nav.path_desired_distance = STOP_DISTANCE_PLAYER
-		nav.target_position = player_target.global_position
+		nav.target_position = auto_attack_target.global_position
 	elif monster.roam:
 		nav.path_desired_distance = STOP_DISTANCE_ROAM_POINT
 		nav.target_position = Vector3(camp.global_position.x, global_position.y, camp.global_position.z) + roam_point
@@ -205,22 +206,22 @@ func update_path(stop : bool = false) -> void:
 
 func _on_aggro_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):
 	if monster.aggro:
-		player_target = body
+		auto_attack_target = body
 		update_path_timer.start()
 		update_path()
 		attack_timer.start()
 
 func _on_aggro_body_shape_exited(_body_rid, _body, _body_shape_index, _local_shape_index):
-	player_target = null
+	auto_attack_target = null
 	if !monster.roam:
 		update_path_timer.stop()
 		update_path()
 	attack_timer.stop()
 
 func _on_attack_timeout():
-	if player_target:
+	if auto_attack_target:
 		for i in monster.abilities:
-			if ability_machine.get_ability_range(i.id) > player_target.global_position.distance_to(global_position) - player_target.get_node("Collision").shape.get("radius")/2.0:
+			if ability_machine.is_in_range(i):
 				ability_machine.use_ability(i, self)
 
 func _on_roam_timeout():

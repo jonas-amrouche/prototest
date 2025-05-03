@@ -2,17 +2,16 @@ extends Node3D
 
 var ad : AbilityData
 
-@onready var collision = $Area
 @onready var manager = get_node("..")
 
 func press() -> Basics.ABILITY_ERROR:
+	manager.in_casting = true
 	ad.ability_dealer.update_path(true)
 	ad.ability_dealer.update_path_timer.stop()
-	manager.in_casting = true
+	var _target = manager.get_target(ad.ability)
 	get_tree().create_timer(ad.ability.action_time).timeout.connect(func():
-		for p in collision.get_overlapping_bodies():
-			if p != ad.ability_dealer and !ad.ability_dealer.is_dead():
-				p.take_damage(ad.ability_dealer.stats.physical_damage, 0, ad.ability_dealer)
+		var _damage = manager.get_damage(ad)
+		_target.take_damage(_damage.damage, _damage.damage_type, ad.ability_dealer)
 		manager.in_casting = false
 		ad.ability_dealer.update_path()
 		ad.ability_dealer.update_path_timer.start()

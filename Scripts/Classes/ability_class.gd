@@ -19,7 +19,7 @@ class_name Ability
 @export var action_time : float
 ## If the spell has a channeling time, channeling time is action_time
 @export var channeling : bool
-@export var damage_type : int
+@export var damage_type : Basics.DAMAGE_TYPE
 @export var damage_cap : int
 ## If the spell is a toggle speel
 @export var toggle : bool

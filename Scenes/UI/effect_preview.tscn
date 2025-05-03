@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqguvdpt2gpe0"]
+[gd_scene load_steps=8 format=3 uid="uid://bqguvdpt2gpe0"]
 
 [ext_resource type="Script" uid="uid://dmampdcujnxku" path="res://Scripts/effect_preview.gd" id="1_eama0"]
 [ext_resource type="Texture2D" uid="uid://biv1bxbrokj4t" path="res://Assets/2D/Abilities/InstantShardstoneIcon.png" id="2_uxmg2"]
+[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="3_ndmyj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cg47"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
@@ -20,14 +21,17 @@ border_color = Color(0, 0, 0, 1)
 border_blend = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_gom6e"]
+font = ExtResource("3_ndmyj")
+font_size = 17
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ai2w"]
-font_color = Color(0.41, 0.41, 0.41, 1)
+font = ExtResource("3_ndmyj")
+font_color = Color(0.690196, 0.768627, 0.870588, 1)
 
 [node name="EffectPreview" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 0)
 offset_right = 250.0
-offset_bottom = 54.0
+offset_bottom = 50.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4cg47")
 script = ExtResource("1_eama0")
@@ -69,19 +73,27 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sjjdp")
 
 [node name="Pad" type="MarginContainer" parent="EffectPad/EffectContainer/TitleContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="EffectName" type="Label" parent="EffectPad/EffectContainer/TitleContainer/Pad"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "ouch"
+label_settings = SubResource("LabelSettings_gom6e")
+
+[node name="Duration" type="Label" parent="EffectPad/EffectContainer/TitleContainer/Pad"]
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "yep"
-label_settings = SubResource("LabelSettings_gom6e")
+text = "12 s"
+label_settings = SubResource("LabelSettings_6ai2w")
+horizontal_alignment = 2
 
 [node name="Desc" type="RichTextLabel" parent="EffectPad/EffectContainer"]
 layout_mode = 2
@@ -94,11 +106,3 @@ theme_override_font_sizes/bold_font_size = 13
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
-
-[node name="Duration" type="Label" parent="EffectPad"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-text = "12 s"
-label_settings = SubResource("LabelSettings_6ai2w")
-horizontal_alignment = 2

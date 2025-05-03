@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=14 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" uid="uid://dc8msiwaibx6d" path="res://Scripts/item_hud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://cmvn7u2wk1qbf" path="res://Assets/2D/UI/craft_unavailable.png" id="2_axs84"]
@@ -20,7 +20,7 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17rjt"]
 resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.917647)
+bg_color = Color(0, 0, 0, 0.9)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -52,6 +52,13 @@ texture = ExtResource("2_axs84")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ugiu5"]
 blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_axs84"]
+blend_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugiu5"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_axs84"]
 resource_local_to_scene = true
@@ -153,6 +160,11 @@ mouse_filter = 2
 texture = ExtResource("3_axs84")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="RarityFilter" type="Panel" parent="BorderMargin"]
+material = SubResource("CanvasItemMaterial_axs84")
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ugiu5")
 
 [node name="KeybindPad" type="MarginContainer" parent="."]
 layout_mode = 2

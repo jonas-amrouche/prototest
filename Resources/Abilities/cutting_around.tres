@@ -6,7 +6,6 @@
 [resource]
 script = ExtResource("1_yaty1")
 id = "cutting_around"
-name = "Cutting Around"
 description = "Deal small damage to a target."
 icon = ExtResource("1_iuxe5")
 spell_range = 1.0
@@ -16,7 +15,7 @@ life_time = 0.2
 action_time = 0.12
 channeling = false
 damage_type = 0
-damage_cap = 50
+damage_cap = 30
 toggle = false
 charging = false
 charges = 0

@@ -296,6 +296,7 @@ func show_ability_preview(ability_ref : Object) -> void:
 	if ability_ref.ability:
 		ability_preview = pre_ability_preview.instantiate()
 		ability_preview.ability = ability_ref.ability
+		ability_preview.item = ability_ref.item
 		add_child(ability_preview)
 		var _position_offset = Vector2(ability_preview.size.x/2.0 - ability_ref.size.x/2.0, ability_preview.size.y + 10.0)
 		
@@ -395,7 +396,7 @@ func drag_item(slot : Object) -> void:
 				update_craft()
 			else:
 				# Quick move from inventory or consummables to craft
-				if !player.crafts[0].item or !player.crafts[1].item:
+				if (!player.crafts[0].item or !player.crafts[1].item) and player.in_base:
 					var _empty_slot = player.get_empty_slot(player.crafts)
 					_empty_slot.item = slot.item_slot.item
 					_empty_slot.quantity = 1
@@ -437,7 +438,7 @@ func drop_item(slot : Object) -> void:
 		dragged_item_ref = null
 
 func drop_item_craft(slot : Object) -> void:
-	if dragged_item_ref and slot != dragged_item_ref:
+	if dragged_item_ref and slot != dragged_item_ref and player.in_base:
 		# Droped from a craft cell to a craft cell
 		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
 			var _slot_item = slot.item_slot.duplicate()

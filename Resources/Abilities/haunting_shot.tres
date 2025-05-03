@@ -5,11 +5,15 @@
 [resource]
 script = ExtResource("1_q2ly0")
 id = "haunting_shot"
-name = "Haunting Shot"
 description = "Deal distance magic damage."
+spell_range = 3.0
+targeted = true
 cooldown = 0.5
 life_time = 0.7
 action_time = 0.7
 channeling = false
 damage_type = 1
 damage_cap = 0
+toggle = false
+charging = false
+charges = 0
