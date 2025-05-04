@@ -4,7 +4,7 @@ var ad : AbilityData
 
 @onready var manager = get_node("..")
 
-func press() -> Basics.ABILITY_ERROR:
+func press() -> Basics.AbilityError:
 	manager.in_casting = true
 	ad.ability_dealer.update_path(true)
 	ad.ability_dealer.update_path_timer.stop()
@@ -16,4 +16,4 @@ func press() -> Basics.ABILITY_ERROR:
 		ad.ability_dealer.update_path()
 		ad.ability_dealer.update_path_timer.start()
 		manager.start_ability_cooldown(ad.ability))
-	return Basics.ABILITY_ERROR.OK
+	return Basics.AbilityError.OK

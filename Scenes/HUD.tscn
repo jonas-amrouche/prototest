@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=113 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="9_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
+[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="11_ajim5"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
 [ext_resource type="Texture2D" uid="uid://dvtpxoucckqvs" path="res://Assets/2D/Monster/dispossed_willow.png" id="14_0iicw"]
@@ -270,24 +271,25 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 0.270588)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba8gd"]
-bg_color = Color(0.240711, 0.519062, 0.751137, 1)
+bg_color = Color(0.273256, 0.436103, 0.582746, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 0)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_ssfue"]
+font = ExtResource("11_ajim5")
 font_size = 15
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ba8gd"]
@@ -654,76 +656,6 @@ font_size = 15
 font_color = Color(0.28, 0.25984, 0.2296, 1)
 shadow_color = Color(0, 0, 0, 0.409)
 shadow_offset = Vector2(1.5, 1.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2aa"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfo6n"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqxyv"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnip7"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bf2m"]
 texture = ExtResource("12_8bf2m")
@@ -1408,6 +1340,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_w8qfe")
 
 [node name="HSeparator" type="HSeparator" parent="Inventory/Container"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ba8gd")
 
@@ -1446,9 +1379,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -136.5
+offset_left = -87.0
 offset_top = 43.0
-offset_right = 136.5
+offset_right = 88.0
 offset_bottom = 142.0
 grow_horizontal = 2
 mouse_filter = 1
@@ -1477,32 +1410,11 @@ label_settings = SubResource("LabelSettings_xbkfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LootList" type="GridContainer" parent="Loot/Container"]
+[node name="LootList" type="HBoxContainer" parent="Loot/Container"]
 layout_mode = 2
-theme_override_constants/h_separation = 3
-theme_override_constants/v_separation = 3
-columns = 5
+theme_override_constants/separation = 5
+alignment = 1
 metadata/_edit_lock_ = true
-
-[node name="ItemHud16" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
-
-[node name="ItemHud17" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7c2aa")
-
-[node name="ItemHud18" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yfo6n")
-
-[node name="ItemHud19" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_eqxyv")
-
-[node name="ItemHud20" parent="Loot/Container/LootList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gnip7")
 
 [node name="ItemCraft" type="PanelContainer" parent="."]
 layout_mode = 2

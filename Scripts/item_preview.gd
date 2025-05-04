@@ -29,11 +29,12 @@ func update_content() -> void:
 		desc_line.set_text(item.description)
 		
 		clear_stats()
+		var _world = get_tree().get_first_node_in_group("world")
 		for s in range(item.stats.size()):
-			add_stat(item.stats.values()[s], Basics.stats_data[item.stats.keys()[s]])
+			add_stat(item.stats.values()[s], _world.resources.stats_data[item.stats.keys()[s]])
 			
 		clear_abilities()
-		if item.type != Basics.ITEM_TYPE.CONSUMABLE:
+		if item.type != Basics.ItemType.CONSUMABLE:
 			for a in item.abilities:
 				add_ability(a)
 			

@@ -1,6 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxg238k1wkp2l"]
+[gd_scene load_steps=11 format=3 uid="uid://bxg238k1wkp2l"]
 
 [ext_resource type="Script" uid="uid://b32i06gs3m7i1" path="res://Scripts/client.gd" id="1_h56vy"]
+[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="2_o4a6k"]
+[ext_resource type="Script" uid="uid://dngp3asfbtypt" path="res://Scripts/logger.gd" id="3_v1moc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_de1uw"]
+bg_color = Color(0.0739382, 0.0882481, 0.0871916, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4a6k"]
+bg_color = Color(0.12183, 0.147195, 0.139752, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1moc"]
+bg_color = Color(0.227777, 0.27063, 0.258367, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0475577, 0.0475577, 0.0475576, 1)
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_v1moc"]
+font = ExtResource("2_o4a6k")
+font_size = 65
+font_color = Color(0.189256, 0.38054, 0.351092, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o4a6k"]
+font = ExtResource("2_o4a6k")
+font_size = 40
+font_color = Color(0, 0.513414, 0.388859, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wuhft"]
+font = ExtResource("2_o4a6k")
+font_size = 25
+font_color = Color(0.392552, 0.471359, 0.488133, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuhft"]
+bg_color = Color(0, 0.392001, 0.361822, 1)
 
 [node name="Client" type="Control"]
 layout_mode = 3
@@ -10,30 +58,162 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h56vy")
+metadata/_edit_lock_ = true
 
-[node name="Close" type="Button" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -82.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = 54.0
-grow_horizontal = 0
-text = "X"
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_de1uw")
+metadata/_edit_lock_ = true
 
-[node name="Minimize" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -158.0
-offset_top = 12.0
-offset_right = -88.0
-offset_bottom = 54.0
-grow_horizontal = 0
+[node name="Window" type="HBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 2
+
+[node name="Minimize" type="Button" parent="PanelContainer/Window"]
+custom_minimum_size = Vector2(39, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_o4a6k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o4a6k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o4a6k")
 text = "-"
 
-[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
-[connection signal="pressed" from="Minimize" to="." method="_on_minimize_pressed"]
+[node name="Close" type="Button" parent="PanelContainer/Window"]
+custom_minimum_size = Vector2(39, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_v1moc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v1moc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_v1moc")
+text = "X"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -151.5
+offset_top = 24.0
+offset_right = 151.5
+offset_bottom = 181.0
+grow_horizontal = 2
+text = "Forest
+     Dungeon"
+label_settings = SubResource("LabelSettings_v1moc")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -897.0
+offset_top = -409.0
+offset_right = -421.0
+offset_bottom = -361.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Welcome to Forest Dungeon !"
+label_settings = SubResource("LabelSettings_o4a6k")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -901.0
+offset_top = -336.0
+offset_right = 99.0
+offset_bottom = 641.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Enter a randomly generated dark jungle in this new 4v4 MOBA.
+
+This game will not play for you, you win by being an excellent player, and an excellent teammate.
+
+Each game, a new map is created, we gives a lot of liberty to the game to create maps that changes the way each game is played.
+
+There are no heroes, champions or legends, you start a game by choosing a role, this choice will only gives you a specific starter item.
+
+Once you're in a game, you must think around your stuff, because items gives everything : active abilities, passives and stats.
+
+To get items, you first have to kill monsters, they will give you components, combine 2 and you will get something else or nothing, you have to know your crafts.
+
+Monsters are everywhere on the map in camps, clear a normal camp completely, and the monsters will respawn stronger after 100 seconds.
+
+You have experience, earned directly by killing monster, leveling up upgrade your stats and unlock your inventory slots.
+
+Use B to activate your recall and go back to your base, place any abilities in the Auto Attack slot, to set your basic right click attack."
+label_settings = SubResource("LabelSettings_wuhft")
+autowrap_mode = 2
+
+[node name="LaunchGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -484.0
+offset_top = -170.0
+offset_right = -202.0
+offset_bottom = -78.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_wuhft")
+text = "LAUNCH GAME"
+
+[node name="Logger" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -608.0
+offset_top = -375.0
+offset_right = -90.0
+offset_bottom = 267.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("3_v1moc")
+
+[node name="Pseudo" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -516.0
+offset_top = -275.0
+offset_right = -149.0
+offset_bottom = -212.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 35
+text = "Zonfr"
+placeholder_text = "Pseudo"
+alignment = 1
+
+[connection signal="pressed" from="PanelContainer/Window/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="PanelContainer/Window/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="LaunchGame" to="." method="_on_launch_game_pressed"]
+[connection signal="text_changed" from="Pseudo" to="." method="_on_pseudo_text_changed"]

@@ -3,7 +3,7 @@ extends Node3D
 @export var camp : Camp
 
 var alive := true
-var level : int = 1
+var camp_level : int = 1
 
 var pre_monster = preload("res://Scenes/Monster.tscn")
 
@@ -24,6 +24,7 @@ func spawn_monsters(monsters : Array[Monster]) -> void:
 	for m in range(monsters.size()):
 		var _new_monster = pre_monster.instantiate()
 		_new_monster.camp = self
+		_new_monster.level = camp_level
 		_new_monster.monster = monsters[m]
 		_new_monster.rotation = Vector3(0, randf_range(-PI, PI), 0)
 		_new_monster.position = get_node("MonsterPos" + str(m+1)).position + position
@@ -36,7 +37,7 @@ func monster_died() -> void:
 		alive = false
 		respawn_timer.start()
 		camp_flames_model.set_visible(false)
-		level += 1
+		camp_level += 1
 		monster_dead = 0
 
 func change_camp_visibility(visi : bool) -> void:

@@ -81,6 +81,8 @@ func update_info_bars() -> void:
 
 func bind_default_abilities() -> void:
 	for i in range(player.abilities.size()):
+		if player.abilities[i].id == "direct_slash":
+			player.abilities[i].slot_id = 0
 		if player.abilities[i].id == "cutting_around":
 			player.abilities[i].slot_id = 10
 	update_abilities()
@@ -352,10 +354,12 @@ func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
 	
+	var _world = get_tree().get_first_node_in_group("world")
+	
 	for i in range(player.stats.size()):
 		var _new_stat_hud = pre_stat_hud.instantiate()
 		_new_stat_hud.stat_value = player.stats.values()[i]
-		_new_stat_hud.stat = Basics.stats_data[player.stats.keys()[i]]
+		_new_stat_hud.stat = _world.resources.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
 
 func set_knowledge_book(open : bool) -> void:
@@ -388,7 +392,7 @@ func drop_ability(slot : Object) -> void:
 func drag_item(slot : Object) -> void:
 	if Input.is_action_pressed("quick_item_move"):
 		if slot.item_slot.item:
-			if slot.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
+			if slot.item_slot.slot_type == Basics.SlotType.CRAFT:
 				# Quick move from craft or consummables to inventory
 				player.obtain_item(slot.item_slot.item, slot.item_slot.quantity)
 				slot.item_slot.item = null
@@ -411,7 +415,7 @@ func drop_item(slot : Object) -> void:
 	if dragged_item_ref:
 		
 		# Droped from a craft cell to inventory or consummables
-		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT: # verif l'item draged est bien du même type que le slot
+		if dragged_item_ref.item_slot.slot_type == Basics.SlotType.CRAFT: # verif l'item draged est bien du même type que le slot
 			if player.get_item_source(dragged_item_ref.item_slot.item) == player.get_item_slot_source(slot.item_slot):
 				if player.has_item(dragged_item_ref.item_slot.item, player.get_item_source(dragged_item_ref.item_slot.item)):
 					var _drop_slot = player.get_item_slot(dragged_item_ref.item_slot.item, player.get_item_source(dragged_item_ref.item_slot.item))
@@ -440,7 +444,7 @@ func drop_item(slot : Object) -> void:
 func drop_item_craft(slot : Object) -> void:
 	if dragged_item_ref and slot != dragged_item_ref and player.in_base:
 		# Droped from a craft cell to a craft cell
-		if dragged_item_ref.item_slot.slot_type == Basics.SLOT_TYPE.CRAFT:
+		if dragged_item_ref.item_slot.slot_type == Basics.SlotType.CRAFT:
 			var _slot_item = slot.item_slot.duplicate()
 			slot.item_slot.item = dragged_item_ref.item_slot.item
 			dragged_item_ref.item_slot.item = _slot_item.item

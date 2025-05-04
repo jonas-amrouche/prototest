@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var entity_type = Basics.ENTITY_TYPE.MONSTER
+var entity_type = Basics.EntityType.MONSTER
 var monster : Monster
 
 var monster_model : Object
@@ -33,6 +33,7 @@ var camp  : Object
 @onready var agro_collision = $Aggro/Collision
 @onready var monster_collision = $Collision
 @onready var health_bar = $SubViewport/MonsterHealthBar/HealthBar
+@onready var level_label = $SubViewport/MonsterHealthBar/LevelLabel
 @onready var health_bar_display = $HealthBarDisplay
 @onready var update_path_timer = $UpdatePath
 @onready var attack_timer = $Attack
@@ -48,6 +49,16 @@ func _ready():
 		update_path_timer.start()
 	agro_collision.shape.set("radius", monster.aggro_range)
 	default_point = global_position
+	for i in range(level-1):
+		stats.magic_damage *= 1.5
+		stats.physical_damage *= 1.5
+		stats.magic_armor *= 1.2
+		stats.physical_armor *= 1.2
+		stats.max_health *= 1.5
+		stats.health_regeneration *= 1.5
+		stats.movement_speed *= 1.05
+	health = stats.max_health
+	level_label.text = str(level)
 	monster_model = monster.monster_model.instantiate()
 	for c in monster_model.get_children():
 		if c.is_class("MeshInstance3D"):
@@ -119,6 +130,7 @@ func is_dead() -> bool:
 	return false
 
 func gain_experience(_experience : float) -> void:
+	print("monster gained experience")
 	return
 
 const DROP_VECTOR_LENGTH = 1.2

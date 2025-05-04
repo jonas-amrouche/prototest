@@ -27,7 +27,7 @@ func update_slot() -> void:
 	if item_slot and item_slot.item:
 		icon.texture = item_slot.item.icon
 		match item_slot.item.type:
-			Basics.ITEM_TYPE.COMPONENTS:
+			Basics.ItemType.COMPONENTS:
 				component_overlay.show()
 		quantity_lab.set_visible(item_slot.quantity > 1)
 		quantity_lab.text = str(item_slot.quantity)
@@ -40,7 +40,7 @@ func update_slot() -> void:
 		icon.texture = null
 	if item_slot:
 		match item_slot.slot_type:
-			Basics.SLOT_TYPE.CONSUMABLE:
+			Basics.SlotType.CONSUMABLE:
 				keybind_label.set_text(keybind.replace("(Physical)", ""))
 				consumable_overlay.show()
 	if !available:

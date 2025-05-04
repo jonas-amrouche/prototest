@@ -8,7 +8,7 @@ var pre_temp_vision = preload("res://Scenes/Systems/temp_vision.tscn")
 var temp_visions_list : Array[Object]
 var in_ability : bool
 
-func press() -> Basics.ABILITY_ERROR:
+func press() -> Basics.AbilityError:
 	manager.look_at_target(ad.ability)
 	in_ability = true
 	manager.in_casting = true
@@ -24,7 +24,7 @@ func press() -> Basics.ABILITY_ERROR:
 		for i in temp_visions_list:
 			i.queue_free()
 		queue_free())
-	return Basics.ABILITY_ERROR.OK
+	return Basics.AbilityError.OK
 
 func _process(_delta: float) -> void:
 	manager.look_at_target(ad.ability)
@@ -34,7 +34,7 @@ func update_vision_probe_position() -> void:
 	for t in range(temp_visions_list.size()):
 		temp_visions_list[t].position = Vector3(get_node(str(t)).global_position.x, 0.0, get_node(str(t)).global_position.z)
 
-func release() -> Basics.ABILITY_ERROR:
+func release() -> Basics.AbilityError:
 	if in_ability:
 		manager.in_casting = false
 		manager.start_ability_cooldown(ad.ability)
@@ -42,7 +42,7 @@ func release() -> Basics.ABILITY_ERROR:
 		for i in temp_visions_list:
 			i.queue_free()
 		queue_free()
-		return Basics.ABILITY_ERROR.OK
+		return Basics.AbilityError.OK
 	else:
-		return Basics.ABILITY_ERROR.UNAVAILABLE
+		return Basics.AbilityError.UNAVAILABLE
 	

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var entity_type = Basics.ENTITY_TYPE.PLAYER
+var entity_type = Basics.EntityType.PLAYER
 
 # Controls
 const ACCELERATION := 0.3
@@ -71,7 +71,7 @@ var can_cast := true
 
 var hovered_target : Object
 var selected_target : Object
-var cursor_mode : Basics.CURSOR_MODE
+var cursor_mode : Basics.CursorMode
 
 var auto_attack_target : Object
 var loot_target : Object
@@ -102,18 +102,18 @@ func _ready():
 	crafts = fill_crafts(CRAFT_MAX_SIZE)
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
 	hud.bind_default_abilities()
-	obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
-	obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
-	obtain_item(preload("res://Resources/Items/incandescent_pages.tres"))
-	obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
-	obtain_item(preload("res://Resources/Items/vision_staff.tres"))
+	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
+	#obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
+	#obtain_item(preload("res://Resources/Items/incandescent_pages.tres"))
+	#obtain_item(preload("res://Resources/Items/stone_arquebus.tres"))
+	#obtain_item(preload("res://Resources/Items/vision_staff.tres"))
 	#obtain_item(preload("res://Resources/Items/blue_trinket.tres"))
-	obtain_item(preload("res://Resources/Items/infinite_trinkets.tres"))
+	#obtain_item(preload("res://Resources/Items/infinitrinket.tres"))
 	#obtain_item(preload("res://Resources/Items/leather_pouch.tres"))
 	
-	obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
-	obtain_item(preload("res://Resources/Items/weak_flame.tres"), 3)
-	obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
+	#obtain_item(preload("res://Resources/Items/vision_stone.tres"), 52)
+	#obtain_item(preload("res://Resources/Items/weak_flame.tres"), 3)
+	#obtain_item(preload("res://Resources/Items/golem_fragment.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/unstable_core.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/explosive_stone.tres"), 3)
 	#obtain_item(preload("res://Ressources/Items/floating_matter.tres"), 3)
@@ -182,7 +182,7 @@ func auto_attacking() -> void:
 		if _auto_ability and ability_machine.is_in_range(_auto_ability):
 			nav.target_position = global_position
 			
-			if ability_machine.use_ability(_auto_ability, self) == Basics.ABILITY_ERROR.OK and _auto_ability.channeling:
+			if ability_machine.use_ability(_auto_ability, self) == Basics.AbilityError.OK and _auto_ability.channeling:
 				ability_machine.start_channeling(_auto_ability.action_time, _auto_ability.id.capitalize())
 			if _auto_ability.spell_range == 0.0:
 				nav.target_position = global_position
@@ -190,8 +190,8 @@ func auto_attacking() -> void:
 func check_for_target() -> void:
 	var _result = target_raycast()
 	if _result.is_empty():
-		cursor_mode = Basics.CURSOR_MODE.NORMAL
-		DisplayServer.cursor_set_custom_image(Basics.cursors[cursor_mode])
+		cursor_mode = Basics.CursorMode.NORMAL
+		DisplayServer.cursor_set_custom_image(world.resources.cursors[cursor_mode])
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
 			hud.update_target()
@@ -199,8 +199,8 @@ func check_for_target() -> void:
 	else:
 		if _result.get("collider") == self: return
 		
-		cursor_mode = Basics.CURSOR_MODE.LOOT if hovered_target and hovered_target.is_dead() else Basics.CURSOR_MODE.ATTACK
-		DisplayServer.cursor_set_custom_image(Basics.cursors[cursor_mode])
+		cursor_mode = Basics.CursorMode.LOOT if hovered_target and hovered_target.is_dead() else Basics.CursorMode.ATTACK
+		DisplayServer.cursor_set_custom_image(world.resources.cursors[cursor_mode])
 		
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
@@ -264,15 +264,15 @@ func _unhandled_input(event) -> void:
 		if event.button_index == 2:
 			if hovered_target:
 				match cursor_mode:
-					Basics.CURSOR_MODE.ATTACK:
+					Basics.CursorMode.ATTACK:
 						auto_attack_target = hovered_target
-					Basics.CURSOR_MODE.LOOT:
+					Basics.CursorMode.LOOT:
 						loot_target = hovered_target
 						nav.target_position = loot_target.global_position
 				if outline_tween:
 					outline_tween.kill()
 				outline_tween = get_tree().create_tween()
-				hover_outline_vpc.material.set_shader_parameter("outline_size", 1.0)
+				hover_outline_vpc.material.set_shader_parameter("outline_size", 0.5)
 				outline_tween.tween_property(hover_outline_vpc.material, "shader_parameter/outline_size", 0.05, 0.3)
 			else:
 				var _result = ability_machine.terrain_raycast()
@@ -281,7 +281,7 @@ func _unhandled_input(event) -> void:
 					loot_target = null
 					nav.target_position = _result.get("position")
 					spawn_move_effect(_result.get("position"))
-					ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
+					ability_machine.cancel_abilities(Basics.AbilityCancel.MOVING)
 		elif event.button_index == 1:
 			var _result = target_raycast()
 			if _result.is_empty():
@@ -331,7 +331,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 			_final_damage = max(damage - stats.physical_armor - stats.magic_armor, 0.0)
 	
 	model_anims.play("take_damage")
-	ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.TAKING_DAMAGE)
+	ability_machine.cancel_abilities(Basics.AbilityCancel.TAKING_DAMAGE)
 	health = max(health - _final_damage, 0.0)
 	hud.update_info_bars()
 	if is_dead():
@@ -396,7 +396,7 @@ func die() -> void:
 	clear_craft()
 	camera.top_level = true
 	player_collision.disabled = true
-	world.set_color_correction(Basics.dead_color_correction)
+	world.set_color_correction(world.resources.dead_color_correction)
 	get_tree().create_timer(respawn_time).timeout.connect(Callable(func():
 		health = stats.max_health
 		hud.update_info_bars()
@@ -418,7 +418,7 @@ func movement() -> void:
 		if model_anims.current_animation != "walk":
 			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed/40.0)
 		if ability_machine.has_active_abilities():
-			ability_machine.cancel_abilities(Basics.ABILITY_CANCEL.MOVING)
+			ability_machine.cancel_abilities(Basics.AbilityCancel.MOVING)
 		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed/40.0, ACCELERATION)
 		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed/40.0, ACCELERATION)
 		#if auto_attack_target:
@@ -449,8 +449,8 @@ func action_keys():
 	if Input.is_action_just_pressed("craft_book"):
 		hud.set_knowledge_book(!hud.craft_book_tab.visible)
 	if Input.is_action_just_pressed("recall"):
-		var _recall = Basics.recall_ability
-		if ability_machine.use_ability(_recall, self) == Basics.ABILITY_ERROR.OK:
+		var _recall = world.resources.recall_ability
+		if ability_machine.use_ability(_recall, self) == Basics.AbilityError.OK:
 			ability_machine.start_channeling(_recall.action_time, _recall.id.capitalize())
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
@@ -459,7 +459,7 @@ func action_keys():
 		if abilities[i] and can_cast and abilities[i].slot_id >= 0 and abilities[i].slot_id < 10:
 			if Input.is_action_just_pressed("ability"+str(abilities[i].slot_id+1)):
 				match ability_machine.use_ability(abilities[i], self):
-					Basics.ABILITY_ERROR.OK:
+					Basics.AbilityError.OK:
 						if abilities[i].channeling:
 							ability_machine.start_channeling(abilities[i].action_time, abilities[i].id.capitalize())
 						hud.ability_list.get_children()[abilities[i].slot_id].use_ability()
@@ -471,7 +471,7 @@ func action_keys():
 			if Input.is_action_just_pressed("consumable"+str(consumables[i].slot_id+1)):
 				var ability = consumables[i].item.abilities[0]
 				match ability_machine.use_ability(ability, self):
-					Basics.ABILITY_ERROR.OK:
+					Basics.AbilityError.OK:
 						lose_item(consumables[i].item, 1)
 						if abilities[i].channeling:
 							ability_machine.start_channeling(ability.action_time, ability.id.capitalize())
@@ -498,7 +498,7 @@ func fill_inventory(max_size : int) -> Array[ItemSlot]:
 	var _inv : Array[ItemSlot]
 	for i in range(max_size):
 		var _new_item_slot = ItemSlot.new()
-		_new_item_slot.slot_type = Basics.SLOT_TYPE.INVENTORY
+		_new_item_slot.slot_type = Basics.SlotType.INVENTORY
 		_new_item_slot.slot_id = i
 		_inv.push_back(_new_item_slot)
 	return _inv
@@ -507,7 +507,7 @@ func fill_consumables(max_size : int) -> Array[ItemSlot]:
 	var _cons : Array[ItemSlot]
 	for i in range(max_size):
 		var _new_item_slot = ItemSlot.new()
-		_new_item_slot.slot_type = Basics.SLOT_TYPE.CONSUMABLE
+		_new_item_slot.slot_type = Basics.SlotType.CONSUMABLE
 		_new_item_slot.slot_id = i
 		_cons.push_back(_new_item_slot)
 	return _cons
@@ -516,7 +516,7 @@ func fill_crafts(max_size : int) -> Array[ItemSlot]:
 	var _cra : Array[ItemSlot]
 	for i in range(max_size):
 		var _new_item_slot = ItemSlot.new()
-		_new_item_slot.slot_type = Basics.SLOT_TYPE.CRAFT
+		_new_item_slot.slot_type = Basics.SlotType.CRAFT
 		_new_item_slot.slot_id = i
 		_cra.push_back(_new_item_slot)
 	return _cra
@@ -589,10 +589,10 @@ func lose_item(item : Item, quantity : int) -> void:
 	hud.update_abilities()
 
 func get_item_source(item : Item) -> Array[ItemSlot]:
-	return consumables if item.type == Basics.ITEM_TYPE.CONSUMABLE else inventory
+	return consumables if item.type == Basics.ItemType.CONSUMABLE else inventory
 
 func get_item_slot_source(item_slot : ItemSlot) -> Array[ItemSlot]:
-	return consumables if item_slot.slot_type == Basics.SLOT_TYPE.CONSUMABLE else inventory
+	return consumables if item_slot.slot_type == Basics.SlotType.CONSUMABLE else inventory
 
 func craft_item() -> void:
 	if crafts[0].item and crafts[1].item:

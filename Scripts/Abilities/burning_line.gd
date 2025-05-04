@@ -9,7 +9,7 @@ var ad : AbilityData
 @onready var fire_anim_angle_1 = $Visual/FireAngle1
 @onready var fire_anim_angle_2 = $Visual/FireAngle2
 
-func press() -> Basics.ABILITY_ERROR:
+func press() -> Basics.AbilityError:
 	manager.look_at_target(ad.ability)
 	manager.in_casting = true
 	fire_anim.play("fire")
@@ -24,7 +24,7 @@ func press() -> Basics.ABILITY_ERROR:
 		manager.in_casting = false
 		manager.enable_player_movement(ad.ability_dealer)
 		manager.start_ability_cooldown(ad.ability))
-	return Basics.ABILITY_ERROR.OK
+	return Basics.AbilityError.OK
 
-func cancel_ability(_reason : Basics.ABILITY_CANCEL) -> void:
+func cancel_ability(_reason : Basics.AbilityCancel) -> void:
 	pass

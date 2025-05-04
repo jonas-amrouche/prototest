@@ -2,19 +2,10 @@ extends Node3D
 
 const CAMP_DISTANCE_TO_CENTER = 75.0
 var bases : Array[Object]
-var pre_base = preload("res://Scenes/Structures/base.tscn")
-var pre_player = preload("res://Scenes/player.tscn")
-var pre_arena = preload("res://Scenes/Structures/water_arena.tscn")
-var pre_camp = preload("res://Scenes/Structures/camp.tscn")
-var pre_tower = preload("res://Scenes/Structures/knowledge_tower.tscn")
-
-var pre_camps = [preload("res://Resources/Camps/OmniscientGolem.tres"), \
-preload("res://Resources/Camps/Gobedins.tres"), \
-preload("res://Resources/Camps/DispossessedWillow.tres"), \
-preload("res://Resources/Camps/Grunters.tres"), \
-preload("res://Resources/Camps/LostGhosts.tres")]
 
 var players : Array[Object]
+
+var resources = preload("res://Scripts/game_resources.gd")
 
 @onready var multi_tree = $MultiTrees
 #@onready var multi_tree2 = $MultiTrees2
@@ -32,6 +23,7 @@ var players : Array[Object]
 @onready var fog_plane = $FogPlane
 
 func _ready() -> void:
+	add_to_group("world")
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 	DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
@@ -39,7 +31,7 @@ func _ready() -> void:
 	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, camp_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
 
 func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
-	var _new_player = pre_player.instantiate()
+	var _new_player = resources.pre_player.instantiate()
 	_new_player.position = pos
 	_new_player.target_direction = pos.direction_to(center_spawn)
 	add_child(_new_player)
@@ -63,7 +55,7 @@ func generate_bases() -> void:
 	var _bases_pos = [_random_vector, _random_vector.rotated(PI)]
 	
 	for b in _bases_pos:
-		var _new_base = pre_base.instantiate()
+		var _new_base = resources.pre_base.instantiate()
 		_new_base.position = Vector3(b.x, 0.0, b.y)
 		navmesh.add_child(_new_base)
 		_new_base.scale *= Vector3(sign(b.x), 1.0, -sign(b.x))
@@ -197,7 +189,7 @@ func generate_points_and_paths() -> void:
 
 const ARENA_SIZE = 10.0
 func generate_mid_arena() -> void:
-	var _new_arena = pre_arena.instantiate()
+	var _new_arena = resources.pre_arena.instantiate()
 	_new_arena.position = Vector3(0.0, 0.0, 0.0)
 	add_child(_new_arena)
 
@@ -302,18 +294,18 @@ func generate_camps() -> void:
 	for i in range(new_interest_points_list.size()):
 		var _camps_num : int = ceil((new_interest_points_list.values()[i] - MIN_INTEREST_SIZE)/CAMPS_RATIO)
 		for c in range(_camps_num):
-			var _new_camp = pre_camp.instantiate()
+			var _new_camp = resources.pre_camp.instantiate()
 			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
 			camp_points_list.append(Vector2(new_interest_points_list.keys()[i].x + _added_vec.x, new_interest_points_list.keys()[i].y + _added_vec.z))
 			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.22, new_interest_points_list.keys()[i].y) + _added_vec
-			_new_camp.camp = pre_camps[randi_range(0, pre_camps.size()-1)]
+			_new_camp.camp = resources.pre_camps[randi_range(0, resources.pre_camps.size()-1)]
 			camps.add_child(_new_camp)
 
 const CHANCE_TO_SPAWN_TOWER := 0.05
 func generate_structures() -> void:
 	for i in interest_points_list:
 		if randf() < CHANCE_TO_SPAWN_TOWER:
-			var _new_tower = pre_tower.instantiate()
+			var _new_tower = resources.pre_tower.instantiate()
 			_new_tower.position = Vector3(i.x, -0.2, i.y)
 			add_child(_new_tower)
 
@@ -321,12 +313,12 @@ const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
 func generate_decoration() -> void:
 	for i in range(150):
-		var _decoration = randi_range(0, Basics.decorations_models.size()-1)
+		var _decoration = randi_range(0, resources.decorations_models.size()-1)
 		var _new_position = Vector2(randf_range(-Basics.MAP_SIZE.x/2.0, Basics.MAP_SIZE.x/2.0), randf_range(-Basics.MAP_SIZE.y/2.0, Basics.MAP_SIZE.y/2.0))
 		if is_in_base(_new_position) or is_in_path(_new_position) or is_in_arena(_new_position):
 			continue
 		decorations_points.append(_new_position)
-		var _new_decoration = Basics.decorations_models[_decoration].instantiate()
+		var _new_decoration = resources.decorations_models[_decoration].instantiate()
 		_new_decoration.position = Vector3(_new_position.x, ground_mesh.position.y, _new_position.y)
 		_new_decoration.rotation = Vector3(0.0, randf_range(-PI, PI), 0.0)
 		add_child(_new_decoration)

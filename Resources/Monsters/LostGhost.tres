@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://bbsir61mjulr0"]
+[gd_resource type="Resource" script_class="Monster" load_steps=14 format=3 uid="uid://bbsir61mjulr0"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dsj7x"]
 [ext_resource type="Resource" uid="uid://coy7gj003lu7h" path="res://Resources/Abilities/haunting_shot.tres" id="2_c7mvp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_m6ddl"]
 [ext_resource type="Resource" uid="uid://ddgg0cjjc86qx" path="res://Resources/Items/essence_of_used_life.tres" id="5_upbwf"]
 [ext_resource type="Resource" uid="uid://p2blnjobsde8" path="res://Resources/Items/weak_flame.tres" id="6_jfh2h"]
+[ext_resource type="Resource" uid="uid://wjyyk3dajyjf" path="res://Resources/Items/atsis_crystal.tres" id="7_upbwf"]
 
 [sub_resource type="Resource" id="Resource_ugk36"]
 script = ExtResource("3_jg1n4")
@@ -30,12 +31,19 @@ chances = 0.3
 quantity_max = 1
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
+[sub_resource type="Resource" id="Resource_exp2b"]
+script = ExtResource("3_jg1n4")
+item = ExtResource("7_upbwf")
+chances = 0.4
+quantity_max = 2
+metadata/_custom_type_script = "uid://cn77duvoc7bc"
+
 [resource]
 script = ExtResource("5_m6ddl")
 id = "lost_ghost"
 name = "Lost Ghost"
 monster_model = ExtResource("3_mn240")
-item_drops = Array[ExtResource("3_jg1n4")]([SubResource("Resource_ugk36"), SubResource("Resource_mx8e3"), SubResource("Resource_06xdq")])
+item_drops = Array[ExtResource("3_jg1n4")]([SubResource("Resource_ugk36"), SubResource("Resource_mx8e3"), SubResource("Resource_06xdq"), SubResource("Resource_exp2b")])
 experience_drop = 42
 abilities = Array[ExtResource("1_dsj7x")]([ExtResource("2_c7mvp")])
 aggro = false

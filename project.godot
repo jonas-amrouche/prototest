@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Forest Dungeon"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="uid://ch7gr4ch5r2xt"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Assets/2D/UI/altar_icon_good_scale.png"
 
@@ -19,6 +19,9 @@ config/icon="res://Assets/2D/UI/altar_icon_good_scale.png"
 
 Basics="*res://Scripts/Autoload/basics.gd"
 DebugFeatures="*res://Scripts/Autoload/debug_features.gd"
+ClientManager="*res://Scripts/Autoload/client_manager.gd"
+ServerLogger="*res://GameServer/server_logger.gd"
+Replication="*res://Scripts/Autoload/replication.gd"
 
 [display]
 
@@ -29,15 +32,14 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/energy_saving/keep_screen_on=false
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="uid://djfjdas1q3rc2"
 
 [file_customization]
 
 folder_colors={
+"res://GameServer/": "red",
 "res://Resources/": "green",
 "res://Scenes/": "orange",
-"res://Scripts/": "purple",
-"res://Servers/": "red"
+"res://Scripts/": "purple"
 }
 
 [filesystem]
@@ -208,7 +210,7 @@ unbind_ability={
 }
 bind_auto_attack={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194326,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 recall={

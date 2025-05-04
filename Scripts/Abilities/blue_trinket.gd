@@ -8,7 +8,7 @@ var pre_beacon = preload("res://Scenes/Props/vision_trinket.tscn")
 
 var ward_position : Vector3
 
-func press() -> Basics.ABILITY_ERROR:
+func press() -> Basics.AbilityError:
 	manager.look_at_target(ad.ability)
 	manager.in_casting = true
 	ward_position = manager.get_cursor_world_position()
@@ -19,4 +19,4 @@ func press() -> Basics.ABILITY_ERROR:
 		_new_beacon.position = Vector3(ward_position.x, -0.4, ward_position.z)
 		manager.entity.world.beacons.add_child(_new_beacon)
 		manager.start_ability_cooldown(ad.ability))
-	return Basics.ABILITY_ERROR.OK
+	return Basics.AbilityError.OK

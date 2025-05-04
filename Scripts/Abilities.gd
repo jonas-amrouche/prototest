@@ -8,7 +8,7 @@ var in_casting : bool
 
 @onready var entity = get_node("..") # It can either be a player or a monster
 
-func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_ERROR:
+func use_ability(ability : Ability, ability_dealer : Object) -> Basics.AbilityError:
 	if !in_casting and !in_cooldown_dict.get(ability):
 		if !ability_dealer.is_dead():
 			if !ability.targeted or get_target(ability):
@@ -20,7 +20,7 @@ func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_E
 					var _path = "res://Scenes/Abilities/" + ability.id + ".tscn"
 					if !ResourceLoader.exists(_path):
 						push_warning("RESOURCE ABILITY DON'T EXIST")
-						return Basics.ABILITY_ERROR.SCRIPT_ERROR
+						return Basics.AbilityError.SCRIPT_ERROR
 					var _new_ability = load("res://Scenes/Abilities/" + ability.id + ".tscn").instantiate()
 					_new_ability.rotation = Vector3()
 					_new_ability.ad = _ability_data
@@ -31,12 +31,12 @@ func use_ability(ability : Ability, ability_dealer : Object) -> Basics.ABILITY_E
 					start_ability_life_time(_new_ability)
 					return _new_ability.call("press")
 				else:
-					return Basics.ABILITY_ERROR.NO_TARGET
+					return Basics.AbilityError.NO_TARGET
 			else:
-				return Basics.ABILITY_ERROR.OUT_OF_RANGE
+				return Basics.AbilityError.OUT_OF_RANGE
 		else:
-			return Basics.ABILITY_ERROR.UNAVAILABLE
-	return Basics.ABILITY_ERROR.IN_COOLDOWN
+			return Basics.AbilityError.UNAVAILABLE
+	return Basics.AbilityError.IN_COOLDOWN
 
 func start_ability_life_time(ability_scene : Object) -> void:
 	var _life_time = ability_scene.ad.ability.life_time
@@ -46,17 +46,17 @@ func start_ability_life_time(ability_scene : Object) -> void:
 		if ability_scene:
 			ability_scene.queue_free())
 
-func release_ability(ability : Ability) -> Basics.ABILITY_ERROR:
+func release_ability(ability : Ability) -> Basics.AbilityError:
 	if active_abilities.has(ability) and active_abilities.get(ability).has_method("release"):
 		return active_abilities.get(ability).call("release")
-	return Basics.ABILITY_ERROR.UNAVAILABLE
+	return Basics.AbilityError.UNAVAILABLE
 
 # Clear the ability from the dictionnary
 func destroy_ability(ability : Ability) -> void:
 	active_abilities.erase(ability)
 
 # Tell all active abilities, there can be a cancelling with a reason
-func cancel_abilities(reason : Basics.ABILITY_CANCEL) -> void:
+func cancel_abilities(reason : Basics.AbilityCancel) -> void:
 	for a in active_abilities.values():
 		if a.has_method("cancel_ability"):
 			a.cancel_ability(reason)
@@ -150,13 +150,13 @@ func get_damage(ad : AbilityData) -> Dictionary:
 	_dict["damage_type"] = ad.ability.damage_type
 	
 	var _damage : int
-	if ad.ability.damage_type == Basics.DAMAGE_TYPE.PHYSIC:
+	if ad.ability.damage_type == Basics.DamageType.PHYSIC:
 		_damage = ad.ability_dealer.stats.physical_damage
 	else:
 		_damage = ad.ability_dealer.stats.magic_damage
 	
 	# If monster don't care about damage cap
-	if ad.ability_dealer.entity_type == Basics.ENTITY_TYPE.MONSTER:
+	if ad.ability_dealer.entity_type == Basics.EntityType.MONSTER:
 		_dict["damage"] = _damage
 	else:
 		_dict["damage"] = min(_damage, ad.ability.damage_cap)
