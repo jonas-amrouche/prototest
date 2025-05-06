@@ -5,10 +5,9 @@ var bases : Array[Object]
 
 var players : Array[Object]
 
-var resources = preload("res://Scripts/game_resources.gd")
+@onready var resources = $GameResources
 
 @onready var multi_tree = $MultiTrees
-#@onready var multi_tree2 = $MultiTrees2
 @onready var ground_mesh = $Ground
 @onready var rivers = $Rivers
 @onready var env = $WorldEnvironment.environment
@@ -18,7 +17,7 @@ var resources = preload("res://Scripts/game_resources.gd")
 @onready var beacons = $Beacons
 @onready var camps = $Camps
 @onready var monsters = $Monsters
-@onready var components = $Components
+@onready var items = $Items
 @onready var temp_vision = $TempVision
 @onready var fog_plane = $FogPlane
 
@@ -31,7 +30,7 @@ func _ready() -> void:
 	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, camp_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
 
 func spawn_player(pos : Vector3, center_spawn : Vector3) -> void:
-	var _new_player = resources.pre_player.instantiate()
+	var _new_player = resources.player_scene.instantiate()
 	_new_player.position = pos
 	_new_player.target_direction = pos.direction_to(center_spawn)
 	add_child(_new_player)
@@ -55,7 +54,7 @@ func generate_bases() -> void:
 	var _bases_pos = [_random_vector, _random_vector.rotated(PI)]
 	
 	for b in _bases_pos:
-		var _new_base = resources.pre_base.instantiate()
+		var _new_base = resources.base_structure.instantiate()
 		_new_base.position = Vector3(b.x, 0.0, b.y)
 		navmesh.add_child(_new_base)
 		_new_base.scale *= Vector3(sign(b.x), 1.0, -sign(b.x))
@@ -189,7 +188,7 @@ func generate_points_and_paths() -> void:
 
 const ARENA_SIZE = 10.0
 func generate_mid_arena() -> void:
-	var _new_arena = resources.pre_arena.instantiate()
+	var _new_arena = resources.arena_structure.instantiate()
 	_new_arena.position = Vector3(0.0, 0.0, 0.0)
 	add_child(_new_arena)
 
@@ -294,18 +293,18 @@ func generate_camps() -> void:
 	for i in range(new_interest_points_list.size()):
 		var _camps_num : int = ceil((new_interest_points_list.values()[i] - MIN_INTEREST_SIZE)/CAMPS_RATIO)
 		for c in range(_camps_num):
-			var _new_camp = resources.pre_camp.instantiate()
+			var _new_camp = resources.camp_structure.instantiate()
 			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
 			camp_points_list.append(Vector2(new_interest_points_list.keys()[i].x + _added_vec.x, new_interest_points_list.keys()[i].y + _added_vec.z))
 			_new_camp.position = Vector3(new_interest_points_list.keys()[i].x, -0.22, new_interest_points_list.keys()[i].y) + _added_vec
-			_new_camp.camp = resources.pre_camps[randi_range(0, resources.pre_camps.size()-1)]
+			_new_camp.camp = resources.camps_list[randi_range(0, resources.camps_list.size()-1)]
 			camps.add_child(_new_camp)
 
 const CHANCE_TO_SPAWN_TOWER := 0.05
 func generate_structures() -> void:
 	for i in interest_points_list:
 		if randf() < CHANCE_TO_SPAWN_TOWER:
-			var _new_tower = resources.pre_tower.instantiate()
+			var _new_tower = resources.tower_structure.instantiate()
 			_new_tower.position = Vector3(i.x, -0.2, i.y)
 			add_child(_new_tower)
 
@@ -330,7 +329,7 @@ func vision_update(vision : Object, _fog_map : Image) -> void:
 	for m in monsters.get_children():
 		m.set_visible(vision.has_vision(Vector2i(m.global_position.x, m.global_position.z)))
 	
-	for c in components.get_children():
+	for c in items.get_children():
 		c.set_visible(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))
 	
 	for c in camps.get_children():

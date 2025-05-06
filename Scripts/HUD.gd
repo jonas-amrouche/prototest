@@ -1,19 +1,7 @@
 extends Control
 
-#var pre_component_hud = preload("res://Scenes/UI/component_hud.tscn")
-var pre_item_hud = preload("res://Scenes/UI/item_hud.tscn")
-var pre_ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
-var pre_item_craft = preload("res://Scenes/UI/item_craft.tscn")
-var pre_stat_hud = preload("res://Scenes/UI/stat_hud.tscn")
-#var pre_xp_gem_hud = preload("res://Scenes/UI/experience_gem.tscn")
-var pre_recipe_hud = preload("res://Scenes/UI/recipe_hud.tscn")
-var pre_effect_hud = preload("res://Scenes/UI/effect_hud.tscn")
-var pre_item_preview = preload("res://Scenes/UI/item_preview.tscn")
-var pre_ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
-#var pre_component_preview = preload("res://Scenes/UI/component_preview.tscn")
-var pre_effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
-
-@onready var player := get_node("..").get_node("..")
+@onready var player := get_parent().get_parent()
+@onready var world = player.get_parent()
 @onready var scoreboard := $ScoreBoard
 @onready var chat := $Chat
 @onready var target_tab := $TargetData
@@ -126,7 +114,7 @@ func update_craft() -> void:
 			craft_bar.value = 0.0
 			player.craft_item())
 	for i in range(player.crafts.size()):
-		var _new_item_slot = pre_item_hud.instantiate()
+		var _new_item_slot = world.resources.item_hud.instantiate()
 		_new_item_slot.connect("drop_item", Callable(self, "drop_item_craft"))
 		_new_item_slot.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_slot.connect("mouse_entered_item", Callable(self, "show_item_preview"))
@@ -145,7 +133,7 @@ func open_and_display_loot(loot : Array[ItemSlot]) -> void:
 	loot_tab.show()
 	
 	for l in loot:
-		var _new_item_hud = pre_item_hud.instantiate()
+		var _new_item_hud = world.resources.item_hud.instantiate()
 		_new_item_hud.item_slot = l
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
@@ -204,7 +192,7 @@ func update_abilities() -> void:
 	
 	# Populate ability bar
 	for a in range(_sorted_ability_bar.size()):
-		var _new_ability_hud = pre_ability_hud.instantiate()
+		var _new_ability_hud = world.resources.ability_hud.instantiate()
 		if _sorted_ability_bar[a]:
 			if player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a]):
 				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a])
@@ -232,7 +220,7 @@ func update_abilities() -> void:
 		if player.abilities[a].slot_id != -1:
 			continue
 		non_binded_abilities_tab.show()
-		var _new_ability_hud = pre_ability_hud.instantiate()
+		var _new_ability_hud = world.resources.ability_hud.instantiate()
 		_new_ability_hud.custom_minimum_size = Vector2(37.0, 37.0)
 		if player.abilities[a]:
 			if player.ability_machine.get_ability_cooldown(player.abilities[a]):
@@ -255,7 +243,7 @@ func update_inventory() -> void:
 	
 	# Populate item bar
 	for i in range(player.inventory.size()):
-		var _new_item_hud = pre_item_hud.instantiate()
+		var _new_item_hud = world.resources.item_hud.instantiate()
 		_new_item_hud.item_slot = player.inventory[i]
 		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
@@ -267,7 +255,7 @@ func update_inventory() -> void:
 	
 	# Populate consumables bar
 	for c in range(player.consumables.size()):
-		var _new_item_hud = pre_item_hud.instantiate()
+		var _new_item_hud = world.resources.item_hud.instantiate()
 		_new_item_hud.item_slot = player.consumables[c]
 		_new_item_hud.connect("drop_item", Callable(self, "drop_item"))
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
@@ -284,7 +272,7 @@ func show_item_preview(item : Item) -> void:
 	if item_preview:
 		item_preview.queue_free()
 	if item:
-		item_preview = pre_item_preview.instantiate()
+		item_preview = world.resources.item_preview.instantiate()
 		item_preview.hide()
 		item_preview.item = item
 		add_child(item_preview)
@@ -296,7 +284,7 @@ func hide_item_preview() -> void:
 
 func show_ability_preview(ability_ref : Object) -> void:
 	if ability_ref.ability:
-		ability_preview = pre_ability_preview.instantiate()
+		ability_preview = world.resources.ability_preview.instantiate()
 		ability_preview.ability = ability_ref.ability
 		ability_preview.item = ability_ref.item
 		add_child(ability_preview)
@@ -325,7 +313,7 @@ func update_effects() -> void:
 	for i in effect_container.get_children():
 		i.queue_free()
 	for i in range(player.effect_machine.active_effects.size()):
-		var _new_effect_hud = pre_effect_hud.instantiate()
+		var _new_effect_hud = world.resources.effect_hud.instantiate()
 		_new_effect_hud.effect = player.effect_machine.active_effects.keys()[i]
 		_new_effect_hud.connect("mouse_entered_effect", Callable(self, "show_effect_preview"))
 		_new_effect_hud.connect("mouse_exited", Callable(self, "hide_effect_preview"))
@@ -335,7 +323,7 @@ func show_effect_preview(effect : Effect) -> void:
 	if effect_preview:
 		effect_preview.queue_free()
 	if effect:
-		effect_preview = pre_effect_preview.instantiate()
+		effect_preview = world.resources.effect_preview.instantiate()
 		effect_preview.effect = effect
 		add_child(effect_preview)
 
@@ -354,26 +342,24 @@ func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
 	
-	var _world = get_tree().get_first_node_in_group("world")
-	
 	for i in range(player.stats.size()):
-		var _new_stat_hud = pre_stat_hud.instantiate()
+		var _new_stat_hud = world.resources.stat_hud.instantiate()
 		_new_stat_hud.stat_value = player.stats.values()[i]
-		_new_stat_hud.stat = _world.resources.stats_data[player.stats.keys()[i]]
+		_new_stat_hud.stat = world.resources.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
 
-func set_knowledge_book(open : bool) -> void:
-	craft_book_tab.set_visible(open)
+#func set_knowledge_book(open : bool) -> void:
+	#craft_book_tab.set_visible(open)
 
-func update_knowledge_book() -> void:
-	for i in recipe_container.get_children():
-		i.queue_free()
-	
-	for i in Basics.get_all_items():
-		if i.craft_1 and i.craft_2:
-			var _new_recipe_hud = pre_recipe_hud.instantiate()
-			_new_recipe_hud.item = i
-			recipe_container.add_child(_new_recipe_hud)
+#func update_knowledge_book() -> void:
+	#for i in recipe_container.get_children():
+		#i.queue_free()
+	#
+	#for i in Basics.get_all_items():
+		#if i.craft_1 and i.craft_2:
+			#var _new_recipe_hud = world.resources.recipe_hud.instantiate()
+			#_new_recipe_hud.item = i
+			#recipe_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot

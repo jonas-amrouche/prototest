@@ -144,9 +144,10 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Enter a randomly generated dark jungle in this new 4v4 MOBA.
 
-This game will not play for you, you win by being an excellent player, and an excellent teammate.
+This game will not play for you, you win by being an excellent player/teammate.
 
-Each game, a new map is created, we gives a lot of liberty to the game to create maps that changes the way each game is played.
+Each game, a new map is created, with different paths, camps, monsters, and structures. 
+Every game is a new theorycraft challenge, around the resources available.
 
 There are no heroes, champions or legends, you start a game by choosing a role, this choice will only gives you a specific starter item.
 
@@ -162,7 +163,7 @@ Use B to activate your recall and go back to your base, place any abilities in t
 label_settings = SubResource("LabelSettings_wuhft")
 autowrap_mode = 2
 
-[node name="LaunchGame" type="Button" parent="."]
+[node name="EnterGame" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -177,7 +178,7 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wuhft")
-text = "LAUNCH GAME"
+text = "ENTER GAME"
 
 [node name="Logger" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -215,5 +216,5 @@ alignment = 1
 
 [connection signal="pressed" from="PanelContainer/Window/Minimize" to="." method="_on_minimize_pressed"]
 [connection signal="pressed" from="PanelContainer/Window/Close" to="." method="_on_close_pressed"]
-[connection signal="pressed" from="LaunchGame" to="." method="_on_launch_game_pressed"]
+[connection signal="pressed" from="EnterGame" to="." method="_on_enter_game_pressed"]
 [connection signal="text_changed" from="Pseudo" to="." method="_on_pseudo_text_changed"]

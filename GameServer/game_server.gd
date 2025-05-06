@@ -3,8 +3,8 @@ extends Node
 # Autoload named Lobby
 
 # These signals can be connected to by a UI lobby scene or the game scene.
-signal player_connected(peer_id, player_info)
-signal player_disconnected(peer_id)
+#signal player_connected(peer_id, player_info)
+#signal player_disconnected(peer_id)
 
 const PORT = 7000
 const MAX_CONNECTIONS = 20
@@ -45,4 +45,4 @@ func _on_player_disconnected(id):
 	ServerLogger.info(str(str(id), " Disconnected."))
 	Replication.players.erase(id)
 	Replication.update_player_register.rpc(Replication.players)
-	player_disconnected.emit(id)
+	#player_disconnected.emit(id)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpt3ovdtx3kig"]
+
+[ext_resource type="Script" uid="uid://dxig3s635cjqv" path="res://Scripts/shopkeeper.gd" id="1_eno6s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jmco"]
+height = 2.52178
+
+[node name="Shopkeeper" type="CharacterBody3D"]
+script = ExtResource("1_eno6s")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(0.534912, 2.49048, 0.685791)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6jmco")

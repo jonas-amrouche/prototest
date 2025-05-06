@@ -199,7 +199,7 @@ func movement() -> void:
 func _on_update_path_timeout():
 	update_path()
 
-const STOP_DISTANCE_PLAYER := 1.2
+const STOP_DISTANCE_PLAYER := 0.9
 const STOP_DISTANCE_CAMP := 0.7
 const STOP_DISTANCE_ROAM_POINT := 0.7
 func update_path(stop : bool = false) -> void:

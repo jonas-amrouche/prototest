@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxbe73c6eo1wj"]
+[gd_scene load_steps=13 format=3 uid="uid://bxbe73c6eo1wj"]
 
 [ext_resource type="Script" uid="uid://b507hfjfi48i8" path="res://Scripts/monster.gd" id="1_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://dow4dk0os7bac" path="res://Scenes/UI/monster_health_bar.tscn" id="2_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/abilities.tscn" id="3_6ks7b"]
 [ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Systems/effects.tscn" id="4_bua6k"]
-[ext_resource type="Texture2D" uid="uid://40uj3kkawuq6" path="res://Assets/2D/Alpha-Textures/star_particle.png" id="5_6ks7b"]
-[ext_resource type="Texture2D" uid="uid://4yflxf6lhk0i" path="res://Assets/2D/Alpha-Textures/star_particle_emission.png" id="6_bua6k"]
+[ext_resource type="Material" uid="uid://bfj1uifljvjke" path="res://Resources/Materials/TechArt/sparticle_stars.tres" id="5_cyu0s"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mfdxe"]
 height = 2.2
@@ -16,16 +15,6 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_rma1q"]
 resource_local_to_scene = true
 radius = 4.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ks7b"]
-transparency = 1
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("5_6ks7b")
-emission_enabled = true
-emission_energy_multiplier = 95.75
-emission_texture = ExtResource("6_bua6k")
-billboard_mode = 1
-billboard_keep_scale = true
 
 [sub_resource type="Curve" id="Curve_cyu0s"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -55,16 +44,18 @@ shape = SubResource("CylinderShape3D_mfdxe")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
 target_desired_distance = 1.5
+path_height_offset = 1.0
 height = 1.5
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(100, 30)
+size = Vector2i(100, 50)
 
 [node name="MonsterHealthBar" parent="SubViewport" instance=ExtResource("2_ujuxu")]
 
 [node name="HealthBarDisplay" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41699, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56879, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 texture = SubResource("ViewportTexture_q8k26")
@@ -92,7 +83,7 @@ wait_time = 7.0
 
 [node name="LootingStars" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03686, 0)
-material_override = SubResource("StandardMaterial3D_6ks7b")
+material_override = ExtResource("5_cyu0s")
 emitting = false
 amount = 30
 lifetime = 3.0

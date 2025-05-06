@@ -8,8 +8,6 @@ const DEFAULT_SERVER_IP = "localhost" # IPv4 localhost
 
 var player_info = {}
 
-#signal server_disconnected
-
 func _ready():
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
@@ -29,9 +27,7 @@ func start_client() -> void:
 
 func _on_connected_ok():
 	logger.info("connection established.")
-	#var peer_id = multiplayer.get_unique_id()
-	#players[peer_id] = player_info
-	#player_connected.emit(peer_id, player_info)
+	send_player_infos(pseudo_line.text)
 
 func _on_connected_fail():
 	logger.error(str("connection failed for peer : ", multiplayer.multiplayer_peer))
@@ -49,9 +45,12 @@ func _on_close_pressed():
 func _on_minimize_pressed(): 
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
 
-func _on_launch_game_pressed() -> void:
-	pass
-
 func _on_pseudo_text_changed(new_text: String) -> void:
-	Replication.client_infos["name"] = new_text
+	send_player_infos(new_text)
+
+func send_player_infos(pseudo : String) -> void:
+	Replication.client_infos["name"] = pseudo
 	Replication.update_player_info.rpc(multiplayer.get_unique_id(), Replication.client_infos)
+
+func _on_enter_game_pressed() -> void:
+	pass # Replace with function body.

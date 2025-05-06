@@ -8,15 +8,12 @@ func _physics_process(_delta: float) -> void:
 		set_physics_process(false)
 		return
 	
-	var _player = get_tree().get_first_node_in_group("player")
 	if Input.is_action_just_pressed("debug_quit_game"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("debug_fullscreen"):
 		match DisplayServer.window_get_mode():
 			DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.WINDOW_MODE_WINDOWED: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	if Input.is_action_just_pressed("debug_hide_ui"):
-		_player.hud.set_visible(!_player.hud.visible)
 	if Input.is_action_just_pressed("debug_free_mouse"):
 		match DisplayServer.mouse_get_mode():
 			DisplayServer.MOUSE_MODE_CONFINED: DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
@@ -26,6 +23,13 @@ func _physics_process(_delta: float) -> void:
 			AudioServer.set_bus_volume_db(0, 0.0)
 		else:
 			AudioServer.set_bus_volume_db(0, -100.0)
+	
+	var _player = get_tree().get_first_node_in_group("player")
+	
+	if !_player: return
+	
+	if Input.is_action_just_pressed("debug_hide_ui"):
+		_player.hud.set_visible(!_player.hud.visible)
 	if Input.is_action_just_pressed("debug_range"):
 		_player.debug_range.set_visible(!_player.debug_range.visible)
 

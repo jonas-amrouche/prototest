@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bfj1uifljvjke"]
+
+[ext_resource type="Texture2D" uid="uid://40uj3kkawuq6" path="res://Assets/2D/Alpha-Textures/star_particle.png" id="1_dve6b"]
+[ext_resource type="Texture2D" uid="uid://4yflxf6lhk0i" path="res://Assets/2D/Alpha-Textures/star_particle_emission.png" id="2_8yn6g"]
+
+[resource]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_dve6b")
+emission_enabled = true
+emission_energy_multiplier = 95.75
+emission_texture = ExtResource("2_8yn6g")
+billboard_mode = 1
+billboard_keep_scale = true

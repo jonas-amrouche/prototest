@@ -125,7 +125,7 @@ func _ready():
 	update_stats()
 	hud.update_info_bars()
 	hud.update_abilities()
-	hud.update_knowledge_book()
+	#hud.update_knowledge_book()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -260,8 +260,8 @@ func move_camera_click(press : bool) -> void:
 
 var outline_tween : Tween
 func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == 2:
+	if event is InputEventMouseButton:
+		if event.button_index == 2 and event.pressed:
 			if hovered_target:
 				match cursor_mode:
 					Basics.CursorMode.ATTACK:
@@ -282,7 +282,7 @@ func _unhandled_input(event) -> void:
 					nav.target_position = _result.get("position")
 					spawn_move_effect(_result.get("position"))
 					ability_machine.cancel_abilities(Basics.AbilityCancel.MOVING)
-		elif event.button_index == 1:
+		elif event.button_index == 1 and event.pressed:
 			var _result = target_raycast()
 			if _result.is_empty():
 				if selected_target and selected_target.has_method("lose_target"):
@@ -304,10 +304,26 @@ func _unhandled_input(event) -> void:
 					if !selected_target.state_changed.is_connected(Callable(hud, "update_target")):
 						selected_target.state_changed.connect(Callable(hud, "update_target"))
 					hud.update_target()
+		elif event.button_index == 1 and !event.pressed and hud.dragged_item_ref:
+			drop_item_ground(hud.dragged_item_ref.item_slot)
 
-var pre_move_effect = preload("res://Scenes/UI/click_move_effect.tscn")
+#const DROP_VECTOR_LENGTH = 1.4
+func drop_item_ground(item_slot : ItemSlot) -> void:
+	var _new_item_ground = world.resources.item_ground.instantiate()
+	#var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
+	#_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
+	_new_item_ground.position = global_position
+	_new_item_ground.item = item_slot.item
+	_new_item_ground.quantity = item_slot.quantity
+	item_slot.item = null
+	item_slot.quantity = 0
+	world.items.add_child(_new_item_ground)
+	update_items()
+	update_stats()
+	hud.update_abilities()
+
 func spawn_move_effect(pos : Vector3) -> void:
-	var _new_move_effect = pre_move_effect.instantiate()
+	var _new_move_effect = world.resources.move_effect.instantiate()
 	_new_move_effect.position = pos
 	world.add_child(_new_move_effect)
 
@@ -446,8 +462,8 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
-	if Input.is_action_just_pressed("craft_book"):
-		hud.set_knowledge_book(!hud.craft_book_tab.visible)
+	#if Input.is_action_just_pressed("craft_book"):
+		#hud.set_knowledge_book(!hud.craft_book_tab.visible)
 	if Input.is_action_just_pressed("recall"):
 		var _recall = world.resources.recall_ability
 		if ability_machine.use_ability(_recall, self) == Basics.AbilityError.OK:
@@ -562,6 +578,10 @@ func get_item_slot(itm : Item, item_source : Array[ItemSlot]) -> ItemSlot:
 # Only works with inventory
 func obtain_item(item : Item, quantity : int = 1) -> void:
 	if get_slot_taken_count() >= inventory_size:
+		var _item_slot = ItemSlot.new()
+		_item_slot.item = item
+		_item_slot.quantity = quantity
+		drop_item_ground(_item_slot)
 		return
 	
 	if has_item(item, get_item_source(item)):
