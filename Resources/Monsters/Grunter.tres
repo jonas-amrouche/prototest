@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=14 format=3 uid="uid://bjuh036cbr3yl"]
+[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://bjuh036cbr3yl"]
 
 [ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Resources/Abilities/angry_headbutt.tres" id="1_0c6gm"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dg4mi"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
 [ext_resource type="Resource" uid="uid://b3u0g1edoebi8" path="res://Resources/Items/explosive_stone.tres" id="5_ws1yw"]
 [ext_resource type="Resource" uid="uid://b1fbjsrmtw2do" path="res://Resources/Items/eternal_flame.tres" id="6_srh1n"]
-[ext_resource type="Resource" uid="uid://cml6avhm45bgd" path="res://Resources/Items/copper_coin.tres" id="7_6m15x"]
 
 [sub_resource type="Resource" id="Resource_srh1n"]
 script = ExtResource("3_3uqtl")
@@ -31,19 +30,12 @@ chances = 0.3
 quantity_max = 2
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
-[sub_resource type="Resource" id="Resource_mmuey"]
-script = ExtResource("3_3uqtl")
-item = ExtResource("7_6m15x")
-chances = 0.5
-quantity_max = 100
-metadata/_custom_type_script = "uid://cn77duvoc7bc"
-
 [resource]
 script = ExtResource("5_0m2nj")
 id = "grunter"
 name = "Grunter"
 monster_model = ExtResource("4_hx8ec")
-item_drops = Array[ExtResource("3_3uqtl")]([SubResource("Resource_srh1n"), SubResource("Resource_6m15x"), SubResource("Resource_2lrla"), SubResource("Resource_mmuey")])
+item_drops = Array[ExtResource("3_3uqtl")]([SubResource("Resource_srh1n"), SubResource("Resource_6m15x"), SubResource("Resource_2lrla")])
 experience_drop = 47
 abilities = Array[ExtResource("1_dg4mi")]([ExtResource("1_0c6gm")])
 aggro = false

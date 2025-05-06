@@ -5,9 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://40uj3kkawuq6" path="res://Assets/2D/Alpha-Textures/star_particle.png" id="3_ucub3"]
 [ext_resource type="Texture2D" uid="uid://4yflxf6lhk0i" path="res://Assets/2D/Alpha-Textures/star_particle_emission.png" id="4_prsq7"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hmyda"]
-size = Vector3(0.5, 0.5, 0.5)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ks7b"]
 transparency = 1
 vertex_color_use_as_albedo = true
@@ -35,16 +32,14 @@ alpha_curve = SubResource("CurveTexture_x2kql")
 [sub_resource type="QuadMesh" id="QuadMesh_weklg"]
 size = Vector2(0.1, 0.1)
 
-[node name="ItemGround" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ucub3"]
+radius = 0.461897
+
+[node name="ItemGround" type="Area3D"]
+collision_layer = 32
+collision_mask = 32
+monitoring = false
 script = ExtResource("1_v4uuw")
-
-[node name="PickUp" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="Collision" type="CollisionShape3D" parent="PickUp"]
-shape = SubResource("BoxShape3D_hmyda")
 
 [node name="IconTex" type="Sprite3D" parent="."]
 transform = Transform3D(-2.18557e-08, -0.5, -2.18557e-08, 0, -2.18557e-08, 0.5, -0.5, 2.18557e-08, 9.55343e-16, 0, -0.65, 0)
@@ -70,4 +65,6 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_kb17a")
 draw_pass_1 = SubResource("QuadMesh_weklg")
 
-[connection signal="body_shape_entered" from="PickUp" to="." method="_on_pick_up_body_shape_entered"]
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.551728, 0)
+shape = SubResource("SphereShape3D_ucub3")

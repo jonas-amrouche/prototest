@@ -1,9 +1,12 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://k0tv7gf5eeky"]
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://k0tv7gf5eeky"]
 
 [ext_resource type="Texture2D" uid="uid://c0ikujullvs8t" path="res://Assets/2D/PBR/pavement_v1.png" id="1_qd5dc"]
+[ext_resource type="Texture2D" uid="uid://c2foopxv0eal" path="res://Assets/2D/PBR/burned_pavement_v1_nm.png" id="2_g00ua"]
 
 [resource]
 albedo_color = Color(0.513233, 0.513233, 0.513233, 1)
 albedo_texture = ExtResource("1_qd5dc")
 metallic_specular = 0.0
+normal_enabled = true
+normal_texture = ExtResource("2_g00ua")
 uv1_triplanar = true

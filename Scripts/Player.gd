@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 var entity_type = Basics.EntityType.PLAYER
 
+signal state_changed
+
 # Controls
 const ACCELERATION := 0.3
 const CAMERA_MOVE_TRESHOLD := 1.0/100000.0
@@ -125,7 +127,6 @@ func _ready():
 	update_stats()
 	hud.update_info_bars()
 	hud.update_abilities()
-	#hud.update_knowledge_book()
 
 func _physics_process(_delta) -> void:
 	movement()
@@ -149,12 +150,17 @@ func looting() -> void:
 		var _loot_pos = Vector2(loot_target.global_position.x, loot_target.global_position.z)
 		var _player_pos = Vector2(global_position.x, global_position.z)
 		if _player_pos.distance_to(_loot_pos) < LOOT_RANGE:
-			if loot_timer:
-				return
-			loot_timer = get_tree().create_timer(1.0)
-			nav.target_position = global_position
-			ability_machine.start_channeling(1.0, "Looting")
-			loot_timer.timeout.connect(loot_corpse.bind())
+			if loot_target.entity_type == Basics.EntityType.ITEM:
+				obtain_item(loot_target.item, loot_target.quantity)
+				loot_target.loot_item()
+				loot_target = null
+			else:
+				if loot_timer:
+					return
+				loot_timer = get_tree().create_timer(1.0)
+				nav.target_position = global_position
+				ability_machine.start_channeling(1.0, "Looting")
+				loot_timer.timeout.connect(loot_corpse.bind())
 	else:
 		if loot_timer and loot_timer.timeout.is_connected(loot_corpse):
 			loot_timer.timeout.disconnect(loot_corpse)
@@ -189,7 +195,7 @@ func auto_attacking() -> void:
 
 func check_for_target() -> void:
 	var _result = target_raycast()
-	if _result.is_empty():
+	if _result.is_empty() or _result.get("collider") == self:
 		cursor_mode = Basics.CursorMode.NORMAL
 		DisplayServer.cursor_set_custom_image(world.resources.cursors[cursor_mode])
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
@@ -197,27 +203,32 @@ func check_for_target() -> void:
 			hud.update_target()
 		hovered_target = null
 	else:
-		if _result.get("collider") == self: return
+		hovered_target = _result.get("collider")
 		
-		cursor_mode = Basics.CursorMode.LOOT if hovered_target and hovered_target.is_dead() else Basics.CursorMode.ATTACK
+		match hovered_target.entity_type:
+			Basics.EntityType.ITEM:
+				cursor_mode = Basics.CursorMode.LOOT
+			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER:
+				cursor_mode = Basics.CursorMode.LOOT if hovered_target and hovered_target.is_dead() else Basics.CursorMode.ATTACK
+			Basics.EntityType.NPCS:
+				cursor_mode = Basics.CursorMode.NORMAL
 		DisplayServer.cursor_set_custom_image(world.resources.cursors[cursor_mode])
 		
 		if hovered_target and hovered_target.has_method("stop_hovering_target"):
 			hovered_target.stop_hovering_target()
 			hud.update_target()
-		hovered_target = _result.get("collider")
 		if hovered_target.has_method("hover_target"):
 			hovered_target.hover_target()
 			hud.update_target()
-			
 
 const RAY_LENGTH := 100.0
 func target_raycast() -> Dictionary:
 		var _mouse_pos = get_viewport().get_mouse_position()
 		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.collide_with_areas = true
 		_ray_query.from = camera.project_ray_origin(_mouse_pos)
 		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = pow(2, 2-1) + pow(2, 3-1) # Set collision for player and monsters
+		_ray_query.collision_mask = pow(2, 2-1) + pow(2, 3-1) + pow(2, 5-1) + pow(2, 6-1) # Set collision for player and monsters
 		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
 func update_direction() -> void:
@@ -305,10 +316,12 @@ func _unhandled_input(event) -> void:
 						selected_target.state_changed.connect(Callable(hud, "update_target"))
 					hud.update_target()
 		elif event.button_index == 1 and !event.pressed and hud.dragged_item_ref:
-			drop_item_ground(hud.dragged_item_ref.item_slot)
+			if hud.dragged_item_ref.item_slot.item:
+				drop_item_ground(hud.dragged_item_ref.item_slot)
 
 #const DROP_VECTOR_LENGTH = 1.4
 func drop_item_ground(item_slot : ItemSlot) -> void:
+	print('greg')
 	var _new_item_ground = world.resources.item_ground.instantiate()
 	#var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	#_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
@@ -349,6 +362,7 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 	model_anims.play("take_damage")
 	ability_machine.cancel_abilities(Basics.AbilityCancel.TAKING_DAMAGE)
 	health = max(health - _final_damage, 0.0)
+	state_changed.emit()
 	hud.update_info_bars()
 	if is_dead():
 		damage_dealer.kill_player()
@@ -462,8 +476,9 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
-	#if Input.is_action_just_pressed("craft_book"):
-		#hud.set_knowledge_book(!hud.craft_book_tab.visible)
+	if Input.is_action_just_pressed("craft_book"):
+		hud.update_knowledge_book()
+		hud.set_knowledge_book(!hud.craft_book_tab.visible)
 	if Input.is_action_just_pressed("recall"):
 		var _recall = world.resources.recall_ability
 		if ability_machine.use_ability(_recall, self) == Basics.AbilityError.OK:
@@ -577,16 +592,15 @@ func get_item_slot(itm : Item, item_source : Array[ItemSlot]) -> ItemSlot:
 
 # Only works with inventory
 func obtain_item(item : Item, quantity : int = 1) -> void:
-	if get_slot_taken_count() >= inventory_size:
-		var _item_slot = ItemSlot.new()
-		_item_slot.item = item
-		_item_slot.quantity = quantity
-		drop_item_ground(_item_slot)
-		return
-	
 	if has_item(item, get_item_source(item)):
 		get_item_slot(item, get_item_source(item)).quantity += quantity
 	else:
+		if get_slot_taken_count() >= inventory_size:
+			var _item_slot = ItemSlot.new()
+			_item_slot.item = item
+			_item_slot.quantity = quantity
+			drop_item_ground(_item_slot)
+			return
 		var _empty_slot = get_empty_slot(get_item_source(item))
 		_empty_slot.item = item
 		_empty_slot.quantity = quantity

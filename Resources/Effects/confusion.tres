@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=3 format=3 uid="uid://8dxk42a1laok"]
+
+[ext_resource type="Texture2D" uid="uid://dyu63albnmt7f" path="res://Assets/2D/PBR/pattern_v1.png" id="1_n85ej"]
+[ext_resource type="Script" uid="uid://b12jipn3ybbcr" path="res://Scripts/Classes/effect_class.gd" id="2_7tgg8"]
+
+[resource]
+script = ExtResource("2_7tgg8")
+id = "confusion"
+description = "[color=red] chépas[/color], for [color=B0C4DE]2sec[/color]."
+icon = ExtResource("1_n85ej")
+duration = 2.0
+debuff = false
+custom_data = [10]

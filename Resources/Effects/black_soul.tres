@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=3 format=3 uid="uid://b5ha8vwxr00sr"]
+
+[ext_resource type="Texture2D" uid="uid://dyu63albnmt7f" path="res://Assets/2D/PBR/pattern_v1.png" id="1_2puoq"]
+[ext_resource type="Script" uid="uid://b12jipn3ybbcr" path="res://Scripts/Classes/effect_class.gd" id="2_2puoq"]
+
+[resource]
+script = ExtResource("2_2puoq")
+id = "black_soul"
+description = "Deal [color=black] 10% additional black magic damage[/color], for [color=B0C4DE]3min[/color]."
+icon = ExtResource("1_2puoq")
+duration = 180.0
+debuff = false
+custom_data = [10]

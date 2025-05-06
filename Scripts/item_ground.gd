@@ -1,4 +1,8 @@
-extends Node3D
+extends Area3D
+
+var entity_type = Basics.EntityType.ITEM
+
+signal state_changed
 
 var item : Item
 var quantity : int
@@ -15,7 +19,24 @@ func _ready() -> void:
 		icon_tex_shadow.rotate(Vector3.UP, _rand_rot)
 		icon_tex.position.y = randf_range(-0.64, -0.66)
 
-func _on_pick_up_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):
-	#body.obtain_item(item, quantity)
-	#queue_free()
-	pass
+func loot_item() -> void:
+	queue_free()
+
+func hover_target() -> void:
+	state_changed.emit()
+	icon_tex.set_layer_mask_value(14, true)
+	icon_tex_shadow.set_layer_mask_value(14, true)
+
+func stop_hovering_target() -> void:
+	icon_tex.set_layer_mask_value(14, false)
+	icon_tex_shadow.set_layer_mask_value(14, false)
+
+func select_target() -> void:
+	icon_tex.set_layer_mask_value(14, false)
+	icon_tex_shadow.set_layer_mask_value(14, false)
+	icon_tex.set_layer_mask_value(15, true)
+	icon_tex_shadow.set_layer_mask_value(15, true)
+
+func lose_target() -> void:
+	icon_tex.set_layer_mask_value(15, false)
+	icon_tex_shadow.set_layer_mask_value(15, false)

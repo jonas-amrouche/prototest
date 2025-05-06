@@ -23,7 +23,7 @@ enum AbilityVictim {TARGET, AREA, GROUP, LOGIC}
 enum DamageType {PHYSIC, MAGIC}
 const DAMAGE_COLOR = [Color.FIREBRICK, Color.SLATE_BLUE]
 
-enum EntityType {PLAYER, MONSTER}
+enum EntityType {PLAYER, MONSTER, NPCS, ITEM}
 
 const CRAFT_TIME = 2.0
 

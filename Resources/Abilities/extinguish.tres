@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://br0831li3e38r"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="2_ea1p4"]
+
+[resource]
+script = ExtResource("2_ea1p4")
+id = "extinguish"
+description = "Extinguish all fire effects."
+spell_range = 2.0
+targeted = true
+cooldown = 18.0
+life_time = 0.5
+action_time = 0.5
+channeling = true
+damage_type = 0
+damage_cap = 0
+toggle = false
+charging = false
+charges = 0

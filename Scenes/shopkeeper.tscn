@@ -8,7 +8,7 @@ height = 2.52178
 [node name="Shopkeeper" type="CharacterBody3D"]
 script = ExtResource("1_eno6s")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="ShopkeeperModel" type="CSGBox3D" parent="."]
 size = Vector3(0.534912, 2.49048, 0.685791)
 
 [node name="Collision" type="CollisionShape3D" parent="."]

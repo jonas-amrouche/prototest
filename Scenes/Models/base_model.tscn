@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4tmepnlrkm6v"]
+[gd_scene load_steps=19 format=3 uid="uid://b4tmepnlrkm6v"]
 
 [ext_resource type="PackedScene" uid="uid://dyd3egq2ropay" path="res://Assets/3D/Base.glb" id="1_6fxvf"]
 [ext_resource type="Material" uid="uid://k0tv7gf5eeky" path="res://Resources/Materials/PBR/base_pavement.tres" id="2_tlt1n"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c0ikujullvs8t" path="res://Assets/2D/PBR/pavement_v1.png" id="5_1wstd"]
 [ext_resource type="Texture2D" uid="uid://dh6758cu5qfq1" path="res://Assets/2D/PBR/dirt_v1.png" id="5_8bo6q"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Resources/Materials/PBR/Metal2.tres" id="5_fcq0b"]
+[ext_resource type="Texture2D" uid="uid://c2foopxv0eal" path="res://Assets/2D/PBR/burned_pavement_v1_nm.png" id="6_1880w"]
 [ext_resource type="Material" uid="uid://btldpcq0cxtgv" path="res://Resources/Materials/PBR/DarkRope1.tres" id="8_pn6ex"]
 [ext_resource type="Material" uid="uid://bqr2ogxcq6ie6" path="res://Resources/Materials/TechArt/small_fire.tres" id="9_5wwe4"]
 
@@ -43,6 +44,8 @@ shader_parameter/fade_transi = 2.0
 albedo_color = Color(0.564962, 0.564962, 0.564962, 1)
 albedo_texture = ExtResource("5_1wstd")
 metallic_specular = 0.0
+normal_enabled = true
+normal_texture = ExtResource("6_1880w")
 uv1_scale = Vector3(0.75, 0.75, 0.75)
 uv1_triplanar = true
 

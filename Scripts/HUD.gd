@@ -148,8 +148,14 @@ func open_and_display_loot(loot : Array[ItemSlot]) -> void:
 func update_target() -> void:
 	target_tab.set_visible(player.selected_target != null)
 	if player.selected_target:
-		target_name.set_text(player.selected_target.monster.name)
-		target_health.set_value(float(player.selected_target.health) / float(player.selected_target.stats.max_health) * 100.0)
+		match player.selected_target.entity_type:
+			Basics.EntityType.MONSTER:
+				target_name.set_text(player.selected_target.monster.name)
+			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER:
+				target_health.set_value(float(player.selected_target.health) / float(player.selected_target.stats.max_health) * 100.0)
+			Basics.EntityType.ITEM:
+				target_name.set_text(player.selected_target.item.id.capitalize())
+				target_icon.set_texture(player.selected_target.item.icon)
 
 func update_abilities() -> void:
 	# Clear ability bars
@@ -348,18 +354,18 @@ func update_stats_hud() -> void:
 		_new_stat_hud.stat = world.resources.stats_data[player.stats.keys()[i]]
 		stats_list.add_child(_new_stat_hud)
 
-#func set_knowledge_book(open : bool) -> void:
-	#craft_book_tab.set_visible(open)
+func set_knowledge_book(open : bool) -> void:
+	craft_book_tab.set_visible(open)
 
-#func update_knowledge_book() -> void:
-	#for i in recipe_container.get_children():
-		#i.queue_free()
-	#
-	#for i in Basics.get_all_items():
-		#if i.craft_1 and i.craft_2:
-			#var _new_recipe_hud = world.resources.recipe_hud.instantiate()
-			#_new_recipe_hud.item = i
-			#recipe_container.add_child(_new_recipe_hud)
+func update_knowledge_book() -> void:
+	for i in recipe_container.get_children():
+		i.queue_free()
+	
+	for i in Basics.get_all_items():
+		if i.craft_1 and i.craft_2:
+			var _new_recipe_hud = world.resources.recipe_hud.instantiate()
+			_new_recipe_hud.item = i
+			recipe_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot
@@ -398,7 +404,7 @@ func drag_item(slot : Object) -> void:
 		dragged_item_ref = slot
 
 func drop_item(slot : Object) -> void:
-	if dragged_item_ref:
+	if dragged_item_ref and dragged_item_ref.item_slot.item:
 		
 		# Droped from a craft cell to inventory or consummables
 		if dragged_item_ref.item_slot.slot_type == Basics.SlotType.CRAFT: # verif l'item draged est bien du même type que le slot
