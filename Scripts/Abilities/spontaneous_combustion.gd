@@ -6,7 +6,7 @@ var ad : AbilityData
 @onready var collision = $Area
 @onready var manager = get_node("..")
 
-var binded_fire = preload("res://Resources/Effects/BindedFire.tres")
+var binded_fire = preload("res://Resources/Effects/binded_fire.tres")
 
 func press() -> Basics.AbilityError:
 	manager.look_at_target(ad.ability)

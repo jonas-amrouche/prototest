@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://jqgpx158nqee"]
 
 [ext_resource type="Script" uid="uid://dgad4akf3ced1" path="res://Scripts/game.gd" id="1_1l0tm"]
-[ext_resource type="Script" uid="uid://x2wr3k5g2a2p" path="res://Scripts/game_resources.gd" id="2_h4fw4"]
+[ext_resource type="PackedScene" uid="uid://eklp3s2yupkr" path="res://Scenes/Systems/game_resources.tscn" id="2_h4fw4"]
 [ext_resource type="Material" uid="uid://bpu24nurmm7wb" path="res://Resources/Materials/TechArt/rivers.tres" id="3_h4fw4"]
 [ext_resource type="Material" uid="uid://ccp6eay78mfdv" path="res://Resources/Materials/TechArt/forest_ground.tres" id="3_ldgsr"]
 [ext_resource type="ArrayMesh" uid="uid://ch1ywa5soxgd0" path="res://Resources/Meshs/TorturedTree.tres" id="4_ldgsr"]
@@ -78,8 +78,7 @@ edge_fade = 1.6
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1l0tm")
 
-[node name="GameResources" type="Node" parent="."]
-script = ExtResource("2_h4fw4")
+[node name="GameResources" parent="." instance=ExtResource("2_h4fw4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ajjs0")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxg238k1wkp2l"]
+[gd_scene load_steps=19 format=3 uid="uid://bxg238k1wkp2l"]
 
 [ext_resource type="Script" uid="uid://b32i06gs3m7i1" path="res://Scripts/client.gd" id="1_h56vy"]
 [ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="2_o4a6k"]
@@ -50,6 +50,38 @@ font_color = Color(0.392552, 0.471359, 0.488133, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuhft"]
 bg_color = Color(0, 0.392001, 0.361822, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6hp"]
+bg_color = Color(0.103375, 0.28847, 0.162035, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w114r"]
+bg_color = Color(0.0126783, 0.0725019, 0.0269571, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urhfn"]
+bg_color = Color(0.163388, 0.419482, 0.244629, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rw16"]
+bg_color = Color(0.112325, 0.262279, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6515"]
+bg_color = Color(0.0349843, 0.115367, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16usq"]
+bg_color = Color(0.172379, 0.376151, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_urhfn"]
+font = ExtResource("2_o4a6k")
+font_size = 35
+font_color = Color(0.189256, 0.38054, 0.351092, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8r6hp"]
+font = ExtResource("2_o4a6k")
+font_size = 65
+font_color = Color(0.189256, 0.38054, 0.351092, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Client" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -60,7 +92,7 @@ grow_vertical = 2
 script = ExtResource("1_h56vy")
 metadata/_edit_lock_ = true
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Main" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,14 +102,14 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_de1uw")
 metadata/_edit_lock_ = true
 
-[node name="Window" type="HBoxContainer" parent="PanelContainer"]
+[node name="Window" type="HBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/separation = 2
 
-[node name="Minimize" type="Button" parent="PanelContainer/Window"]
+[node name="Minimize" type="Button" parent="Main/Window"]
 custom_minimum_size = Vector2(39, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -88,7 +120,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_o4a6k")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o4a6k")
 text = "-"
 
-[node name="Close" type="Button" parent="PanelContainer/Window"]
+[node name="Close" type="Button" parent="Main/Window"]
 custom_minimum_size = Vector2(39, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -99,7 +131,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_v1moc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_v1moc")
 text = "X"
 
-[node name="Label" type="Label" parent="."]
+[node name="Home" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GameTitle" type="Label" parent="Home"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -113,7 +155,7 @@ text = "Forest
      Dungeon"
 label_settings = SubResource("LabelSettings_v1moc")
 
-[node name="Label2" type="Label" parent="."]
+[node name="IntroTitle" type="Label" parent="Home"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,7 +171,7 @@ grow_vertical = 2
 text = "Welcome to Forest Dungeon !"
 label_settings = SubResource("LabelSettings_o4a6k")
 
-[node name="Label3" type="Label" parent="."]
+[node name="IntroDesc" type="Label" parent="Home"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -163,7 +205,7 @@ Use B to activate your recall and go back to your base, place any abilities in t
 label_settings = SubResource("LabelSettings_wuhft")
 autowrap_mode = 2
 
-[node name="EnterGame" type="Button" parent="."]
+[node name="EnterGame" type="Button" parent="Home"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -178,9 +220,9 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wuhft")
-text = "ENTER GAME"
+text = "SEARCH GAME"
 
-[node name="Logger" type="RichTextLabel" parent="."]
+[node name="Logger" type="RichTextLabel" parent="Home"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -195,7 +237,7 @@ grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("3_v1moc")
 
-[node name="Pseudo" type="LineEdit" parent="."]
+[node name="Pseudo" type="LineEdit" parent="Home"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -214,7 +256,278 @@ text = "Zonfr"
 placeholder_text = "Pseudo"
 alignment = 1
 
-[connection signal="pressed" from="PanelContainer/Window/Minimize" to="." method="_on_minimize_pressed"]
-[connection signal="pressed" from="PanelContainer/Window/Close" to="." method="_on_close_pressed"]
-[connection signal="pressed" from="EnterGame" to="." method="_on_enter_game_pressed"]
-[connection signal="text_changed" from="Pseudo" to="." method="_on_pseudo_text_changed"]
+[node name="RoleSelect" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="RoleSelect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -383.0
+offset_top = 31.0
+offset_right = 383.0
+offset_bottom = 125.0
+grow_horizontal = 2
+text = "Choose a starting role"
+label_settings = SubResource("LabelSettings_v1moc")
+horizontal_alignment = 1
+
+[node name="PickAndLock" type="PanelContainer" parent="RoleSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -525.0
+offset_top = -396.0
+offset_right = 526.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pad" type="MarginContainer" parent="RoleSelect/PickAndLock"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
+
+[node name="Pad" type="VBoxContainer" parent="RoleSelect/PickAndLock/Pad"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="RoleSelect/PickAndLock/Pad/Pad"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 9
+
+[node name="Hunter" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Hunter"
+
+[node name="Hunter2" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Assassin"
+
+[node name="Hunter3" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Healer"
+
+[node name="Hunter4" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Doctor"
+
+[node name="Hunter5" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Swordsman"
+
+[node name="Hunter6" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Druid"
+
+[node name="Hunter7" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+custom_minimum_size = Vector2(143.14, 68.595)
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+text = "Guard"
+
+[node name="LockIn" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad"]
+custom_minimum_size = Vector2(208.565, 88.555)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_o4a6k")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_2rw16")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y6515")
+theme_override_styles/normal = SubResource("StyleBoxFlat_16usq")
+text = "Lock In"
+
+[node name="Chat" type="ColorRect" parent="RoleSelect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -526.0
+offset_top = -309.0
+offset_right = 526.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="LineEdit" type="LineEdit" parent="RoleSelect/Chat"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -519.0
+offset_top = -38.0
+offset_right = 519.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Shop" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Shop"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.5
+offset_top = 138.0
+offset_right = 106.5
+offset_bottom = 227.0
+grow_horizontal = 2
+text = "Gold coins : 0
+Silver coins : 0"
+label_settings = SubResource("LabelSettings_urhfn")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="Shop"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.5
+offset_top = 36.0
+offset_right = 106.5
+offset_bottom = 125.0
+grow_horizontal = 2
+text = "SHOP"
+label_settings = SubResource("LabelSettings_8r6hp")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Shop"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 929.0
+offset_right = 399.0
+offset_bottom = 1018.0
+text = "Shadow Assasin
+13000 PM"
+label_settings = SubResource("LabelSettings_urhfn")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Shop"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 317.0
+offset_right = 466.0
+offset_bottom = 875.0
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="Label3" type="Label" parent="Shop"]
+layout_mode = 0
+offset_left = 817.0
+offset_top = 929.0
+offset_right = 1050.0
+offset_bottom = 1018.0
+text = "Committee Healer
+7000 PM"
+label_settings = SubResource("LabelSettings_urhfn")
+horizontal_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Shop"]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 317.0
+offset_right = 1117.0
+offset_bottom = 875.0
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[node name="Label4" type="Label" parent="Shop"]
+layout_mode = 0
+offset_left = 1406.0
+offset_top = 929.0
+offset_right = 1723.0
+offset_bottom = 1018.0
+text = "Modest Swordsman
+5000 PM"
+label_settings = SubResource("LabelSettings_urhfn")
+horizontal_alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Shop"]
+layout_mode = 0
+offset_left = 1377.0
+offset_top = 317.0
+offset_right = 1737.0
+offset_bottom = 875.0
+color = Color(0.103744, 0.103744, 0.103744, 1)
+
+[connection signal="pressed" from="Main/Window/Minimize" to="." method="_on_minimize_pressed"]
+[connection signal="pressed" from="Main/Window/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Home/EnterGame" to="." method="_on_enter_game_pressed"]
+[connection signal="text_changed" from="Home/Pseudo" to="." method="_on_pseudo_text_changed"]
+[connection signal="pressed" from="RoleSelect/PickAndLock/Pad/Pad/LockIn" to="." method="_on_lock_in_pressed"]

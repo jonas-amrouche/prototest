@@ -12,20 +12,27 @@ const MAX_CONNECTIONS = 20
 # This will contain player info for every player,
 # with the keys being each player's unique IDs.
 
-func _ready():
+func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	start_server()
+	Replication.enter_role_select.connect(_enter_role_select)
+	Replication.player_locked_role.connect(_player_lock_role)
+	Replication.enter_game_loading.connect(_enter_game_loading)
+	
+	var _error = start_server()
+	if _error != Error.OK:
+		ServerLogger.error(str("Error starting server : ", str(_error)))
 
-func start_server():
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT, MAX_CONNECTIONS)
-	if error:
-		return error
-	multiplayer.multiplayer_peer = peer
+func start_server() -> Error:
+	var _peer = ENetMultiplayerPeer.new()
+	var _error = _peer.create_server(PORT, MAX_CONNECTIONS)
+	if _error:
+		return _error
+	multiplayer.multiplayer_peer = _peer
 	ServerLogger.info(str("Server started"))
+	return Error.OK
 
-func remove_multiplayer_peer():
+func remove_multiplayer_peer() -> void:
 	multiplayer.multiplayer_peer = null
 	Replication.players.clear()
 	Replication.update_player_register.rpc(Replication.players)
@@ -41,8 +48,17 @@ func register_player(id : int) -> void:
 	Replication.players[id] = {}
 	Replication.update_player_register.rpc(Replication.players)
 
-func _on_player_disconnected(id):
+func _on_player_disconnected(id : int) -> void:
 	ServerLogger.info(str(str(id), " Disconnected."))
 	Replication.players.erase(id)
 	Replication.update_player_register.rpc(Replication.players)
 	#player_disconnected.emit(id)
+
+func _enter_role_select() -> void:
+	ServerLogger.info("Entering roles select.")
+
+func _player_lock_role(id : int, role : Basics.Role) -> void:
+	ServerLogger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.ROLE_TEXT[role]), "."))
+
+func _enter_game_loading() -> void:
+	ServerLogger.info("Entering loading screen.")

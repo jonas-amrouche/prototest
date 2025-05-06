@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj7xyq4r41s7n"]
+
+[ext_resource type="Script" uid="uid://dlgq2bigfq1j2" path="res://Scripts/player_loading_card.gd" id="1_3y3wm"]
+[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="1_qub1i"]
+[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="1_yyqpd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yyqpd"]
+font = ExtResource("1_qub1i")
+font_size = 17
+font_color = Color(0.258852, 0.67803, 0.451863, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3y3wm"]
+font = ExtResource("1_qub1i")
+font_size = 14
+font_color = Color(0.531308, 0.0998559, 0.0594122, 1)
+
+[node name="PlayerLoadingCard" type="PanelContainer"]
+custom_minimum_size = Vector2(243, 344)
+offset_right = 243.0
+offset_bottom = 344.0
+script = ExtResource("1_3y3wm")
+
+[node name="Pad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Skin" type="TextureRect" parent="Pad"]
+custom_minimum_size = Vector2(0, 271.12)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_yyqpd")
+expand_mode = 1
+
+[node name="Infos" type="VBoxContainer" parent="Pad"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Pseudo" type="Label" parent="Pad/Infos"]
+layout_mode = 2
+text = "Zonfr"
+label_settings = SubResource("LabelSettings_yyqpd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Role" type="Label" parent="Pad/Infos"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Assassin"
+label_settings = SubResource("LabelSettings_3y3wm")
+horizontal_alignment = 1
+vertical_alignment = 1

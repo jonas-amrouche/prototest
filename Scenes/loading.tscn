@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dicmxw3vtlrkd"]
+[gd_scene load_steps=4 format=3 uid="uid://dicmxw3vtlrkd"]
 
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="1_fim2r"]
+[ext_resource type="Script" uid="uid://303job1x1cdq" path="res://Scripts/loading.gd" id="1_k66n3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k66n3"]
 font = ExtResource("1_fim2r")
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_k66n3")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -31,3 +33,24 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "\"A true theorist doesn't need the help of the omniscient wizard to win.\""
 label_settings = SubResource("LabelSettings_k66n3")
+
+[node name="EnnemyCards" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 54.0
+offset_bottom = 453.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="AllyCards" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -543.0
+offset_bottom = -61.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1

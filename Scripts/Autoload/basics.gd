@@ -27,6 +27,9 @@ enum EntityType {PLAYER, MONSTER, NPCS, ITEM}
 
 const CRAFT_TIME = 2.0
 
+enum Role {HUNTER, SWORDSMAN, DOCTOR, DRUID, HEALER, HEAVY_FIGHTER, ASSASSIN}
+const ROLE_TEXT = ["hunter", "swordsman", "doctor", "druid", "healer", "heavy_fighter", "assassin"]
+
 enum CursorMode {NORMAL, ATTACK, LOOT}
 
 func get_all_items() -> Array[Item]:

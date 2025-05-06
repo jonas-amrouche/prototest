@@ -23,8 +23,9 @@ var players : Array[Object]
 
 func _ready() -> void:
 	add_to_group("world")
-	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-	DisplayServer.window_set_size(Vector2i(1280, 720))
+	if OS.is_debug_build():
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		DisplayServer.window_set_size(Vector2i(1280, 720))
 	map_generation()
 	spawn_player(get_node("NavMesh/Base/PlayerSpawn/1").global_position, get_node("NavMesh/Base/PlayerSpawn").global_position)
 	send_map_data_to_player(paths_points_list, [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)], new_interest_points_list, camp_points_list, rivers.mesh.get("material").get("shader_parameter/noise"))
