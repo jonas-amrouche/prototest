@@ -78,7 +78,7 @@ var cursor_mode : Basics.CursorMode
 var auto_attack_target : Object
 var loot_target : Object
 
-@onready var world := get_node("..")
+@onready var world := get_parent()
 @onready var camera := $Camera
 @onready var hover_outline_vpc := $HoverOutline
 @onready var hover_outline_camera := $HoverOutline/HoverOutlineVP/Camera
@@ -98,11 +98,12 @@ var loot_target : Object
 
 func _ready():
 	add_to_group("player")
-	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED)
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 	inventory = fill_inventory(INVENTORY_MAX_SIZE)
 	consumables = fill_consumables(CONSUMABLES_MAX_SIZE)
 	crafts = fill_crafts(CRAFT_MAX_SIZE)
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
+	obtain_item(preload("res://Resources/Items/red_liquor.tres"), 3)
 	hud.bind_default_abilities()
 	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	#obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
@@ -133,11 +134,11 @@ func _physics_process(_delta) -> void:
 	action_keys()
 
 func _process(delta):
-	if camera.top_level:
+	if DisplayServer.mouse_get_mode() == DisplayServer.MOUSE_MODE_CONFINED:
 		border_cam_movement(delta)
-	update_camera_position()
+		update_camera_position()
+		check_for_target()
 	update_direction()
-	check_for_target()
 	auto_attacking()
 	looting()
 	
@@ -238,16 +239,15 @@ func update_direction() -> void:
 
 const CAM_LIMITS = Rect2(Vector2(-63.0, -61.0), Vector2(63, 75))
 func border_cam_movement(delta : float) -> void:
-	if DisplayServer.mouse_get_mode() == DisplayServer.MOUSE_MODE_VISIBLE:
-		return
-	if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOVE_TRESHOLD:
-		camera.global_position.x = min(camera.global_position.x + CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.size.x)
-	if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOVE_TRESHOLD:
-		camera.global_position.x = max(camera.global_position.x - CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.position.x)
-	if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOVE_TRESHOLD:
-		camera.global_position.z = min(camera.global_position.z + CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.size.y)
-	if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOVE_TRESHOLD:
-		camera.global_position.z = max(camera.global_position.z - CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.position.y)
+	if camera.top_level:
+		if get_viewport().get_mouse_position().x/1918.5 > 1 - get_viewport().size.x * CAMERA_MOVE_TRESHOLD:
+			camera.global_position.x = min(camera.global_position.x + CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.size.x)
+		if get_viewport().get_mouse_position().x/1918.5 < get_viewport().size.x * CAMERA_MOVE_TRESHOLD:
+			camera.global_position.x = max(camera.global_position.x - CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.position.x)
+		if get_viewport().get_mouse_position().y/1078.5 > 1 - get_viewport().size.y * CAMERA_MOVE_TRESHOLD:
+			camera.global_position.z = min(camera.global_position.z + CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.size.y)
+		if get_viewport().get_mouse_position().y/1078.5 < get_viewport().size.y * CAMERA_MOVE_TRESHOLD:
+			camera.global_position.z = max(camera.global_position.z - CAMERA_MOVE_SPEED * delta * 60.0, CAM_LIMITS.position.y)
 
 var target_cam_pos = Vector2()
 const CAMERA_SMOOTH_RATE = 0.7
@@ -271,7 +271,7 @@ func move_camera_click(press : bool) -> void:
 
 var outline_tween : Tween
 func _unhandled_input(event) -> void:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and DisplayServer.mouse_get_mode() == DisplayServer.MOUSE_MODE_CONFINED:
 		if event.button_index == 2 and event.pressed:
 			if hovered_target:
 				match cursor_mode:
@@ -609,7 +609,7 @@ func obtain_item(item : Item, quantity : int = 1) -> void:
 	hud.update_abilities()
 	
 	for ab in item.abilities:
-		hud.bind_ability_auto(ab)
+		hud.bind_ability_to_empty_slot(ab)
 
 func lose_item(item : Item, quantity : int) -> void:
 	var _item_slot : ItemSlot = get_item_slot(item, get_item_source(item))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene load_steps=14 format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/hud.tscn" id="2_8erm5"]
@@ -21,6 +21,8 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f1ek2"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -198,6 +200,9 @@ billboard = 1
 double_sided = false
 no_depth_test = true
 text = "10"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_f1ek2")
 
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]
 [connection signal="path_changed" from="Nav" to="." method="_on_nav_path_changed"]

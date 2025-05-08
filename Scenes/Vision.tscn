@@ -7,6 +7,5 @@ script = ExtResource("1_8v57j")
 
 [node name="UpdateFog" type="Timer" parent="."]
 wait_time = 0.1
-autostart = true
 
 [connection signal="timeout" from="UpdateFog" to="." method="_on_update_fog_timeout"]

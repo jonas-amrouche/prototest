@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://d5b6wj2vo2o6"]
+[gd_scene load_steps=15 format=3 uid="uid://d5b6wj2vo2o6"]
 
 [ext_resource type="Script" uid="uid://dc8msiwaibx6d" path="res://Scripts/item_hud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://cmvn7u2wk1qbf" path="res://Assets/2D/UI/craft_unavailable.png" id="2_axs84"]
+[ext_resource type="FontFile" uid="uid://c5ergw614rru7" path="res://Assets/Fonts/Stilu-SemiBold.otf" id="2_ugiu5"]
 [ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="3_axs84"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axs84"]
@@ -34,7 +35,8 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
 resource_local_to_scene = true
-font_size = 17
+font = ExtResource("2_ugiu5")
+font_size = 15
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
@@ -104,11 +106,11 @@ theme_override_constants/margin_bottom = 0
 [node name="Quantity" type="Label" parent="DragCont/QuantityCont"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 8
 text = "2"
 label_settings = SubResource("LabelSettings_72hmf")
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="Select" type="PanelContainer" parent="."]
 visible = false
@@ -176,8 +178,9 @@ theme_override_constants/margin_bottom = 2
 
 [node name="Keybind" type="Label" parent="KeybindPad"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 0
 label_settings = SubResource("LabelSettings_axs84")
+metadata/_edit_lock_ = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

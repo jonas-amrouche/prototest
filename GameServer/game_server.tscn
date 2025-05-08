@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch7gr4ch5r2xt"]
+[gd_scene load_steps=3 format=3 uid="uid://ch7gr4ch5r2xt"]
 
 [ext_resource type="Script" uid="uid://bynvwjmqnfqkv" path="res://GameServer/game_server.gd" id="1_ltevp"]
+[ext_resource type="Script" uid="uid://bb054tefbdid7" path="res://GameServer/server_logger.gd" id="3_61iw4"]
 
-[node name="GameServer" type="Node"]
+[node name="Root" type="Node"]
 script = ExtResource("1_ltevp")
+
+[node name="ServerLogger" type="Node" parent="."]
+script = ExtResource("3_61iw4")

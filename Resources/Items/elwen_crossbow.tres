@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource("3_46iwl")
-id = "norarus_scafender"
-description = "A scafender from norarus, build for long, deep dives on the seafloor undercity."
+id = "elwen's_crossbow"
+description = "The crossbow of Elwen, the great ancient defender."
 type = 0
 rarity = 1
 abilities = Array[ExtResource("1_2a2lm")]([])

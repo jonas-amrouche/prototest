@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://be16klo7mp6id"]
+
+[ext_resource type="PackedScene" uid="uid://dpos3dlut6lsv" path="res://Scenes/Models/wall_door_chunk_model.tscn" id="1_7pne6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pne6"]
+size = Vector3(1.22778, 2.03528, 0.763428)
+
+[node name="WallDoorChunk" type="StaticBody3D"]
+
+[node name="Collision2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47467, 0.973708, 0)
+shape = SubResource("BoxShape3D_7pne6")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.475, 0.974, 0)
+shape = SubResource("BoxShape3D_7pne6")
+
+[node name="wall_door_chunk" parent="." instance=ExtResource("1_7pne6")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

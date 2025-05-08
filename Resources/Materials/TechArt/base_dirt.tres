@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://b1g633jr070ql"]
+
+[ext_resource type="Shader" uid="uid://dgb3xyltrjagd" path="res://Resources/Shaders/base_ground.gdshader" id="1_5q2ch"]
+[ext_resource type="Texture2D" uid="uid://dh6758cu5qfq1" path="res://Assets/2D/PBR/dirt_v1.png" id="2_ivqyv"]
+[ext_resource type="Texture2D" uid="uid://ce4dgqqd163pb" path="res://Assets/2D/PBR/burned_ground_v1.png" id="3_ec1hv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sxmit"]
+noise_type = 5
+frequency = 0.059
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t3w0l"]
+width = 128
+height = 128
+seamless = true
+noise = SubResource("FastNoiseLite_sxmit")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5q2ch")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_t3w0l")
+shader_parameter/noise_uv = 2.0
+shader_parameter/soil_texture = ExtResource("3_ec1hv")
+shader_parameter/soil_luminosity = 0.1
+shader_parameter/soil_uv = 1.0
+shader_parameter/dirt_texture = ExtResource("2_ivqyv")
+shader_parameter/dirt_luminosity = 0.22
+shader_parameter/dirt_uv = 1.66
+shader_parameter/distance_to_transi = 12.07
+shader_parameter/fade_transi = 2.0

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://diktu1p6rrsxp"]
+
+[ext_resource type="Script" uid="uid://crog4cj1latn7" path="res://Scripts/game_client.gd" id="1_pwnty"]
+[ext_resource type="PackedScene" uid="uid://6hdrpbvr853o" path="res://Scenes/Systems/client_logger.tscn" id="2_6wlb4"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_pwnty")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ClientLogger" parent="CanvasLayer" instance=ExtResource("2_6wlb4")]
+offset_left = 16.0
+offset_top = 10.0
+offset_right = 534.0
+offset_bottom = 652.0

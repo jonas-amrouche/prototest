@@ -11,7 +11,7 @@ const RARITY_COLORS = [Color(0, 0, 0),\
  Color(0.27, 0.009, 0.0),\
  Color(0.27, 0.27, 0.27)]
 
-enum ClientState {ENTERED, INGAME}
+enum ClientState {DISCONNECTED, ENTERED, INGAME}
 
 enum ItemType {ITEM, COMPONENTS, CONSUMABLE}
 enum SlotType {INVENTORY, CRAFT, CONSUMABLE}
@@ -23,7 +23,7 @@ enum AbilityVictim {TARGET, AREA, GROUP, LOGIC}
 enum DamageType {PHYSIC, MAGIC}
 const DAMAGE_COLOR = [Color.FIREBRICK, Color.SLATE_BLUE]
 
-enum EntityType {PLAYER, MONSTER, NPCS, ITEM}
+enum EntityType {PLAYER, MONSTER, NPCS, ITEM, GUARDS, STRUCTURE}
 
 const CRAFT_TIME = 2.0
 

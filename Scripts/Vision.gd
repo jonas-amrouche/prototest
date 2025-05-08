@@ -2,7 +2,8 @@ extends Node3D
 
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
 
-@onready var player := get_node("..")
+@onready var player := get_parent()
+@onready var update_fog_timer := $UpdateFog
 
 var fog_map : Image
 const FOG_RESOLUTION = 2
@@ -15,6 +16,7 @@ func initialize_fog_map(bases_data : PackedVector2Array) -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))
 	player.hud.mini_map.initialize_fog_display(bases_data, FOG_BASE_SIZE, FOG_PLAYER_SIZE, FOG_TEXTURE_SIZE)
 	update_map_fog()
+	update_fog_timer.start()
 
 func update_map_fog() -> void:
 	fog_map.fill(Color(1.0, 1.0, 1.0))

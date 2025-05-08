@@ -7,23 +7,21 @@ var client_infos = {}
 var players = {}
 var players_loaded = 0
 
+const PORT = 7432
+const DEFAULT_SERVER_IP = "localhost" # IPv4 localhost
+
 signal enter_role_select
 signal player_locked_role(id : int, role : Basics.Role)
 signal enter_game_loading
-
-#@rpc("authority", "reliable")
-#func register_player(id : int) -> void:
-	#ServerLogger.info(str("Player : ", str(id), " Registered."))
-	#var new_player_id = multiplayer.get_remote_sender_id()
-	#players[new_player_id] = {}
-	#retrieve_players_infos()
+signal player_load_finished(id : int)
+signal load_finished()
 
 @rpc("any_peer", "reliable")
 func update_player_register(players_infos : Dictionary) -> void:
 	players = players_infos
 
 @rpc("any_peer", "reliable")
-func update_player_info(client_id : int, new_client_info : Dictionary) -> void:
+func update_player_infos(client_id : int, new_client_info : Dictionary) -> void:
 	players[client_id] = new_client_info
 
 # When the server decides to start the game from a UI scene,
@@ -34,11 +32,12 @@ func load_game(game_scene_path):
 
 # Every peer will call this when they have loaded the game scene.
 @rpc("any_peer", "call_local", "reliable")
-func player_loaded():
+func player_loaded(id : int):
 	if multiplayer.is_server():
 		players_loaded += 1
+		player_load_finished.emit(id)
 		if players_loaded == players.size():
-			$/root/Game.start_game()
+			load_finished.emit()
 			players_loaded = 0
 
 @rpc("any_peer", "reliable")

@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://oxqfl5v8adk5"]
+
+[ext_resource type="Shader" uid="uid://6ye021vjbvuu" path="res://Resources/Shaders/MinimapRiverShader.gdshader" id="1_eecxc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yc34d"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e2h7s"]
+noise = SubResource("FastNoiseLite_yc34d")
+
+[resource]
+shader = ExtResource("1_eecxc")
+shader_parameter/water_tint = Color(0.13019, 0.279723, 0.454728, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_e2h7s")
+shader_parameter/uv_noise_size = 0.8

@@ -6,11 +6,10 @@
 
 [resource]
 script = ExtResource("3_sa0x7")
-id = "tech_priest's_braclet"
-description = "Bracelet of gildalan."
+id = "nordguard_braclet"
+description = "Bracelet of nordguard."
 type = 1
 rarity = 1
-consumable = false
 abilities = Array[ExtResource("1_nn1js")]([])
 passives = Array[ExtResource("2_lvaqh")]([])
 stats = {}

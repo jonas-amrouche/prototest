@@ -4,11 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://eklp3s2yupkr" path="res://Scenes/Systems/game_resources.tscn" id="2_h4fw4"]
 [ext_resource type="Material" uid="uid://bpu24nurmm7wb" path="res://Resources/Materials/TechArt/rivers.tres" id="3_h4fw4"]
 [ext_resource type="Material" uid="uid://ccp6eay78mfdv" path="res://Resources/Materials/TechArt/forest_ground.tres" id="3_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://briac28se8esb" path="res://Scenes/Systems/map_generation.tscn" id="3_o5yvi"]
 [ext_resource type="ArrayMesh" uid="uid://ch1ywa5soxgd0" path="res://Resources/Meshs/TorturedTree.tres" id="4_ldgsr"]
 [ext_resource type="Material" uid="uid://hborwfv27w8l" path="res://Resources/Materials/TechArt/fog_pass.tres" id="5_o5yvi"]
 [ext_resource type="PackedScene" uid="uid://cev1a22ek6uvs" path="res://Scenes/Models/mount_sides_model.tscn" id="6_rku1e"]
 [ext_resource type="AudioStream" uid="uid://ds3mra2gs5ff" path="res://Assets/Audio/temp_sum_rift_music.ogg" id="7_rfjv2"]
-[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="8_v158k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iie7f"]
 sky_top_color = Color(0.289323, 0.449742, 0.52032, 1)
@@ -44,6 +44,11 @@ adjustment_enabled = true
 adjustment_contrast = 1.15
 adjustment_saturation = 1.5
 
+[sub_resource type="FogMaterial" id="FogMaterial_v158k"]
+density = 0.06
+albedo = Color(0.352194, 0.856245, 1, 1)
+edge_fade = 1.6
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_2bjdm"]
 size = Vector2(200, 200)
 
@@ -70,26 +75,38 @@ size = Vector3(200, 1, 200)
 material = ExtResource("5_o5yvi")
 size = Vector2(200, 200)
 
-[sub_resource type="FogMaterial" id="FogMaterial_v158k"]
-density = 0.06
-albedo = Color(0.352194, 0.856245, 1, 1)
-edge_fade = 1.6
-
 [node name="Game" type="Node3D"]
 script = ExtResource("1_1l0tm")
-
-[node name="GameResources" parent="." instance=ExtResource("2_h4fw4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ajjs0")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781861, -0.38835, -0.811694, 0.436277, 0, 10.316, 0)
+transform = Transform3D(0.87702, -0.180222, 0.445371, -0.282878, 0.555584, 0.781861, -0.38835, -0.811693, 0.436277, 0, 10.316, 0)
 light_energy = 0.4
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 25.0
+
+[node name="GameResources" parent="." instance=ExtResource("2_h4fw4")]
+
+[node name="MapGeneration" parent="." instance=ExtResource("3_o5yvi")]
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58698, 0)
+size = Vector3(44.113, 9.17395, 44.8232)
+shape = 2
+material = SubResource("FogMaterial_v158k")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_rfjv2")
+volume_db = -15.0
+autoplay = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://df1e6em0ealvc")
+spawn_path = NodePath("..")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -134,16 +151,3 @@ mesh = SubResource("PlaneMesh_20jko")
 [node name="MountSides" parent="." instance=ExtResource("6_rku1e")]
 transform = Transform3D(13, 0, 0, 0, 10, 0, 0, 0, 13, 0, -14.9359, 0)
 visible = false
-
-[node name="GameMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_rfjv2")
-volume_db = -15.0
-autoplay = true
-
-[node name="WiseMage" parent="." instance=ExtResource("8_v158k")]
-
-[node name="FogVolume" type="FogVolume" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58698, 0)
-size = Vector3(44.113, 9.17395, 44.8232)
-shape = 2
-material = SubResource("FogMaterial_v158k")

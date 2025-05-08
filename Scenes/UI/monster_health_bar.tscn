@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dow4dk0os7bac"]
 
-[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="1_m3k4x"]
+[ext_resource type="FontFile" uid="uid://c5ergw614rru7" path="res://Assets/Fonts/Stilu-SemiBold.otf" id="1_m3k4x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnf47"]
 bg_color = Color(0.0846899, 0.0846899, 0.0846899, 1)

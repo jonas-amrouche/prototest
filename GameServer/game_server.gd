@@ -6,7 +6,9 @@ extends Node
 #signal player_connected(peer_id, player_info)
 #signal player_disconnected(peer_id)
 
-const PORT = 7000
+@onready var server_logger = $ServerLogger
+var game_scene
+
 const MAX_CONNECTIONS = 20
 
 # This will contain player info for every player,
@@ -18,18 +20,28 @@ func _ready() -> void:
 	Replication.enter_role_select.connect(_enter_role_select)
 	Replication.player_locked_role.connect(_player_lock_role)
 	Replication.enter_game_loading.connect(_enter_game_loading)
+	Replication.player_load_finished.connect(_player_load_finished)
+	Replication.load_finished.connect(_load_finished)
 	
 	var _error = start_server()
 	if _error != Error.OK:
-		ServerLogger.error(str("Error starting server : ", str(_error)))
+		server_logger.error(str("Error starting server : ", str(_error)))
+	else:
+		load_game()
+
+func load_game() -> void:
+	server_logger.info("Loading game scene.")
+	var _game_scene = load("res://Scenes/game.tscn").instantiate()
+	add_child(_game_scene, true)
+	game_scene = _game_scene
 
 func start_server() -> Error:
 	var _peer = ENetMultiplayerPeer.new()
-	var _error = _peer.create_server(PORT, MAX_CONNECTIONS)
+	var _error = _peer.create_server(Replication.PORT, MAX_CONNECTIONS)
 	if _error:
 		return _error
 	multiplayer.multiplayer_peer = _peer
-	ServerLogger.info(str("Server started"))
+	server_logger.info("Server started")
 	return Error.OK
 
 func remove_multiplayer_peer() -> void:
@@ -40,25 +52,36 @@ func remove_multiplayer_peer() -> void:
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.
 func _on_player_connected(id : int) -> void:
-	ServerLogger.info(str(str(id), " Connected !"))
+	server_logger.info(str(str(id), " Connected !"))
 	register_player(id)
 
 func register_player(id : int) -> void:
-	ServerLogger.info(str("Player : ", str(id), " Registered."))
+	server_logger.info(str("Player : ", str(id), " Registered."))
 	Replication.players[id] = {}
 	Replication.update_player_register.rpc(Replication.players)
 
 func _on_player_disconnected(id : int) -> void:
-	ServerLogger.info(str(str(id), " Disconnected."))
+	server_logger.info(str(str(id), " Disconnected."))
 	Replication.players.erase(id)
 	Replication.update_player_register.rpc(Replication.players)
 	#player_disconnected.emit(id)
 
 func _enter_role_select() -> void:
-	ServerLogger.info("Entering roles select.")
+	server_logger.info("Entering roles select.")
 
 func _player_lock_role(id : int, role : Basics.Role) -> void:
-	ServerLogger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.ROLE_TEXT[role]), "."))
+	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.ROLE_TEXT[role]), "."))
 
 func _enter_game_loading() -> void:
-	ServerLogger.info("Entering loading screen.")
+	
+	server_logger.info("Entering loading screen.")
+
+func _player_load_finished(id : int) -> void:
+	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has loaded"))
+
+func _load_finished() -> void:
+	server_logger.info("all players finished loading, entering game.")
+	if game_scene:
+		game_scene.launch_game()
+	else:
+		server_logger.error("game scene is not loaded.")

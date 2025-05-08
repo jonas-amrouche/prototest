@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://6hdrpbvr853o"]
+
+[ext_resource type="Script" uid="uid://dngp3asfbtypt" path="res://Scripts/client_logger.gd" id="1_ba3vp"]
+
+[node name="ClientLogger" type="RichTextLabel"]
+offset_right = 518.0
+offset_bottom = 642.0
+script = ExtResource("1_ba3vp")

@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxg238k1wkp2l"]
+[gd_scene load_steps=18 format=3 uid="uid://bxg238k1wkp2l"]
 
 [ext_resource type="Script" uid="uid://b32i06gs3m7i1" path="res://Scripts/client.gd" id="1_h56vy"]
 [ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="2_o4a6k"]
-[ext_resource type="Script" uid="uid://dngp3asfbtypt" path="res://Scripts/logger.gd" id="3_v1moc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_de1uw"]
 bg_color = Color(0.0739382, 0.0882481, 0.0871916, 1)
@@ -102,6 +101,11 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_de1uw")
 metadata/_edit_lock_ = true
 
+[node name="DragBar" type="Panel" parent="Main"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_vertical = 0
+
 [node name="Window" type="HBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
@@ -132,7 +136,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_v1moc")
 text = "X"
 
 [node name="Home" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -147,9 +150,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -151.5
-offset_top = 24.0
+offset_top = 42.0
 offset_right = 151.5
-offset_bottom = 181.0
+offset_bottom = 199.0
 grow_horizontal = 2
 text = "Forest
      Dungeon"
@@ -222,21 +225,6 @@ mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wuhft")
 text = "SEARCH GAME"
 
-[node name="Logger" type="RichTextLabel" parent="Home"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -608.0
-offset_top = -375.0
-offset_right = -90.0
-offset_bottom = 267.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("3_v1moc")
-
 [node name="Pseudo" type="LineEdit" parent="Home"]
 layout_mode = 1
 anchors_preset = 3
@@ -257,6 +245,7 @@ placeholder_text = "Pseudo"
 alignment = 1
 
 [node name="RoleSelect" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -526,6 +515,7 @@ offset_right = 1737.0
 offset_bottom = 875.0
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
+[connection signal="gui_input" from="Main/DragBar" to="." method="_on_drag_bar_gui_input"]
 [connection signal="pressed" from="Main/Window/Minimize" to="." method="_on_minimize_pressed"]
 [connection signal="pressed" from="Main/Window/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Home/EnterGame" to="." method="_on_enter_game_pressed"]

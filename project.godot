@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Forest Dungeon"
-run/main_scene="uid://ch7gr4ch5r2xt"
+run/main_scene="uid://df7a5ffsl7ce"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://Assets/2D/UI/altar_icon_good_scale.png"
 
@@ -19,8 +19,6 @@ config/icon="res://Assets/2D/UI/altar_icon_good_scale.png"
 
 Basics="*res://Scripts/Autoload/basics.gd"
 DebugFeatures="*res://Scripts/Autoload/debug_features.gd"
-ClientManager="*res://Scripts/Autoload/client_manager.gd"
-ServerLogger="*res://GameServer/server_logger.gd"
 Replication="*res://Scripts/Autoload/replication.gd"
 
 [display]

@@ -46,8 +46,8 @@ func _process(_delta):
 	mini_map.update_player_position(player.global_position)
 	update_previews()
 
-func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array, river_noise_tex : NoiseTexture2D) -> void:
-	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, camps_data, river_noise_tex)
+func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array) -> void:
+	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, camps_data)
 
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
@@ -75,10 +75,13 @@ func bind_default_abilities() -> void:
 			player.abilities[i].slot_id = 10
 	update_abilities()
 
-func bind_ability_auto(ab : Ability) -> void:
+func bind_ability_to_empty_slot(ab : Ability) -> void:
 	var _slot_taken : PackedInt32Array
 	for i in range(player.abilities.size()):
 		_slot_taken.append(player.abilities[i].slot_id)
+	
+	if !(10 in _slot_taken) and ab.targeted:
+		bind_ability_to(ab, 10)
 	
 	for i in range(10):
 		if i in _slot_taken:
