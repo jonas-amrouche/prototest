@@ -47,7 +47,6 @@ func start_server() -> Error:
 func remove_multiplayer_peer() -> void:
 	multiplayer.multiplayer_peer = null
 	Replication.players.clear()
-	Replication.update_player_register.rpc(Replication.players)
 
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.

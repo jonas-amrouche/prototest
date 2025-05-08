@@ -1211,23 +1211,8 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
-[node name="MiniMapBorder" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -412.0
-offset_top = -359.0
-offset_right = -53.0
-grow_horizontal = 0
-grow_vertical = 0
-mouse_filter = 2
-color = Color(0.227451, 0.176471, 0.164706, 1)
-
 [node name="MiniMap" parent="." instance=ExtResource("1_4iu7d")]
+visible = false
 layout_mode = 1
 offset_left = -415.0
 offset_top = -355.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxbe73c6eo1wj"]
+[gd_scene load_steps=14 format=3 uid="uid://bxbe73c6eo1wj"]
 
 [ext_resource type="Script" uid="uid://b507hfjfi48i8" path="res://Scripts/monster.gd" id="1_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://dow4dk0os7bac" path="res://Scenes/UI/monster_health_bar.tscn" id="2_ujuxu"]
@@ -32,6 +32,11 @@ alpha_curve = SubResource("CurveTexture_6ks7b")
 
 [sub_resource type="QuadMesh" id="QuadMesh_auidl"]
 size = Vector2(0.1, 0.1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cyu0s"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Monster" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16156, 0)
@@ -90,6 +95,9 @@ lifetime = 3.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_bua6k")
 draw_pass_1 = SubResource("QuadMesh_auidl")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_cyu0s")
 
 [connection signal="body_shape_entered" from="Aggro" to="." method="_on_aggro_body_shape_entered"]
 [connection signal="body_shape_exited" from="Aggro" to="." method="_on_aggro_body_shape_exited"]

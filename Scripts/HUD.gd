@@ -46,9 +46,6 @@ func _process(_delta):
 	mini_map.update_player_position(player.global_position)
 	update_previews()
 
-func init_map_data(paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array) -> void:
-	mini_map.initialize_minimap(Basics.MAP_SIZE, paths_data, bases_data, interests_data, camps_data)
-
 func update_info_bars() -> void:
 	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
 	#player.level_label.text = str(player.level)

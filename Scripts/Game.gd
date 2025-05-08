@@ -1,7 +1,5 @@
 extends Node3D
 
-var players : Array[Object]
-
 @onready var resources = $GameResources
 @onready var beacons = $Beacons
 @onready var camps = $Camps
@@ -10,6 +8,8 @@ var players : Array[Object]
 @onready var temp_vision = $TempVision
 @onready var env = $WorldEnvironment.environment
 @onready var map_generation = $MapGeneration
+
+var generated_data : Dictionary
 
 func _ready() -> void:
 	add_to_group("world")
@@ -23,10 +23,14 @@ func launch_game() -> void:
 		map_generation.generate_map()
 		spawn_players()
 
-@rpc("any_peer", "reliable")
-func send_map_data_to_player(generated_data : Dictionary):
-	#for p in players:
+@rpc("any_peer", "reliable", "call_remote")
+func send_map_data_to_player(data : Dictionary):
+	generated_data = data
+	#print(Replication.players)
+	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", multiplayer.get_unique_id())
+	#for p in Replication.players.values():
 		#p.vision.initialize_fog_map(bases_list)
+		#p["player_ref"].hud.init_map_data(generated_data)
 		#p.hud.init_map_data(paths_list, bases_list, interests_list, camps_list)
 	map_generation.spawn_map(generated_data)
 
@@ -44,8 +48,18 @@ func vision_update(vision : Object, _fog_map : Image) -> void:
 		c.change_camp_visibility(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))
 
 func spawn_players() -> void:
+	#var _new_player = resources.player_scene.instantiate()
+	#_new_player.position = map_generation.bases[0].get_node("PlayerSpawn/1").global_position
+	#_new_player.name = str(Replication.players.keys()[0])
+	#add_child(_new_player, true)
 	for i in range(Replication.players.size()):
 		var _new_player = resources.player_scene.instantiate()
 		_new_player.position = map_generation.bases[0].get_node("PlayerSpawn/" + str(i+1)).global_position
+		_new_player.name = str(Replication.players.keys()[i])
 		add_child(_new_player, true)
-		players.append(_new_player)
+		Replication.players[Replication.players.keys()[i]]["player_ref"] = _new_player
+
+var spawn_count = 0
+func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	node.position = map_generation.bases[0].get_node("PlayerSpawn/" + str(spawn_count+1)).global_position
+	spawn_count += 1

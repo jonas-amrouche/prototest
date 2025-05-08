@@ -16,19 +16,18 @@ signal enter_game_loading
 signal player_load_finished(id : int)
 signal load_finished()
 
-@rpc("any_peer", "reliable")
+# Called by server to update client
+@rpc("any_peer", "reliable", "call_remote")
 func update_player_register(players_infos : Dictionary) -> void:
 	players = players_infos
+	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", players)
 
+# Called by client, executed by server, then update_player_register is called to update client
 @rpc("any_peer", "reliable")
 func update_player_infos(client_id : int, new_client_info : Dictionary) -> void:
 	players[client_id] = new_client_info
-
-# When the server decides to start the game from a UI scene,
-# do Lobby.load_game.rpc(filepath)
-@rpc("call_local", "reliable")
-func load_game(game_scene_path):
-	get_tree().change_scene_to_file(game_scene_path)
+	update_player_register.rpc(players)
+	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", players)
 
 # Every peer will call this when they have loaded the game scene.
 @rpc("any_peer", "call_local", "reliable")

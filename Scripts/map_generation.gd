@@ -1,6 +1,6 @@
 extends Node
 
-const CAMP_DISTANCE_TO_CENTER = 95.0
+const CAMP_DISTANCE_TO_CENTER = 100.0
 var bases : Array[Object]
 
 var interest_points_list = PackedVector2Array()
@@ -37,7 +37,6 @@ var camp_points_list : PackedVector2Array
 const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
 
-
 var generated_data : Dictionary
 
 @onready var world = get_parent()
@@ -55,11 +54,14 @@ var generated_data : Dictionary
 
 func generate_map() -> void:
 	generated_data["bases"] = PackedVector3Array()
+	generated_data["paths_points"] = Array()
+	generated_data["interest_points"] = Dictionary()
 	generated_data["arena"] = Vector3()
 	generated_data["trees"] = Array()
 	generated_data["camps"] = Dictionary()
 	generated_data["camps"]["position"] = Array()
 	generated_data["camps"]["type"] = Array()
+	generated_data["map_size"] = Basics.MAP_SIZE
 	
 	randomize()
 	generate_bases()
@@ -68,7 +70,9 @@ func generate_map() -> void:
 	generate_points_and_paths()
 	generate_mid_arena()
 	mirror_points()
-	#generate_collisions() //
+	generated_data["interest_points"] = new_interest_points_list
+	generated_data["paths_points"] = paths_points_list
+	#generate_collisions()
 	#generate_decoration()
 	generate_forest()
 	generate_camps()
@@ -81,26 +85,9 @@ func spawn_map(data : Dictionary) -> void:
 	generated_data = data
 	
 	spawn_bases()
-	
-	# Spawn arena
-	var _new_arena = resources.arena_structure.instantiate()
-	_new_arena.position = generated_data["arena"]
-	add_child(_new_arena)
-	
-	# Spawn trees and collisions
-	for i in range(generated_data["trees"].size()):
-		var _transform = generated_data["trees"][i]
-		multi_tree.multimesh.set_instance_transform(i, _transform)
-		add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
-	multi_tree.multimesh.visible_instance_count = generated_data["trees"].size()
-	navmesh.call_deferred("bake_navigation_mesh")
-	
-	# Spawn camps
-	for i in range(generated_data["camps"]["position"].size()):
-		var _new_camp = resources.camp_structure.instantiate()
-		_new_camp.position = generated_data["camps"]["position"][i]
-		_new_camp.camp = resources.camps_list[generated_data["camps"]["type"][i]]
-		camps.add_child(_new_camp)
+	spawn_arena()
+	spawn_trees_collision()
+	spawn_camps()
 
 func spawn_bases() -> void:
 	for base_pos in generated_data["bases"]:
@@ -109,6 +96,26 @@ func spawn_bases() -> void:
 		navmesh.add_child(_new_base)
 		_new_base.scale *= Vector3(sign(base_pos.x), 1.0, -sign(base_pos.x))
 		bases.append(_new_base)
+
+func spawn_arena() -> void:
+	var _new_arena = resources.arena_structure.instantiate()
+	_new_arena.position = generated_data["arena"]
+	add_child(_new_arena)
+
+func spawn_trees_collision() -> void:
+	for i in range(generated_data["trees"].size()):
+		var _transform = generated_data["trees"][i]
+		multi_tree.multimesh.set_instance_transform(i, _transform)
+		add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
+	multi_tree.multimesh.visible_instance_count = generated_data["trees"].size()
+	navmesh.call_deferred("bake_navigation_mesh")
+
+func spawn_camps() -> void:
+	for i in range(generated_data["camps"]["position"].size()):
+		var _new_camp = resources.camp_structure.instantiate()
+		_new_camp.position = generated_data["camps"]["position"][i]
+		_new_camp.camp = resources.camps_list[generated_data["camps"]["type"][i]]
+		camps.add_child(_new_camp)
 
 func generate_bases() -> void:
 	var _random_vector = Vector2(0, CAMP_DISTANCE_TO_CENTER).rotated(PI/4.0)

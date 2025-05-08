@@ -23,6 +23,12 @@ ambient_light_color = Color(1, 1, 1, 1)
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f1ek2"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerModel:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -202,6 +208,7 @@ no_depth_test = true
 text = "10"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 1.0
 replication_config = SubResource("SceneReplicationConfig_f1ek2")
 
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]

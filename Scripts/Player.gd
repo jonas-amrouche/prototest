@@ -82,6 +82,7 @@ var loot_target : Object
 @onready var camera := $Camera
 @onready var hover_outline_vpc := $HoverOutline
 @onready var hover_outline_camera := $HoverOutline/HoverOutlineVP/Camera
+@onready var select_outline_vpc := $SelectOutline
 @onready var select_outline_camera := $SelectOutline/SelectOutlineVP/Camera
 @onready var camera_base_marker := $CameraBaseMarker
 @onready var player_collision := $Collision
@@ -92,12 +93,22 @@ var loot_target : Object
 @onready var effect_machine := $Effects
 @onready var player_model := $PlayerModel
 @onready var health_bar := $SubViewport/PlayerHealthBar/HealthBar
+@onready var pseudo_lab := $SubViewport/PlayerHealthBar/PseudoLab
 @onready var model_anims := $PlayerModel/AnimationPlayer
 #@onready var level_label := $SubViewport/PlayerHealthBar/LevelPan/LevelLab
 @onready var debug_range := $DebugRange
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
 	add_to_group("player")
+	camera.current = is_multiplayer_authority()
+	hover_outline_vpc.set_visible(is_multiplayer_authority())
+	select_outline_vpc.set_visible(is_multiplayer_authority())
+	set_process_input(is_multiplayer_authority())
+	set_process_unhandled_input(is_multiplayer_authority())
+	
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 	inventory = fill_inventory(INVENTORY_MAX_SIZE)
 	consumables = fill_consumables(CONSUMABLES_MAX_SIZE)
@@ -105,6 +116,8 @@ func _ready():
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
 	obtain_item(preload("res://Resources/Items/red_liquor.tres"), 3)
 	hud.bind_default_abilities()
+	#print(Replication.players[int(name)])
+	pseudo_lab.text = Replication.players[int(name)]["name"]
 	#obtain_item(preload("res://Resources/Items/ascendant_archirune.tres"))
 	#obtain_item(preload("res://Resources/Items/misfortune_broadsword.tres"))
 	#obtain_item(preload("res://Resources/Items/incandescent_pages.tres"))
@@ -134,7 +147,7 @@ func _physics_process(_delta) -> void:
 	action_keys()
 
 func _process(delta):
-	if DisplayServer.mouse_get_mode() == DisplayServer.MOUSE_MODE_CONFINED:
+	if DisplayServer.mouse_get_mode() == DisplayServer.MOUSE_MODE_CONFINED and is_multiplayer_authority():
 		border_cam_movement(delta)
 		update_camera_position()
 		check_for_target()
@@ -654,9 +667,6 @@ func craft_item() -> void:
 func clear_craft() -> void:
 	for i in range(crafts.size()):
 		if crafts[i].item:
-			if is_inventory_full():
-				print("ALED") # TODO FIX THIS
-				return
 			obtain_item(crafts[i].item, crafts[i].quantity)
 			crafts[i].item = null
 			crafts[i].quantity = 0

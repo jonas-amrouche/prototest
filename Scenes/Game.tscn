@@ -107,6 +107,7 @@ autoplay = true
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://df1e6em0ealvc")
 spawn_path = NodePath("..")
+spawn_limit = 8
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -151,3 +152,5 @@ mesh = SubResource("PlaneMesh_20jko")
 [node name="MountSides" parent="." instance=ExtResource("6_rku1e")]
 transform = Transform3D(13, 0, 0, 0, 10, 0, 0, 0, 13, 0, -14.9359, 0)
 visible = false
+
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

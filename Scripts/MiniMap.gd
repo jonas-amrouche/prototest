@@ -28,13 +28,23 @@ const MAP_BASE_AREA_SIZE := Vector2(65.0, 65.0)
 const MAP_ARENA_SIZE := Vector2(35.0, 35.0)
 const MAP_INTEREST_ICON_SIZE := Vector2(4.0, 4.0)
 const MAP_CAMP_ICON_SIZE := Vector2(10.0, 10.0)
-func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array], bases_data : PackedVector2Array, interests_data : Dictionary, camps_data : PackedVector2Array) -> void:
+
+func _ready() -> void:
+	if !is_multiplayer_authority():
+		set_process(false)
+		set_process_input(false)
+		gui_input.disconnect(_on_gui_input)
+		return
+	initialize_minimap(player.get_parent().generated_data)
+
+func initialize_minimap(generated_data : Dictionary) -> void:
+	
 	# Set map_size
-	map_size = m_size
+	map_size = generated_data["map_size"]
 	
 	# Format Paths
 	var _new_paths_data = Array(PackedVector2Array())
-	for path in paths_data:
+	for path in generated_data["paths_points"]:
 		var _temp_path = PackedVector2Array()
 		for point in path:
 			_temp_path.append(world_to_minimap_position(point))
@@ -47,23 +57,23 @@ func initialize_minimap(m_size : Vector2, paths_data : Array[PackedVector2Array]
 	draw_icon(Vector2(0.0, 0.0), MAP_ARENA_SIZE, pre_base_arena_texture, MAP_PATH_COLOR)
 		
 	# Draw Interest Icons
-	for i in range(interests_data.size()):
-		draw_icon(interests_data.keys()[i], interests_data.values()[i] * MAP_INTEREST_ICON_SIZE, pre_base_arena_texture, MAP_INTEREST_COLOR)
+	for i in range(generated_data["interest_points"].size()):
+		draw_icon(generated_data["interest_points"].keys()[i], generated_data["interest_points"].values()[i] * MAP_INTEREST_ICON_SIZE, pre_base_arena_texture, MAP_INTEREST_COLOR)
 		
 	# Draw Camps Icons
-	for i in range(camps_data.size()):
-		draw_icon(camps_data[i], MAP_CAMP_ICON_SIZE, pre_camp_texture)
+	for i in range(generated_data["camps"]["position"].size()):
+		var _camp_pos = Vector2(generated_data["camps"]["position"][i].x, generated_data["camps"]["position"][i].z)
+		draw_icon(_camp_pos, MAP_CAMP_ICON_SIZE, pre_camp_texture)
 	
 	# Draw Bases Zone Icons
-	for base in bases_data:
+	for base in generated_data["bases"]:
 		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
 		draw_icon(_base_pos, MAP_BASE_AREA_SIZE, pre_base_area_texture, MAP_PATH_COLOR)
 	
 	# Draw Bases Icons
-	for base in bases_data:
+	for base in generated_data["bases"]:
 		var _base_pos = Vector2(base.x + (BASE_OFFSET * sign(base.x)), base.y + (BASE_OFFSET * -sign(base.x)))
 		draw_icon(_base_pos, MAP_BASE_ICON_SIZE, pre_base_texture)
-	
 
 func draw_custom_line(points : PackedVector2Array, width : float, tint : Color, parent : Object = mini_content) -> void:
 	var _new_line = Line2D.new()
@@ -118,6 +128,7 @@ func update_camera_position(pos : Vector3, camera_base_position : Vector3) -> vo
 
 var cursor_pos = Vector2()
 func _on_gui_input(event):
+	print("yyyyyyy")
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:

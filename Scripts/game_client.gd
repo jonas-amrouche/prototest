@@ -32,7 +32,7 @@ func start_client() -> void:
 func _on_connected_ok():
 	client_logger.info("Connection established.")
 	set_state(Basics.ClientState.INGAME)
-	Replication.update_player_infos.rpc(multiplayer.get_unique_id(), Replication.client_infos)
+	Replication.update_player_infos.rpc_id(1, multiplayer.get_unique_id(), Replication.client_infos)
 	load_game()
 
 func _on_connected_fail():
