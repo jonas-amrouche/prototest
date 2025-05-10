@@ -23,8 +23,8 @@ extends Control
 @onready var channeling_label := $ChannelingBar/ChannelingLabel
 @onready var souls_label := $Souls/SoulsLabel
 @onready var mini_map := $MiniMap
-@onready var health_bar := $ActionPanel/HealthBarContainer/Pad/HealthBar
-@onready var health_label := $ActionPanel/HealthBarContainer/Pad/HealthLabel
+@onready var health_bar := $ActionPanel/HealthBarContainer/HealthBar
+@onready var health_label := $ActionPanel/HealthBarContainer/HealthLabel
 @onready var xp_bar := $ExpBar
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd

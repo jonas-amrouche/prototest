@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=124 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
 [ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="9_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
+[ext_resource type="Texture2D" uid="uid://b0waukpso64pn" path="res://Assets/2D/UI/energy_bar.png" id="10_oersf"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
 [ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="11_ajim5"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
@@ -220,15 +221,18 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbb48"]
 bg_color = Color(0.0144486, 0.01589, 0.00248296, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57rek"]
-bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-border_color = Color(0.125911, 0.125911, 0.125911, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oersf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o2vyp"]
 texture = ExtResource("6_fbb48")
@@ -239,12 +243,54 @@ font_size = 11
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buji0"]
-bg_color = Color(0.237539, 0.237539, 0.237539, 1)
-border_color = Color(0.125911, 0.125911, 0.125911, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g17n1"]
+bg_color = Color(0.17, 0.17, 0.17, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_484xk"]
+blend_mode = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lkt4f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fqfc"]
 texture = ExtResource("9_8bf2m")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnip7"]
+bg_color = Color(0.114897, 0.114897, 0.114897, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wfkbc"]
+blend_mode = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s17ah"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g17n1"]
+texture = ExtResource("10_oersf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqxyv"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_blu1a"]
 font_size = 17
@@ -841,19 +887,6 @@ font_size = 20
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
-bg_color = Color(0.13, 0.13, 0.13, 0.615686)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0, 0, 0, 0.690196)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -1045,33 +1078,24 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.5
-offset_top = 213.0
+offset_top = 207.0
 offset_right = 292.5
-offset_bottom = 231.0
+offset_bottom = 225.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
 
-[node name="Pad" type="MarginContainer" parent="ActionPanel/HealthBarContainer"]
-custom_minimum_size = Vector2(0, 14)
-layout_mode = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-metadata/_edit_lock_ = true
-
-[node name="HealthBar" type="ProgressBar" parent="ActionPanel/HealthBarContainer/Pad"]
+[node name="HealthBar" type="ProgressBar" parent="ActionPanel/HealthBarContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_57rek")
+theme_override_styles/background = SubResource("StyleBoxEmpty_oersf")
 theme_override_styles/fill = SubResource("StyleBoxTexture_o2vyp")
 value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
-[node name="HealthLabel" type="Label" parent="ActionPanel/HealthBarContainer/Pad"]
+[node name="HealthLabel" type="Label" parent="ActionPanel/HealthBarContainer"]
 layout_mode = 2
 text = "560/560"
 label_settings = SubResource("LabelSettings_1a2va")
@@ -1085,27 +1109,44 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.0
-offset_top = 233.0
+offset_top = 227.0
 offset_right = 293.0
-offset_bottom = 241.0
+offset_bottom = 234.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
+theme_override_styles/panel = SubResource("StyleBoxFlat_g17n1")
 
-[node name="Pad" type="MarginContainer" parent="ActionPanel/ManaBarContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-metadata/_edit_lock_ = true
-
-[node name="ManaBar" type="ProgressBar" parent="ActionPanel/ManaBarContainer/Pad"]
+[node name="ManaBar" type="ProgressBar" parent="ActionPanel/ManaBarContainer"]
+material = SubResource("CanvasItemMaterial_484xk")
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_buji0")
+theme_override_styles/background = SubResource("StyleBoxEmpty_lkt4f")
 theme_override_styles/fill = SubResource("StyleBoxTexture_5fqfc")
+value = 100.0
+show_percentage = false
+metadata/_edit_lock_ = true
+
+[node name="EnergyBarContainer" type="PanelContainer" parent="ActionPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -292.0
+offset_top = 235.0
+offset_right = 293.0
+offset_bottom = 242.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gnip7")
+
+[node name="EnergyBar" type="ProgressBar" parent="ActionPanel/EnergyBarContainer"]
+material = SubResource("CanvasItemMaterial_wfkbc")
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_s17ah")
+theme_override_styles/fill = SubResource("StyleBoxTexture_g17n1")
 value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
@@ -1117,20 +1158,21 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -297.0
-offset_top = -101.0
-offset_right = 299.0
-offset_bottom = -45.0
+offset_left = -296.0
+offset_top = -103.0
+offset_right = 298.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eqxyv")
 
 [node name="Pad" type="MarginContainer" parent="ActionPanel/AbilityBar"]
 layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
 [node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad"]
@@ -1642,6 +1684,16 @@ layout_mode = 2
 columns = 5
 metadata/_edit_lock_ = true
 
+[node name="ClassIcon" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 1392.0
+offset_top = 758.0
+offset_right = 1490.0
+offset_bottom = 856.0
+texture = ExtResource("23_vxf74")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="StatScroll" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 1364.0
@@ -1649,6 +1701,7 @@ offset_top = 777.0
 offset_right = 1516.0
 offset_bottom = 1080.0
 texture = ExtResource("8_o2vyp")
+metadata/_edit_lock_ = true
 
 [node name="Stats" type="Panel" parent="."]
 layout_mode = 1
@@ -2444,27 +2497,5 @@ text = "B "
 label_settings = SubResource("LabelSettings_36s6t")
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="ClassReminder" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 1349.0
-offset_top = 1044.0
-offset_right = 1381.0
-offset_bottom = 1076.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
-
-[node name="MarginContainer" type="MarginContainer" parent="ClassReminder"]
-layout_mode = 2
-theme_override_constants/margin_left = -7
-theme_override_constants/margin_top = -7
-theme_override_constants/margin_right = -7
-theme_override_constants/margin_bottom = -7
-
-[node name="ClassIcon" type="TextureRect" parent="ClassReminder/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("23_vxf74")
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

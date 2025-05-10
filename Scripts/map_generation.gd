@@ -13,10 +13,10 @@ const POINT_CELL_DIVISION = 8 # 28
 const PATH_RANDOM_CELLS = 4.0 #0.4
 const NO_PATH_BORDER_LENGTH = 20.0
 
-const MIN_INTEREST_POINTS = 18#12
-const MAX_INTEREST_POINTS = 32#24
-const MIN_INTEREST_SIZE = 4.0
-const MAX_INTEREST_SIZE = 10.0
+const MIN_INTEREST_POINTS = 32#12
+const MAX_INTEREST_POINTS = 64#24
+const MIN_INTEREST_SIZE = 2.0
+const MAX_INTEREST_SIZE = 6.0
 const INTEREST_BORDER = 7.0
 
 const PATH_RESOLUTION = 1.0
@@ -28,9 +28,8 @@ const MAX_PATH = 3
 
 const ARENA_SIZE = 10.0
 
-const COLLISION_GRID_DIVISION := 2.0
+const COLLISION_GRID_DIVISION := 1.0
 
-const CAMPS_RATIO := 2.25
 const DISPLACEMENT_TO_CENTER := 3.0
 var camp_points_list : PackedVector2Array
 
@@ -71,7 +70,6 @@ func generate_map() -> void:
 	mirror_points()
 	generated_data["interest_points"] = new_interest_points_list
 	generated_data["paths_points"] = paths_points_list
-	#generate_collisions()
 	#generate_decoration()
 	generate_forest()
 	generate_camps()
@@ -86,7 +84,8 @@ func spawn_map(data : Dictionary) -> void:
 	
 	spawn_bases()
 	spawn_arena()
-	spawn_trees_collision()
+	spawn_collisions()
+	spawn_trees()
 	spawn_camps()
 
 func spawn_bases() -> void:
@@ -102,11 +101,11 @@ func spawn_arena() -> void:
 	_new_arena.position = generated_data["arena"]
 	add_child(_new_arena)
 
-func spawn_trees_collision() -> void:
+func spawn_trees() -> void:
 	for i in range(generated_data["trees"].size()):
 		var _transform = generated_data["trees"][i]
 		multi_tree.multimesh.set_instance_transform(i, _transform)
-		add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
+		#add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
 	multi_tree.multimesh.visible_instance_count = generated_data["trees"].size()
 	navmesh.bake_navigation_mesh()#.call_deferred("bake_navigation_mesh")
 
@@ -162,7 +161,7 @@ func generate_points_and_paths() -> void:
 	
 	# Select random point, assign a size, then select the next one not in the range
 	while new_interest_points_list.size() < _interest_point_num:
-		var _rand_idx = randi_range(1, _grid_point_list.size()-1)
+		var _rand_idx = max(0, randi_range(1, _grid_point_list.size()-1))
 		var _is_valid = true
 		for i in range(new_interest_points_list.size()):
 			# ERROR au lancement (index trop grand (new_interest_points_list.keys()[i]))
@@ -183,7 +182,7 @@ func generate_points_and_paths() -> void:
 		_break_count += 1
 		
 		#if there is already to many large areas we don't want to be blocked
-		if _break_count > 300:
+		if _break_count > 400:
 			print("SAFETY BREAK POINT CALCULATION")
 			break
 	print("while loops : ", _break_count)
@@ -268,13 +267,32 @@ func is_on_right_side(point : Vector2) -> bool:
 		return true
 	return false
 
-func generate_collisions() -> void:
+func spawn_collisions() -> void:
+	var _grid : Dictionary[Vector2, bool]
 	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
 		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
-			var _new_position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
-			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position):
-				continue
-			add_collision_cube(_new_position)
+			var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			#print(_position)
+			#print(paths_points_list)
+			#if is_in_path(_position): print("te")
+			var _in_path = is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)
+			_grid[Vector2(x, y)] = _in_path
+	
+	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
+		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
+			var _wall_neighbor = 0
+			if !check_cell(_grid, Vector2(x, y)): # If cell is wall
+				if !check_cell(_grid, Vector2(x-1, y)): _wall_neighbor += 1
+				if !check_cell(_grid, Vector2(x+1, y)): _wall_neighbor += 1
+				if !check_cell(_grid, Vector2(x, y-1)): _wall_neighbor += 1
+				if !check_cell(_grid, Vector2(x, y+1)): _wall_neighbor += 1
+				if _wall_neighbor != 4:
+					add_collision_cube(Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+
+func check_cell(grid : Dictionary, vec : Vector2) -> bool:
+	if grid.has(vec):
+		return grid[vec]
+	return false
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -293,7 +311,7 @@ func generate_forest() -> void:
 	
 	for x in range(int(Basics.MAP_SIZE.x/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
 		for y in range(int(Basics.MAP_SIZE.y/DIVISION_FACTOR + TREE_BORDER_LENGTH)):
-			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(Basics.MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)
+			var _new_position = DIVISION_FACTOR*Vector2(x + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS), y + randf_range(-TREE_RANDOM_CELLS, TREE_RANDOM_CELLS)) - Vector2(Basics.MAP_SIZE)/2 - Vector2(TREE_BORDER_LENGTH, TREE_BORDER_LENGTH)/2
 			
 			if is_in_base(_new_position) or is_in_path(_new_position) or is_in_decoration(_new_position) or is_in_arena(_new_position) or is_in_interest(_new_position) or (is_in_river(_new_position) and !is_beyond_map_limit(_new_position)):
 				continue
@@ -306,17 +324,14 @@ func generate_forest() -> void:
 func add_collision_cube(pos : Vector2) -> void:
 	var _new_collision_cube = CollisionShape3D.new()
 	_new_collision_cube.shape = BoxShape3D.new()
-	_new_collision_cube.shape.size = Vector3(2.5, 4.0, 2.5)
+	_new_collision_cube.shape.size = Vector3(1.0, 4.0, 1.0)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	trees_body.add_child(_new_collision_cube)
 
 func generate_camps() -> void:
-	for i in range(new_interest_points_list.size()):
-		var _camps_num : int = ceil((new_interest_points_list.values()[i] - MIN_INTEREST_SIZE)/CAMPS_RATIO)
-		for c in range(_camps_num):
-			var _added_vec = Vector3(new_interest_points_list.values()[i]/2.0, 0.0, 0.0).rotated(Vector3.UP, (PI*2.0)/_camps_num*c)
-			generated_data["camps"]["position"].append(Vector3(new_interest_points_list.keys()[i].x, -0.22, new_interest_points_list.keys()[i].y) + _added_vec)
-			generated_data["camps"]["type"].append(randi_range(0, resources.camps_list.size()-1))
+	for i in range(generated_data["interest_points"].size()):
+		generated_data["camps"]["position"].append(Vector3(new_interest_points_list.keys()[i].x, -0.22, new_interest_points_list.keys()[i].y))
+		generated_data["camps"]["type"].append(randi_range(0, resources.camps_list.size()-1))
 
 const CHANCE_TO_SPAWN_TOWER := 0.05
 func generate_structures() -> void:
@@ -360,7 +375,7 @@ func is_in_base(pos : Vector2) -> bool:
 	#return false
 
 func is_in_path(pos : Vector2) -> bool:
-	for paths in paths_points_list:
+	for paths in generated_data["paths_points"]:
 		for points in paths:
 			#for base in bases:
 			if pos.distance_to(points) < NO_TREE_PATH_DISTANCE: # * (min(50.0, points.distance_to(Vector2(base.position.x, base.position.z)))/50.0)

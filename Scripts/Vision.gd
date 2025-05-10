@@ -61,7 +61,7 @@ func has_vision(pos : Vector2i) -> bool:
 	var _fog_position = clamp(world_to_fog_position(pos), Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1))
 	return fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5
 
-const RAY_NUM = 16
+const RAY_NUM = 26
 func update_player_vision() -> void:
 	clear_temp_vision()
 	
@@ -69,12 +69,10 @@ func update_player_vision() -> void:
 		var _vector = Vector3.FORWARD.rotated(Vector3.UP, PI*2.0*(float(i)/float(RAY_NUM)))
 		var _length = vision_raycast(_vector)
 		for v in range(int(round(_length / RAY_LENGTH * V_PER_RAY))):
-			#print(_vector * ((V_PER_RAY / RAY_LENGTH) * v))
-			spawn_temp_vision(global_position + _vector * (RAY_LENGTH/float(V_PER_RAY)) * (v+1))
-		#????? comment determiner
+			spawn_temp_vision(global_position + _vector * (RAY_LENGTH/float(V_PER_RAY)) * v, 6.5)
 
-const V_PER_RAY := 5
-const RAY_LENGTH := 10.0
+const V_PER_RAY := 6
+const RAY_LENGTH := 12.0
 func vision_raycast(direction : Vector3) -> float:
 	var _ray_query = PhysicsRayQueryParameters3D.new()
 	_ray_query.from = player.global_position
@@ -86,10 +84,10 @@ func vision_raycast(direction : Vector3) -> float:
 	return RAY_LENGTH
 
 var pre_temp_vision = preload("res://Scenes/Systems/temp_vision.tscn")
-func spawn_temp_vision(vision_pos : Vector3) -> void:
+func spawn_temp_vision(vision_pos : Vector3, radius : float) -> void:
 	var _new_temp_vision = pre_temp_vision.instantiate()
 	_new_temp_vision.position = vision_pos
-	_new_temp_vision.radius = 10.0
+	_new_temp_vision.radius = radius
 	player.world.temp_vision.add_child(_new_temp_vision)
 
 func clear_temp_vision() -> void:
