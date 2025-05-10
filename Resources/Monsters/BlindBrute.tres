@@ -1,13 +1,34 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://jvq266hvj65c"]
+[gd_resource type="Resource" script_class="Monster" load_steps=14 format=3 uid="uid://jvq266hvj65c"]
 
 [ext_resource type="Resource" uid="uid://dhec1vbffd4ak" path="res://Resources/Abilities/edifying_impact.tres" id="1_as5bv"]
 [ext_resource type="PackedScene" uid="uid://dx51lvdhwysho" path="res://Scenes/Models/blind_brute_model.tscn" id="1_jlu1d"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_kby06"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="2_j4i6c"]
 [ext_resource type="Script" uid="uid://cn77duvoc7bc" path="res://Scripts/Classes/item_drop_class.gd" id="3_u6k6m"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="3_wahnd"]
 [ext_resource type="Resource" uid="uid://cpxm7kalcwjys" path="res://Resources/Items/robust_skin.tres" id="4_hig06"]
 [ext_resource type="Resource" uid="uid://p2blnjobsde8" path="res://Resources/Items/weak_flame.tres" id="5_hig06"]
 [ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="6_sqnke"]
+
+[sub_resource type="Resource" id="Resource_4slpd"]
+script = ExtResource("3_wahnd")
+id = "blind_brute"
+entity_type = 1
+max_health = 225
+health_regeneration = 2
+physical_damage = 12
+physical_armor = 6
+magic_damage = 0
+magic_armor = 0
+movement_speed = 100
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [sub_resource type="Resource" id="Resource_sqnke"]
 script = ExtResource("3_u6k6m")
@@ -32,6 +53,7 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]
 script = ExtResource("2_j4i6c")
+entity = SubResource("Resource_4slpd")
 id = "blind_brute"
 name = "Blind Brute"
 monster_model = ExtResource("1_jlu1d")

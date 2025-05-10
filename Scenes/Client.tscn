@@ -244,7 +244,7 @@ text = "Zonfr"
 placeholder_text = "Pseudo"
 alignment = 1
 
-[node name="RoleSelect" type="Control" parent="."]
+[node name="ClassSelect" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -254,7 +254,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="RoleSelect"]
+[node name="Title" type="Label" parent="ClassSelect"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -264,11 +264,11 @@ offset_top = 31.0
 offset_right = 383.0
 offset_bottom = 125.0
 grow_horizontal = 2
-text = "Choose a starting role"
+text = "Choose your class"
 label_settings = SubResource("LabelSettings_v1moc")
 horizontal_alignment = 1
 
-[node name="PickAndLock" type="PanelContainer" parent="RoleSelect"]
+[node name="PickAndLock" type="PanelContainer" parent="ClassSelect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -282,7 +282,7 @@ offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Pad" type="MarginContainer" parent="RoleSelect/PickAndLock"]
+[node name="Pad" type="MarginContainer" parent="ClassSelect/PickAndLock"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -290,17 +290,17 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_edit_lock_ = true
 
-[node name="Pad" type="VBoxContainer" parent="RoleSelect/PickAndLock/Pad"]
+[node name="Pad" type="VBoxContainer" parent="ClassSelect/PickAndLock/Pad"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="RoleSelect/PickAndLock/Pad/Pad"]
+[node name="GridContainer" type="GridContainer" parent="ClassSelect/PickAndLock/Pad/Pad"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 9
 
-[node name="Hunter" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class1" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -311,7 +311,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Hunter"
 
-[node name="Hunter2" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class2" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -322,7 +322,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Assassin"
 
-[node name="Hunter3" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class3" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -333,7 +333,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Healer"
 
-[node name="Hunter4" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class4" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -344,7 +344,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Doctor"
 
-[node name="Hunter5" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class5" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -355,7 +355,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Swordsman"
 
-[node name="Hunter6" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class6" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -366,7 +366,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Druid"
 
-[node name="Hunter7" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class7" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
@@ -377,7 +377,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
 text = "Guard"
 
-[node name="LockIn" type="Button" parent="RoleSelect/PickAndLock/Pad/Pad"]
+[node name="LockIn" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad"]
 custom_minimum_size = Vector2(208.565, 88.555)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -390,7 +390,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_y6515")
 theme_override_styles/normal = SubResource("StyleBoxFlat_16usq")
 text = "Lock In"
 
-[node name="Chat" type="ColorRect" parent="RoleSelect"]
+[node name="Chat" type="ColorRect" parent="ClassSelect"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -405,7 +405,7 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0, 0, 0, 1)
 
-[node name="LineEdit" type="LineEdit" parent="RoleSelect/Chat"]
+[node name="LineEdit" type="LineEdit" parent="ClassSelect/Chat"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -520,4 +520,4 @@ color = Color(0.103744, 0.103744, 0.103744, 1)
 [connection signal="pressed" from="Main/Window/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Home/EnterGame" to="." method="_on_enter_game_pressed"]
 [connection signal="text_changed" from="Home/Pseudo" to="." method="_on_pseudo_text_changed"]
-[connection signal="pressed" from="RoleSelect/PickAndLock/Pad/Pad/LockIn" to="." method="_on_lock_in_pressed"]
+[connection signal="pressed" from="ClassSelect/PickAndLock/Pad/Pad/LockIn" to="." method="_on_lock_in_pressed"]

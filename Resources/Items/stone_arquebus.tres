@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://bqvrju3tnlkpk"]
+[gd_resource type="Resource" script_class="Item" load_steps=10 format=3 uid="uid://bqvrju3tnlkpk"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_wk1br"]
 [ext_resource type="Resource" uid="uid://etadmlsde31a" path="res://Resources/Abilities/instant_shardstone.tres" id="2_au5l6"]
@@ -7,17 +7,40 @@
 [ext_resource type="Texture2D" uid="uid://bwehd0eoequww" path="res://Assets/2D/Items/StoneArquebusIcon.png" id="5_ike2q"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_l0e6k"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="6_jjlxf"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="7_u068a"]
+
+[sub_resource type="Resource" id="Resource_ov7v3"]
+script = ExtResource("7_u068a")
+id = "stone_arquebus"
+entity_type = 3
+icon = ExtResource("5_ike2q")
+max_health = 100
+health_regeneration = 0
+physical_damage = 10
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
 script = ExtResource("6_jjlxf")
+entity = SubResource("Resource_ov7v3")
 id = "stone_arquebus"
 description = "Not very usefull but at least it's hard to miss."
 icon = ExtResource("5_ike2q")
 type = 0
 rarity = 1
-consumable = false
 craft_1 = ExtResource("3_ae17g")
 craft_2 = ExtResource("4_u068a")
+carft = Array[ExtResource("6_jjlxf")]([])
 abilities = Array[ExtResource("1_wk1br")]([ExtResource("2_au5l6")])
 passives = Array[ExtResource("5_l0e6k")]([])
 stats = {

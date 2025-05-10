@@ -10,8 +10,8 @@ var players_loaded = 0
 const PORT = 7432
 const DEFAULT_SERVER_IP = "localhost" # IPv4 localhost
 
-signal enter_role_select
-signal player_locked_role(id : int, role : Basics.Role)
+signal enter_class_select
+signal player_locked_class(id : int, class_locked : Basics.Class)
 signal enter_game_loading
 signal player_load_finished(id : int)
 signal load_finished()
@@ -40,13 +40,13 @@ func player_loaded(id : int):
 			players_loaded = 0
 
 @rpc("any_peer", "reliable")
-func launch_role_select() -> void:
-	enter_role_select.emit()
+func launch_class_select() -> void:
+	enter_class_select.emit()
 
 @rpc("any_peer", "reliable")
-func lock_role(client_id : int, role_selected : Basics.Role) -> void:
-	players[client_id]["role"] = role_selected
-	player_locked_role.emit(client_id, role_selected)
+func lock_class(client_id : int, class_selected : Basics.Class) -> void:
+	players[client_id]["class"] = class_selected
+	player_locked_class.emit(client_id, class_selected)
 	# TODO should check if everybody locked before loading
 	launch_game_loading()
 

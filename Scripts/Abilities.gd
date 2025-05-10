@@ -151,12 +151,12 @@ func get_damage(ad : AbilityData) -> Dictionary:
 	
 	var _damage : int
 	if ad.ability.damage_type == Basics.DamageType.PHYSIC:
-		_damage = ad.ability_dealer.stats.physical_damage
+		_damage = ad.ability_dealer.entity.physical_damage
 	else:
-		_damage = ad.ability_dealer.stats.magic_damage
+		_damage = ad.ability_dealer.entity.magic_damage
 	
-	# If monster don't care about damage cap
-	if ad.ability_dealer.entity_type == Basics.EntityType.MONSTER:
+	# If monster, don't care about damage cap
+	if ad.ability_dealer.entity.entity_type == Basics.EntityType.MONSTER:
 		_dict["damage"] = _damage
 	else:
 		_dict["damage"] = min(_damage, ad.ability.damage_cap)

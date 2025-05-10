@@ -1212,7 +1212,6 @@ mouse_filter = 1
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
 [node name="MiniMap" parent="." instance=ExtResource("1_4iu7d")]
-visible = false
 layout_mode = 1
 offset_left = -415.0
 offset_top = -355.0
@@ -1227,7 +1226,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 33.0
 offset_top = -276.0
-offset_right = 304.0
+offset_right = 300.0
 offset_bottom = 57.0
 grow_vertical = 0
 mouse_filter = 1
@@ -1405,9 +1404,9 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 326.0
+offset_left = 363.0
 offset_top = -100.0
-offset_right = 545.0
+offset_right = 582.0
 offset_bottom = 28.0
 grow_vertical = 0
 mouse_filter = 1
@@ -2391,5 +2390,12 @@ text = "B "
 label_settings = SubResource("LabelSettings_36s6t")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="ClassReminder" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 918.0
+offset_right = 1028.0
+offset_bottom = 972.0
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

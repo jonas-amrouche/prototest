@@ -21,18 +21,27 @@ func _ready():
 
 func update_content() -> void:
 	if item:
-		item_icon.set_texture(item.icon)
+		item_icon.set_texture(item.entity.icon)
 		rarity_icon.set_texture(load("res://Assets/2D/UI/item_overlay_" + Basics.RARITY_TEXT[item.rarity] + ".png"))
 		rarity_label.set_text("R : " + Basics.RARITY_TEXT[item.rarity].capitalize())
 		#rarity_label.label_settings.set("font_color", Basics.RARITY_COLORS[item.rarity])
-		item_name.set_text(item.id.capitalize())
+		item_name.set_text(item.entity.id.capitalize())
 		desc_line.set_text(item.description)
 		
 		clear_stats()
-		var _world = get_tree().get_first_node_in_group("world")
-		for s in range(item.stats.size()):
-			add_stat(item.stats.values()[s], _world.resources.stats_data[item.stats.keys()[s]])
-			
+		var _stat_base = Basics.get_all_stats()
+		var _i_entity : Entity = item.entity
+		add_stat(_stat_base["physical_damage"], _i_entity.physical_damage)
+		add_stat(_stat_base["magic_damage"], _i_entity.magic_damage)
+		add_stat(_stat_base["physical_armor"], _i_entity.physical_armor)
+		add_stat(_stat_base["magic_armor"], _i_entity.magic_armor)
+		add_stat(_stat_base["movement_speed"], _i_entity.movement_speed)
+		add_stat(_stat_base["cooldown_reduction"], _i_entity.cooldown_reduction)
+		add_stat(_stat_base["max_health"], _i_entity.max_health)
+		add_stat(_stat_base["health_regeneration"], _i_entity.health_regeneration)
+		add_stat(_stat_base["life_steal"], _i_entity.life_steal)
+		add_stat(_stat_base["souls"], _i_entity.souls)
+		
 		clear_abilities()
 		if item.type != Basics.ItemType.CONSUMABLE:
 			for a in item.abilities:
@@ -57,14 +66,16 @@ func clear_passives() -> void:
 		i.queue_free()
 
 var stat_font = preload("res://Assets/Fonts/Gamaliel.otf")
-func add_stat(stat_value : int, stat : Stat) -> void:
+func add_stat(stat : Stat, stat_value) -> void:
+	if stat_value == 0: return
+	if stat.id == "max_health": print(stat_value)
 	var _new_stat = Label.new()
 	var _new_lab_settings = LabelSettings.new()
 	_new_lab_settings.font_color = Basics.STATS_COLOR[stat.id]
 	_new_lab_settings.font_size = 14
 	_new_lab_settings.font = stat_font
 	_new_stat.label_settings = _new_lab_settings
-	_new_stat.set_text("+" + str(stat_value) + " " + stat.name)
+	_new_stat.set_text("+" + str(stat_value) + " " + stat.id.capitalize())
 	stats_container.show()
 	spec_spacer.show()
 	spec_container.show()

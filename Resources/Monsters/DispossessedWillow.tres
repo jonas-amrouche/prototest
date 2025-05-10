@@ -1,13 +1,36 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://cwbtu5mwo28lu"]
+[gd_resource type="Resource" script_class="Monster" load_steps=15 format=3 uid="uid://cwbtu5mwo28lu"]
 
 [ext_resource type="Resource" uid="uid://coy7gj003lu7h" path="res://Resources/Abilities/haunting_shot.tres" id="1_5et1k"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_xbuxr"]
 [ext_resource type="PackedScene" uid="uid://cucsd3e0a0nt2" path="res://Scenes/Models/dispossessed_willow_model.tscn" id="3_66i8m"]
 [ext_resource type="Script" uid="uid://cn77duvoc7bc" path="res://Scripts/Classes/item_drop_class.gd" id="3_jhu2p"]
+[ext_resource type="Texture2D" uid="uid://dvtpxoucckqvs" path="res://Assets/2D/Monster/dispossed_willow.png" id="3_tir4y"]
 [ext_resource type="Resource" uid="uid://b7hnfo3bf2pp5" path="res://Resources/Items/willow_bark.tres" id="4_4ehx7"]
 [ext_resource type="Resource" uid="uid://obfrs4tecd2u" path="res://Resources/Items/essence_of_pain.tres" id="4_eyec3"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="4_j5ux2"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="4_s78hj"]
 [ext_resource type="Resource" uid="uid://ddgg0cjjc86qx" path="res://Resources/Items/essence_of_used_life.tres" id="6_tir4y"]
+
+[sub_resource type="Resource" id="Resource_acul7"]
+script = ExtResource("4_j5ux2")
+id = "dispossessed_willow"
+entity_type = 1
+icon = ExtResource("3_tir4y")
+max_health = 250
+health_regeneration = 2
+physical_damage = 0
+physical_armor = 5
+magic_damage = 17
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [sub_resource type="Resource" id="Resource_j5ux2"]
 script = ExtResource("3_jhu2p")
@@ -32,6 +55,7 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]
 script = ExtResource("4_s78hj")
+entity = SubResource("Resource_acul7")
 id = "dispossessed_willow"
 name = "Dispossessed Willow"
 monster_model = ExtResource("3_66i8m")

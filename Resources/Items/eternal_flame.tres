@@ -1,17 +1,41 @@
-[gd_resource type="Resource" script_class="Item" load_steps=5 format=3 uid="uid://b1fbjsrmtw2do"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://b1fbjsrmtw2do"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_2ke2k"]
 [ext_resource type="Texture2D" uid="uid://dyg5qyf2h7h1" path="res://Assets/2D/Items/eternal_flame.png" id="2_c0io2"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="4_7corx"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="4_isqyt"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="5_qdewl"]
 
+[sub_resource type="Resource" id="Resource_oajqy"]
+script = ExtResource("4_7corx")
+id = "eternal_flame"
+entity_type = 3
+icon = ExtResource("2_c0io2")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
+
 [resource]
 script = ExtResource("5_qdewl")
+entity = SubResource("Resource_oajqy")
 id = "eternal_flame"
 description = "Flame for permanent item enchantments."
 icon = ExtResource("2_c0io2")
 type = 1
 rarity = 0
+carft = Array[ExtResource("5_qdewl")]([])
 abilities = Array[ExtResource("1_2ke2k")]([])
 passives = Array[ExtResource("4_isqyt")]([])
 stats = {}

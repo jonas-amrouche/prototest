@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=2 format=3 uid="uid://88jf3ja1vbmu"]
+
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="1_s5tde"]
+
+[resource]
+script = ExtResource("1_s5tde")
+id = "player"
+entity_type = 0
+max_health = 450
+health_regeneration = 2
+physical_damage = 1
+physical_armor = 1
+magic_damage = 1
+magic_armor = 1
+movement_speed = 100
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"

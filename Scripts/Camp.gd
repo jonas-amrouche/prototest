@@ -1,13 +1,14 @@
 extends Node3D
 
+@onready var world := get_parent().get_parent()
+
 @export var camp : Camp
 
 var alive := true
 var camp_level : int = 1
 
-var pre_monster = preload("res://Scenes/Monster.tscn")
+@onready var monster_scene = world.resources.monster_scene
 
-@onready var world := get_node("..").get_node("..")
 @onready var respawn_timer := $Respawn
 @onready var camp_flames_model := $CampFireModel/CampFlames
 @onready var camp_model := $CampFireModel
@@ -22,7 +23,7 @@ func spawn_monsters(monsters : Array[Monster]) -> void:
 	alive = true
 	camp_flames_model.set_visible(true)
 	for m in range(monsters.size()):
-		var _new_monster = pre_monster.instantiate()
+		var _new_monster = monster_scene.instantiate()
 		_new_monster.camp = self
 		_new_monster.level = camp_level
 		_new_monster.monster = monsters[m]

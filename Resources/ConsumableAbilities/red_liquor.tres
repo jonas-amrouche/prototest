@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://dsyo5ab2lxt7x"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_wbvop"]
+
+[resource]
+script = ExtResource("1_wbvop")
+id = "red_liquor"
+description = ""
+spell_range = 0.0
+targeted = false
+cooldown = 1.0
+life_time = 0.0
+action_time = 0.0
+channeling = false
+damage_type = 0
+damage_cap = 0
+toggle = false
+charging = false
+charges = 0

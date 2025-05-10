@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://cwsbhkkj0qp74"]
+[gd_resource type="Resource" script_class="Item" load_steps=11 format=3 uid="uid://cwsbhkkj0qp74"]
 
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="1_lmrn7"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_rkabo"]
@@ -7,16 +7,40 @@
 [ext_resource type="PackedScene" uid="uid://buf4hvdfgg3ns" path="res://Scenes/Items/hunter_machete_model.tscn" id="2_fl4s8"]
 [ext_resource type="Resource" uid="uid://didxnfenvjk1o" path="res://Resources/Abilities/direct_slash.tres" id="3_gs4c0"]
 [ext_resource type="Resource" uid="uid://b835v48to8m6k" path="res://Resources/Passives/JungleWay.tres" id="4_vibmg"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="6_su8qd"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="7_8po66"]
+
+[sub_resource type="Resource" id="Resource_ntuix"]
+script = ExtResource("6_su8qd")
+id = "hunter's_machete"
+entity_type = 3
+icon = ExtResource("1_skpvv")
+max_health = 0
+health_regeneration = 0
+physical_damage = 30
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
 script = ExtResource("1_lmrn7")
+entity = SubResource("Resource_ntuix")
 id = "hunter's_machete"
 description = "It starts like that in the jungle."
 icon = ExtResource("1_skpvv")
 type = 0
 rarity = 0
 mesh_model = ExtResource("2_fl4s8")
+carft = Array[ExtResource("1_lmrn7")]([])
 abilities = Array[ExtResource("1_rkabo")]([ExtResource("2_amms3"), ExtResource("3_gs4c0")])
 passives = Array[ExtResource("7_8po66")]([ExtResource("4_vibmg")])
 stats = {

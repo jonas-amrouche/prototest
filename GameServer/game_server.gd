@@ -17,8 +17,8 @@ const MAX_CONNECTIONS = 20
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	Replication.enter_role_select.connect(_enter_role_select)
-	Replication.player_locked_role.connect(_player_lock_role)
+	Replication.enter_class_select.connect(_enter_class_select)
+	Replication.player_locked_class.connect(_player_lock_class)
 	Replication.enter_game_loading.connect(_enter_game_loading)
 	Replication.player_load_finished.connect(_player_load_finished)
 	Replication.load_finished.connect(_load_finished)
@@ -65,11 +65,11 @@ func _on_player_disconnected(id : int) -> void:
 	Replication.update_player_register.rpc(Replication.players)
 	#player_disconnected.emit(id)
 
-func _enter_role_select() -> void:
-	server_logger.info("Entering roles select.")
+func _enter_class_select() -> void:
+	server_logger.info("Entering class select.")
 
-func _player_lock_role(id : int, role : Basics.Role) -> void:
-	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.ROLE_TEXT[role]), "."))
+func _player_lock_class(id : int, class_locked : Basics.Class) -> void:
+	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.CLASS_TEXT[class_locked]), "."))
 
 func _enter_game_loading() -> void:
 	

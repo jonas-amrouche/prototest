@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=2 format=3 uid="uid://b8aqpo70chsbr"]
+
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="1_tur5q"]
+
+[resource]
+script = ExtResource("1_tur5q")
+id = "white_wall"
+entity_type = 5
+max_health = 10000
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"

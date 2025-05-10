@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=9 format=3 uid="uid://bvy4fm7lpya0a"]
+[gd_resource type="Resource" script_class="Item" load_steps=11 format=3 uid="uid://bvy4fm7lpya0a"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_pesm6"]
 [ext_resource type="Resource" uid="uid://bkwym8ejgyxvn" path="res://Resources/Abilities/burning_line.tres" id="2_kcw3x"]
@@ -7,10 +7,33 @@
 [ext_resource type="Resource" uid="uid://b1fbjsrmtw2do" path="res://Resources/Items/eternal_flame.tres" id="5_sat0y"]
 [ext_resource type="Texture2D" uid="uid://c0t0bkcypcyf8" path="res://Assets/2D/Items/IncandescentBookIcon_v2.png" id="6_cmwjg"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="7_doq2i"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="8_kcw3x"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="8_tl32b"]
+
+[sub_resource type="Resource" id="Resource_xbedf"]
+script = ExtResource("8_kcw3x")
+id = "incandescent_pages"
+entity_type = 3
+icon = ExtResource("6_cmwjg")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 45
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
 script = ExtResource("8_tl32b")
+entity = SubResource("Resource_xbedf")
 id = "incandescent_pages"
 description = "Surviving pages of an ancient tome, perpetually ablaze since an [i]unknown[/i] wizard enchanted it."
 icon = ExtResource("6_cmwjg")
@@ -18,6 +41,7 @@ type = 0
 rarity = 1
 craft_1 = ExtResource("4_qcxn8")
 craft_2 = ExtResource("5_sat0y")
+carft = Array[ExtResource("8_tl32b")]([])
 abilities = Array[ExtResource("1_pesm6")]([ExtResource("2_kcw3x"), ExtResource("3_xbedf")])
 passives = Array[ExtResource("7_doq2i")]([])
 stats = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://iirdisb1m37l"]
+[gd_scene load_steps=10 format=3 uid="uid://iirdisb1m37l"]
 
 [ext_resource type="Script" uid="uid://db3j350f2osf1" path="res://Scripts/base.gd" id="1_0c6yj"]
 [ext_resource type="PackedScene" uid="uid://b4tmepnlrkm6v" path="res://Scenes/Models/base_model.tscn" id="2_dpc7g"]
@@ -9,7 +9,13 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_r21t3"]
 height = 3.79132
-radius = 18.2261
+radius = 21.771
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ujl76"]
+size = Vector3(2.48218, 3.16211, 36.676)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aad32"]
+size = Vector3(36.676, 3.162, 2.482)
 
 [node name="Base" type="Node3D"]
 script = ExtResource("1_0c6yj")
@@ -56,18 +62,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -2)
 
 [node name="Statue" parent="." instance=ExtResource("3_mpdlw")]
 transform = Transform3D(-0.53033, 0, -0.53033, 0, 0.75, 0, 0.53033, 0, -0.53033, -2.5, -0.487, -2.5)
+visible = false
+
+[node name="Statue2" parent="." instance=ExtResource("3_mpdlw")]
+transform = Transform3D(-0.282843, 0, -0.282843, 0, 0.4, 0, 0.282843, 0, -0.282843, -2.09136, -0.347443, -6.79249)
+
+[node name="Statue3" parent="." instance=ExtResource("3_mpdlw")]
+transform = Transform3D(-0.282843, 0, -0.282843, 0, 0.4, 0, 0.282843, 0, -0.282843, -3.69745, -0.347443, -5.30995)
+
+[node name="Statue4" parent="." instance=ExtResource("3_mpdlw")]
+transform = Transform3D(-0.282843, 0, -0.282843, 0, 0.4, 0, 0.282843, 0, -0.282843, -5.32412, -0.347443, -3.66268)
+
+[node name="Statue5" parent="." instance=ExtResource("3_mpdlw")]
+transform = Transform3D(-0.282843, 0, -0.282843, 0, 0.4, 0, 0.282843, 0, -0.282843, -6.93021, -0.347443, -2.0566)
 
 [node name="Altar" parent="." instance=ExtResource("4_3osej")]
-transform = Transform3D(0.353553, 0, -0.353553, 0, 0.5, 0, 0.353553, 0, 0.353553, -0.599883, 0, -2.47769)
-
-[node name="Altar2" parent="." instance=ExtResource("4_3osej")]
-transform = Transform3D(0.353553, 0, 0.353553, 0, 0.5, 0, -0.353553, 0, 0.353553, -2.50303, 0, -0.596136)
-
-[node name="Altar3" parent="." instance=ExtResource("4_3osej")]
-transform = Transform3D(-0.353553, 0, -0.353553, 0, 0.5, 0, 0.353553, 0, -0.353553, -2.50303, 0, -4.4038)
-
-[node name="Altar4" parent="." instance=ExtResource("4_3osej")]
-transform = Transform3D(-0.353553, 0, 0.353553, 0, 0.5, 0, -0.353553, 0, -0.353553, -4.41431, 0, -2.47769)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -2.18306, -0.321294, -1.5625)
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -294,6 +304,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08241, -0.259, -23.6587)
 
 [node name="WallDoorChunk3" parent="." instance=ExtResource("6_ujl76")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -23.8496, -0.259, -3.90686)
+
+[node name="OuterWalls" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="OuterWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76069, 0.160398, -13.806)
+shape = SubResource("BoxShape3D_ujl76")
+
+[node name="Collision2" type="CollisionShape3D" parent="OuterWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6308, 0.160398, 2.52401)
+shape = SubResource("BoxShape3D_aad32")
 
 [connection signal="body_shape_entered" from="CraftArea" to="." method="_on_craft_area_body_shape_entered"]
 [connection signal="body_shape_exited" from="CraftArea" to="." method="_on_craft_area_body_shape_exited"]

@@ -260,6 +260,7 @@ consumable5={
 
 [navigation]
 
+3d/default_cell_size=0.1
 3d/default_cell_height=1.5
 
 [rendering]

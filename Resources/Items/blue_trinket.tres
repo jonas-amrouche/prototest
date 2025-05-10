@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://ctnt2nn3ieg8p"]
+[gd_resource type="Resource" script_class="Item" load_steps=10 format=3 uid="uid://ctnt2nn3ieg8p"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_kist3"]
 [ext_resource type="Resource" uid="uid://w7lk4uyy0js7" path="res://Resources/ConsumableAbilities/blue_trinket.tres" id="2_7lj4e"]
@@ -7,9 +7,32 @@
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="4_74oqi"]
 [ext_resource type="Texture2D" uid="uid://dvm3i5uoejqae" path="res://Assets/2D/Items/blue_trinket.png" id="4_c2i3l"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="5_e53ia"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="7_xptik"]
+
+[sub_resource type="Resource" id="Resource_6gksj"]
+script = ExtResource("7_xptik")
+id = "blue_trinket"
+entity_type = 3
+icon = ExtResource("4_c2i3l")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
 script = ExtResource("5_e53ia")
+entity = SubResource("Resource_6gksj")
 id = "blue_trinket"
 description = "Place it on the ground to keep vision for 120 seconds."
 icon = ExtResource("4_c2i3l")
@@ -17,6 +40,7 @@ type = 2
 rarity = 0
 craft_1 = ExtResource("2_r0xji")
 craft_2 = ExtResource("3_uiiew")
+carft = Array[ExtResource("5_e53ia")]([ExtResource("2_r0xji"), ExtResource("3_uiiew")])
 abilities = Array[ExtResource("1_kist3")]([ExtResource("2_7lj4e")])
 passives = Array[ExtResource("4_74oqi")]([])
 stats = {}

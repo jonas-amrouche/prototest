@@ -8,4 +8,4 @@ var effect_victim : Object
 @onready var manager = get_node("..")
 
 func _on_tick_timeout() -> void:
-	effect_victim.take_damage(effect.custom_data[0], 1, effect_dealer)
+	effect_victim.heal(effect.custom_data[0])

@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://s6asatp8xuae"]
+
+[ext_resource type="Script" uid="uid://dcc8n15wlby2k" path="res://Scripts/player_puppet.gd" id="1_2g34u"]
+[ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="5_uf4qr"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/abilities.tscn" id="6_62g3o"]
+[ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/player_health_bar.tscn" id="7_b4kpk"]
+[ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Systems/effects.tscn" id="9_wtwv6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_j70xh"]
+radius = 0.387958
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f1ek2"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerModel:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="PlayerPuppet" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 9
+motion_mode = 1
+platform_wall_layers = 8
+script = ExtResource("1_2g34u")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_j70xh")
+
+[node name="PlayerModel" parent="." instance=ExtResource("5_uf4qr")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
+
+[node name="Abilities" parent="." instance=ExtResource("6_62g3o")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+snap_2d_vertices_to_pixel = true
+gui_disable_input = true
+size = Vector2i(200, 50)
+
+[node name="PlayerHealthBar" parent="SubViewport" instance=ExtResource("7_b4kpk")]
+
+[node name="InfoBar" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.943577, -0.455705)
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture_filter = 1
+render_priority = 1
+texture = SubResource("ViewportTexture_najce")
+
+[node name="Effects" parent="." instance=ExtResource("9_wtwv6")]
+
+[node name="Nav" type="NavigationAgent3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 1.0
+replication_config = SubResource("SceneReplicationConfig_f1ek2")
+
+[connection signal="path_changed" from="Nav" to="." method="_on_nav_path_changed"]

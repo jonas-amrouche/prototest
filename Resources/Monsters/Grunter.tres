@@ -1,13 +1,34 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=12 format=3 uid="uid://bjuh036cbr3yl"]
+[gd_resource type="Resource" script_class="Monster" load_steps=14 format=3 uid="uid://bjuh036cbr3yl"]
 
 [ext_resource type="Resource" uid="uid://bhanvrm02h1ax" path="res://Resources/Abilities/angry_headbutt.tres" id="1_0c6gm"]
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dg4mi"]
 [ext_resource type="Script" uid="uid://cn77duvoc7bc" path="res://Scripts/Classes/item_drop_class.gd" id="3_3uqtl"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="3_6m15x"]
 [ext_resource type="PackedScene" uid="uid://cglob3n00b1m" path="res://Scenes/Models/grunter_model.tscn" id="4_hx8ec"]
 [ext_resource type="Resource" uid="uid://cgjmiuumrk5w8" path="res://Resources/Items/unstable_core.tres" id="4_ws1yw"]
 [ext_resource type="Script" uid="uid://dbksy2c06kro0" path="res://Scripts/Classes/monster_class.gd" id="5_0m2nj"]
 [ext_resource type="Resource" uid="uid://b3u0g1edoebi8" path="res://Resources/Items/explosive_stone.tres" id="5_ws1yw"]
 [ext_resource type="Resource" uid="uid://b1fbjsrmtw2do" path="res://Resources/Items/eternal_flame.tres" id="6_srh1n"]
+
+[sub_resource type="Resource" id="Resource_mmuey"]
+script = ExtResource("3_6m15x")
+id = "grunter"
+entity_type = 1
+max_health = 300
+health_regeneration = 2
+physical_damage = 55
+physical_armor = 8
+magic_damage = 0
+magic_armor = 5
+movement_speed = 100
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [sub_resource type="Resource" id="Resource_srh1n"]
 script = ExtResource("3_3uqtl")
@@ -32,6 +53,7 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [resource]
 script = ExtResource("5_0m2nj")
+entity = SubResource("Resource_mmuey")
 id = "grunter"
 name = "Grunter"
 monster_model = ExtResource("4_hx8ec")

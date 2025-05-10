@@ -1,6 +1,7 @@
 extends Resource
 class_name Monster
 
+@export var entity : Entity
 @export var id : String
 @export var name : String
 @export var monster_model : PackedScene

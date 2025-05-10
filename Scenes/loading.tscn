@@ -34,14 +34,32 @@ grow_vertical = 0
 text = "\"A true theorist doesn't need the help of the omniscient wizard to win.\""
 label_settings = SubResource("LabelSettings_k66n3")
 
+[node name="MapGeneration" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -374.0
+offset_top = -1.0
+offset_right = 158.0
+offset_bottom = 531.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785397
+color = Color(0.111197, 0.111197, 0.111197, 1)
+
 [node name="EnnemyCards" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 54.0
-offset_bottom = 453.0
+offset_left = 122.0
+offset_top = 39.0
+offset_right = -121.0
+offset_bottom = 383.0
 grow_horizontal = 2
-alignment = 1
+theme_override_constants/separation = 235
 
 [node name="AllyCards" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -49,8 +67,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -543.0
+offset_left = 122.0
+offset_top = -405.0
+offset_right = -122.0
 offset_bottom = -61.0
 grow_horizontal = 2
 grow_vertical = 0
-alignment = 1
+theme_override_constants/separation = 235

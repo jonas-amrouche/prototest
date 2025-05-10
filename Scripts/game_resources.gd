@@ -28,10 +28,15 @@ var item_preview = preload("res://Scenes/UI/item_preview.tscn")
 var ability_preview = preload("res://Scenes/UI/ability_preview.tscn")
 var effect_preview = preload("res://Scenes/UI/effect_preview.tscn")
 
+var outer_wall_entity = preload("res://Resources/Entities/outer_wall.tres")
+var monster_entity = preload("res://Resources/Entities/monster.tres")
+var player_entity = preload("res://Resources/Entities/player.tres")
+
 var decorations_models = [preload("res://Scenes/Models/tribal_sanctuary_round_model.tscn"), \
 preload("res://Scenes/Models/tribal_stone_square_model.tscn"), \
 preload("res://Scenes/Decorations/altar.tscn")]
 
+var monster_scene = preload("res://Scenes/monster.tscn")
 var player_scene = preload("res://Scenes/player.tscn")
 var base_structure = preload("res://Scenes/Structures/base.tscn")
 var arena_structure = preload("res://Scenes/Structures/water_arena.tscn")

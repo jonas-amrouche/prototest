@@ -128,7 +128,6 @@ func update_camera_position(pos : Vector3, camera_base_position : Vector3) -> vo
 
 var cursor_pos = Vector2()
 func _on_gui_input(event):
-	print("yyyyyyy")
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.pressed:

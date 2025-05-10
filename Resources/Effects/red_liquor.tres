@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=3 format=3 uid="uid://6gc0dvgt13ti"]
+
+[ext_resource type="Texture2D" uid="uid://b4716q31v845q" path="res://Assets/2D/Items/red_liquor.png" id="1_hqbt7"]
+[ext_resource type="Script" uid="uid://b12jipn3ybbcr" path="res://Scripts/Classes/effect_class.gd" id="2_8lajo"]
+
+[resource]
+script = ExtResource("2_8lajo")
+id = "red_liquor"
+description = "Heal [color=darkgreen] 5 hp[/color], each seconds."
+icon = ExtResource("1_hqbt7")
+duration = 30.0
+debuff = false
+custom_data = [5]

@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-var entity_type = Basics.EntityType.PLAYER
-
-signal state_changed
+@onready var world := get_parent()
+@onready var base_entity : Entity = world.resources.player_entity.duplicate()
+@onready var entity : Entity = base_entity.duplicate()
 
 # Controls
 const ACCELERATION := 0.3
@@ -12,41 +12,41 @@ const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.3
 var target_direction := Vector3()
 
-const EMPTY_MOVEMENT_SPEED := 120.0
+const EMPTY_MOVEMENT_SPEED := 120
 const LOOT_RANGE := 1.0
-const MAX_HEALTH_PER_LEVEL := 50.0
-const PHYSICAL_DAMAGE_PER_LEVEL := 10.0
-const MAGIC_DAMAGE_PER_LEVEL := 10.0
+const MAX_HEALTH_PER_LEVEL := 50
+const PHYSICAL_DAMAGE_PER_LEVEL := 10
+const MAGIC_DAMAGE_PER_LEVEL := 10
 const MAX_XP_PER_LEVEL := 500
 const SLOT_PER_LEVEL := 1
 const RESPAWN_TIME_PER_LEVEL : float = 5.0
 const KILL_REWARD_EXP := 750
 
 # Statistics
-var base_stats := {"physical_damage" : 1, \
-"magic_damage" : 1, \
-"physical_armor" : 1, \
-"magic_armor" : 1, \
-"movement_speed" : 100.0, \
-"cooldown_reduction" : 0.0, \
-"health_regeneration" : 2.0, \
-"max_health" : 450, \
-"life_steal" : 0.0, \
-"souls" : 0}
+#var base_stats := {"physical_damage" : 1, \
+#"magic_damage" : 1, \
+#"physical_armor" : 1, \
+#"magic_armor" : 1, \
+#"movement_speed" : 100.0, \
+#"cooldown_reduction" : 0.0, \
+#"health_regeneration" : 2.0, \
+#"max_health" : 450, \
+#"life_steal" : 0.0, \
+#"souls" : 0}
 
-var stats := base_stats.duplicate()
+#var stats := base_stats.duplicate()
 
 # Miscelious
-var area_health_regeneration := 0.0
+var area_health_regeneration := 0
 
-var health : int = base_stats.max_health
-var souls := 0
+#var health : int = base_stats.max_health
+#var souls := 0
 var max_experience := MAX_XP_PER_LEVEL
 var respawn_time : float = 5.0
 var experience := 0
 var level := 1
 
-const SPAWN_REGEN = 100.0
+const SPAWN_REGEN := 98
 var in_base := false
 
 # INVENTORY
@@ -78,7 +78,6 @@ var cursor_mode : Basics.CursorMode
 var auto_attack_target : Object
 var loot_target : Object
 
-@onready var world := get_parent()
 @onready var camera := $Camera
 @onready var hover_outline_vpc := $HoverOutline
 @onready var hover_outline_camera := $HoverOutline/HoverOutlineVP/Camera
@@ -102,6 +101,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
+	entity.set_full_health()
 	add_to_group("player")
 	camera.current = is_multiplayer_authority()
 	hover_outline_vpc.set_visible(is_multiplayer_authority())
@@ -164,7 +164,7 @@ func looting() -> void:
 		var _loot_pos = Vector2(loot_target.global_position.x, loot_target.global_position.z)
 		var _player_pos = Vector2(global_position.x, global_position.z)
 		if _player_pos.distance_to(_loot_pos) < LOOT_RANGE:
-			if loot_target.entity_type == Basics.EntityType.ITEM:
+			if loot_target.entity.entity_type == Basics.EntityType.ITEM:
 				obtain_item(loot_target.item, loot_target.quantity)
 				loot_target.loot_item()
 				loot_target = null
@@ -219,7 +219,7 @@ func check_for_target() -> void:
 	else:
 		hovered_target = _result.get("collider")
 		
-		match hovered_target.entity_type:
+		match hovered_target.entity.entity_type:
 			Basics.EntityType.ITEM:
 				cursor_mode = Basics.CursorMode.LOOT
 			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER:
@@ -311,22 +311,22 @@ func _unhandled_input(event) -> void:
 			if _result.is_empty():
 				if selected_target and selected_target.has_method("lose_target"):
 					selected_target.lose_target()
-					if selected_target.state_changed.is_connected(Callable(hud, "update_target")):
-						selected_target.state_changed.disconnect(Callable(hud, "update_target"))
+					if selected_target.entity.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.entity.state_changed.disconnect(Callable(hud, "update_target"))
 				selected_target = null
 				hud.update_target()
 			else:
 				if _result.get("collider") == self: return
 				if selected_target and selected_target.has_method("lose_target"):
 					selected_target.lose_target()
-					if selected_target.state_changed.is_connected(Callable(hud, "update_target")):
-						selected_target.state_changed.disconnect(Callable(hud, "update_target"))
+					if selected_target.entity.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.entity.state_changed.disconnect(Callable(hud, "update_target"))
 					hud.update_target()
 				selected_target = _result.get("collider")
 				if selected_target.has_method("select_target"):
 					selected_target.select_target()
-					if !selected_target.state_changed.is_connected(Callable(hud, "update_target")):
-						selected_target.state_changed.connect(Callable(hud, "update_target"))
+					if !selected_target.entity.state_changed.is_connected(Callable(hud, "update_target")):
+						selected_target.entity.state_changed.connect(Callable(hud, "update_target"))
 					hud.update_target()
 		elif event.button_index == 1 and !event.pressed and hud.dragged_item_ref:
 			if hud.dragged_item_ref.item_slot.item:
@@ -334,7 +334,6 @@ func _unhandled_input(event) -> void:
 
 #const DROP_VECTOR_LENGTH = 1.4
 func drop_item_ground(item_slot : ItemSlot) -> void:
-	print('greg')
 	var _new_item_ground = world.resources.item_ground.instantiate()
 	#var _vector_drop = Vector2().direction_to(get_viewport().get_mouse_position() * get_viewport().get_screen_transform().get_scale() - get_window().size/2.0)
 	#_new_item_ground.position = Vector3(_vector_drop.x, 0.0, _vector_drop.y) * DROP_VECTOR_LENGTH + global_position
@@ -360,22 +359,21 @@ func respawn_base() -> void:
 	camera.global_position = camera_base_marker.global_position
 	camera.top_level = false
 
-func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> void:
+func take_damage(damage : int, damage_type : Basics.DamageType, damage_dealer : Object) -> void:
 	if is_dead():
 		return
 	var _final_damage : int
 	match damage_type:
-		0:
-			_final_damage = max(damage - stats.physical_armor, 0.0)
-		1:
-			_final_damage = max(damage - stats.magic_armor, 0.0)
-		2:
-			_final_damage = max(damage - stats.physical_armor - stats.magic_armor, 0.0)
+		Basics.DamageType.PHYSIC:
+			_final_damage = max(damage - entity.physical_armor, 0.0)
+		Basics.DamageType.MAGIC:
+			_final_damage = max(damage - entity.magic_armor, 0.0)
+		Basics.DamageType.HYBRID:
+			_final_damage = max(damage - entity.physical_armor - entity.magic_armor, 0.0)
 	
 	model_anims.play("take_damage")
 	ability_machine.cancel_abilities(Basics.AbilityCancel.TAKING_DAMAGE)
-	health = max(health - _final_damage, 0.0)
-	state_changed.emit()
+	entity.health = max(entity.health - _final_damage, 0.0)
 	hud.update_info_bars()
 	if is_dead():
 		damage_dealer.kill_player()
@@ -383,12 +381,12 @@ func take_damage(damage : int, damage_type : int, damage_dealer : Object) -> voi
 
 func kill_player() -> void:
 	gain_experience(KILL_REWARD_EXP)
-	souls += 1
+	entity.souls += 1
 	update_stats()
 
 func heal(healing : int) -> void:
 	if !is_dead():
-		health = min(health + healing, stats.max_health)
+		entity.set_health(min(entity.health + healing, entity.max_health))
 		hud.update_info_bars()
 
 func lose_experience(experience_loss : int) -> void:
@@ -430,7 +428,7 @@ func is_leveling_down() -> bool:
 	return false
 
 func is_dead() -> bool:
-	if health == 0:
+	if entity.health <= 0:
 		return true
 	return false
 
@@ -441,7 +439,7 @@ func die() -> void:
 	player_collision.disabled = true
 	world.set_color_correction(world.resources.dead_color_correction)
 	get_tree().create_timer(respawn_time).timeout.connect(Callable(func():
-		health = stats.max_health
+		entity.set_health(entity.max_health)
 		hud.update_info_bars()
 		world.set_color_correction(null)
 		player_collision.disabled = false
@@ -459,11 +457,11 @@ func movement() -> void:
 	
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
-			model_anims.play("walk", 0.5, 0.3 * stats.movement_speed/40.0)
+			model_anims.play("walk", 0.5, 0.3 * entity.movement_speed/40.0)
 		if ability_machine.has_active_abilities():
 			ability_machine.cancel_abilities(Basics.AbilityCancel.MOVING)
-		velocity.x = lerp(velocity.x, direction.x * stats.movement_speed/40.0, ACCELERATION)
-		velocity.z = lerp(velocity.z, direction.z * stats.movement_speed/40.0, ACCELERATION)
+		velocity.x = lerp(velocity.x, direction.x * entity.movement_speed/40.0, ACCELERATION)
+		velocity.z = lerp(velocity.z, direction.z * entity.movement_speed/40.0, ACCELERATION)
 		#if auto_attack_target:
 			#face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
 		#else:
@@ -679,34 +677,43 @@ func entering_base() -> void:
 	hud.update_craft()
 
 func exit_base() -> void:
-	area_health_regeneration = 0.0
+	area_health_regeneration = 0
 	update_stats()
 	in_base = false
 	clear_craft()
 
 func update_stats() -> void:
 	# Set all stats to base value to recalculate
-	stats = base_stats.duplicate()
+	# Don't need to call set function, because state changed is emit at the end anyway
+	entity.max_health = base_entity.max_health
+	entity.movement_speed = base_entity.movement_speed
+	entity.physical_damage = base_entity.physical_damage
+	entity.magic_damage = base_entity.magic_damage
+	entity.health_regeneration = base_entity.health_regeneration
 	
 	# Run fast when no items
 	if inventory.size() == 0:
-		stats.movement_speed = EMPTY_MOVEMENT_SPEED
+		entity.movement_speed = EMPTY_MOVEMENT_SPEED
 	
 	# Add stats of levels
-	stats.max_health += (level-1) * MAX_HEALTH_PER_LEVEL
-	stats.physical_damage += (level-1) * PHYSICAL_DAMAGE_PER_LEVEL
-	stats.magic_damage += (level-1) * MAGIC_DAMAGE_PER_LEVEL
-	
-	stats.souls = souls
+	entity.max_health += (level-1) * MAX_HEALTH_PER_LEVEL
+	entity.physical_damage += (level-1) * PHYSICAL_DAMAGE_PER_LEVEL
+	entity.magic_damage += (level-1) * MAGIC_DAMAGE_PER_LEVEL
 	
 	# Add regens areas
-	stats.health_regeneration += area_health_regeneration
+	entity.health_regeneration += area_health_regeneration
 	
 	# Add stats of items
 	for i in inventory:
 		if !i.item: continue
-		for s in range(i.item.stats.size()):
-			stats[i.item.stats.keys()[s]] += i.item.stats.values()[s]
+		entity.max_health += i.item.entity.max_health
+		entity.physical_damage += i.item.entity.physical_damage
+		entity.magic_damage += i.item.entity.magic_damage
+		entity.physical_armor += i.item.entity.physical_armor
+		entity.magic_armor += i.item.entity.magic_armor
+		entity.movement_speed += i.item.entity.movement_speed
+	
+	entity.state_changed.emit()
 	hud.update_stats_hud()
 
 func is_item_craftable(item : Item, comps : Array[Item]) -> bool:
@@ -722,4 +729,4 @@ func _on_update_movement_line_timeout():
 	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
 
 func _on_stat_regen_timeout():
-	heal(int(stats.health_regeneration))
+	heal(int(entity.health_regeneration))

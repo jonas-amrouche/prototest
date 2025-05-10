@@ -65,6 +65,7 @@ buffer = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_p5o78"]
 geometry_parsed_geometry_type = 1
+cell_size = 0.1
 cell_height = 1.5
 agent_max_climb = 0.0
 

@@ -47,10 +47,10 @@ func _process(_delta):
 	update_previews()
 
 func update_info_bars() -> void:
-	player.health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
+	player.health_bar.value = float(player.entity.health) / float(player.entity.max_health) * 100.0
 	#player.level_label.text = str(player.level)
-	health_bar.value = float(player.health) / float(player.stats.max_health) * 100.0
-	health_label.text = str(player.health) + "/" + str(int(player.stats.max_health))
+	health_bar.value = float(player.entity.health) / float(player.entity.max_health) * 100.0
+	health_label.text = str(player.entity.health) + "/" + str(int(player.entity.max_health))
 	level_label_hud.text = str(player.level)
 	
 	xp_bar.value = float(player.experience) / float(player.max_experience) * 100.0
@@ -148,14 +148,12 @@ func open_and_display_loot(loot : Array[ItemSlot]) -> void:
 func update_target() -> void:
 	target_tab.set_visible(player.selected_target != null)
 	if player.selected_target:
-		match player.selected_target.entity_type:
-			Basics.EntityType.MONSTER:
-				target_name.set_text(player.selected_target.monster.name)
-			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER:
-				target_health.set_value(float(player.selected_target.health) / float(player.selected_target.stats.max_health) * 100.0)
-			Basics.EntityType.ITEM:
-				target_name.set_text(player.selected_target.item.id.capitalize())
-				target_icon.set_texture(player.selected_target.item.icon)
+		target_name.set_text(player.selected_target.entity.id.capitalize())
+		if player.selected_target.entity.icon:
+			target_icon.set_texture(player.selected_target.item.icon)
+		match player.selected_target.entity.entity_type:
+			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER, Basics.EntityType.GUARDS:
+				target_health.set_value(float(player.selected_target.entity.health) / float(player.selected_target.entity.max_health) * 100.0)
 
 func update_abilities() -> void:
 	# Clear ability bars
@@ -348,11 +346,25 @@ func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
 	
-	for i in range(player.stats.size()):
-		var _new_stat_hud = world.resources.stat_hud.instantiate()
-		_new_stat_hud.stat_value = player.stats.values()[i]
-		_new_stat_hud.stat = world.resources.stats_data[player.stats.keys()[i]]
-		stats_list.add_child(_new_stat_hud)
+	var stat_base = Basics.get_all_stats()
+	var _p_entity : Entity = player.entity
+	
+	spawn_stat(stat_base["physical_damage"], _p_entity.physical_damage)
+	spawn_stat(stat_base["magic_damage"], _p_entity.magic_damage)
+	spawn_stat(stat_base["physical_armor"], _p_entity.physical_armor)
+	spawn_stat(stat_base["magic_armor"], _p_entity.magic_armor)
+	spawn_stat(stat_base["movement_speed"], _p_entity.movement_speed)
+	spawn_stat(stat_base["cooldown_reduction"], _p_entity.cooldown_reduction)
+	spawn_stat(stat_base["max_health"], _p_entity.max_health)
+	spawn_stat(stat_base["health_regeneration"], _p_entity.health_regeneration)
+	spawn_stat(stat_base["life_steal"], _p_entity.life_steal)
+	spawn_stat(stat_base["souls"], _p_entity.souls)
+
+func spawn_stat(stat : Stat, value) -> void:
+	var _new_stat_hud = world.resources.stat_hud.instantiate()
+	_new_stat_hud.stat_value = value
+	_new_stat_hud.stat = stat
+	stats_list.add_child(_new_stat_hud)
 
 func set_knowledge_book(open : bool) -> void:
 	craft_book_tab.set_visible(open)
