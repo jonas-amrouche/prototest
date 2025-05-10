@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=117 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bci1gtg23l7p6" path="res://Scenes/UI/recipe_hud.tscn" id="17_yidpd"]
 [ext_resource type="Texture2D" uid="uid://583q7pnc0yp0" path="res://Assets/2D/UI/recall_spell_v2.png" id="18_36s6t"]
 [ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="20_yidpd"]
+[ext_resource type="Texture2D" uid="uid://e3j1ija6b4cb" path="res://Assets/2D/UI/hunter_class.png" id="23_vxf74"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
 resource_local_to_scene = true
@@ -665,7 +666,7 @@ texture_margin_right = 15.0
 texture_margin_bottom = 18.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_rr6i0"]
-font_size = 25
+font_size = 24
 font_color = Color(0.28, 0.25984, 0.2296, 1)
 shadow_color = Color(0, 0, 0, 0.409)
 shadow_offset = Vector2(1.5, 1.5)
@@ -699,6 +700,34 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q562m"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2aa"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfo6n"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -811,6 +840,19 @@ texture = ExtResource("20_yidpd")
 font_size = 20
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
+bg_color = Color(0.13, 0.13, 0.13, 0.615686)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0.690196)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -931,9 +973,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -51.0
+offset_left = -49.0
 offset_top = -350.0
-offset_right = -10.0
+offset_right = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -945,9 +987,9 @@ custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 1867.0
+offset_left = 1869.0
 offset_top = 64.0
-offset_right = -8.0
+offset_right = -6.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 size_flags_vertical = 8
@@ -1224,9 +1266,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 33.0
+offset_left = 11.0
 offset_top = -276.0
-offset_right = 300.0
+offset_right = 278.0
 offset_bottom = 57.0
 grow_vertical = 0
 mouse_filter = 1
@@ -1404,34 +1446,35 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 363.0
-offset_top = -100.0
-offset_right = 582.0
-offset_bottom = 28.0
+offset_left = 289.0
+offset_top = -149.0
+offset_right = 575.0
+offset_bottom = 22.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_8bf2m")
 
 [node name="Pad" type="MarginContainer" parent="ItemCraft"]
 layout_mode = 2
-size_flags_vertical = 0
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
 [node name="Visuals" type="Label" parent="ItemCraft/Pad"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "       +        ="
+size_flags_vertical = 8
+text = "        +         +         +"
 label_settings = SubResource("LabelSettings_rr6i0")
 vertical_alignment = 1
 
 [node name="CraftList" type="HBoxContainer" parent="ItemCraft/Pad"]
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/separation = 22
 
 [node name="ItemHud" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
@@ -1447,10 +1490,20 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q562m")
 available = false
 
-[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad"]
-visible = false
+[node name="ItemHud4" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
 layout_mode = 2
-size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_7c2aa")
+available = false
+
+[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="ItemHud4" parent="ItemCraft/Pad/CraftResult" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yfo6n")
+available = false
 
 [node name="ProgressPad" type="MarginContainer" parent="ItemCraft"]
 layout_mode = 2
@@ -1459,11 +1512,12 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 21
+metadata/_edit_lock_ = true
 
 [node name="CraftBar" type="ProgressBar" parent="ItemCraft/ProgressPad"]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_l8r83")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v5hjn")
 show_percentage = false
@@ -1591,9 +1645,9 @@ metadata/_edit_lock_ = true
 [node name="StatScroll" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 1364.0
-offset_top = 776.0
+offset_top = 777.0
 offset_right = 1516.0
-offset_bottom = 1079.0
+offset_bottom = 1080.0
 texture = ExtResource("8_o2vyp")
 
 [node name="Stats" type="Panel" parent="."]
@@ -2391,11 +2445,26 @@ label_settings = SubResource("LabelSettings_36s6t")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ClassReminder" type="TextureRect" parent="."]
+[node name="ClassReminder" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 908.0
-offset_top = 918.0
-offset_right = 1028.0
-offset_bottom = 972.0
+offset_left = 1349.0
+offset_top = 1044.0
+offset_right = 1381.0
+offset_bottom = 1076.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
+
+[node name="MarginContainer" type="MarginContainer" parent="ClassReminder"]
+layout_mode = 2
+theme_override_constants/margin_left = -7
+theme_override_constants/margin_top = -7
+theme_override_constants/margin_right = -7
+theme_override_constants/margin_bottom = -7
+
+[node name="ClassIcon" type="TextureRect" parent="ClassReminder/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("23_vxf74")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Workshop/CloseWorkshop" to="." method="_on_close_workshop_pressed"]

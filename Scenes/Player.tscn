@@ -208,7 +208,6 @@ no_depth_test = true
 text = "10"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 1.0
 replication_config = SubResource("SceneReplicationConfig_f1ek2")
 
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]

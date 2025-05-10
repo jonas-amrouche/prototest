@@ -1,18 +1,42 @@
-[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://dd286pu246ain"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://dd286pu246ain"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_k602c"]
 [ext_resource type="Resource" uid="uid://bd6xn886jpo34" path="res://Resources/Abilities/trinket_creation.tres" id="2_b0knl"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="5_5ta6l"]
 [ext_resource type="Texture2D" uid="uid://bewdvw6revimg" path="res://Assets/2D/Items/infinitrinket_icon.png" id="5_sitkx"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="6_bbfu7"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="7_jc6le"]
 
+[sub_resource type="Resource" id="Resource_k602c"]
+script = ExtResource("5_5ta6l")
+id = "infinitrinket"
+entity_type = 3
+icon = ExtResource("5_sitkx")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
+
 [resource]
 script = ExtResource("7_jc6le")
+entity = SubResource("Resource_k602c")
 id = "infinitrinket"
 description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
 icon = ExtResource("5_sitkx")
 type = 0
 rarity = 3
+carft = Array[ExtResource("7_jc6le")]([])
 abilities = Array[ExtResource("1_k602c")]([ExtResource("2_b0knl")])
 passives = Array[ExtResource("6_bbfu7")]([])
 stats = {}

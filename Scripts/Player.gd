@@ -22,25 +22,9 @@ const SLOT_PER_LEVEL := 1
 const RESPAWN_TIME_PER_LEVEL : float = 5.0
 const KILL_REWARD_EXP := 750
 
-# Statistics
-#var base_stats := {"physical_damage" : 1, \
-#"magic_damage" : 1, \
-#"physical_armor" : 1, \
-#"magic_armor" : 1, \
-#"movement_speed" : 100.0, \
-#"cooldown_reduction" : 0.0, \
-#"health_regeneration" : 2.0, \
-#"max_health" : 450, \
-#"life_steal" : 0.0, \
-#"souls" : 0}
-
-#var stats := base_stats.duplicate()
-
 # Miscelious
 var area_health_regeneration := 0
 
-#var health : int = base_stats.max_health
-#var souls := 0
 var max_experience := MAX_XP_PER_LEVEL
 var respawn_time : float = 5.0
 var experience := 0
@@ -101,6 +85,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
+	vision.initialize_fog(world.generated_data)
 	entity.set_full_health()
 	add_to_group("player")
 	camera.current = is_multiplayer_authority()
@@ -217,6 +202,10 @@ func check_for_target() -> void:
 			hud.update_target()
 		hovered_target = null
 	else:
+		if hovered_target and hovered_target.has_method("stop_hovering_target"):
+			hovered_target.stop_hovering_target()
+			hud.update_target()
+		
 		hovered_target = _result.get("collider")
 		
 		match hovered_target.entity.entity_type:
@@ -228,9 +217,6 @@ func check_for_target() -> void:
 				cursor_mode = Basics.CursorMode.NORMAL
 		DisplayServer.cursor_set_custom_image(world.resources.cursors[cursor_mode])
 		
-		if hovered_target and hovered_target.has_method("stop_hovering_target"):
-			hovered_target.stop_hovering_target()
-			hud.update_target()
 		if hovered_target.has_method("hover_target"):
 			hovered_target.hover_target()
 			hud.update_target()
@@ -242,7 +228,7 @@ func target_raycast() -> Dictionary:
 		_ray_query.collide_with_areas = true
 		_ray_query.from = camera.project_ray_origin(_mouse_pos)
 		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
-		_ray_query.collision_mask = pow(2, 2-1) + pow(2, 3-1) + pow(2, 5-1) + pow(2, 6-1) # Set collision for player and monsters
+		_ray_query.collision_mask = pow(2, 2-1) + pow(2, 3-1) + pow(2, 5-1) + pow(2, 6-1) + pow(2, 7-1) # Set collision for player and monsters
 		return get_world_3d().direct_space_state.intersect_ray(_ray_query)
 
 func update_direction() -> void:

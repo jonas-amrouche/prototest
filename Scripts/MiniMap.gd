@@ -34,8 +34,9 @@ func _ready() -> void:
 		set_process(false)
 		set_process_input(false)
 		gui_input.disconnect(_on_gui_input)
-		return
-	initialize_minimap(player.get_parent().generated_data)
+		hide()
+	else:
+		initialize_minimap(player.get_parent().generated_data)
 
 func initialize_minimap(generated_data : Dictionary) -> void:
 	

@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://ct64wbtyhr66c" path="res://Scripts/wall_chunk.gd" id="1_qndt5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2h34x"]
-size = Vector3(4.25977, 2.04761, 0.702148)
+size = Vector3(4.25977, 2.04761, 0.584229)
 
 [node name="WallChunk" type="StaticBody3D"]
+collision_layer = 65
 script = ExtResource("1_qndt5")
 
 [node name="WallChunkModel" parent="." instance=ExtResource("1_2h34x")]

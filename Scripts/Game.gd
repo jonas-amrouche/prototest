@@ -6,8 +6,10 @@ extends Node3D
 @onready var monsters = $Monsters
 @onready var items = $Items
 @onready var temp_vision = $TempVision
+@onready var navmesh = $NavMesh
 @onready var env = $WorldEnvironment.environment
 @onready var map_generation = $MapGeneration
+@onready var fog_plane = $FogPlane
 
 var generated_data : Dictionary
 
@@ -28,11 +30,8 @@ func send_map_data_to_player(data : Dictionary):
 	generated_data = data
 	#print(Replication.players)
 	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", multiplayer.get_unique_id())
-	#for p in Replication.players.values():
-		#p.vision.initialize_fog_map(bases_list)
-		#p["player_ref"].hud.init_map_data(generated_data)
-		#p.hud.init_map_data(paths_list, bases_list, interests_list, camps_list)
-	map_generation.spawn_map(generated_data)
+	if !multiplayer.is_server():
+		map_generation.spawn_map(generated_data)
 
 func set_color_correction(grad : GradientTexture1D) -> void:
 	env.set_adjustment_color_correction(grad)
@@ -58,6 +57,7 @@ func spawn_players() -> void:
 		_new_player.name = str(Replication.players.keys()[i])
 		add_child(_new_player, true)
 		Replication.players[Replication.players.keys()[i]]["player_ref"] = _new_player
+		Replication.rpc("update_player_infos", Replication.players.keys()[i], Replication.players[Replication.players.keys()[i]])
 
 var spawn_count = 0
 func _on_multiplayer_spawner_spawned(node: Node) -> void:

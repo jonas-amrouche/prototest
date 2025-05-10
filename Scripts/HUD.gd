@@ -150,7 +150,7 @@ func update_target() -> void:
 	if player.selected_target:
 		target_name.set_text(player.selected_target.entity.id.capitalize())
 		if player.selected_target.entity.icon:
-			target_icon.set_texture(player.selected_target.item.icon)
+			target_icon.set_texture(player.selected_target.entity.icon)
 		match player.selected_target.entity.entity_type:
 			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER, Basics.EntityType.GUARDS:
 				target_health.set_value(float(player.selected_target.entity.health) / float(player.selected_target.entity.max_health) * 100.0)

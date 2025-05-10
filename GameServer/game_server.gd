@@ -51,7 +51,7 @@ func remove_multiplayer_peer() -> void:
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.
 func _on_player_connected(id : int) -> void:
-	server_logger.info(str(str(id), " Connected !"))
+	server_logger.info(str("Player : ", str(id), " Connected !"))
 	register_player(id)
 
 func register_player(id : int) -> void:
@@ -69,17 +69,17 @@ func _enter_class_select() -> void:
 	server_logger.info("Entering class select.")
 
 func _player_lock_class(id : int, class_locked : Basics.Class) -> void:
-	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.CLASS_TEXT[class_locked]), "."))
+	server_logger.info(str("Player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.CLASS_TEXT[class_locked]), "."))
 
 func _enter_game_loading() -> void:
 	
 	server_logger.info("Entering loading screen.")
 
 func _player_load_finished(id : int) -> void:
-	server_logger.info(str("player ", str(id), "(", str(Replication.players[id]["name"]), ") has loaded"))
+	server_logger.info(str("Player ", str(id), "(", str(Replication.players[id]["name"]), ") has loaded"))
 
 func _load_finished() -> void:
-	server_logger.info("all players finished loading, entering game.")
+	server_logger.info("All players finished loading, entering game.")
 	if game_scene:
 		game_scene.launch_game()
 	else:

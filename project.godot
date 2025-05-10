@@ -248,6 +248,7 @@ consumable5={
 3d_render/layer_2="Player"
 3d_render/layer_3="Monster"
 3d_render/layer_4="Base"
+3d_render/layer_5="Walls"
 3d_render/layer_8="No Lights"
 3d_render/layer_14="HoverOutline"
 3d_render/layer_15="SelectedOutline"
@@ -257,6 +258,7 @@ consumable5={
 3d_physics/layer_4="Structures"
 3d_physics/layer_5="Npcs"
 3d_physics/layer_6="Items"
+3d_physics/layer_7="Walls"
 
 [navigation]
 

@@ -94,7 +94,7 @@ directional_shadow_max_distance = 25.0
 
 [node name="MapGeneration" parent="." instance=ExtResource("3_o5yvi")]
 
-[node name="FogVolume" type="FogVolume" parent="."]
+[node name="WaterVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58698, 0)
 size = Vector3(44.113, 9.17395, 44.8232)
 shape = 2

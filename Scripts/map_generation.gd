@@ -50,7 +50,6 @@ var generated_data : Dictionary
 @onready var camps = world.get_node("Camps")
 @onready var monsters = world.get_node("Monsters")
 @onready var items = world.get_node("Items")
-@onready var fog_plane = world.get_node("FogPlane")
 
 func generate_map() -> void:
 	generated_data["bases"] = PackedVector3Array()
@@ -80,6 +79,7 @@ func generate_map() -> void:
 	
 	#var _bases_positions = [Vector2(bases[0].position.x, bases[0].position.z), Vector2(bases[1].position.x, bases[1].position.z)]
 	world.rpc("send_map_data_to_player", generated_data)
+	world.send_map_data_to_player(generated_data)
 
 func spawn_map(data : Dictionary) -> void:
 	generated_data = data
@@ -108,7 +108,7 @@ func spawn_trees_collision() -> void:
 		multi_tree.multimesh.set_instance_transform(i, _transform)
 		add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
 	multi_tree.multimesh.visible_instance_count = generated_data["trees"].size()
-	navmesh.call_deferred("bake_navigation_mesh")
+	navmesh.bake_navigation_mesh()#.call_deferred("bake_navigation_mesh")
 
 func spawn_camps() -> void:
 	for i in range(generated_data["camps"]["position"].size()):

@@ -4,7 +4,7 @@ var effect : Effect
 
 @onready var eff_name = $EffectPad/EffectContainer/TitleContainer/Pad/EffectName
 @onready var eff_desc = $EffectPad/EffectContainer/Desc
-@onready var eff_duration = $EffectPad/Duration
+@onready var eff_duration = $EffectPad/EffectContainer/TitleContainer/Pad/Duration
 @onready var eff_icon = $EffectPad/EffectContainer/TitleContainer/IconCont/Icon
 
 const DEBUFF_COLOR = Color(0.147, 0.045, 0.039)

@@ -9,7 +9,7 @@
 script = ExtResource("3_57eq5")
 id = "precious_stone"
 entity_type = 0
-max_health = 100
+max_health = 0
 health_regeneration = 0
 physical_damage = 0
 physical_armor = 0

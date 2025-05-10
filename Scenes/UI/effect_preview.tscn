@@ -98,6 +98,7 @@ horizontal_alignment = 2
 [node name="Desc" type="RichTextLabel" parent="EffectPad/EffectContainer"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_ndmyj")
 theme_override_font_sizes/bold_italics_font_size = 13
 theme_override_font_sizes/italics_font_size = 13
 theme_override_font_sizes/mono_font_size = 13

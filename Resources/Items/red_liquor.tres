@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://ch7rdqig4cb7k"]
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://ch7rdqig4cb7k"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_j63r7"]
 [ext_resource type="Texture2D" uid="uid://b4716q31v845q" path="res://Assets/2D/Items/red_liquor.png" id="2_87hof"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="2_djrh3"]
+[ext_resource type="Resource" uid="uid://dsyo5ab2lxt7x" path="res://Resources/ConsumableAbilities/red_liquor.tres" id="2_raw4r"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="3_87hof"]
 [ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="4_87hof"]
 
@@ -36,7 +37,7 @@ icon = ExtResource("2_87hof")
 type = 2
 rarity = 0
 carft = Array[ExtResource("3_87hof")]([])
-abilities = Array[ExtResource("1_j63r7")]([])
+abilities = Array[ExtResource("1_j63r7")]([ExtResource("2_raw4r")])
 passives = Array[ExtResource("2_djrh3")]([])
 stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

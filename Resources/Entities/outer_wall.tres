@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_0wjji")
-id = ""
+id = "outer_wall"
 entity_type = 0
 max_health = 100
 health_regeneration = 0
