@@ -13,8 +13,8 @@ const POINT_CELL_DIVISION = 8 # 28
 const PATH_RANDOM_CELLS = 4.0 #0.4
 const NO_PATH_BORDER_LENGTH = 20.0
 
-const MIN_INTEREST_POINTS = 32#12
-const MAX_INTEREST_POINTS = 64#24
+const MIN_INTEREST_POINTS = 1#32
+const MAX_INTEREST_POINTS = 20#64
 const MIN_INTEREST_SIZE = 2.0
 const MAX_INTEREST_SIZE = 6.0
 const INTEREST_BORDER = 7.0
@@ -268,31 +268,62 @@ func is_on_right_side(point : Vector2) -> bool:
 	return false
 
 func spawn_collisions() -> void:
-	var _grid : Dictionary[Vector2, bool]
+	var _walls : Array[Vector2]
 	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
 		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
 			var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
 			#print(_position)
 			#print(paths_points_list)
 			#if is_in_path(_position): print("te")
-			var _in_path = is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)
-			_grid[Vector2(x, y)] = _in_path
+			if !(is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)):
+				_walls.append(Vector2(x, y))
 	
-	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
-		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
-			var _wall_neighbor = 0
-			if !check_cell(_grid, Vector2(x, y)): # If cell is wall
-				if !check_cell(_grid, Vector2(x-1, y)): _wall_neighbor += 1
-				if !check_cell(_grid, Vector2(x+1, y)): _wall_neighbor += 1
-				if !check_cell(_grid, Vector2(x, y-1)): _wall_neighbor += 1
-				if !check_cell(_grid, Vector2(x, y+1)): _wall_neighbor += 1
-				if _wall_neighbor != 4:
-					add_collision_cube(Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
-
-func check_cell(grid : Dictionary, vec : Vector2) -> bool:
-	if grid.has(vec):
-		return grid[vec]
-	return false
+	var _unsorted_collision_points : PackedVector2Array
+	for wall in _walls:
+		var _wall_neighbor = 0
+		if _walls.has(wall - Vector2(1, 0)): _wall_neighbor += 1
+		if _walls.has(wall + Vector2(1, 0)): _wall_neighbor += 1
+		if _walls.has(wall - Vector2(0, 1)): _wall_neighbor += 1
+		if _walls.has(wall + Vector2(0, 1)): _wall_neighbor += 1
+		if _wall_neighbor != 4:
+			_unsorted_collision_points.append(wall)
+			#add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+	
+	var _sorted_collision_points : Array[PackedVector2Array]
+	while _unsorted_collision_points.size() > 0:
+		var _current_point = _unsorted_collision_points[0]
+		_unsorted_collision_points.remove_at(0)
+		var _has_neighbor = true
+		var _group_array = PackedVector2Array()
+		_group_array.append(_current_point)
+		while _has_neighbor:
+			_has_neighbor = false
+			for nx in range(-1, 2):
+				for ny in range(-1, 2):
+					if nx == 0 and ny == 0: continue
+					if _unsorted_collision_points.has(_current_point + Vector2(nx, ny)):
+						if _unsorted_collision_points.find(_current_point) != -1:
+							_unsorted_collision_points.remove_at(_unsorted_collision_points.find(_current_point))
+						#print(_current_point)
+						_current_point = Vector2(_current_point.x + nx, _current_point.y + ny)
+						_group_array.append(_current_point)
+						_has_neighbor = true
+						break
+				if _has_neighbor:
+					break
+		_sorted_collision_points.append(_group_array)
+	
+	for g in range(_sorted_collision_points.size()):
+		if _sorted_collision_points[g].size() > 8:
+			var _pos_array = PackedVector2Array()
+			for point in _sorted_collision_points[g]:
+				_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+			add_collision_polygon(_pos_array)
+		#else:
+			#for point in _sorted_collision_points[g]:
+				#var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+				#add_collision_cube(_pos)
+				#DebugFeatures.debug_box(world, Vector3(_pos.x, 1.0, _pos.y), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -326,6 +357,15 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.shape = BoxShape3D.new()
 	_new_collision_cube.shape.size = Vector3(1.0, 4.0, 1.0)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
+	trees_body.add_child(_new_collision_cube)
+
+func add_collision_polygon(polygon_shape : PackedVector2Array) -> void:
+	var _new_collision_cube = CollisionPolygon3D.new()
+	_new_collision_cube.rotation.x = PI/2.0
+	_new_collision_cube.polygon = polygon_shape
+	_new_collision_cube.depth = 4.0
+	#_new_collision_cube.shape.size = Vector3(1.0, 4.0, 1.0)
+	_new_collision_cube.position = Vector3(0, 2, 0)
 	trees_body.add_child(_new_collision_cube)
 
 func generate_camps() -> void:
