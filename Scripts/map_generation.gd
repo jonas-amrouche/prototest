@@ -13,8 +13,8 @@ const POINT_CELL_DIVISION = 8 # 28
 const PATH_RANDOM_CELLS = 4.0 #0.4
 const NO_PATH_BORDER_LENGTH = 20.0
 
-const MIN_INTEREST_POINTS = 1#32
-const MAX_INTEREST_POINTS = 20#64
+const MIN_INTEREST_POINTS = 32#32
+const MAX_INTEREST_POINTS = 64#64
 const MIN_INTEREST_SIZE = 2.0
 const MAX_INTEREST_SIZE = 6.0
 const INTEREST_BORDER = 7.0
@@ -85,6 +85,7 @@ func spawn_map(data : Dictionary) -> void:
 	spawn_bases()
 	spawn_arena()
 	spawn_collisions()
+	#spawn_collisions_old()
 	spawn_trees()
 	spawn_camps()
 
@@ -143,6 +144,12 @@ func generate_points_and_paths() -> void:
 	
 	# Generate arena points for path (Deleted at the end)
 	interest_points_list.append(Vector2(0.0, 0.0))
+	#interest_points_list.append(Vector2(-55.0, 0.0))
+	#interest_points_list.append(Vector2(55.0, 0.0))
+	#for base in bases:
+		#for i in range(3):
+			#var _pos = base.get_node("PathStarts").get_node(str(i+1)).global_position
+			#interest_points_list.append(Vector2(_pos.x, _pos.z))
 	
 	# Generate grid
 	var _grid_point_list : PackedVector2Array
@@ -158,20 +165,19 @@ func generate_points_and_paths() -> void:
 	print(_interest_point_num)
 	
 	var _break_count : int = 0
+	#var grid_points_removed = 0
 	
 	# Select random point, assign a size, then select the next one not in the range
-	while new_interest_points_list.size() < _interest_point_num:
-		var _rand_idx = max(0, randi_range(1, _grid_point_list.size()-1))
+	while new_interest_points_list.size() < _interest_point_num and _grid_point_list.size() > 0:
+		var _rand_idx = randi_range(0, _grid_point_list.size()-1)
 		var _is_valid = true
 		for i in range(new_interest_points_list.size()):
 			# ERROR au lancement (index trop grand (new_interest_points_list.keys()[i]))
-			if _rand_idx < 0 or _rand_idx > _grid_point_list.size()-1:continue
 			if _grid_point_list[_rand_idx].distance_to(new_interest_points_list.keys()[i]) < new_interest_points_list.values()[i] + INTEREST_BORDER:
 				_grid_point_list.remove_at(_rand_idx)
+				#grid_points_removed += 1
 				_is_valid = false
 				break
-			#_is_valid = true
-			#break
 		if _is_valid:
 			#DebugFeatures.debug_box(Vector3(_grid_point_list[_rand_idx].x, 0.0, _grid_point_list[_rand_idx].y))
 			new_interest_points_list[_grid_point_list[_rand_idx]] = randf_range(MIN_INTEREST_SIZE, MAX_INTEREST_SIZE)
@@ -267,14 +273,77 @@ func is_on_right_side(point : Vector2) -> bool:
 		return true
 	return false
 
+#func spawn_collisions_old() -> void:
+	#print("col started")
+	#var _walls_points : PackedVector2Array
+	#var _walls_id : PackedInt64Array
+	#for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
+		#for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
+			#var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			#if !(is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)):
+				#_walls_points.append(Vector2(x, y))
+				#_walls_id.append(-1)
+				##for vec in [Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1)]:
+					##if _walls_points.find(vec) != -1:
+						##_walls_points.append(Vector2(x, y))
+						##_walls_id.append(_walls_id[_walls_points.find(vec)])
+						##break
+				##if _walls_points.find(Vector2(x, y)) == -1:
+					##_walls_points.append(Vector2(x, y))
+					##_walls_id.append(rand_from_seed(int(str(x) + str(y)))[1])
+	#
+	#for i in range(_walls_points.size()):
+		#var x = _walls_points[i].x
+		#var y = _walls_points[i].y
+		#for vec in [Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1)]:
+			#if _walls_points.find(vec) != -1 and _walls_id[_walls_points.find(vec)] != -1:
+				#_walls_id[i] = _walls_id[_walls_points.find(vec)]
+				#break
+		#if _walls_id[i] == -1:
+			#_walls_id[i] = rand_from_seed(int(str(x) + str(y)))[1]
+	#
+	#print(_walls_points.size())
+	##var _unsorted_collision_chunks : Dictionary[Vector2, int]
+	#var _final_wall_points : PackedVector2Array = _walls_points
+	#var _final_wall_id : PackedInt64Array = _walls_id
+	##for w in range(_walls_points.size()):
+		##var _wall_neighbor = 0
+		##if _walls_points.has(_walls_points[w] - Vector2(1, 0)): _wall_neighbor += 1
+		##if _walls_points.has(_walls_points[w] + Vector2(1, 0)): _wall_neighbor += 1
+		##if _walls_points.has(_walls_points[w] - Vector2(0, 1)): _wall_neighbor += 1
+		##if _walls_points.has(_walls_points[w] + Vector2(0, 1)): _wall_neighbor += 1
+		##if _wall_neighbor != 4:
+			##_final_wall_points.append(_walls_points[w])
+			##_final_wall_id.append(_walls_id[w])
+			###add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+	#
+	##print(_unsorted_collision_chunks)
+	#var _reverse_dictionnary : Dictionary[int, PackedVector2Array]
+	#for i in range(_final_wall_id.size()):
+		#var _arr = PackedVector2Array()
+		#if _reverse_dictionnary.has(_final_wall_id[i]):
+			#_arr = _reverse_dictionnary[_final_wall_id[i]]
+		#_arr.append(_final_wall_points[i])
+		#_reverse_dictionnary[_final_wall_id[i]] = _arr
+	#
+	#print(_reverse_dictionnary)
+	#for g in range(_reverse_dictionnary.keys().size()):
+		##if _sorted_collision_points[g].size() > 8:
+			##var _pos_array = PackedVector2Array()
+			##for point in _sorted_collision_points[g]:
+				##_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+			##add_collision_polygon(_pos_array)
+		##else:
+		#for point in _reverse_dictionnary.values()[g]:
+			#var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			##add_collision_cube(_pos)
+			##DebugFeatures.debug_box(world, Vector3(_pos.x+randf_range(-0.05, 0.05), 1.0, _pos.y+randf_range(-0.05, 0.05)), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
+
 func spawn_collisions() -> void:
 	var _walls : Array[Vector2]
 	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
 		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
 			var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
-			#print(_position)
-			#print(paths_points_list)
-			#if is_in_path(_position): print("te")
 			if !(is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)):
 				_walls.append(Vector2(x, y))
 	
@@ -287,43 +356,57 @@ func spawn_collisions() -> void:
 		if _walls.has(wall + Vector2(0, 1)): _wall_neighbor += 1
 		if _wall_neighbor != 4:
 			_unsorted_collision_points.append(wall)
-			#add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+			add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
 	
-	var _sorted_collision_points : Array[PackedVector2Array]
-	while _unsorted_collision_points.size() > 0:
-		var _current_point = _unsorted_collision_points[0]
-		_unsorted_collision_points.remove_at(0)
-		var _has_neighbor = true
-		var _group_array = PackedVector2Array()
-		_group_array.append(_current_point)
-		while _has_neighbor:
-			_has_neighbor = false
-			for nx in range(-1, 2):
-				for ny in range(-1, 2):
-					if nx == 0 and ny == 0: continue
-					if _unsorted_collision_points.has(_current_point + Vector2(nx, ny)):
-						if _unsorted_collision_points.find(_current_point) != -1:
-							_unsorted_collision_points.remove_at(_unsorted_collision_points.find(_current_point))
-						#print(_current_point)
-						_current_point = Vector2(_current_point.x + nx, _current_point.y + ny)
-						_group_array.append(_current_point)
-						_has_neighbor = true
-						break
-				if _has_neighbor:
-					break
-		_sorted_collision_points.append(_group_array)
+	#var _sorted_collision_points : Array[PackedVector2Array]
+	#var _lost_neighbors : PackedVector2Array
+	#while _unsorted_collision_points.size() > 0:
+		#var _current_point = _unsorted_collision_points[0]
+		#_unsorted_collision_points.remove_at(0)
+		#var _has_neighbor = true
+		#var _group_array = PackedVector2Array()
+		#_group_array.append(_current_point)
+		#while _has_neighbor:
+			#_has_neighbor = false
+			#var _vec_won : Vector2
+			#for nx in range(-1, 2):
+				#for ny in range(-1, 2):
+					#if nx == 0 and ny == 0: continue
+					#if _unsorted_collision_points.has(_current_point + Vector2(nx, ny)):
+						#if _has_neighbor:
+							#_lost_neighbors.append(_current_point + Vector2(nx, ny))
+							#continue
+						#
+						#_unsorted_collision_points.remove_at(_unsorted_collision_points.find(_current_point + Vector2(nx, ny)))
+						#
+						#_group_array.append(_current_point + Vector2(nx, ny))
+						#
+						#_vec_won = Vector2(nx, ny)
+						#_has_neighbor = true
+			#_current_point += _vec_won
+			#if !_has_neighbor and _lost_neighbors.size() > 0:
+				#_current_point = _lost_neighbors[0]
+				#_lost_neighbors.remove_at(0)
+				#if _unsorted_collision_points.has(_current_point):
+					#_unsorted_collision_points.remove_at(_unsorted_collision_points.find(_current_point))
+				#_has_neighbor = true
+				#_group_array.append(_current_point)
+		#_sorted_collision_points.append(_group_array)
 	
-	for g in range(_sorted_collision_points.size()):
-		if _sorted_collision_points[g].size() > 8:
-			var _pos_array = PackedVector2Array()
-			for point in _sorted_collision_points[g]:
-				_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
-			add_collision_polygon(_pos_array)
+	#for g in range(_sorted_collision_points.size()):
+		#if _sorted_collision_points[g].size() > 2:
+			#var _pos_array = PackedVector2Array()
+			#for point in _sorted_collision_points[g]:
+				#_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+			#add_collision_polygon(_pos_array)
 		#else:
 			#for point in _sorted_collision_points[g]:
 				#var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
 				#add_collision_cube(_pos)
-				#DebugFeatures.debug_box(world, Vector3(_pos.x, 1.0, _pos.y), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
+				
+		#for point in _sorted_collision_points[g]:
+			#var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			#DebugFeatures.debug_box(world, Vector3(_pos.x+randf_range(-0.05, 0.05), 1.0, _pos.y+randf_range(-0.05, 0.05)), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
 
 func is_close_to_square_border(square_size : Vector2, detection_point : Vector2, detection_length : float) -> bool:
 	if detection_point.x > square_size.x - detection_length or detection_point.x < detection_length or detection_point.y > square_size.y - detection_length or detection_point.y < detection_length:
@@ -357,6 +440,7 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.shape = BoxShape3D.new()
 	_new_collision_cube.shape.size = Vector3(1.0, 4.0, 1.0)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
+	#_new_collision_cube.rotation = Vector3(0, PI/4.0, 0)
 	trees_body.add_child(_new_collision_cube)
 
 func add_collision_polygon(polygon_shape : PackedVector2Array) -> void:

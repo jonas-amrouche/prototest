@@ -1,15 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://4eporiaa6egb"]
+[gd_scene load_steps=2 format=3 uid="uid://4eporiaa6egb"]
 
 [ext_resource type="Script" uid="uid://b6j83mjant2pn" path="res://Scripts/passive_item_preview.gd" id="1_g661d"]
-[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="1_l187m"]
 
 [node name="Passive" type="RichTextLabel"]
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("1_l187m")
-theme_override_fonts/italics_font = ExtResource("1_l187m")
-theme_override_fonts/bold_font = ExtResource("1_l187m")
-theme_override_font_sizes/italics_font_size = 14
-theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
 bbcode_enabled = true
 text = "[i][color=violet]Hero's lish[/color] [color=#B7B7B7]: deal 5 extra physical damage when damaging a monster. [/color][/i]"
 fit_content = true

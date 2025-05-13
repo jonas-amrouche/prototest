@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://duqyed1kqpwb"]
+[gd_scene load_steps=10 format=3 uid="uid://duqyed1kqpwb"]
 
 [ext_resource type="Script" uid="uid://j1nnxmhflllo" path="res://Scripts/ability_item_preview.gd" id="1_dtegr"]
 [ext_resource type="Texture2D" uid="uid://c6kimueiujvmq" path="res://Assets/2D/Alpha-Textures/fire_v1.png" id="2_pwvs0"]
 [ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="3_3neig"]
-[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="4_8wqv8"]
 [ext_resource type="Texture2D" uid="uid://be1s4sdsyh66v" path="res://Assets/2D/Items/BroadswordOfMisfortuneIcon.png" id="5_8wqv8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_un7te"]
@@ -20,20 +19,17 @@ corner_radius_bottom_left = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4yqr"]
 resource_local_to_scene = true
-font = ExtResource("4_8wqv8")
-font_size = 12
+font_size = 10
 outline_color = Color(0.423453, 0.52643, 0.8125, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8wqv8"]
 resource_local_to_scene = true
-font = ExtResource("4_8wqv8")
-font_size = 12
+font_size = 10
 outline_color = Color(0.423453, 0.52643, 0.8125, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_kb7u4"]
 resource_local_to_scene = true
-font = ExtResource("4_8wqv8")
-font_size = 12
+font_size = 10
 font_color = Color(0.411765, 0.411765, 0.411765, 1)
 outline_color = Color(0.423453, 0.52643, 0.8125, 1)
 
@@ -96,12 +92,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_colors/default_color = Color(0.635294, 0.635294, 0.635294, 1)
-theme_override_fonts/normal_font = ExtResource("4_8wqv8")
-theme_override_font_sizes/bold_italics_font_size = 11
-theme_override_font_sizes/italics_font_size = 11
-theme_override_font_sizes/mono_font_size = 11
-theme_override_font_sizes/normal_font_size = 11
-theme_override_font_sizes/bold_font_size = 11
+theme_override_font_sizes/bold_italics_font_size = 9
+theme_override_font_sizes/italics_font_size = 9
+theme_override_font_sizes/mono_font_size = 9
+theme_override_font_sizes/normal_font_size = 9
+theme_override_font_sizes/bold_font_size = 9
 bbcode_enabled = true
 text = "Throw a big slash of fire in the target direction."
 scroll_active = false

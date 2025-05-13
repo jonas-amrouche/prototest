@@ -65,7 +65,7 @@ func clear_passives() -> void:
 	for i in passives_container.get_children():
 		i.queue_free()
 
-var stat_font = preload("res://Assets/Fonts/Gamaliel.otf")
+#var stat_font = preload("res://Assets/Fonts/Gamaliel.otf")
 func add_stat(stat : Stat, stat_value) -> void:
 	if stat_value == 0: return
 	if stat.id == "max_health": print(stat_value)
@@ -73,7 +73,7 @@ func add_stat(stat : Stat, stat_value) -> void:
 	var _new_lab_settings = LabelSettings.new()
 	_new_lab_settings.font_color = Basics.STATS_COLOR[stat.id]
 	_new_lab_settings.font_size = 14
-	_new_lab_settings.font = stat_font
+	#_new_lab_settings.font = stat_font
 	_new_stat.label_settings = _new_lab_settings
 	_new_stat.set_text("+" + str(stat_value) + " " + stat.id.capitalize())
 	stats_container.show()

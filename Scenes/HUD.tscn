@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="Texture2D" uid="uid://b0waukpso64pn" path="res://Assets/2D/UI/energy_bar.png" id="10_oersf"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
-[ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="11_ajim5"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
 [ext_resource type="Texture2D" uid="uid://dvtpxoucckqvs" path="res://Assets/2D/Monster/dispossed_willow.png" id="14_0iicw"]
@@ -336,8 +335,7 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_ssfue"]
-font = ExtResource("11_ajim5")
-font_size = 15
+font_size = 13
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ba8gd"]
 texture = ExtResource("12_8bf2m")
@@ -817,6 +815,15 @@ texture = ExtResource("6_fbb48")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bf2m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hhtw7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oersf"]
+texture = ExtResource("12_8bf2m")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -1735,7 +1742,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Workshop" type="ColorRect" parent="."]
+[node name="Workshop" type="Panel" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -1746,17 +1753,17 @@ anchor_bottom = 0.5
 offset_left = -652.0
 offset_top = -503.0
 offset_right = 652.0
-offset_bottom = 503.0
+offset_bottom = 494.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.140752, 0.222361, 0.381453, 1)
+theme_override_styles/panel = SubResource("StyleBoxTexture_oersf")
 
 [node name="ItemBoard" type="ColorRect" parent="Workshop"]
 layout_mode = 2
 offset_left = 16.0
-offset_top = 54.0
+offset_top = 45.0
 offset_right = 775.0
-offset_bottom = 992.0
+offset_bottom = 983.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.172833, 0.172833, 0.172833, 1)
@@ -1797,9 +1804,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
+offset_left = 6.0
 offset_top = 7.0
-offset_right = -554.0
+offset_right = -556.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1816,6 +1823,7 @@ theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Workshop/ItemBoard/Categories/MarginContainer"]
 layout_mode = 2
@@ -1915,9 +1923,9 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -520.0
-offset_top = 54.0
+offset_top = 45.0
 offset_right = -14.0
-offset_bottom = 992.0
+offset_bottom = 983.0
 grow_horizontal = 0
 color = Color(0.172833, 0.172833, 0.172833, 1)
 
