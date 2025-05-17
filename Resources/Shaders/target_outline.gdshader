@@ -1,10 +1,10 @@
 shader_type canvas_item;
- 
+
 uniform vec4 outline_color : source_color = vec4(1.);
 uniform lowp float outline_size : hint_range(0.0, 0.2, 0.001) = 0.01 ; // this is not in pixels.
 uniform lowp float alpha_threshold : hint_range(0., 1., 0.1) = 0.5;
 uniform float samples : hint_range(4, 32, 1) = 4;
- 
+
 vec2 rotate2d(vec2 vector, float angle){
 	return vector * mat2(
 				vec2(cos(angle),-sin(angle)),
@@ -13,9 +13,9 @@ vec2 rotate2d(vec2 vector, float angle){
 
 void fragment() {
 	if (COLOR.a > alpha_threshold) discard;
-	
+
 	vec2 AR = vec2(TEXTURE_PIXEL_SIZE.x/TEXTURE_PIXEL_SIZE.y, 1.);
-	
+
 	vec2 right_vec = vec2(outline_size*0.01, 0);
 	float amax = 0.;
 
@@ -24,7 +24,7 @@ void fragment() {
 		vec4 sample = texture(TEXTURE, UV+samplevec);
 		amax = max(sample.a, amax);
 	}
-	
+
 	if (amax == 0.0) discard;
 
 	COLOR = mix(outline_color - vec4(0.0), outline_color, amax);

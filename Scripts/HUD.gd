@@ -28,8 +28,8 @@ extends Control
 @onready var xp_bar := $ExpBar
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
-@onready var craft_book_tab := $CraftBook
-@onready var recipe_container := $CraftBook/Pad/RecipeList
+@onready var workshop_tab := $Workshop
+@onready var workshop_items_container := $Workshop/ItemBoard/Pad/ItemList
 @onready var loot_tab := $Loot
 @onready var loot_container := $Loot/Container/LootList
 
@@ -366,18 +366,15 @@ func spawn_stat(stat : Stat, value) -> void:
 	_new_stat_hud.stat = stat
 	stats_list.add_child(_new_stat_hud)
 
-func set_knowledge_book(open : bool) -> void:
-	craft_book_tab.set_visible(open)
-
-func update_knowledge_book() -> void:
-	for i in recipe_container.get_children():
+func update_workshop() -> void:
+	for i in workshop_items_container.get_children():
 		i.queue_free()
 	
 	for i in Basics.get_all_items():
 		if i.craft_1 and i.craft_2:
-			var _new_recipe_hud = world.resources.recipe_hud.instantiate()
+			var _new_recipe_hud = world.resources.item_workshop_scene.instantiate()
 			_new_recipe_hud.item = i
-			recipe_container.add_child(_new_recipe_hud)
+			workshop_items_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot
@@ -467,3 +464,6 @@ func drop_item_craft(slot : Object) -> void:
 		update_abilities()
 		update_craft()
 		dragged_item_ref = null
+
+func _on_close_workshop_pressed() -> void:
+	workshop_tab.hide()

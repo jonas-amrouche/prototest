@@ -225,6 +225,7 @@ const RAY_LENGTH := 100.0
 func target_raycast() -> Dictionary:
 		var _mouse_pos = get_viewport().get_mouse_position()
 		var _ray_query = PhysicsRayQueryParameters3D.new()
+		_ray_query.exclude = [get_rid()]
 		_ray_query.collide_with_areas = true
 		_ray_query.from = camera.project_ray_origin(_mouse_pos)
 		_ray_query.to = _ray_query.from + camera.project_ray_normal(_mouse_pos) * RAY_LENGTH
@@ -473,9 +474,9 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
-	if Input.is_action_just_pressed("craft_book"):
-		hud.update_knowledge_book()
-		hud.set_knowledge_book(!hud.craft_book_tab.visible)
+	if Input.is_action_just_pressed("workshop"):
+		hud.update_workshop()
+		hud.workshop_tab.visible = !hud.workshop_tab.visible
 	if Input.is_action_just_pressed("recall"):
 		var _recall = world.resources.recall_ability
 		if ability_machine.use_ability(_recall, self) == Basics.AbilityError.OK:

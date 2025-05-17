@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Fragile natural stone."
 icon = ExtResource("2_unmqp")
 type = 1
 rarity = 0
-carft = Array[ExtResource("4_e2dax")]([])
+craft = Array[ExtResource("4_e2dax")]([])
 abilities = Array[ExtResource("1_unmqp")]([])
 passives = Array[ExtResource("3_c1tpd")]([])
 stats = {}

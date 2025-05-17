@@ -23,6 +23,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -32,7 +33,7 @@ id = "precious_stone"
 description = ""
 type = 0
 rarity = 0
-carft = Array[ExtResource("6_3n5tn")]([])
+craft = Array[ExtResource("6_3n5tn")]([])
 abilities = Array[ExtResource("1_kvcqt")]([])
 passives = Array[ExtResource("5_m8wjo")]([])
 stats = {}

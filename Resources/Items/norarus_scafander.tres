@@ -23,6 +23,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -32,7 +33,7 @@ id = "norarus_scafender"
 description = "A scafender from norarus, build for long, deep dives on the seafloor undercity."
 type = 0
 rarity = 1
-carft = Array[ExtResource("3_fdyjg")]([])
+craft = Array[ExtResource("3_fdyjg")]([])
 abilities = Array[ExtResource("1_yjbax")]([])
 passives = Array[ExtResource("2_i312n")]([])
 stats = {}

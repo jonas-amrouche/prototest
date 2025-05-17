@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Bad essence."
 icon = ExtResource("2_bukyr")
 type = 1
 rarity = 0
-carft = Array[ExtResource("4_f7ed1")]([])
+craft = Array[ExtResource("4_f7ed1")]([])
 abilities = Array[ExtResource("1_bukyr")]([])
 passives = Array[ExtResource("3_8kyoc")]([])
 stats = {}

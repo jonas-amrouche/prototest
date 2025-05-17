@@ -29,6 +29,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -40,7 +41,7 @@ icon = ExtResource("1_skpvv")
 type = 0
 rarity = 0
 mesh_model = ExtResource("2_fl4s8")
-carft = Array[ExtResource("1_lmrn7")]([])
+craft = Array[ExtResource("1_lmrn7")]([])
 abilities = Array[ExtResource("1_rkabo")]([ExtResource("2_amms3"), ExtResource("3_gs4c0")])
 passives = Array[ExtResource("7_8po66")]([ExtResource("4_vibmg")])
 stats = {

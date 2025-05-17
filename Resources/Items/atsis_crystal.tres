@@ -23,6 +23,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -32,7 +33,7 @@ id = "atsis_crystal"
 description = "A rare crystal from atsis woods, it grows on treetops when the weather is perfect for 1 year."
 type = 1
 rarity = 1
-carft = Array[ExtResource("3_0i2ru")]([])
+craft = Array[ExtResource("3_0i2ru")]([])
 abilities = Array[ExtResource("1_r13qh")]([])
 passives = Array[ExtResource("2_3g7k2")]([])
 stats = {}

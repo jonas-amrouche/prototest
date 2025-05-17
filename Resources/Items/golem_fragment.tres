@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Rest of a golem."
 icon = ExtResource("2_7wr6r")
 type = 1
 rarity = 0
-carft = Array[ExtResource("4_mst8m")]([])
+craft = Array[ExtResource("4_mst8m")]([])
 abilities = Array[ExtResource("1_7wr6r")]([])
 passives = Array[ExtResource("3_stopa")]([])
 stats = {}

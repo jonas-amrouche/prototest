@@ -11,7 +11,7 @@ const RARITY_COLORS = [Color(0, 0, 0),\
  Color(0.27, 0.009, 0.0),\
  Color(0.27, 0.27, 0.27)]
 
-enum ClientState {DISCONNECTED, ENTERED, INGAME}
+enum ClientState {DISCONNECTED, ENTERED, LOADING, INGAME}
 
 enum ItemType {ITEM, COMPONENTS, CONSUMABLE}
 enum SlotType {INVENTORY, CRAFT, CONSUMABLE}

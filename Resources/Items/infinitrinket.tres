@@ -26,6 +26,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -36,7 +37,7 @@ description = "Allows you to place ward beacon, consuming 1 vision stone per war
 icon = ExtResource("5_sitkx")
 type = 0
 rarity = 3
-carft = Array[ExtResource("7_jc6le")]([])
+craft = Array[ExtResource("7_jc6le")]([])
 abilities = Array[ExtResource("1_k602c")]([ExtResource("2_b0knl")])
 passives = Array[ExtResource("6_bbfu7")]([])
 stats = {}

@@ -26,6 +26,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -36,7 +37,7 @@ description = "Heals [color=green]300 HP[/color] over 2 minutes."
 icon = ExtResource("2_87hof")
 type = 2
 rarity = 0
-carft = Array[ExtResource("3_87hof")]([])
+craft = Array[ExtResource("3_87hof")]([])
 abilities = Array[ExtResource("1_j63r7")]([ExtResource("2_raw4r")])
 passives = Array[ExtResource("2_djrh3")]([])
 stats = {}

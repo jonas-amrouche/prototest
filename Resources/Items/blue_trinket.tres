@@ -28,6 +28,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -40,7 +41,7 @@ type = 2
 rarity = 0
 craft_1 = ExtResource("2_r0xji")
 craft_2 = ExtResource("3_uiiew")
-carft = Array[ExtResource("5_e53ia")]([ExtResource("2_r0xji"), ExtResource("3_uiiew")])
+craft = Array[ExtResource("5_e53ia")]([ExtResource("2_r0xji"), ExtResource("3_uiiew")])
 abilities = Array[ExtResource("1_kist3")]([ExtResource("2_7lj4e")])
 passives = Array[ExtResource("4_74oqi")]([])
 stats = {}

@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "An excellent essence to bring experience."
 icon = ExtResource("2_4jlmi")
 type = 1
 rarity = 0
-carft = Array[ExtResource("4_gc1wh")]([])
+craft = Array[ExtResource("4_gc1wh")]([])
 abilities = Array[ExtResource("1_sq8nr")]([])
 passives = Array[ExtResource("3_1g7x4")]([])
 stats = {}

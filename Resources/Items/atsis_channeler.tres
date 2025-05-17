@@ -23,6 +23,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -32,7 +33,7 @@ id = "atsis_channeler"
 description = "Magical gear, connected to other channeler, discharging a portion (20%) of damage taken onto other."
 type = 1
 rarity = 1
-carft = Array[ExtResource("3_02h6n")]([])
+craft = Array[ExtResource("3_02h6n")]([])
 abilities = Array[ExtResource("1_q647f")]([])
 passives = Array[ExtResource("2_0nedn")]([])
 stats = {}

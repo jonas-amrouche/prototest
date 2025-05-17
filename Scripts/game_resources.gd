@@ -18,6 +18,7 @@ var item_ground = preload("res://Scenes/Systems/item_ground.tscn")
 var recall_ability = preload("res://Resources/Abilities/recall.tres")
 var dead_color_correction = preload("res://Resources/ColorCorection/DeadColorCorrection.tres")
 
+var item_workshop_scene = preload("res://Scenes/UI/item_workshop.tscn")
 var item_hud = preload("res://Scenes/UI/item_hud.tscn")
 var ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
 var item_craft = preload("res://Scenes/UI/item_craft.tscn")

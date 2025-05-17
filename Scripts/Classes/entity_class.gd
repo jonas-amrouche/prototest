@@ -35,6 +35,8 @@ var souls : int
 @export var spirit : int 
 ## Allows multi-casting, percentage of left channel ability time where you can cast another ability
 @export var soul_division : int 
+## Allows taking multiple potion without getting potion sickness
+@export var potion_resistence : int
 
 signal state_changed
 

@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Flame from a dying soul, can serve to craft temporary consumable.
 icon = ExtResource("2_82abr")
 type = 1
 rarity = 0
-carft = Array[ExtResource("5_aivwo")]([])
+craft = Array[ExtResource("5_aivwo")]([])
 abilities = Array[ExtResource("1_8wmbe")]([])
 passives = Array[ExtResource("4_6q6q6")]([])
 stats = {}

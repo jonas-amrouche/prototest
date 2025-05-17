@@ -4,6 +4,8 @@ extends Node
 
 var state : Basics.ClientState = Basics.ClientState.DISCONNECTED
 
+var game_scene : String = "res://Scenes/game.tscn"
+
 func set_state(sta: Basics.ClientState) -> void:
 	state = sta
 
@@ -16,9 +18,21 @@ func _ready() -> void:
 
 func load_game() -> void:
 	client_logger.info("Loading game scene.")
-	var _game_scene = load("res://Scenes/game.tscn")
-	add_child(_game_scene.instantiate(), true)
-	Replication.rpc("player_loaded", multiplayer.get_unique_id())
+	#var _game_scene = load("res://Scenes/game.tscn")
+	ResourceLoader.load_threaded_request(game_scene)
+	set_state(Basics.ClientState.LOADING)
+
+func _process(_delta: float) -> void:
+	if state == Basics.ClientState.LOADING:
+		check_load_progress()
+
+func check_load_progress() -> void:
+	# INFO : load progress can be retrieved with "load_threaded_get_status" if we want
+	var _load_status = ResourceLoader.load_threaded_get_status(game_scene) 
+	if _load_status == ResourceLoader.THREAD_LOAD_LOADED:
+		var _loaded_scene = ResourceLoader.load_threaded_get(game_scene)
+		add_child(_loaded_scene.instantiate(), true)
+		Replication.rpc("player_loaded", multiplayer.get_unique_id())
 
 func start_client() -> void:
 	var peer = ENetMultiplayerPeer.new()
@@ -44,4 +58,5 @@ func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
 
 func _load_finished():
-	pass
+	client_logger.info("Scene loaded, entering game.")
+	set_state(Basics.ClientState.INGAME)

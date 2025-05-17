@@ -15,6 +15,6 @@ void fragment() {
 	//if (distance(UV, player_pos) < player_fog_size || distance(UV, base1_pos) < base_fog_size || distance(UV, base2_pos) < base_fog_size){
 		//COLOR.a = 0.0;
 	//}
-		
+
 	COLOR.rgb = vec3(0.0074);
 }

@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Flame for permanent item enchantments."
 icon = ExtResource("2_c0io2")
 type = 1
 rarity = 0
-carft = Array[ExtResource("5_qdewl")]([])
+craft = Array[ExtResource("5_qdewl")]([])
 abilities = Array[ExtResource("1_2ke2k")]([])
 passives = Array[ExtResource("4_isqyt")]([])
 stats = {}

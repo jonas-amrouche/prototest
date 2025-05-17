@@ -1,8 +1,7 @@
-[gd_scene load_steps=124 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=143 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
-[ext_resource type="Texture2D" uid="uid://btenjecpu7vhn" path="res://Assets/2D/icon.svg" id="2_2e34d"]
 [ext_resource type="PackedScene" uid="uid://dmsot177joet6" path="res://Scenes/UI/experience_gem.tscn" id="2_j4ssy"]
 [ext_resource type="Shader" uid="uid://b6om6yu2stsmg" path="res://Resources/Shaders/ExpGemUi.gdshader" id="3_khlsh"]
 [ext_resource type="Texture2D" uid="uid://cx6f1ycmvqilj" path="res://Assets/2D/Shaders/gem_texture_ui.png" id="4_4sp2n"]
@@ -696,6 +695,286 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buji0"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcce"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71ejs"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecp6t"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s071j"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djv8h"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08ytq"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_040kf"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_citry"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lrj8"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tiqyw"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t62pt"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gnrp"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi6f4"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tptls"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knoxt"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2gqg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7d6u"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n63dt"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_xbkfx"]
 font_size = 15
 font_color = Color(0.28, 0.25984, 0.2296, 1)
@@ -825,6 +1104,18 @@ texture_margin_bottom = 18.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itd6h"]
+bg_color = Color(0, 0, 0, 0.529412)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.117647)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1phg"]
@@ -840,8 +1131,6 @@ axis_stretch_vertical = 2
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vlod2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpqhs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ukpxu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
 
@@ -1013,9 +1302,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -49.0
-offset_top = -350.0
-offset_right = -8.0
+offset_left = -580.0
+offset_top = -181.0
+offset_right = -531.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -1027,9 +1316,9 @@ custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 1869.0
+offset_left = 1340.0
 offset_top = 64.0
-offset_right = -6.0
+offset_right = -531.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 size_flags_vertical = 8
@@ -1448,6 +1737,106 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
 available = false
 
+[node name="Gathering" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -498.0
+offset_right = 278.0
+offset_bottom = -273.0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
+
+[node name="GatheringList" type="GridContainer" parent="Gathering"]
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 5
+metadata/_edit_lock_ = true
+
+[node name="ItemHud" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_buji0")
+
+[node name="ItemHud2" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
+
+[node name="ItemHud3" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4vcce")
+
+[node name="ItemHud4" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_71ejs")
+
+[node name="ItemHud5" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ecp6t")
+
+[node name="ItemHud6" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s071j")
+
+[node name="ItemHud7" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_djv8h")
+
+[node name="ItemHud8" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_08ytq")
+
+[node name="ItemHud9" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_040kf")
+
+[node name="ItemHud10" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_citry")
+
+[node name="ItemHud11" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2lrj8")
+
+[node name="ItemHud12" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tiqyw")
+
+[node name="ItemHud13" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t62pt")
+
+[node name="ItemHud14" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gnrp")
+
+[node name="ItemHud15" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wi6f4")
+
+[node name="ItemHud16" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tptls")
+
+[node name="ItemHud17" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_knoxt")
+
+[node name="ItemHud18" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2gqg")
+
+[node name="ItemHud19" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o7d6u")
+
+[node name="ItemHud20" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n63dt")
+
 [node name="Loot" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
@@ -1744,6 +2133,7 @@ metadata/_edit_lock_ = true
 
 [node name="Workshop" type="Panel" parent="."]
 visible = false
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1756,60 +2146,37 @@ offset_right = 652.0
 offset_bottom = 494.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_oersf")
 
-[node name="ItemBoard" type="ColorRect" parent="Workshop"]
+[node name="ItemBoard" type="PanelContainer" parent="Workshop"]
 layout_mode = 2
 offset_left = 16.0
-offset_top = 45.0
-offset_right = 775.0
-offset_bottom = 983.0
+offset_top = 48.0
+offset_right = 1288.0
+offset_bottom = 980.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.172833, 0.172833, 0.172833, 1)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_itd6h")
 
-[node name="ItemListContainer" type="ColorRect" parent="Workshop/ItemBoard"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 273.0
-offset_top = 7.0
-offset_right = -6.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.172833, 0.172833, 0.172833, 1)
-
-[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard/ItemListContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard"]
+layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
+metadata/_edit_lock_ = true
 
-[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/ItemListContainer/Pad"]
+[node name="ItemList" type="VBoxContainer" parent="Workshop/ItemBoard/Pad"]
 layout_mode = 2
-theme_override_constants/h_separation = 23
-theme_override_constants/v_separation = 23
-columns = 5
+theme_override_constants/separation = -7
+metadata/_edit_lock_ = true
 
 [node name="Categories" type="ColorRect" parent="Workshop/ItemBoard"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 7.0
-offset_right = -556.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
+layout_mode = 2
 color = Color(0.336608, 0.336608, 0.336608, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Workshop/ItemBoard/Categories"]
@@ -1917,210 +2284,14 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
 text = "Crowd Control
 "
 
-[node name="ViewAndMake" type="ColorRect" parent="Workshop"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -520.0
-offset_top = 45.0
-offset_right = -14.0
-offset_bottom = 983.0
-grow_horizontal = 0
-color = Color(0.172833, 0.172833, 0.172833, 1)
-
-[node name="Inspector" type="ColorRect" parent="Workshop/ViewAndMake"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -245.0
-offset_top = -930.0
-offset_right = 246.0
-offset_bottom = -9.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.133196, 0.133196, 0.133196, 1)
-
-[node name="CraftItem" type="Button" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -124.0
-offset_top = -56.0
-offset_right = -24.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-focus_mode = 0
-theme_override_font_sizes/font_size = 23
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ukpxu")
-disabled = true
-text = "CRAFT"
-
-[node name="ItemView" type="TextureRect" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 18.0
-offset_right = 66.0
-offset_bottom = 70.0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="ItemName" type="Label" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 0
-offset_left = 71.0
-offset_top = 19.0
-offset_right = 214.0
-offset_bottom = 42.0
-theme_override_font_sizes/font_size = 15
-
-[node name="ItemDesc" type="Label" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 106.0
-offset_right = 436.0
-offset_bottom = 295.0
-theme_override_font_sizes/font_size = 12
-autowrap_mode = 2
-
-[node name="LabelComps" type="Label" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 415.0
-offset_right = 117.0
-offset_bottom = 434.0
-theme_override_font_sizes/font_size = 12
-text = "Composants :"
-autowrap_mode = 2
-
-[node name="LabelDesc" type="Label" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 84.0
-offset_right = 114.0
-offset_bottom = 101.0
-theme_override_font_sizes/font_size = 12
-text = "Description:"
-autowrap_mode = 2
-
-[node name="ComponentsNeeded" type="GridContainer" parent="Workshop/ViewAndMake/Inspector"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -223.5
-offset_top = 24.5
-offset_right = 223.5
-offset_bottom = 353.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 6
-columns = 8
-
-[node name="ListEvolution" type="ColorRect" parent="Workshop/ViewAndMake"]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -245.5
-offset_top = -930.0
-offset_right = 245.5
-offset_bottom = -853.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.133196, 0.133196, 0.133196, 1)
-
-[node name="ItemAfter1" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 22.0
-offset_top = 14.0
-offset_right = 74.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter2" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 78.0
-offset_top = 14.0
-offset_right = 130.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter3" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 134.0
-offset_top = 14.0
-offset_right = 186.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter4" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 14.0
-offset_right = 242.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter5" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 247.0
-offset_top = 14.0
-offset_right = 299.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter6" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 303.0
-offset_top = 14.0
-offset_right = 355.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter7" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 359.0
-offset_top = 14.0
-offset_right = 411.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
-[node name="ItemAfter8" type="TextureRect" parent="Workshop/ViewAndMake/ListEvolution"]
-layout_mode = 0
-offset_left = 415.0
-offset_top = 14.0
-offset_right = 467.0
-offset_bottom = 66.0
-texture = ExtResource("2_2e34d")
-expand_mode = 1
-
 [node name="CloseWorkshop" type="Button" parent="Workshop"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -63.0
-offset_top = 8.0
-offset_right = -9.0
+offset_top = 12.0
+offset_right = -13.0
 offset_bottom = 43.0
 grow_horizontal = 0
 focus_mode = 0

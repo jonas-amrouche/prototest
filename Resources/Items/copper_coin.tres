@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "One creature in the forest accept to trade copper coin."
 icon = ExtResource("2_6xr8f")
 type = 1
 rarity = 0
-carft = Array[ExtResource("5_ryrla")]([])
+craft = Array[ExtResource("5_ryrla")]([])
 abilities = Array[ExtResource("1_syd8t")]([])
 passives = Array[ExtResource("4_cqthn")]([])
 stats = {}

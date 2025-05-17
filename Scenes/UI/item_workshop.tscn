@@ -1,0 +1,164 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmwcwoqnobiym"]
+
+[ext_resource type="Texture2D" uid="uid://cn6i4uf8n36if" path="res://Assets/2D/UI/window_frame_without_corners.png" id="1_jf058"]
+[ext_resource type="Script" uid="uid://dq53x351f0fxm" path="res://Scripts/item_workshop.gd" id="2_jf058"]
+[ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="3_4dtp3"]
+[ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="4_4v47b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_duutx"]
+texture = ExtResource("1_jf058")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yrvhj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_44vsf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf058"]
+bg_color = Color(0, 0, 0, 0.352941)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjpyk"]
+bg_color = Color(1, 1, 1, 0.0431373)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ItemWorkshop" type="PanelContainer"]
+z_index = 1
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 87.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_duutx")
+script = ExtResource("2_jf058")
+
+[node name="Pad" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -3
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = -2
+metadata/_edit_lock_ = true
+
+[node name="IconPad" type="MarginContainer" parent="Pad"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+
+[node name="ItemIcon" type="TextureRect" parent="Pad/IconPad"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_4dtp3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RarityOverlay" type="TextureRect" parent="Pad/IconPad"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("4_4v47b")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DataPad" type="MarginContainer" parent="Pad"]
+layout_mode = 2
+theme_override_constants/margin_left = 65
+
+[node name="ItemData" type="VBoxContainer" parent="Pad/DataPad"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+metadata/_edit_lock_ = true
+
+[node name="ItemName" type="Label" parent="Pad/DataPad/ItemData"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Item Name"
+label_settings = SubResource("LabelSettings_yrvhj")
+
+[node name="NameDescSep" type="HSeparator" parent="Pad/DataPad/ItemData"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
+
+[node name="DescLine" type="RichTextLabel" parent="Pad/DataPad/ItemData"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.43134, 0.43134, 0.43134, 1)
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 2
+bbcode_enabled = true
+text = "blade of akila"
+fit_content = true
+autowrap_mode = 2
+
+[node name="DataSpecsSep" type="HSeparator" parent="Pad/DataPad/ItemData"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
+
+[node name="CompsPad" type="MarginContainer" parent="Pad"]
+layout_mode = 2
+theme_override_constants/margin_left = 65
+theme_override_constants/margin_top = 10
+
+[node name="CompsList" type="HBoxContainer" parent="Pad/CompsPad"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="UnavailablePad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -9
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -9
+
+[node name="Unavailable" type="Panel" parent="UnavailablePad"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jf058")
+
+[node name="SelectPad" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -9
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -9
+
+[node name="Select" type="Panel" parent="SelectPad"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fjpyk")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

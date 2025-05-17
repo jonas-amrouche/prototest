@@ -10,7 +10,7 @@ extends Resource
 @export var mesh_model : PackedScene
 @export var craft_1 : Item
 @export var craft_2 : Item
-@export var carft : Array[Item]
+@export var craft : Array[Item]
 @export var abilities : Array[Ability]
 @export var passives : Array[Passive]
 @export var stats : Dictionary

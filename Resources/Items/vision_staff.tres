@@ -26,6 +26,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -36,7 +37,7 @@ description = "A cool stick giving you short range vision."
 icon = ExtResource("5_wptx0")
 type = 0
 rarity = 0
-carft = Array[ExtResource("6_3n4vu")]([])
+craft = Array[ExtResource("6_3n4vu")]([])
 abilities = Array[ExtResource("1_ubpcj")]([ExtResource("1_udich")])
 passives = Array[ExtResource("7_kvno1")]([])
 stats = {}

@@ -1,14 +1,14 @@
 extends Node
 
 # CLIENT NOT DIRECTLY USED BY SERVER
-var client_infos = {}
+var client_infos := {}
 
 # CLIENT AND SERVER
-var players = {}
-var players_loaded = 0
+var players := {}
+var players_loaded := {}
 
-const PORT = 7432
-const DEFAULT_SERVER_IP = "localhost" # IPv4 localhost
+const PORT := 7432
+const DEFAULT_SERVER_IP := "localhost" # IPv4 localhost
 
 signal enter_class_select
 signal player_locked_class(id : int, class_locked : Basics.Class)
@@ -33,11 +33,16 @@ func update_player_infos(client_id : int, new_client_info : Dictionary) -> void:
 @rpc("any_peer", "call_local", "reliable")
 func player_loaded(id : int):
 	if multiplayer.is_server():
-		players_loaded += 1
+		players_loaded[id] = true
 		player_load_finished.emit(id)
-		if players_loaded == players.size():
-			load_finished.emit()
-			players_loaded = 0
+		if players_loaded.size() == players.size():
+			rpc("launch_game")
+			launch_game()
+
+# Called by server, executed by server and peers
+@rpc("any_peer", "reliable")
+func launch_game() -> void:
+	load_finished.emit()
 
 @rpc("any_peer", "reliable")
 func launch_class_select() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://s6asatp8xuae"]
+[gd_scene load_steps=8 format=3 uid="uid://s6asatp8xuae"]
 
 [ext_resource type="Script" uid="uid://dcc8n15wlby2k" path="res://Scripts/player_puppet.gd" id="1_2g34u"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="5_uf4qr"]
@@ -11,14 +11,6 @@ radius = 0.387958
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_najce"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f1ek2"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("PlayerModel:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
 
 [node name="PlayerPuppet" type="CharacterBody3D"]
 collision_layer = 2
@@ -56,9 +48,5 @@ texture = SubResource("ViewportTexture_najce")
 [node name="Effects" parent="." instance=ExtResource("9_wtwv6")]
 
 [node name="Nav" type="NavigationAgent3D" parent="."]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 1.0
-replication_config = SubResource("SceneReplicationConfig_f1ek2")
 
 [connection signal="path_changed" from="Nav" to="." method="_on_nav_path_changed"]

@@ -25,6 +25,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -35,7 +36,7 @@ description = "Piece of hard skin, from an healty creature."
 icon = ExtResource("2_5lqfo")
 type = 1
 rarity = 0
-carft = Array[ExtResource("4_i3cad")]([])
+craft = Array[ExtResource("4_i3cad")]([])
 abilities = Array[ExtResource("1_5lqfo")]([])
 passives = Array[ExtResource("3_e0lqj")]([])
 stats = {}

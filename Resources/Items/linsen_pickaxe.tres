@@ -23,6 +23,7 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -32,7 +33,7 @@ id = "linsen_pickaxe"
 description = "Hard pickage from linsen depth."
 type = 0
 rarity = 0
-carft = Array[ExtResource("5_dspxb")]([])
+craft = Array[ExtResource("5_dspxb")]([])
 abilities = Array[ExtResource("1_ppjex")]([])
 passives = Array[ExtResource("4_c1846")]([])
 stats = {}
