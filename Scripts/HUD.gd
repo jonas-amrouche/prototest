@@ -16,8 +16,8 @@ extends Control
 @onready var inventory_list = $Inventory/Container/InventoryList
 @onready var consumables_list = $Inventory/Container/ConsumableList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
-@onready var non_binded_abilities_tab = $NonBindedAbilities
-@onready var non_binded_abilities_list = $NonBindedAbilities/Container/Pad/AbilitiesList
+#@onready var non_binded_abilities_tab = $NonBindedAbilities
+#@onready var non_binded_abilities_list = $NonBindedAbilities/Container/Pad/AbilitiesList
 @onready var stats_list = $Stats/MarginContainer/StatList
 @onready var channeling_bar := $ChannelingBar
 @onready var channeling_label := $ChannelingBar/ChannelingLabel
@@ -37,6 +37,7 @@ var item_preview
 #var component_preview
 var effect_preview
 var ability_preview
+var bind_ability_preview
 
 var dragged_ability_slot : Object
 var dragged_item_ref : Object
@@ -157,8 +158,8 @@ func update_target() -> void:
 
 func update_abilities() -> void:
 	# Clear ability bars
-	for a_slot in non_binded_abilities_list.get_children():
-		a_slot.queue_free()
+	#for a_slot in non_binded_abilities_list.get_children():
+		#a_slot.queue_free()
 	for a_slot in ability_list.get_children():
 		a_slot.queue_free()
 	
@@ -219,25 +220,25 @@ func update_abilities() -> void:
 		ability_list.add_child(_new_ability_hud)
 	
 	# Populate nonbinded bar
-	non_binded_abilities_tab.hide()
-	for a in range(player.abilities.size()):
-		if player.abilities[a].slot_id != -1:
-			continue
-		non_binded_abilities_tab.show()
-		var _new_ability_hud = world.resources.ability_hud.instantiate()
-		_new_ability_hud.custom_minimum_size = Vector2(37.0, 37.0)
-		if player.abilities[a]:
-			if player.ability_machine.get_ability_cooldown(player.abilities[a]):
-				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
-			_new_ability_hud.ability = player.abilities[a]
-			_new_ability_hud.item = _item_link.get(player.abilities[a])
+	#non_binded_abilities_tab.hide()
+	#for a in range(player.abilities.size()):
+		#if player.abilities[a].slot_id != -1:
+			#continue
+		#non_binded_abilities_tab.show()
+		#var _new_ability_hud = world.resources.ability_hud.instantiate()
+		#_new_ability_hud.custom_minimum_size = Vector2(37.0, 37.0)
+		#if player.abilities[a]:
+			#if player.ability_machine.get_ability_cooldown(player.abilities[a]):
+				#_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(player.abilities[a])
+			#_new_ability_hud.ability = player.abilities[a]
+			#_new_ability_hud.item = _item_link.get(player.abilities[a])
+		#
+		#_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
+		#_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
+		#_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
+		#_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
 		
-		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
-		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
-		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
-		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
-		
-		non_binded_abilities_list.add_child(_new_ability_hud)
+		#non_binded_abilities_list.add_child(_new_ability_hud)
 
 func update_inventory() -> void:
 	for i in inventory_list.get_children():
@@ -253,6 +254,7 @@ func update_inventory() -> void:
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
+		_new_item_hud.connect("show_abilities", Callable(self, "show_bind_abilities"))
 		if i >= player.inventory_size:
 			_new_item_hud.available = false
 		inventory_list.add_child(_new_item_hud)
@@ -285,6 +287,21 @@ func hide_item_preview() -> void:
 	if item_preview:
 		item_preview.queue_free()
 		item_preview = null
+
+func hide_bind_abilities() -> void: # TODO A APPELER QUELQUE PART
+	if bind_ability_preview:
+		bind_ability_preview.queue_free()
+		bind_ability_preview = null
+
+func show_bind_abilities(itm : Item, item_ref : Object) -> void:
+	hide_bind_abilities()
+	bind_ability_preview = world.resources.bind_ability_hud.instantiate()
+	bind_ability_preview.item = itm
+	bind_ability_preview.hud = self
+	add_child(bind_ability_preview)
+	
+	var _position_offset = Vector2(bind_ability_preview.size.x/2.0 - item_ref.size.x/2.0, bind_ability_preview.size.y + 10.0)
+	bind_ability_preview.position = item_ref.global_position - _position_offset
 
 func show_ability_preview(ability_ref : Object) -> void:
 	if ability_ref.ability:

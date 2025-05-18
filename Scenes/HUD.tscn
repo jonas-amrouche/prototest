@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=142 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -338,9 +338,9 @@ font_size = 13
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ba8gd"]
 texture = ExtResource("12_8bf2m")
-texture_margin_left = 15.0
+texture_margin_left = 18.0
 texture_margin_top = 18.0
-texture_margin_right = 15.0
+texture_margin_right = 18.0
 texture_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36s6t"]
@@ -1078,12 +1078,6 @@ border_width_left = 1
 border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0.129412, 0.129412, 0.129412, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_8bf2m"]
-font_size = 15
-font_color = Color(0.28, 0.25984, 0.2296, 1)
-shadow_color = Color(0, 0, 0, 0.409)
-shadow_offset = Vector2(1.5, 1.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2vyp"]
 bg_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
@@ -1959,50 +1953,6 @@ size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_l8r83")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v5hjn")
 show_percentage = false
-
-[node name="NonBindedAbilities" type="PanelContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 34.0
-offset_top = -360.0
-offset_right = 303.0
-offset_bottom = -295.0
-grow_vertical = 0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
-
-[node name="Container" type="VBoxContainer" parent="NonBindedAbilities"]
-layout_mode = 2
-
-[node name="PadLabel" type="MarginContainer" parent="NonBindedAbilities/Container"]
-layout_mode = 2
-theme_override_constants/margin_top = -10
-
-[node name="Label" type="Label" parent="NonBindedAbilities/Container/PadLabel"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Non-Binded Abilities"
-label_settings = SubResource("LabelSettings_8bf2m")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Pad" type="MarginContainer" parent="NonBindedAbilities/Container"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 10
-metadata/_edit_lock_ = true
-
-[node name="AbilitiesList" type="GridContainer" parent="NonBindedAbilities/Container/Pad"]
-layout_mode = 2
-theme_override_constants/h_separation = 3
-theme_override_constants/v_separation = 3
-columns = 6
-metadata/_edit_lock_ = true
 
 [node name="TargetData" type="PanelContainer" parent="."]
 visible = false

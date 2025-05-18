@@ -7,6 +7,7 @@ signal drag_item(slot : Object)
 signal drop_item(slot : Object)
 signal update_item_preview()
 signal mouse_entered_item(itm : Item)
+signal show_abilities(itm : Item, itm_ref : Object)
 
 @onready var icon = $DragCont/Icon
 @onready var drag_cont = $DragCont
@@ -57,6 +58,7 @@ func _unhandled_input(event):
 				mouse_entered_item.emit(item_slot.item)
 
 var grabbed = false
+var press_item = false
 func _on_gui_input(event):
 	if !available: return
 	if event is InputEventMouseButton and event.button_index == 1:
@@ -70,6 +72,13 @@ func _on_gui_input(event):
 			drag_cont.z_index = 0
 			drag_cont.position = Vector2(2.0, 2.0)
 			grabbed = false
+	if event is InputEventMouseButton and event.button_index == 2:
+		if event.pressed:
+			press_item = true
+		elif press_item:
+			press_item = false
+			if item_slot.item and item_slot.item.abilities.size() > 0:
+				show_abilities.emit(item_slot.item, self)
 	if event is InputEventMouseMotion:
 		if grabbed:
 			drag_cont.position = get_viewport().get_mouse_position() - global_position - size/2.0
