@@ -33,9 +33,7 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("7_jjldo")
 entity = SubResource("Resource_neweh")
-id = "rune"
 description = "Basic non-enchanted rune."
-icon = ExtResource("4_7gb02")
 type = 1
 rarity = 0
 craft_1 = ExtResource("2_13tl2")
@@ -43,4 +41,3 @@ craft_2 = ExtResource("4_mlvb2")
 craft = Array[ExtResource("7_jjldo")]([ExtResource("2_13tl2"), ExtResource("4_mlvb2")])
 abilities = Array[ExtResource("1_y1lh3")]([])
 passives = Array[ExtResource("6_eqsv6")]([])
-stats = {}

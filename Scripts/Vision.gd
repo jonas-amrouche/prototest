@@ -73,7 +73,7 @@ func get_circle(size : float, resize_filter : Image.Interpolation = Image.INTERP
 func has_vision(pos : Vector2i) -> bool:
 	
 	# TODO bug quand une entité va trop loin (il depasse de la map de vision) pour l'instant je clamp
-	var _fog_position = clamp(world_to_fog_position(pos), Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1))
+	var _fog_position = world_to_fog_position(pos).clamp(Vector2i(0, 0), FOG_TEXTURE_SIZE-Vector2i(1, 1))
 	return current_fog_map.get_pixel(_fog_position.x, _fog_position.y).r < 0.5
 
 const RAY_NUM = 26

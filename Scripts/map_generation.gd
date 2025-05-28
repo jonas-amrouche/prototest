@@ -37,6 +37,7 @@ const DECORATION_DISTANCE := 1.5
 var decorations_points = PackedVector2Array()
 
 var generated_data : Dictionary
+var collision_spawn_thread : Thread
 
 @onready var world = get_parent()
 @onready var resources = world.get_node("GameResources")
@@ -67,7 +68,7 @@ func generate_map() -> void:
 	generate_lanes()
 	generate_points_and_paths()
 	generate_mid_arena()
-	mirror_points()
+	#mirror_points()
 	generated_data["interest_points"] = new_interest_points_list
 	generated_data["paths_points"] = paths_points_list
 	#generate_decoration()
@@ -84,7 +85,9 @@ func spawn_map(data : Dictionary) -> void:
 	
 	spawn_bases()
 	spawn_arena()
-	spawn_collisions()
+	#spawn_collisions_new()
+	collision_spawn_thread = Thread.new()
+	collision_spawn_thread.start(spawn_collisions.bind(generated_data))
 	#spawn_collisions_old()
 	spawn_trees()
 	spawn_camps()
@@ -108,7 +111,7 @@ func spawn_trees() -> void:
 		multi_tree.multimesh.set_instance_transform(i, _transform)
 		#add_collision_cube(Vector2(_transform.origin.x, _transform.origin.z))
 	multi_tree.multimesh.visible_instance_count = generated_data["trees"].size()
-	navmesh.bake_navigation_mesh()#.call_deferred("bake_navigation_mesh")
+	
 
 func spawn_camps() -> void:
 	for i in range(generated_data["camps"]["position"].size()):
@@ -273,73 +276,76 @@ func is_on_right_side(point : Vector2) -> bool:
 		return true
 	return false
 
-#func spawn_collisions_old() -> void:
-	#print("col started")
-	#var _walls_points : PackedVector2Array
-	#var _walls_id : PackedInt64Array
-	#for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
-		#for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
-			#var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
-			#if !(is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)):
-				#_walls_points.append(Vector2(x, y))
-				#_walls_id.append(-1)
-				##for vec in [Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1)]:
-					##if _walls_points.find(vec) != -1:
-						##_walls_points.append(Vector2(x, y))
-						##_walls_id.append(_walls_id[_walls_points.find(vec)])
-						##break
-				##if _walls_points.find(Vector2(x, y)) == -1:
-					##_walls_points.append(Vector2(x, y))
-					##_walls_id.append(rand_from_seed(int(str(x) + str(y)))[1])
-	#
-	#for i in range(_walls_points.size()):
-		#var x = _walls_points[i].x
-		#var y = _walls_points[i].y
-		#for vec in [Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1)]:
-			#if _walls_points.find(vec) != -1 and _walls_id[_walls_points.find(vec)] != -1:
-				#_walls_id[i] = _walls_id[_walls_points.find(vec)]
-				#break
-		#if _walls_id[i] == -1:
-			#_walls_id[i] = rand_from_seed(int(str(x) + str(y)))[1]
-	#
-	#print(_walls_points.size())
-	##var _unsorted_collision_chunks : Dictionary[Vector2, int]
-	#var _final_wall_points : PackedVector2Array = _walls_points
-	#var _final_wall_id : PackedInt64Array = _walls_id
-	##for w in range(_walls_points.size()):
-		##var _wall_neighbor = 0
-		##if _walls_points.has(_walls_points[w] - Vector2(1, 0)): _wall_neighbor += 1
-		##if _walls_points.has(_walls_points[w] + Vector2(1, 0)): _wall_neighbor += 1
-		##if _walls_points.has(_walls_points[w] - Vector2(0, 1)): _wall_neighbor += 1
-		##if _walls_points.has(_walls_points[w] + Vector2(0, 1)): _wall_neighbor += 1
-		##if _wall_neighbor != 4:
-			##_final_wall_points.append(_walls_points[w])
-			##_final_wall_id.append(_walls_id[w])
-			###add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
-	#
-	##print(_unsorted_collision_chunks)
-	#var _reverse_dictionnary : Dictionary[int, PackedVector2Array]
-	#for i in range(_final_wall_id.size()):
-		#var _arr = PackedVector2Array()
-		#if _reverse_dictionnary.has(_final_wall_id[i]):
-			#_arr = _reverse_dictionnary[_final_wall_id[i]]
-		#_arr.append(_final_wall_points[i])
-		#_reverse_dictionnary[_final_wall_id[i]] = _arr
-	#
-	#print(_reverse_dictionnary)
-	#for g in range(_reverse_dictionnary.keys().size()):
-		##if _sorted_collision_points[g].size() > 8:
-			##var _pos_array = PackedVector2Array()
-			##for point in _sorted_collision_points[g]:
-				##_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
-			##add_collision_polygon(_pos_array)
-		##else:
-		#for point in _reverse_dictionnary.values()[g]:
-			#var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
-			##add_collision_cube(_pos)
-			##DebugFeatures.debug_box(world, Vector3(_pos.x+randf_range(-0.05, 0.05), 1.0, _pos.y+randf_range(-0.05, 0.05)), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
+#func spawn_collisions_new() -> void:
+	#pass
 
-func spawn_collisions() -> void:
+func spawn_collisions_old() -> void:
+	print("col started")
+	var _walls_points : PackedVector2Array
+	var _walls_id : PackedInt64Array
+	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
+		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
+			var _position = Vector2(x, y) * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			if !(is_in_base(_position) or is_in_path(_position) or is_in_arena(_position)):
+				_walls_points.append(Vector2(x, y))
+				_walls_id.append(-1)
+				#for vec in [Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1)]:
+					#if _walls_points.find(vec) != -1:
+						#_walls_points.append(Vector2(x, y))
+						#_walls_id.append(_walls_id[_walls_points.find(vec)])
+						#break
+				#if _walls_points.find(Vector2(x, y)) == -1:
+					#_walls_points.append(Vector2(x, y))
+					#_walls_id.append(rand_from_seed(int(str(x) + str(y)))[1])
+	
+	for i in range(_walls_points.size()):
+		var x = _walls_points[i].x
+		var y = _walls_points[i].y
+		for vec in [Vector2(x-1, y+1), Vector2(x, y+1), Vector2(x+1, y+1), Vector2(x-1, y), Vector2(x+1, y), Vector2(x-1, y-1), Vector2(x, y-1), Vector2(x+1, y-1)]:
+			if _walls_points.has(vec) and _walls_id[_walls_points.find(vec)] != -1:
+				_walls_id[i] = _walls_id[_walls_points.find(vec)]
+				break
+		if _walls_id[i] == -1:
+			_walls_id[i] = rand_from_seed(int(str(x) + str(y)))[1]
+	
+	print(_walls_points.size())
+	#var _unsorted_collision_chunks : Dictionary[Vector2, int]
+	var _final_wall_points : PackedVector2Array = _walls_points
+	var _final_wall_id : PackedInt64Array = _walls_id
+	#for w in range(_walls_points.size()):
+		#var _wall_neighbor = 0
+		#if _walls_points.has(_walls_points[w] - Vector2(1, 0)): _wall_neighbor += 1
+		#if _walls_points.has(_walls_points[w] + Vector2(1, 0)): _wall_neighbor += 1
+		#if _walls_points.has(_walls_points[w] - Vector2(0, 1)): _wall_neighbor += 1
+		#if _walls_points.has(_walls_points[w] + Vector2(0, 1)): _wall_neighbor += 1
+		#if _wall_neighbor != 4:
+			#_final_wall_points.append(_walls_points[w])
+			#_final_wall_id.append(_walls_id[w])
+			##add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+	
+	#print(_unsorted_collision_chunks)
+	var _reverse_dictionnary : Dictionary[int, PackedVector2Array]
+	for i in range(_final_wall_id.size()):
+		var _arr = PackedVector2Array()
+		if _reverse_dictionnary.has(_final_wall_id[i]):
+			_arr = _reverse_dictionnary[_final_wall_id[i]]
+		_arr.append(_final_wall_points[i])
+		_reverse_dictionnary[_final_wall_id[i]] = _arr
+	
+	print(_reverse_dictionnary)
+	for g in range(_reverse_dictionnary.keys().size()):
+		#if _sorted_collision_points[g].size() > 8:
+			#var _pos_array = PackedVector2Array()
+			#for point in _sorted_collision_points[g]:
+				#_pos_array.append(point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
+			#add_collision_polygon(_pos_array)
+		#else:
+		for point in _reverse_dictionnary.values()[g]:
+			var _pos = point * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2
+			#add_collision_cube(_pos)
+			DebugFeatures.debug_box(world, Vector3(_pos.x+randf_range(-0.05, 0.05), 1.0, _pos.y+randf_range(-0.05, 0.05)), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
+
+func spawn_collisions(datas : Dictionary) -> void:
 	var _walls : Array[Vector2]
 	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
 		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):
@@ -357,7 +363,8 @@ func spawn_collisions() -> void:
 		if _wall_neighbor != 4:
 			_unsorted_collision_points.append(wall)
 			add_collision_cube(wall * COLLISION_GRID_DIVISION - Vector2(Basics.MAP_SIZE)/2)
-	
+	print("collision loaded")
+	navmesh.call_deferred("bake_navigation_mesh")
 	#var _sorted_collision_points : Array[PackedVector2Array]
 	#var _lost_neighbors : PackedVector2Array
 	#while _unsorted_collision_points.size() > 0:
@@ -441,7 +448,7 @@ func add_collision_cube(pos : Vector2) -> void:
 	_new_collision_cube.shape.size = Vector3(1.0, 4.0, 1.0)
 	_new_collision_cube.position = Vector3(pos.x, 1.5, pos.y)
 	#_new_collision_cube.rotation = Vector3(0, PI/4.0, 0)
-	trees_body.add_child(_new_collision_cube)
+	trees_body.call_deferred("add_child", _new_collision_cube)
 
 func add_collision_polygon(polygon_shape : PackedVector2Array) -> void:
 	var _new_collision_cube = CollisionPolygon3D.new()
@@ -484,9 +491,9 @@ func is_in_decoration(pos : Vector2) -> bool:
 	return false
 
 func is_in_base(pos : Vector2) -> bool:
-	for base in bases:
+	for base in generated_data["bases"]:
 		#var _base_pos = Vector2(base.position.x+(NO_TREE_BASE_DISTANCE*sign(base.position.x)), base.position.z+(NO_TREE_BASE_DISTANCE*-sign(base.position.x)))
-		var _base_pos = Vector2(base.position.x, base.position.z)
+		var _base_pos = Vector2(base.x, base.y)
 		if pos.distance_to(_base_pos) < NO_TREE_BASE_DISTANCE:
 			return true
 	return false
@@ -527,3 +534,6 @@ func is_in_arena(pos : Vector2) -> bool:
 	if pos.distance_to(Vector2(0.0, 0.0)) < ARENA_SIZE:
 		return true
 	return false
+
+func _exit_tree():
+	collision_spawn_thread.wait_to_finish()

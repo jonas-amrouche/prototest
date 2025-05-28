@@ -388,7 +388,7 @@ func update_workshop() -> void:
 		i.queue_free()
 	
 	for i in Basics.get_all_items():
-		if i.craft_1 and i.craft_2:
+		if i.craft.size() > 0:
 			var _new_recipe_hud = world.resources.item_workshop_scene.instantiate()
 			_new_recipe_hud.item = i
 			workshop_items_container.add_child(_new_recipe_hud)

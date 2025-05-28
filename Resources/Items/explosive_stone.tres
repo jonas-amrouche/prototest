@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_e2dax")
 entity = SubResource("Resource_sy11x")
-id = "explosive_stone"
 description = "Fragile natural stone."
-icon = ExtResource("2_unmqp")
 type = 1
 rarity = 0
 craft = Array[ExtResource("4_e2dax")]([])
 abilities = Array[ExtResource("1_unmqp")]([])
 passives = Array[ExtResource("3_c1tpd")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

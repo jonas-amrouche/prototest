@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_vual4")
 entity = SubResource("Resource_54ne8")
-id = "willow_bark"
 description = "Ripped off bark from a living willow."
-icon = ExtResource("2_bflwv")
 type = 1
 rarity = 0
 craft = Array[ExtResource("4_vual4")]([])
 abilities = Array[ExtResource("1_bflwv")]([])
 passives = Array[ExtResource("3_0fkb5")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

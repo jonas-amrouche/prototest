@@ -33,14 +33,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("5_qmhj0")
 entity = SubResource("Resource_ummrd")
-id = "ascendant_archirune"
 description = "Sounds really magic."
-icon = ExtResource("3_v66vq")
 type = 0
 rarity = 2
-craft_1 = ExtResource("2_chpkh")
-craft_2 = ExtResource("3_ummrd")
 craft = Array[ExtResource("5_qmhj0")]([ExtResource("2_chpkh"), ExtResource("3_ummrd")])
 abilities = Array[ExtResource("1_4siwl")]([])
 passives = Array[ExtResource("4_ummrd")]([])
-stats = {}

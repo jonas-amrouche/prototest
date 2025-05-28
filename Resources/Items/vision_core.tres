@@ -32,15 +32,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_jr0wn")
 entity = SubResource("Resource_gxkw7")
-id = "vision_core"
 description = "Core of vision for ready to use."
-icon = ExtResource("3_lu0w3")
 type = 1
 rarity = 0
-craft_1 = ExtResource("2_eq7wg")
-craft_2 = ExtResource("2_eq7wg")
 craft = Array[ExtResource("4_jr0wn")]([ExtResource("2_eq7wg"), ExtResource("2_eq7wg")])
 abilities = Array[ExtResource("1_figvh")]([])
 passives = Array[ExtResource("3_eq7wg")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

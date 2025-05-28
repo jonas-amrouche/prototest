@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_f7ed1")
 entity = SubResource("Resource_onxth")
-id = "essence_of_pain"
 description = "Bad essence."
-icon = ExtResource("2_bukyr")
 type = 1
 rarity = 0
 craft = Array[ExtResource("4_f7ed1")]([])
 abilities = Array[ExtResource("1_bukyr")]([])
 passives = Array[ExtResource("3_8kyoc")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

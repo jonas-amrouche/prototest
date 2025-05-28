@@ -1,16 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmwcwoqnobiym"]
+[gd_scene load_steps=9 format=3 uid="uid://dmwcwoqnobiym"]
 
-[ext_resource type="Texture2D" uid="uid://cn6i4uf8n36if" path="res://Assets/2D/UI/window_frame_without_corners.png" id="1_jf058"]
 [ext_resource type="Script" uid="uid://dq53x351f0fxm" path="res://Scripts/item_workshop.gd" id="2_jf058"]
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="3_4dtp3"]
 [ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="4_4v47b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_duutx"]
-texture = ExtResource("1_jf058")
-texture_margin_left = 15.0
-texture_margin_top = 15.0
-texture_margin_right = 15.0
-texture_margin_bottom = 15.0
+texture = ExtResource("4_4v47b")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_yrvhj"]
 
@@ -25,17 +24,17 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjpyk"]
 bg_color = Color(1, 1, 1, 0.0431373)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [node name="ItemWorkshop" type="PanelContainer"]
 z_index = 1
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(311, 0)
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 87.0
+offset_bottom = 70.0
 grow_horizontal = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_duutx")
@@ -44,17 +43,14 @@ script = ExtResource("2_jf058")
 [node name="Pad" type="MarginContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = -3
-theme_override_constants/margin_top = -5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = -2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
 [node name="IconPad" type="MarginContainer" parent="Pad"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
 
 [node name="ItemIcon" type="TextureRect" parent="Pad/IconPad"]
 custom_minimum_size = Vector2(60, 60)
@@ -77,7 +73,7 @@ stretch_mode = 5
 
 [node name="DataPad" type="MarginContainer" parent="Pad"]
 layout_mode = 2
-theme_override_constants/margin_left = 65
+theme_override_constants/margin_left = 68
 
 [node name="ItemData" type="VBoxContainer" parent="Pad/DataPad"]
 layout_mode = 2
@@ -100,6 +96,7 @@ theme_override_constants/separation = 4
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
 [node name="DescLine" type="RichTextLabel" parent="Pad/DataPad/ItemData"]
+visible = false
 custom_minimum_size = Vector2(210, 0)
 layout_mode = 2
 mouse_filter = 2
@@ -118,20 +115,20 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
+
+[node name="CompsList" type="HBoxContainer" parent="Pad/DataPad/ItemData"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="CompsPad" type="MarginContainer" parent="Pad"]
 layout_mode = 2
-theme_override_constants/margin_left = 65
-theme_override_constants/margin_top = 10
-
-[node name="CompsList" type="HBoxContainer" parent="Pad/CompsPad"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-mouse_filter = 2
-metadata/_edit_lock_ = true
+size_flags_vertical = 4
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = -4
 
 [node name="UnavailablePad" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -148,10 +145,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jf058")
 
 [node name="SelectPad" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = -10
-theme_override_constants/margin_top = -9
-theme_override_constants/margin_right = -10
-theme_override_constants/margin_bottom = -9
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
 
 [node name="Select" type="Panel" parent="SelectPad"]
 visible = false

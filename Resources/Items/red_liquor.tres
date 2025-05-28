@@ -32,13 +32,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("3_87hof")
 entity = SubResource("Resource_raw4r")
-id = "red_liquor"
 description = "Heals [color=green]300 HP[/color] over 2 minutes."
-icon = ExtResource("2_87hof")
 type = 2
 rarity = 0
 craft = Array[ExtResource("3_87hof")]([])
 abilities = Array[ExtResource("1_j63r7")]([ExtResource("2_raw4r")])
 passives = Array[ExtResource("2_djrh3")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

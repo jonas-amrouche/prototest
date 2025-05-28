@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("3_3q6av")
 entity = SubResource("Resource_vi2o7")
-id = "vision_stone"
 description = "Stone containing hidden powers."
-icon = ExtResource("2_3q6av")
 type = 1
 rarity = 0
 craft = Array[ExtResource("3_3q6av")]([])
 abilities = Array[ExtResource("1_eowxm")]([])
 passives = Array[ExtResource("2_ksuv4")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

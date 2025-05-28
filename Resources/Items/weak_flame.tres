@@ -31,12 +31,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("5_aivwo")
 entity = SubResource("Resource_a48b0")
-id = "weak_flame"
 description = "Flame from a dying soul, can serve to craft temporary consumable."
-icon = ExtResource("2_82abr")
 type = 1
 rarity = 0
 craft = Array[ExtResource("5_aivwo")]([])
 abilities = Array[ExtResource("1_8wmbe")]([])
 passives = Array[ExtResource("4_6q6q6")]([])
-stats = {}

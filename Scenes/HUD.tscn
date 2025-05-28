@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=143 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="6_fbb48"]
 [ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
+[ext_resource type="Texture2D" uid="uid://chxc15iq6y7ad" path="res://Assets/2D/UI/physical_health_bar.png" id="7_vxf74"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
-[ext_resource type="Texture2D" uid="uid://dmvgyiq00obd5" path="res://Assets/2D/UI/mana_bar.png" id="9_8bf2m"]
+[ext_resource type="Texture2D" uid="uid://c1iccru15ksof" path="res://Assets/2D/UI/purified_mana_bar.png" id="9_vxf74"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="Texture2D" uid="uid://b0waukpso64pn" path="res://Assets/2D/UI/energy_bar.png" id="10_oersf"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
@@ -210,7 +211,7 @@ border_blend = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssfue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtju"]
-bg_color = Color(0.70647, 0.00167899, 0.868358, 1)
+bg_color = Color(9.3855e-07, 0.558201, 0.311266, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -233,7 +234,7 @@ shadow_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oersf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o2vyp"]
-texture = ExtResource("6_fbb48")
+texture = ExtResource("7_vxf74")
 
 [sub_resource type="LabelSettings" id="LabelSettings_1a2va"]
 font = ExtResource("10_xuldq")
@@ -260,7 +261,7 @@ blend_mode = 1
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lkt4f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fqfc"]
-texture = ExtResource("9_8bf2m")
+texture = ExtResource("9_vxf74")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnip7"]
 bg_color = Color(0.114897, 0.114897, 0.114897, 1)
@@ -322,7 +323,7 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba8gd"]
-bg_color = Color(0.273256, 0.436103, 0.582746, 1)
+bg_color = Color(0.1008, 0.24192, 0.63, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -1333,10 +1334,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -313.0
-offset_top = 963.0
-offset_right = 313.0
-offset_bottom = 968.0
+offset_left = -314.0
+offset_top = 962.0
+offset_right = 314.0
+offset_bottom = 970.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_ssfue")
@@ -1363,6 +1364,7 @@ stretch_mode = 5
 metadata/_edit_lock_ = true
 
 [node name="HealthBarContainer" type="PanelContainer" parent="ActionPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1399,9 +1401,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.0
-offset_top = 227.0
+offset_top = 208.0
 offset_right = 293.0
-offset_bottom = 234.0
+offset_bottom = 223.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g17n1")
@@ -1423,7 +1425,7 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -292.0
-offset_top = 235.0
+offset_top = 227.0
 offset_right = 293.0
 offset_bottom = 242.0
 grow_horizontal = 2
@@ -1732,6 +1734,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
 available = false
 
 [node name="Gathering" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -2119,9 +2122,11 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_edit_lock_ = true
 
-[node name="ItemList" type="VBoxContainer" parent="Workshop/ItemBoard/Pad"]
+[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/Pad"]
 layout_mode = 2
-theme_override_constants/separation = -7
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 4
 metadata/_edit_lock_ = true
 
 [node name="Categories" type="ColorRect" parent="Workshop/ItemBoard"]

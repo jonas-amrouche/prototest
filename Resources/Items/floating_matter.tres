@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_fty17")
 entity = SubResource("Resource_3mh5m")
-id = "floating_matter"
 description = "Captured with magic, it can be used in enchantement."
-icon = ExtResource("2_ckah8")
 type = 1
 rarity = 0
 craft = Array[ExtResource("4_fty17")]([])
 abilities = Array[ExtResource("1_ckah8")]([])
 passives = Array[ExtResource("3_okns8")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

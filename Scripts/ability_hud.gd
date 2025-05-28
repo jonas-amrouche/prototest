@@ -34,7 +34,7 @@ func update_slot() -> void:
 	keybind_label.set_text(keybind.replace("(Physical)", ""))
 	if ability and item:
 		icon.set_texture(ability.icon)
-		item_icon.set_texture(item.icon)
+		item_icon.set_texture(item.entity.icon)
 	else:
 		icon.set_texture(null)
 		item_icon.set_texture(null)

@@ -31,13 +31,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("4_mst8m")
 entity = SubResource("Resource_x34ab")
-id = "golem_fragment"
 description = "Rest of a golem."
-icon = ExtResource("2_7wr6r")
 type = 1
 rarity = 0
 craft = Array[ExtResource("4_mst8m")]([])
 abilities = Array[ExtResource("1_7wr6r")]([])
 passives = Array[ExtResource("3_stopa")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

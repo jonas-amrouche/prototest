@@ -35,15 +35,10 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("1_lmrn7")
 entity = SubResource("Resource_ntuix")
-id = "hunter's_machete"
 description = "It starts like that in the jungle."
-icon = ExtResource("1_skpvv")
 type = 0
 rarity = 0
 mesh_model = ExtResource("2_fl4s8")
 craft = Array[ExtResource("1_lmrn7")]([])
 abilities = Array[ExtResource("1_rkabo")]([ExtResource("2_amms3"), ExtResource("3_gs4c0")])
 passives = Array[ExtResource("7_8po66")]([ExtResource("4_vibmg")])
-stats = {
-"physical_damage": 30
-}

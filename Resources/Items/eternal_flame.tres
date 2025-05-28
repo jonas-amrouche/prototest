@@ -31,12 +31,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("5_qdewl")
 entity = SubResource("Resource_oajqy")
-id = "eternal_flame"
 description = "Flame for permanent item enchantments."
-icon = ExtResource("2_c0io2")
 type = 1
 rarity = 0
 craft = Array[ExtResource("5_qdewl")]([])
 abilities = Array[ExtResource("1_2ke2k")]([])
 passives = Array[ExtResource("4_isqyt")]([])
-stats = {}

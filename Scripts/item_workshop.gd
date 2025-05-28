@@ -15,7 +15,7 @@ signal mouse_entered_item(itm : Item)
 #@onready var consumable_overlay = $BorderMargin/ConsumableOverlay
 @onready var select_pan = $SelectPad/Select
 @onready var unavailable_pan = $UnavailablePad/Unavailable
-@onready var comps_container = $Pad/CompsPad/CompsList
+@onready var comps_container = $Pad/DataPad/ItemData/CompsList
 
 var pre_item_hud = preload("res://Scenes/UI/item_hud.tscn")
 
@@ -44,6 +44,7 @@ func update_slot() -> void:
 			_new_item_hud.item_slot = _new_item_slot
 			_new_item_hud.connect("mouse_entered_item", Callable(hud, "show_item_preview"))
 			_new_item_hud.connect("mouse_exited", Callable(hud, "hide_item_preview"))
+			_new_item_hud.custom_minimum_size = Vector2(30.0, 30.0)
 			comps_container.add_child(_new_item_hud)
 	else:
 		icon.texture = null
