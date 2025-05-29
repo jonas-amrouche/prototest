@@ -345,7 +345,7 @@ func spawn_collisions_old() -> void:
 			#add_collision_cube(_pos)
 			DebugFeatures.debug_box(world, Vector3(_pos.x+randf_range(-0.05, 0.05), 1.0, _pos.y+randf_range(-0.05, 0.05)), 1.0, Color(float("0." + str(rand_from_seed(g)[0])), float("0." + str(rand_from_seed(g+1)[0])), float("0." + str(rand_from_seed(g+2)[0]))))
 
-func spawn_collisions(datas : Dictionary) -> void:
+func spawn_collisions(_datas : Dictionary) -> void:
 	var _walls : Array[Vector2]
 	for x in range(int(Basics.MAP_SIZE.x/COLLISION_GRID_DIVISION)):
 		for y in range(int(Basics.MAP_SIZE.y/COLLISION_GRID_DIVISION)):

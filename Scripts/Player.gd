@@ -10,6 +10,10 @@ const CAMERA_MOVE_TRESHOLD := 1.0/100000.0
 const CAMERA_MOVE_SPEED := 0.4
 const CAMERA_LERP_SPEED := 0.75
 const ROTATION_LERP_SPEED := 0.3
+const CAMERA_BASE_FOV := 50.0
+const CAMERA_MIN_FOV := 10.0
+const CAMERA_ZOOM_SPEED := 20.0
+var target_fov := CAMERA_BASE_FOV
 var target_direction := Vector3()
 
 const EMPTY_MOVEMENT_SPEED := 120
@@ -35,13 +39,13 @@ var in_base := false
 
 # INVENTORY
 const INVENTORY_BASE_SIZE := 10
-const INVENTORY_MAX_SIZE := 20
+const INVENTORY_MAX_SIZE := 24
 var inventory_size = 10
 var inventory : Array[ItemSlot]
 
 # CONSUMABLES
 const CONSUMABLES_BASE_SIZE := 2
-const CONSUMABLES_MAX_SIZE := 5
+const CONSUMABLES_MAX_SIZE := 6
 var consumables_size = CONSUMABLES_BASE_SIZE
 var consumables : Array[ItemSlot]
 
@@ -137,11 +141,17 @@ func _process(delta):
 		update_camera_position()
 		check_for_target()
 	update_direction()
+	update_camera_zoom(delta)
 	auto_attacking()
 	looting()
 	
 	hover_outline_camera.global_transform = camera.global_transform
 	select_outline_camera.global_transform = camera.global_transform
+
+func update_camera_zoom(delta : float) -> void:
+	camera.fov = lerp(camera.fov, target_fov, CAMERA_ZOOM_SPEED * delta)
+	hover_outline_camera.fov = lerp(hover_outline_camera.fov, target_fov, CAMERA_ZOOM_SPEED * delta)
+	select_outline_camera.fov = lerp(select_outline_camera.fov, target_fov, CAMERA_ZOOM_SPEED * delta)
 
 var loot_timer : SceneTreeTimer
 func looting() -> void:
@@ -470,6 +480,10 @@ func action_keys():
 			camera.position = camera_base_marker.position
 	else:
 		camera.top_level = true
+	if Input.is_action_just_pressed("zoom_in"):
+		target_fov = max(target_fov - 5.0, CAMERA_MIN_FOV)
+	if Input.is_action_just_pressed("zoom_out"):
+		target_fov = min(target_fov + 5.0, CAMERA_BASE_FOV)
 	if Input.is_action_just_pressed("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):

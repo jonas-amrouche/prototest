@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene load_steps=152 format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -9,11 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="6_fbb48"]
 [ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
-[ext_resource type="Texture2D" uid="uid://chxc15iq6y7ad" path="res://Assets/2D/UI/physical_health_bar.png" id="7_vxf74"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
 [ext_resource type="Texture2D" uid="uid://c1iccru15ksof" path="res://Assets/2D/UI/purified_mana_bar.png" id="9_vxf74"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
-[ext_resource type="Texture2D" uid="uid://b0waukpso64pn" path="res://Assets/2D/UI/energy_bar.png" id="10_oersf"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
 [ext_resource type="Texture2D" uid="uid://cetcc0xkr8h08" path="res://Assets/2D/UI/window_frame.png" id="12_8bf2m"]
 [ext_resource type="PackedScene" uid="uid://d5b6wj2vo2o6" path="res://Scenes/UI/item_hud.tscn" id="12_ssfue"]
@@ -21,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://muxs8ujlhk1w" path="res://Assets/2D/UI/knowledge_book_v2.png" id="16_pbtju"]
 [ext_resource type="PackedScene" uid="uid://bci1gtg23l7p6" path="res://Scenes/UI/recipe_hud.tscn" id="17_yidpd"]
 [ext_resource type="Texture2D" uid="uid://583q7pnc0yp0" path="res://Assets/2D/UI/recall_spell_v2.png" id="18_36s6t"]
+[ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="19_484xk"]
+[ext_resource type="PackedScene" uid="uid://dmwcwoqnobiym" path="res://Scenes/UI/item_workshop.tscn" id="19_oersf"]
 [ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="20_yidpd"]
 [ext_resource type="Texture2D" uid="uid://e3j1ija6b4cb" path="res://Assets/2D/UI/hunter_class.png" id="23_vxf74"]
 
@@ -211,7 +211,7 @@ border_blend = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ssfue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtju"]
-bg_color = Color(9.3855e-07, 0.558201, 0.311266, 1)
+bg_color = Color(0.654533, 0.0035869, 0.959977, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -234,11 +234,11 @@ shadow_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oersf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o2vyp"]
-texture = ExtResource("7_vxf74")
+texture = ExtResource("6_fbb48")
 
 [sub_resource type="LabelSettings" id="LabelSettings_1a2va"]
 font = ExtResource("10_xuldq")
-font_size = 11
+font_size = 10
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
@@ -255,13 +255,16 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_484xk"]
-blend_mode = 1
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lkt4f"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fqfc"]
 texture = ExtResource("9_vxf74")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vxf74"]
+font = ExtResource("10_xuldq")
+font_size = 9
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnip7"]
 bg_color = Color(0.114897, 0.114897, 0.114897, 1)
@@ -276,13 +279,10 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wfkbc"]
-blend_mode = 4
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s17ah"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g17n1"]
-texture = ExtResource("10_oersf")
+texture = ExtResource("9_vxf74")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqxyv"]
 bg_color = Color(0.158472, 0.158472, 0.158472, 1)
@@ -624,6 +624,62 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjmfb"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p63d5"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77xe6"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gn0kw"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba8gd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fqfc"]
@@ -683,6 +739,20 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmo6y"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfp0x"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1100,6 +1170,10 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itd6h"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 0.529412)
 border_width_left = 1
 border_width_top = 1
@@ -1110,6 +1184,13 @@ corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lkt4f"]
+texture = ExtResource("19_484xk")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ucbsi"]
 
@@ -1126,6 +1207,19 @@ corner_radius_bottom_left = 1
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vlod2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bpqhs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_484xk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfkbc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s17ah"]
+texture = ExtResource("19_484xk")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jnyvx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ua7hb"]
 
@@ -1364,15 +1458,14 @@ stretch_mode = 5
 metadata/_edit_lock_ = true
 
 [node name="HealthBarContainer" type="PanelContainer" parent="ActionPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -292.5
-offset_top = 207.0
-offset_right = 292.5
-offset_bottom = 225.0
+offset_left = -296.0
+offset_top = 206.0
+offset_right = 297.0
+offset_bottom = 223.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
@@ -1400,16 +1493,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -292.0
-offset_top = 208.0
-offset_right = 293.0
-offset_bottom = 223.0
+offset_left = -296.0
+offset_top = 224.0
+offset_right = 297.0
+offset_bottom = 240.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g17n1")
 
 [node name="ManaBar" type="ProgressBar" parent="ActionPanel/ManaBarContainer"]
-material = SubResource("CanvasItemMaterial_484xk")
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1419,7 +1511,16 @@ value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
+[node name="ManaLabel" type="Label" parent="ActionPanel/ManaBarContainer"]
+layout_mode = 2
+text = "750/750"
+label_settings = SubResource("LabelSettings_vxf74")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="EnergyBarContainer" type="PanelContainer" parent="ActionPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1433,7 +1534,6 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gnip7")
 
 [node name="EnergyBar" type="ProgressBar" parent="ActionPanel/EnergyBarContainer"]
-material = SubResource("CanvasItemMaterial_wfkbc")
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1600,10 +1700,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = -276.0
-offset_right = 278.0
-offset_bottom = 57.0
+offset_left = 33.0
+offset_top = -278.0
+offset_right = 354.0
+offset_bottom = 101.0
 grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
@@ -1615,7 +1715,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
-columns = 5
+columns = 6
 metadata/_edit_lock_ = true
 
 [node name="ItemHud" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
@@ -1698,6 +1798,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1mdok")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w8qfe")
 
+[node name="ItemHud21" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gjmfb")
+
+[node name="ItemHud22" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p63d5")
+
+[node name="ItemHud23" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77xe6")
+
+[node name="ItemHud24" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gn0kw")
+
 [node name="HSeparator" type="HSeparator" parent="Inventory/Container"]
 layout_mode = 2
 mouse_filter = 2
@@ -1733,8 +1849,12 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
 available = false
 
+[node name="ItemHud6" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tfp0x")
+available = false
+
 [node name="Gathering" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1878,6 +1998,7 @@ alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="ItemCraft" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -2035,10 +2156,10 @@ metadata/_edit_lock_ = true
 
 [node name="ClassIcon" type="TextureRect" parent="."]
 layout_mode = 2
-offset_left = 1392.0
-offset_top = 758.0
-offset_right = 1490.0
-offset_bottom = 856.0
+offset_left = 464.0
+offset_top = 990.0
+offset_right = 562.0
+offset_bottom = 1088.0
 texture = ExtResource("23_vxf74")
 expand_mode = 1
 stretch_mode = 5
@@ -2113,131 +2234,221 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_itd6h")
 
-[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_edit_lock_ = true
-
-[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/Pad"]
-layout_mode = 2
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 4
-metadata/_edit_lock_ = true
-
-[node name="Categories" type="ColorRect" parent="Workshop/ItemBoard"]
-visible = false
-layout_mode = 2
-color = Color(0.336608, 0.336608, 0.336608, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="Workshop/ItemBoard/Categories"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-metadata/_edit_lock_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Workshop/ItemBoard/Categories/MarginContainer"]
+[node name="WindowCont" type="HBoxContainer" parent="Workshop/ItemBoard"]
 layout_mode = 2
 
-[node name="PanelContainer8" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Categories" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+custom_minimum_size = Vector2(312.39, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_lkt4f")
+
+[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard/WindowCont/Categories"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="Panels" type="HBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad"]
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+custom_minimum_size = Vector2(166.175, 0)
+layout_mode = 2
+
+[node name="Cat1" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="AllItems" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer8"]
+[node name="Hp" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat1"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ucbsi")
-text = "All Items"
+text = "Health"
 
-[node name="PanelContainer" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat2" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="LowCD" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="LowCD" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat2"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_l1phg")
 text = "Low Cooldown"
 
-[node name="PanelContainer2" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat3" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="MDamage" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer2"]
+[node name="Vision" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat3"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_821f3")
-text = "Medium Damage"
+text = "Vision"
 
-[node name="PanelContainer3" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat4" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="HDamage" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer3"]
+[node name="HDamage" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat4"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_c4nu8")
 text = "High Damage"
 
-[node name="PanelContainer4" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat5" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="SDependent" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer4"]
+[node name="SDependent" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat5"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cresn")
 text = "Souls Dependant"
 
-[node name="PanelContainer5" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat6" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="Armor" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer5"]
+[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat6"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7twce")
 text = "Armor"
 
-[node name="PanelContainer6" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat7" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="Healing" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer6"]
+[node name="Healing" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat7"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vlod2")
 text = "Healing"
 
-[node name="PanelContainer7" type="PanelContainer" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer"]
+[node name="Cat8" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="CC" type="Button" parent="Workshop/ItemBoard/Categories/MarginContainer/VBoxContainer/PanelContainer7"]
+[node name="CC" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat8"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
 text = "Crowd Control
 "
+
+[node name="Cat9" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat9"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
+text = "Armor"
+
+[node name="VSeparator" type="VSeparator" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_484xk")
+
+[node name="ItemList" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="Sep1" type="VSeparator" parent="Workshop/ItemBoard/WindowCont"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wfkbc")
+
+[node name="SearchPad" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_s17ah")
+
+[node name="Pad" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad"]
+layout_mode = 2
+
+[node name="SearchBar" type="LineEdit" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HSeparator" type="HSeparator" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jnyvx")
+
+[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+layout_mode = 2
+columns = 2
+metadata/_edit_lock_ = true
+
+[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop7" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop8" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop9" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop10" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+layout_mode = 2
+
+[node name="Sep2" type="VSeparator" parent="Workshop/ItemBoard/WindowCont"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wfkbc")
+
+[node name="Inspector" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_s17ah")
 
 [node name="CloseWorkshop" type="Button" parent="Workshop"]
 layout_mode = 1

@@ -27,4 +27,3 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	ALPHA = clamp((distance_to_transi - distance(COLOR.rb, vec2(0.0))) * fade_transi, 0.0, 1.0); // * noise
 }
-

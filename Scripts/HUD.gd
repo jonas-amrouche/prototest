@@ -29,7 +29,7 @@ extends Control
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
 @onready var workshop_tab := $Workshop
-@onready var workshop_items_container := $Workshop/ItemBoard/Pad/ItemList
+@onready var workshop_items_container := $Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList
 @onready var loot_tab := $Loot
 @onready var loot_container := $Loot/Container/LootList
 
@@ -391,6 +391,8 @@ func update_workshop() -> void:
 		if i.craft.size() > 0:
 			var _new_recipe_hud = world.resources.item_workshop_scene.instantiate()
 			_new_recipe_hud.item = i
+			_new_recipe_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
+			_new_recipe_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
 			workshop_items_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:

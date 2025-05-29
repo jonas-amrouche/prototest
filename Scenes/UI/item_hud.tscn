@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dc8msiwaibx6d" path="res://Scripts/item_hud.gd" id="1_desy6"]
 [ext_resource type="Texture2D" uid="uid://cmvn7u2wk1qbf" path="res://Assets/2D/UI/craft_unavailable.png" id="2_axs84"]
-[ext_resource type="FontFile" uid="uid://c5ergw614rru7" path="res://Assets/Fonts/Stilu-SemiBold.otf" id="2_ugiu5"]
+[ext_resource type="FontFile" uid="uid://banqpf2uou06k" path="res://Assets/Fonts/Underdog.otf" id="2_snyey"]
 [ext_resource type="Texture2D" uid="uid://btd6idbcxsqts" path="res://Assets/2D/UI/item_overlay_classic.png" id="3_axs84"]
 [ext_resource type="Texture2D" uid="uid://dqfhxgdyg1je4" path="res://Assets/2D/UI/keybind_border.png" id="5_snyey"]
 
@@ -36,9 +36,8 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_72hmf"]
 resource_local_to_scene = true
-font = ExtResource("2_ugiu5")
-font_size = 15
-outline_size = 3
+font = ExtResource("2_snyey")
+outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iufqr"]
@@ -104,16 +103,15 @@ stretch_mode = 5
 [node name="QuantityCont" type="MarginContainer" parent="DragCont"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = -2
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = -1
 
 [node name="Quantity" type="Label" parent="DragCont/QuantityCont"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
-text = "2"
+text = "3"
 label_settings = SubResource("LabelSettings_72hmf")
 horizontal_alignment = 2
 vertical_alignment = 2

@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc3vy722upu52"]
+[gd_scene load_steps=10 format=3 uid="uid://bc3vy722upu52"]
 
 [ext_resource type="Texture2D" uid="uid://gicy5jufapur" path="res://Assets/2D/UI/health_bar_head_overlay.png" id="1_55ole"]
+[ext_resource type="Texture2D" uid="uid://cydb8c2u82rbj" path="res://Assets/2D/UI/health_bar.png" id="1_k3d0n"]
+[ext_resource type="FontFile" uid="uid://banqpf2uou06k" path="res://Assets/Fonts/Underdog.otf" id="1_qhsqi"]
 [ext_resource type="Texture2D" uid="uid://dw8wvlyqn7m6m" path="res://Assets/2D/UI/health_bar_head_overlay_separation.png" id="2_gbswu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5ufy8"]
-font_size = 75
+font = ExtResource("1_qhsqi")
+font_size = 100
 font_color = Color(0.969137, 0.969137, 0.969137, 1)
-outline_size = 35
+outline_size = 50
 outline_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(3, 3)
 
@@ -22,25 +25,21 @@ corner_radius_top_right = 27
 corner_radius_bottom_right = 27
 corner_radius_bottom_left = 27
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55ole"]
-bg_color = Color(0.134218, 0.335408, 0.0301, 1)
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 27
-corner_radius_top_right = 27
-corner_radius_bottom_right = 27
-corner_radius_bottom_left = 27
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qhsqi"]
+texture = ExtResource("1_k3d0n")
+modulate_color = Color(0.78, 0.78, 0.78, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3d0n"]
+texture = ExtResource("2_gbswu")
+texture_margin_right = 405.0
+axis_stretch_horizontal = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gbswu"]
 texture = ExtResource("1_55ole")
 texture_margin_left = 87.0
 texture_margin_right = 87.0
 axis_stretch_horizontal = 1
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3d0n"]
-texture = ExtResource("2_gbswu")
-texture_margin_right = 500.0
-axis_stretch_horizontal = 2
+modulate_color = Color(0, 0, 0, 1)
 
 [node name="PlayerHealthBar" type="Control"]
 layout_mode = 3
@@ -76,15 +75,15 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 2.0
-offset_top = -35.0
-offset_right = -2.0
-offset_bottom = 55.0
+offset_left = 10.0
+offset_top = -26.0
+offset_right = -10.0
+offset_bottom = 44.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 5
 theme_override_styles/background = SubResource("StyleBoxFlat_sjqhs")
-theme_override_styles/fill = SubResource("StyleBoxFlat_55ole")
+theme_override_styles/fill = SubResource("StyleBoxTexture_qhsqi")
 value = 100.0
 show_percentage = false
 
@@ -96,15 +95,28 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -135.0
-offset_top = -151.0
+offset_top = -187.0
 offset_right = 135.0
-offset_bottom = -48.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "zonfr"
+text = "player1"
 label_settings = SubResource("LabelSettings_5ufy8")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ChunkOverlay" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -42.0
+offset_right = 491.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_k3d0n")
 
 [node name="Overlay" type="Panel" parent="."]
 layout_mode = 1
@@ -119,16 +131,3 @@ offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_gbswu")
-
-[node name="ChunkOverlay" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -42.0
-offset_right = 491.0
-offset_bottom = 61.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_k3d0n")
