@@ -34,14 +34,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("5_e53ia")
 entity = SubResource("Resource_6gksj")
-id = "blue_trinket"
 description = "Place it on the ground to keep vision for 120 seconds."
-icon = ExtResource("4_c2i3l")
 type = 2
 rarity = 0
-craft_1 = ExtResource("2_r0xji")
-craft_2 = ExtResource("3_uiiew")
 craft = Array[ExtResource("5_e53ia")]([ExtResource("2_r0xji"), ExtResource("3_uiiew")])
 abilities = Array[ExtResource("1_kist3")]([ExtResource("2_7lj4e")])
 passives = Array[ExtResource("4_74oqi")]([])
-stats = {}

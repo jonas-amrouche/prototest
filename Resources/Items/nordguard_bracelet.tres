@@ -23,17 +23,16 @@ robustness = 0
 focus = 0
 spirit = 0
 soul_division = 0
+potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
 script = ExtResource("3_sa0x7")
 entity = SubResource("Resource_sa0x7")
-id = "nordguard_braclet"
 description = "Bracelet of nordguard."
 type = 1
 rarity = 1
-carft = Array[ExtResource("3_sa0x7")]([])
+craft = Array[ExtResource("3_sa0x7")]([])
 abilities = Array[ExtResource("1_nn1js")]([])
 passives = Array[ExtResource("2_lvaqh")]([])
-stats = {}
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

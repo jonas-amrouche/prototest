@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_lo4h2")
 id = "silius_vision"
-name = "Silius Vision"
+name = ""
 description = "Notify you when you are seen, by conventinal vision."
 color = Color(0.286257, 0.54343, 0.716633, 1)

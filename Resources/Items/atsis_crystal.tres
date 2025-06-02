@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://wjyyk3dajyjf"]
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://wjyyk3dajyjf"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_r13qh"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="2_3g7k2"]
 [ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="3_0i2ru"]
 [ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="3_3g7k2"]
+[ext_resource type="Texture2D" uid="uid://x7exro7njcot" path="res://Assets/2D/Items/atsis_crystal.png" id="3_ssf4t"]
 
 [sub_resource type="Resource" id="Resource_0i2ru"]
 script = ExtResource("3_3g7k2")
 id = "atsis_crystal"
 entity_type = 3
-max_health = 0
+icon = ExtResource("3_ssf4t")
+max_health = 10
 health_regeneration = 0
 physical_damage = 0
 physical_armor = 0

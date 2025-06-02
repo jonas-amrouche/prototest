@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_03281")
-id = "jungle_way"
-name = "Jungle's way"
-description = "deal 5 extra physical damage when damaging a monster."
+id = "jungle's_way"
+name = ""
+description = "deal 10% extra physical damage when damaging a monster."
 color = Color(0.46171, 0.546875, 0.398326, 1)

@@ -32,12 +32,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("7_jc6le")
 entity = SubResource("Resource_k602c")
-id = "infinitrinket"
 description = "Allows you to place ward beacon, consuming 1 vision stone per ward."
-icon = ExtResource("5_sitkx")
 type = 0
 rarity = 3
 craft = Array[ExtResource("7_jc6le")]([])
 abilities = Array[ExtResource("1_k602c")]([ExtResource("2_b0knl")])
 passives = Array[ExtResource("6_bbfu7")]([])
-stats = {}

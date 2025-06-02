@@ -7,6 +7,7 @@ uniform vec2 uv_offset = vec2(0.5, -0.5);
 uniform float blur_power = 1.0;
 uniform int iter = 1;
 uniform int quali = 1;
+uniform float transparency = 0.5;
 
 varying vec3 uv_power_normal;
 varying vec2 uv_triplanar_pos;
@@ -46,7 +47,7 @@ vec4 triplanar_texture_xorgaussian_2d(sampler2D tex, vec2 uv, vec2 pixel_size, f
 void fragment() {
 	float fog = triplanar_texture_xorgaussian_2d(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset, vec2(1.0), blur_power, iter, quali).r;
 
-	ALPHA = clamp((fog-0.3)*2.0, 0.0, 0.5);
+	ALPHA = clamp((fog-0.3)*2.0, 0.0, transparency);
 
 	//ALBEDO = texture(fog_texture, uv_triplanar_pos * uv_multiplier*0.1 + uv_offset).rgb;
 	ALBEDO = vec3(0.0);

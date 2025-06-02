@@ -29,11 +29,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("6_3n5tn")
 entity = SubResource("Resource_5twdv")
-id = "precious_stone"
 description = ""
 type = 0
 rarity = 0
 craft = Array[ExtResource("6_3n5tn")]([])
 abilities = Array[ExtResource("1_kvcqt")]([])
 passives = Array[ExtResource("5_m8wjo")]([])
-stats = {}

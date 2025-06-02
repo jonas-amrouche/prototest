@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://bxkwk8kd6isg2"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_eatmn"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="2_3dhk1"]
+[ext_resource type="Texture2D" uid="uid://j0wicqw7ej7r" path="res://Assets/2D/Items/empty_gourd.png" id="3_eatmn"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="4_ucsiq"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_f0j8c"]
+
+[sub_resource type="Resource" id="Resource_3dhk1"]
+script = ExtResource("4_ucsiq")
+id = "empty_gourd"
+entity_type = 3
+icon = ExtResource("3_eatmn")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+potion_resistence = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
+
+[resource]
+script = ExtResource("2_3dhk1")
+entity = SubResource("Resource_3dhk1")
+description = "Empty gourd for refillable potion."
+type = 1
+rarity = 0
+craft = Array[ExtResource("2_3dhk1")]([])
+abilities = Array[ExtResource("1_eatmn")]([])
+passives = Array[ExtResource("5_f0j8c")]([])
+metadata/_custom_type_script = "uid://coumuhl7aj46k"

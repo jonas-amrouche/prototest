@@ -35,16 +35,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("8_tl32b")
 entity = SubResource("Resource_xbedf")
-id = "incandescent_pages"
 description = "Surviving pages of an ancient tome, perpetually ablaze since an [i]unknown[/i] wizard enchanted it."
-icon = ExtResource("6_cmwjg")
 type = 0
 rarity = 1
-craft_1 = ExtResource("4_qcxn8")
-craft_2 = ExtResource("5_sat0y")
 craft = Array[ExtResource("8_tl32b")]([ExtResource("4_qcxn8"), ExtResource("5_sat0y")])
 abilities = Array[ExtResource("1_pesm6")]([ExtResource("2_kcw3x"), ExtResource("3_xbedf")])
 passives = Array[ExtResource("7_doq2i")]([])
-stats = {
-"magic_damage": 45
-}

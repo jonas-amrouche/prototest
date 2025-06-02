@@ -31,12 +31,9 @@ metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 [resource]
 script = ExtResource("5_ryrla")
 entity = SubResource("Resource_emin1")
-id = "copper_coin"
 description = "One creature in the forest accept to trade copper coin."
-icon = ExtResource("2_6xr8f")
 type = 1
 rarity = 0
 craft = Array[ExtResource("5_ryrla")]([])
 abilities = Array[ExtResource("1_syd8t")]([])
 passives = Array[ExtResource("4_cqthn")]([])
-stats = {}

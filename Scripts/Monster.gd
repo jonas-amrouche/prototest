@@ -113,8 +113,8 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 		1:
 			_final_damage = max(damage - damage * min(0.99, int(float(entity.magic_armor) / float(damage))), 0.0)
 	
-	if damage_dealer.has_passive("jungle_way"):
-		_final_damage += 5
+	if damage_dealer.has_passive("jungle's_way"):
+		_final_damage += round(_final_damage*0.1)
 	
 	entity.set_health(max(entity.health - _final_damage, 0.0))
 	health_bar.value = float(entity.health) / float(entity.max_health) * 100.0

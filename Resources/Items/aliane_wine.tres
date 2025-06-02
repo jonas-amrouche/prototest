@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://fhsfosmfhpit"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_eatej"]
+[ext_resource type="Resource" uid="uid://dsyo5ab2lxt7x" path="res://Resources/ConsumableAbilities/aliane_potion.tres" id="2_eatej"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="3_l4ddg"]
+[ext_resource type="Texture2D" uid="uid://c5tao3q8u1tos" path="res://Assets/2D/Items/aliane_wine.png" id="4_eatej"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="5_cr7mb"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="6_2v3n0"]
+
+[sub_resource type="Resource" id="Resource_eatej"]
+script = ExtResource("5_cr7mb")
+id = "aliane_wine"
+entity_type = 3
+icon = ExtResource("4_eatej")
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+potion_resistence = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
+
+[resource]
+script = ExtResource("3_l4ddg")
+entity = SubResource("Resource_eatej")
+description = "Heals [color=green]600 HP[/color] over 2 minutes."
+type = 2
+rarity = 0
+craft = Array[ExtResource("3_l4ddg")]([])
+abilities = Array[ExtResource("1_eatej")]([ExtResource("2_eatej")])
+passives = Array[ExtResource("6_2v3n0")]([])
+metadata/_custom_type_script = "uid://coumuhl7aj46k"

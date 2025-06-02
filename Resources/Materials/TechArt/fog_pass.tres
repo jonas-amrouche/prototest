@@ -10,3 +10,4 @@ shader_parameter/uv_offset = Vector2(0.5, -0.5)
 shader_parameter/blur_power = 0.003
 shader_parameter/iter = 4
 shader_parameter/quali = 3
+shader_parameter/transparency = 0.5
