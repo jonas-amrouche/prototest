@@ -103,7 +103,7 @@ func _ready():
 	consumables = fill_consumables(CONSUMABLES_MAX_SIZE)
 	crafts = fill_crafts(CRAFT_MAX_SIZE)
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
-	obtain_item(preload("res://Resources/Items/red_liquor.tres"), 3)
+	obtain_item(preload("res://Resources/Items/aliane_potion.tres"), 3)
 	hud.bind_default_abilities()
 	#print(Replication.players[int(name)])
 	pseudo_lab.text = Replication.players[int(name)]["name"]

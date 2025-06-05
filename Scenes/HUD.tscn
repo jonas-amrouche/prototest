@@ -2411,39 +2411,44 @@ size_flags_vertical = 0
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_jnyvx")
 
-[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+[node name="ItemScrollCont" type="ScrollContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+custom_minimum_size = Vector2(0, 850)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont"]
 layout_mode = 2
 columns = 2
 metadata/_edit_lock_ = true
 
-[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop7" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop7" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop8" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop8" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop9" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop9" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop10" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop10" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
 layout_mode = 2
 
 [node name="Sep2" type="VSeparator" parent="Workshop/ItemBoard/WindowCont"]

@@ -16,7 +16,7 @@ enum ClientState {DISCONNECTED, ENTERED, LOADING, INGAME}
 enum ItemType {ITEM, COMPONENTS, CONSUMABLE}
 enum SlotType {INVENTORY, CRAFT, CONSUMABLE}
 
-const STATS_COLOR = {"magic_damage" : Color.SLATE_BLUE, "physical_damage" : Color.FIREBRICK, "magic_armor" : Color.DARK_SLATE_BLUE, "physical_armor" : Color.BROWN, "movement_speed" : Color.DARK_SLATE_BLUE, "max_health" : Color.DARK_GREEN}
+const STATS_COLOR = {"magic_damage" : Color.SLATE_BLUE, "health_regeneration" : Color.SEA_GREEN, "physical_damage" : Color.FIREBRICK, "magic_armor" : Color.DARK_SLATE_BLUE, "physical_armor" : Color.BROWN, "movement_speed" : Color.DARK_SLATE_BLUE, "max_health" : Color.DARK_GREEN}
 enum AbilityError {OK, IN_COOLDOWN, NO_TARGET, OUT_OF_RANGE, UNAVAILABLE, NEED_RESOURCE, SCRIPT_ERROR}
 enum AbilityCancel {MOVING, TAKING_DAMAGE}
 enum AbilityVictim {TARGET, AREA, GROUP, LOGIC}
