@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://cpxm7kalcwjys"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cpxm7kalcwjys"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_5lqfo"]
 [ext_resource type="Texture2D" uid="uid://dsqwq43i0pd14" path="res://Assets/2D/UI/exp_icon.png" id="2_5lqfo"]
@@ -11,21 +11,6 @@ script = ExtResource("4_wh6tb")
 id = "robust_skin"
 entity_type = 3
 icon = ExtResource("2_5lqfo")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -33,7 +18,3 @@ script = ExtResource("4_i3cad")
 entity = SubResource("Resource_e0lqj")
 description = "Piece of hard skin, from an healty creature."
 type = 1
-rarity = 0
-craft = Array[ExtResource("4_i3cad")]([])
-abilities = Array[ExtResource("1_5lqfo")]([])
-passives = Array[ExtResource("3_e0lqj")]([])

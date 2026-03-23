@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://boyudarl8e1h7"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://boyudarl8e1h7"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_eowxm"]
 [ext_resource type="Texture2D" uid="uid://ce52v4i5m1r4m" path="res://Assets/2D/Components/vision_stone_icon.png" id="2_3q6av"]
@@ -11,21 +11,6 @@ script = ExtResource("4_idavu")
 id = "vision_stone"
 entity_type = 3
 icon = ExtResource("2_3q6av")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -33,8 +18,4 @@ script = ExtResource("3_3q6av")
 entity = SubResource("Resource_vi2o7")
 description = "Stone containing hidden powers."
 type = 1
-rarity = 0
-craft = Array[ExtResource("3_3q6av")]([])
-abilities = Array[ExtResource("1_eowxm")]([])
-passives = Array[ExtResource("2_ksuv4")]([])
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

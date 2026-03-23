@@ -4,7 +4,7 @@ var ad : AbilityData
 
 @onready var manager = get_node("..")
 
-var red_liquor = preload("res://Resources/Effects/red_liquor.tres")
+var red_liquor = preload("res://Resources/Effects/aliane_potion.tres")
 
 func press() -> Basics.AbilityError:
 	ad.ability_dealer.add_effect(red_liquor, ad.ability_dealer)

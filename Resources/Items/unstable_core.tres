@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://cgjmiuumrk5w8"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://cgjmiuumrk5w8"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_yjg7h"]
 [ext_resource type="Texture2D" uid="uid://c5pgoyl70uwgx" path="res://Assets/2D/Components/unstable_core_icon.png" id="2_yjg7h"]
@@ -11,21 +11,6 @@ script = ExtResource("4_0exje")
 id = "unstable_core"
 entity_type = 3
 icon = ExtResource("2_yjg7h")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -33,8 +18,4 @@ script = ExtResource("4_tlo73")
 entity = SubResource("Resource_hhnx7")
 description = "Core of tembling ore, originated from the soil."
 type = 1
-rarity = 0
-craft = Array[ExtResource("4_tlo73")]([])
-abilities = Array[ExtResource("1_yjg7h")]([])
-passives = Array[ExtResource("3_n8368")]([])
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

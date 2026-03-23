@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://p2blnjobsde8"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://p2blnjobsde8"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_8wmbe"]
 [ext_resource type="Texture2D" uid="uid://t7y34gbvcgrb" path="res://Assets/2D/Items/weak_flame.png" id="2_82abr"]
@@ -11,21 +11,6 @@ script = ExtResource("4_7ir54")
 id = "weak_flame"
 entity_type = 3
 icon = ExtResource("2_82abr")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -33,7 +18,3 @@ script = ExtResource("5_aivwo")
 entity = SubResource("Resource_a48b0")
 description = "Flame from a dying soul, can serve to craft temporary consumable."
 type = 1
-rarity = 0
-craft = Array[ExtResource("5_aivwo")]([])
-abilities = Array[ExtResource("1_8wmbe")]([])
-passives = Array[ExtResource("4_6q6q6")]([])

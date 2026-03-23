@@ -12,8 +12,8 @@ const CAMERA_PERSPECTIVE_OFFSET = Vector2(0, 5.0)
 var map_size : Vector2
 
 var pre_circle_image = preload("res://Assets/2D/Shaders/map_fog_player_mask.png")
-var pre_base_area_texture = preload("res://Assets/2D/Ui/base_area_path.png")
-var pre_base_arena_texture = preload("res://Assets/2D/Ui/base_arena_path.png")
+var pre_base_area_texture = preload("res://Assets/2D/UI/base_area_path.png")
+var pre_base_arena_texture = preload("res://Assets/2D/UI/base_arena_path.png")
 var pre_base_texture = preload("res://Assets/2D/UI/altar_icon.png")
 var pre_camp_texture = preload("res://Assets/2D/UI/plant_icon.png")
 

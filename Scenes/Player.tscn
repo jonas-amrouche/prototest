@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://df1e6em0ealvc"]
+[gd_scene format=3 uid="uid://df1e6em0ealvc"]
 
 [ext_resource type="Script" uid="uid://bvd38hexenl0h" path="res://Scripts/player.gd" id="1_3smsa"]
 [ext_resource type="PackedScene" uid="uid://b06u8fhi27vf4" path="res://Scenes/hud.tscn" id="2_8erm5"]
@@ -30,17 +30,17 @@ properties/1/path = NodePath("PlayerModel:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=1905373342]
 collision_layer = 2
 collision_mask = 9
 motion_mode = 1
 platform_wall_layers = 8
 script = ExtResource("1_3smsa")
 
-[node name="Collision" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=240421336]
 shape = SubResource("CylinderShape3D_j70xh")
 
-[node name="HoverOutline" type="SubViewportContainer" parent="."]
+[node name="HoverOutline" type="SubViewportContainer" parent="." unique_id=396099370]
 material = ExtResource("2_f1ek2")
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,13 +49,13 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="HoverOutlineVP" type="SubViewport" parent="HoverOutline"]
+[node name="HoverOutlineVP" type="SubViewport" parent="HoverOutline" unique_id=1691075684]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Camera" type="Camera3D" parent="HoverOutline/HoverOutlineVP"]
+[node name="Camera" type="Camera3D" parent="HoverOutline/HoverOutlineVP" unique_id=1696818463]
 transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573577, 0, 13, 9)
 cull_mask = 8192
 environment = SubResource("Environment_8erm5")
@@ -63,7 +63,7 @@ current = true
 fov = 50.0
 far = 512.0
 
-[node name="SelectOutline" type="SubViewportContainer" parent="."]
+[node name="SelectOutline" type="SubViewportContainer" parent="." unique_id=1391580382]
 material = ExtResource("3_tx1dd")
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,13 +72,13 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SelectOutlineVP" type="SubViewport" parent="SelectOutline"]
+[node name="SelectOutlineVP" type="SubViewport" parent="SelectOutline" unique_id=1592457453]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Camera" type="Camera3D" parent="SelectOutline/SelectOutlineVP"]
+[node name="Camera" type="Camera3D" parent="SelectOutline/SelectOutlineVP" unique_id=2055265742]
 transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573577, 0, 13, 9)
 cull_mask = 16384
 environment = SubResource("Environment_8erm5")
@@ -86,36 +86,36 @@ current = true
 fov = 50.0
 far = 512.0
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="." unique_id=613978338]
 transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 13, 9)
 current = true
 fov = 50.0
 far = 512.0
 
-[node name="CameraBaseMarker" type="Marker3D" parent="."]
+[node name="CameraBaseMarker" type="Marker3D" parent="." unique_id=185259730]
 transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573577, 0, 13, 9)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1234541046]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_8erm5")]
+[node name="HUD" parent="CanvasLayer" unique_id=134373784 instance=ExtResource("2_8erm5")]
 
-[node name="PlayerModel" parent="." instance=ExtResource("3_f1ek2")]
+[node name="PlayerModel" parent="." unique_id=573090906 instance=ExtResource("3_f1ek2")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
 
-[node name="Abilities" parent="." instance=ExtResource("4_tx1dd")]
+[node name="Abilities" parent="." unique_id=1771841502 instance=ExtResource("4_tx1dd")]
 
-[node name="StatRegen" type="Timer" parent="."]
+[node name="StatRegen" type="Timer" parent="." unique_id=1986442870]
 autostart = true
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1085310060]
 disable_3d = true
 transparent_bg = true
 gui_disable_input = true
 size = Vector2i(950, 420)
 
-[node name="PlayerHealthBar" parent="SubViewport" instance=ExtResource("5_gymyn")]
+[node name="PlayerHealthBar" parent="SubViewport" unique_id=1627333280 instance=ExtResource("5_gymyn")]
 
-[node name="InfoBar" type="Sprite3D" parent="."]
+[node name="InfoBar" type="Sprite3D" parent="." unique_id=1477737087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.943577, -0.455705)
 pixel_size = 0.0027
 billboard = 1
@@ -124,89 +124,89 @@ no_depth_test = true
 render_priority = 1
 texture = SubResource("ViewportTexture_najce")
 
-[node name="Vision" parent="." instance=ExtResource("6_pu2lt")]
+[node name="Vision" parent="." unique_id=252804927 instance=ExtResource("6_pu2lt")]
 
-[node name="Effects" parent="." instance=ExtResource("7_ukyrk")]
+[node name="Effects" parent="." unique_id=1517043063 instance=ExtResource("7_ukyrk")]
 
-[node name="Nav" type="NavigationAgent3D" parent="."]
+[node name="Nav" type="NavigationAgent3D" parent="." unique_id=1294531501]
 
-[node name="UpdateMovementLine" type="Timer" parent="."]
+[node name="UpdateMovementLine" type="Timer" parent="." unique_id=416215750]
 autostart = true
 
-[node name="DebugRange" type="Node3D" parent="."]
+[node name="DebugRange" type="Node3D" parent="." unique_id=741470482]
 visible = false
 
-[node name="Label3D" type="Label3D" parent="DebugRange"]
+[node name="Label3D" type="Label3D" parent="DebugRange" unique_id=1806063156]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "1"
 
-[node name="Label3D2" type="Label3D" parent="DebugRange"]
+[node name="Label3D2" type="Label3D" parent="DebugRange" unique_id=458390256]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "2"
 
-[node name="Label3D3" type="Label3D" parent="DebugRange"]
+[node name="Label3D3" type="Label3D" parent="DebugRange" unique_id=1633097444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "3"
 
-[node name="Label3D4" type="Label3D" parent="DebugRange"]
+[node name="Label3D4" type="Label3D" parent="DebugRange" unique_id=1334321044]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "4"
 
-[node name="Label3D5" type="Label3D" parent="DebugRange"]
+[node name="Label3D5" type="Label3D" parent="DebugRange" unique_id=1207654686]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "5"
 
-[node name="Label3D6" type="Label3D" parent="DebugRange"]
+[node name="Label3D6" type="Label3D" parent="DebugRange" unique_id=1321370884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "6"
 
-[node name="Label3D7" type="Label3D" parent="DebugRange"]
+[node name="Label3D7" type="Label3D" parent="DebugRange" unique_id=230461910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "7"
 
-[node name="Label3D8" type="Label3D" parent="DebugRange"]
+[node name="Label3D8" type="Label3D" parent="DebugRange" unique_id=788352244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "8"
 
-[node name="Label3D9" type="Label3D" parent="DebugRange"]
+[node name="Label3D9" type="Label3D" parent="DebugRange" unique_id=585499807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "9"
 
-[node name="Label3D10" type="Label3D" parent="DebugRange"]
+[node name="Label3D10" type="Label3D" parent="DebugRange" unique_id=1513402264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 billboard = 1
 double_sided = false
 no_depth_test = true
 text = "10"
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=75307064]
 replication_config = SubResource("SceneReplicationConfig_f1ek2")
 
 [connection signal="timeout" from="StatRegen" to="." method="_on_stat_regen_timeout"]

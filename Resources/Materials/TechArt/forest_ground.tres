@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://ccp6eay78mfdv"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ccp6eay78mfdv"]
 
 [ext_resource type="Shader" uid="uid://cs7xcn8bnbsm1" path="res://Resources/Shaders/forest_ground.gdshader" id="1_8e545"]
 [ext_resource type="Texture2D" uid="uid://xug60bh40bnf" path="res://Assets/2D/PBR/grass_v4.png" id="2_n7wnb"]
@@ -21,10 +21,10 @@ domain_warp_fractal_lacunarity = 5.42
 domain_warp_fractal_gain = 5.105
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o5yvi"]
-invert = true
-seamless = true
-normalize = false
 noise = SubResource("FastNoiseLite_ldgsr")
+seamless = true
+invert = true
+normalize = false
 
 [resource]
 render_priority = 0

@@ -42,6 +42,7 @@ func update_slot() -> void:
 			_new_item_slot.item = item_craft
 			_new_item_slot.slot_id = -1
 			_new_item_hud.item_slot = _new_item_slot
+			_new_item_hud.grabbable = false
 			_new_item_hud.connect("mouse_entered_item", Callable(hud, "show_item_preview"))
 			_new_item_hud.connect("mouse_exited", Callable(hud, "hide_item_preview"))
 			_new_item_hud.custom_minimum_size = Vector2(30.0, 30.0)

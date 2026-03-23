@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=14 format=3 uid="uid://jvq266hvj65c"]
+[gd_resource type="Resource" script_class="Monster" format=3 uid="uid://jvq266hvj65c"]
 
 [ext_resource type="Resource" uid="uid://dhec1vbffd4ak" path="res://Resources/Abilities/edifying_impact.tres" id="1_as5bv"]
 [ext_resource type="PackedScene" uid="uid://dx51lvdhwysho" path="res://Scenes/Models/blind_brute_model.tscn" id="1_jlu1d"]
@@ -18,17 +18,7 @@ max_health = 225
 health_regeneration = 2
 physical_damage = 12
 physical_armor = 6
-magic_damage = 0
-magic_armor = 0
 movement_speed = 100
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [sub_resource type="Resource" id="Resource_sqnke"]
@@ -61,15 +51,8 @@ monster_model = ExtResource("1_jlu1d")
 item_drops = Array[ExtResource("3_u6k6m")]([SubResource("Resource_sqnke"), SubResource("Resource_wahnd"), SubResource("Resource_qftos")])
 experience_drop = 53
 abilities = Array[ExtResource("1_kby06")]([ExtResource("1_as5bv")])
-aggro = false
-aggro_range = 4.0
-roam = false
 roam_range = 3.0
-turn_speed = 0.04
 max_health = 225
 physical_damage = 12
-magic_damage = 0
 physical_armor = 6
-magic_armor = 0
 movement_speed = 2.5
-health_regeneration = 2.0

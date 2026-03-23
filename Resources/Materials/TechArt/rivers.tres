@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bpu24nurmm7wb"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bpu24nurmm7wb"]
 
 [ext_resource type="Shader" uid="uid://c0t7y3wg6jh4l" path="res://Resources/Shaders/RiverShader.gdshader" id="1_lqcv7"]
 
@@ -22,10 +22,10 @@ seed = 110
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g0cjx"]
 width = 1024
 height = 1024
+noise = SubResource("FastNoiseLite_glipb")
 seamless = true
 as_normal_map = true
 bump_strength = 4.0
-noise = SubResource("FastNoiseLite_glipb")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1a7lf"]
 noise_type = 2
@@ -41,8 +41,8 @@ domain_warp_fractal_octaves = 1
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3lmvd"]
 width = 2048
 height = 2048
-seamless = true
 noise = SubResource("FastNoiseLite_1a7lf")
+seamless = true
 
 [resource]
 render_priority = 0

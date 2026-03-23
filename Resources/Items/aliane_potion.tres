@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://ch7rdqig4cb7k"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://ch7rdqig4cb7k"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_wqf7x"]
 [ext_resource type="Resource" uid="uid://dsyo5ab2lxt7x" path="res://Resources/ConsumableAbilities/aliane_potion.tres" id="2_efqho"]
@@ -12,21 +12,6 @@ script = ExtResource("5_pj42k")
 id = "aliane_potion"
 entity_type = 3
 icon = ExtResource("4_415q7")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -34,8 +19,5 @@ script = ExtResource("3_lp27p")
 entity = SubResource("Resource_ddefq")
 description = "Heals [color=green]300 HP[/color] over 2 minutes."
 type = 2
-rarity = 0
-craft = Array[ExtResource("3_lp27p")]([])
 abilities = Array[ExtResource("1_wqf7x")]([ExtResource("2_efqho")])
-passives = Array[ExtResource("6_b1o6x")]([])
 metadata/_custom_type_script = "uid://coumuhl7aj46k"

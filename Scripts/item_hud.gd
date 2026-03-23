@@ -2,6 +2,7 @@ extends PanelContainer
 
 @export var item_slot : ItemSlot
 @export var available := true
+@export var grabbable := true
 @export var keybind : String
 signal drag_item(slot : Object)
 signal drop_item(slot : Object)
@@ -61,7 +62,7 @@ var grabbed = false
 var press_item = false
 func _on_gui_input(event):
 	if !available: return
-	if event is InputEventMouseButton and event.button_index == 1:
+	if event is InputEventMouseButton and event.button_index == 1 and grabbable:
 		if event.pressed:
 			if item_slot:
 				grabbed = true

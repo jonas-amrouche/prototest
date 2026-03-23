@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=7 format=3 uid="uid://wjyyk3dajyjf"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://wjyyk3dajyjf"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_r13qh"]
 [ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="2_3g7k2"]
@@ -12,20 +12,6 @@ id = "atsis_crystal"
 entity_type = 3
 icon = ExtResource("3_ssf4t")
 max_health = 10
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -34,6 +20,3 @@ entity = SubResource("Resource_0i2ru")
 description = "A rare crystal from atsis woods, it grows on treetops when the weather is perfect for 1 year."
 type = 1
 rarity = 1
-craft = Array[ExtResource("3_0i2ru")]([])
-abilities = Array[ExtResource("1_r13qh")]([])
-passives = Array[ExtResource("2_3g7k2")]([])

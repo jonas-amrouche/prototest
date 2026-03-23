@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Monster" load_steps=16 format=3 uid="uid://bbsir61mjulr0"]
+[gd_resource type="Resource" script_class="Monster" format=3 uid="uid://bbsir61mjulr0"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_dsj7x"]
 [ext_resource type="Resource" uid="uid://coy7gj003lu7h" path="res://Resources/Abilities/haunting_shot.tres" id="2_c7mvp"]
@@ -17,19 +17,10 @@ id = "lost_ghost"
 entity_type = 1
 max_health = 250
 health_regeneration = 2
-physical_damage = 0
 physical_armor = 5
 magic_damage = 23
 magic_armor = 10
 movement_speed = 100
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [sub_resource type="Resource" id="Resource_ugk36"]
@@ -43,14 +34,12 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 script = ExtResource("3_jg1n4")
 item = ExtResource("5_upbwf")
 chances = 0.5
-quantity_max = 1
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [sub_resource type="Resource" id="Resource_06xdq"]
 script = ExtResource("3_jg1n4")
 item = ExtResource("6_jfh2h")
 chances = 0.3
-quantity_max = 1
 metadata/_custom_type_script = "uid://cn77duvoc7bc"
 
 [sub_resource type="Resource" id="Resource_exp2b"]
@@ -69,15 +58,9 @@ monster_model = ExtResource("3_mn240")
 item_drops = Array[ExtResource("3_jg1n4")]([SubResource("Resource_ugk36"), SubResource("Resource_mx8e3"), SubResource("Resource_06xdq"), SubResource("Resource_exp2b")])
 experience_drop = 42
 abilities = Array[ExtResource("1_dsj7x")]([ExtResource("2_c7mvp")])
-aggro = false
-aggro_range = 4.0
 roam = true
-roam_range = 5.0
-turn_speed = 0.04
 max_health = 250
-physical_damage = 0
 magic_damage = 23
 physical_armor = 5
 magic_armor = 10
 movement_speed = 2.0
-health_regeneration = 2.0

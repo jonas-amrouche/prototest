@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="Item" load_steps=6 format=3 uid="uid://cdoexjsvnx5lw"]
+
+[ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_kqotm"]
+[ext_resource type="Script" uid="uid://coumuhl7aj46k" path="res://Scripts/Classes/item_class.gd" id="2_ga7pg"]
+[ext_resource type="Script" uid="uid://n6qtiv0nkvke" path="res://Scripts/Classes/entity_class.gd" id="4_m48xu"]
+[ext_resource type="Script" uid="uid://twocoshi0d4k" path="res://Scripts/Classes/passive_class.gd" id="5_kvmdd"]
+
+[sub_resource type="Resource" id="Resource_0i2ru"]
+script = ExtResource("4_m48xu")
+id = "giant_rampant_oil"
+entity_type = 3
+max_health = 0
+health_regeneration = 0
+physical_damage = 0
+physical_armor = 0
+magic_damage = 0
+magic_armor = 0
+movement_speed = 0
+cooldown_reduction = 0
+life_steal = 0
+integrity = 0
+robustness = 0
+focus = 0
+spirit = 0
+soul_division = 0
+potion_resistence = 0
+metadata/_custom_type_script = "uid://n6qtiv0nkvke"
+
+[resource]
+script = ExtResource("2_ga7pg")
+entity = SubResource("Resource_0i2ru")
+description = "Capacitive oil, can be charge with magic."
+type = 1
+rarity = 0
+craft = Array[ExtResource("2_ga7pg")]([])
+abilities = Array[ExtResource("1_kqotm")]([])
+passives = Array[ExtResource("5_kvmdd")]([])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Item" load_steps=8 format=3 uid="uid://7ni0w2l0cw05"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://7ni0w2l0cw05"]
 
 [ext_resource type="Script" uid="uid://80pejklubd23" path="res://Scripts/Classes/ability_class.gd" id="1_figvh"]
 [ext_resource type="Resource" uid="uid://boyudarl8e1h7" path="res://Resources/Items/vision_stone.tres" id="2_eq7wg"]
@@ -12,21 +12,6 @@ script = ExtResource("5_lrfdq")
 id = "vision_core"
 entity_type = 3
 icon = ExtResource("3_lu0w3")
-max_health = 0
-health_regeneration = 0
-physical_damage = 0
-physical_armor = 0
-magic_damage = 0
-magic_armor = 0
-movement_speed = 0
-cooldown_reduction = 0
-life_steal = 0
-integrity = 0
-robustness = 0
-focus = 0
-spirit = 0
-soul_division = 0
-potion_resistence = 0
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]
@@ -34,8 +19,5 @@ script = ExtResource("4_jr0wn")
 entity = SubResource("Resource_gxkw7")
 description = "Core of vision for ready to use."
 type = 1
-rarity = 0
 craft = Array[ExtResource("4_jr0wn")]([ExtResource("2_eq7wg"), ExtResource("2_eq7wg")])
-abilities = Array[ExtResource("1_figvh")]([])
-passives = Array[ExtResource("3_eq7wg")]([])
 metadata/_custom_type_script = "uid://coumuhl7aj46k"
