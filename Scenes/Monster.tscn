@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxbe73c6eo1wj"]
+[gd_scene format=3 uid="uid://bxbe73c6eo1wj"]
 
 [ext_resource type="Script" uid="uid://b507hfjfi48i8" path="res://Scripts/monster.gd" id="1_ujuxu"]
 [ext_resource type="PackedScene" uid="uid://dow4dk0os7bac" path="res://Scenes/UI/monster_health_bar.tscn" id="2_ujuxu"]
-[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/abilities.tscn" id="3_6ks7b"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/ability_machine.tscn" id="3_6ks7b"]
 [ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Systems/effects.tscn" id="4_bua6k"]
 [ext_resource type="Material" uid="uid://bfj1uifljvjke" path="res://Resources/Materials/TechArt/sparticle_stars.tres" id="5_cyu0s"]
 
@@ -38,54 +38,54 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Monster" type="CharacterBody3D"]
+[node name="Monster" type="CharacterBody3D" unique_id=124754528]
 collision_layer = 20
 collision_mask = 13
 script = ExtResource("1_ujuxu")
 
-[node name="Collision" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=192516402]
 shape = SubResource("CylinderShape3D_mfdxe")
 
-[node name="NavAgent" type="NavigationAgent3D" parent="."]
+[node name="NavAgent" type="NavigationAgent3D" parent="." unique_id=1436847317]
 target_desired_distance = 1.5
 path_height_offset = 1.0
 height = 1.5
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=372414394]
 transparent_bg = true
 size = Vector2i(100, 50)
 
-[node name="MonsterHealthBar" parent="SubViewport" instance=ExtResource("2_ujuxu")]
+[node name="MonsterHealthBar" parent="SubViewport" unique_id=131687364 instance=ExtResource("2_ujuxu")]
 
-[node name="HealthBarDisplay" type="Sprite3D" parent="."]
+[node name="HealthBarDisplay" type="Sprite3D" parent="." unique_id=651830865]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56879, 0)
 visible = false
 billboard = 1
 no_depth_test = true
 texture = SubResource("ViewportTexture_q8k26")
 
-[node name="Aggro" type="Area3D" parent="."]
+[node name="Aggro" type="Area3D" parent="." unique_id=2038074913]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="Collision" type="CollisionShape3D" parent="Aggro"]
+[node name="Collision" type="CollisionShape3D" parent="Aggro" unique_id=1368842555]
 shape = SubResource("CylinderShape3D_rma1q")
 
-[node name="UpdatePath" type="Timer" parent="."]
+[node name="UpdatePath" type="Timer" parent="." unique_id=755184420]
 wait_time = 0.15
 
-[node name="Abilities" parent="." instance=ExtResource("3_6ks7b")]
+[node name="Abilities" parent="." unique_id=1571795385 instance=ExtResource("3_6ks7b")]
 
-[node name="Attack" type="Timer" parent="."]
+[node name="Attack" type="Timer" parent="." unique_id=719828440]
 wait_time = 0.3
 
-[node name="Roam" type="Timer" parent="."]
+[node name="Roam" type="Timer" parent="." unique_id=1695816761]
 wait_time = 7.0
 
-[node name="Effects" parent="." instance=ExtResource("4_bua6k")]
+[node name="Effects" parent="." unique_id=175306793 instance=ExtResource("4_bua6k")]
 
-[node name="LootingStars" type="GPUParticles3D" parent="."]
+[node name="LootingStars" type="GPUParticles3D" parent="." unique_id=547891950]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.03686, 0)
 material_override = ExtResource("5_cyu0s")
 emitting = false
@@ -95,7 +95,7 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_bua6k")
 draw_pass_1 = SubResource("QuadMesh_auidl")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2115407407]
 replication_config = SubResource("SceneReplicationConfig_cyu0s")
 
 [connection signal="body_shape_entered" from="Aggro" to="." method="_on_aggro_body_shape_entered"]

@@ -362,7 +362,7 @@ func take_damage(damage : int, damage_type : Basics.DamageType, damage_dealer : 
 	var _final_damage : int
 	match damage_type:
 		Basics.DamageType.PHYSIC:
-			_final_damage = max(damage - entity.physical_armor, 0.0)
+			_final_damage = max(damage - entity.physic_armor, 0.0)
 		Basics.DamageType.MAGIC:
 			_final_damage = max(damage - entity.magic_armor, 0.0)
 		Basics.DamageType.HYBRID:
@@ -641,26 +641,42 @@ func get_item_slot_source(item_slot : ItemSlot) -> Array[ItemSlot]:
 	return consumables if item_slot.slot_type == Basics.SlotType.CONSUMABLE else inventory
 
 func craft_item() -> void:
-	if crafts[0].item and crafts[1].item:
-		
-		# If craft success the item
-		for i in Basics.get_all_items():
-			var _craft_comp : Array[Item] = [crafts[0].item, crafts[1].item]
-			if is_item_craftable(i, _craft_comp):
-				for c in range(2):
-					crafts[c].item = null
-					crafts[c].quantity = 0
-				crafts[2].item = i
-				crafts[2].quantity = 1
-				break
-		
-		# If craft failed destroy all items
-		if !crafts[2].item:
-			for i in range(2):
-				crafts[i].item = null
-				crafts[i].quantity = 0
-		
+	if not crafts[0].item or not crafts[1].item:
+		return
+ 
+	var item_a : Item = crafts[0].item
+	var item_b : Item = crafts[1].item
+ 
+	# Find which item in the game data can be crafted from these two
+	var result_item : Item = null
+	for candidate in world.resources.all_items:
+		if candidate.is_craftable_from(item_a, item_b):
+			result_item = candidate.duplicate()
+			break
+ 
+	if not result_item:
+		# No valid craft — clear inputs, drop nothing
+		for i in range(2):
+			crafts[i].item     = null
+			crafts[i].quantity = 0
 		hud.update_craft()
+		return
+ 
+	# Transfer stats from the second input into the result
+	# This may trigger an evolution
+	var evolved : Item = result_item.combine_stats_from(item_b)
+	if evolved:
+		result_item = evolved
+ 
+	# Place result in slot 2 (the preview/output slot)
+	crafts[0].item     = null
+	crafts[0].quantity = 0
+	crafts[1].item     = null
+	crafts[1].quantity = 0
+	crafts[2].item     = result_item
+	crafts[2].quantity = 1
+ 
+	hud.update_craft()
 
 # Used to clear the craft tab when exiting the base
 func clear_craft() -> void:
@@ -683,37 +699,34 @@ func exit_base() -> void:
 	in_base = false
 	clear_craft()
 
+const LEVEL_BONUSES : Dictionary = {
+	"ember"           : 50,   # max health per level
+	"physical_damage" : 10,
+	"magic_damage"    : 10,
+}
+
 func update_stats() -> void:
-	# Set all stats to base value to recalculate
-	# Don't need to call set function, because state changed is emit at the end anyway
-	entity.max_health = base_entity.max_health
-	entity.movement_speed = base_entity.movement_speed
-	entity.physical_damage = base_entity.physical_damage
-	entity.magic_damage = base_entity.magic_damage
-	entity.health_regeneration = base_entity.health_regeneration
-	
-	# Run fast when no items
-	if inventory.size() == 0:
-		entity.movement_speed = EMPTY_MOVEMENT_SPEED
-	
-	# Add stats of levels
-	entity.max_health += (level-1) * MAX_HEALTH_PER_LEVEL
-	entity.physical_damage += (level-1) * PHYSICAL_DAMAGE_PER_LEVEL
-	entity.magic_damage += (level-1) * MAGIC_DAMAGE_PER_LEVEL
-	
-	# Add regens areas
-	entity.health_regeneration += area_health_regeneration
-	
-	# Add stats of items
-	for i in inventory:
-		if !i.item: continue
-		entity.max_health += i.item.entity.max_health
-		entity.physical_damage += i.item.entity.physical_damage
-		entity.magic_damage += i.item.entity.magic_damage
-		entity.physical_armor += i.item.entity.physical_armor
-		entity.magic_armor += i.item.entity.magic_armor
-		entity.movement_speed += i.item.entity.movement_speed
-	
+	# 1. Reset all computed stats to base values
+	entity.reset_stats()
+ 
+	# 2. Apply level scaling bonuses
+	for stat_id in LEVEL_BONUSES:
+		entity.add_stat(stat_id, (level - 1) * LEVEL_BONUSES[stat_id])
+ 
+	# 3. Apply area regeneration bonus (e.g. being in base)
+	entity.add_stat("health_regeneration", area_health_regeneration)
+ 
+	# 4. Apply all inventory item stats in a single generic loop
+	for slot in inventory:
+		if not slot.item:
+			continue
+		for stat_id in slot.item.stats:
+			entity.add_stat(stat_id, slot.item.stats[stat_id])
+ 
+	# 5. Clamp health to new max in case max_health was reduced
+	entity.health = min(entity.health, entity.get_max_health())
+ 
+	# 6. Notify listeners
 	entity.state_changed.emit()
 	hud.update_stats_hud()
 

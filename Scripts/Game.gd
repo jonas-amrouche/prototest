@@ -47,19 +47,17 @@ func vision_update(vision : Object, _fog_map : Image) -> void:
 		c.change_camp_visibility(vision.has_vision(Vector2i(c.global_position.x, c.global_position.z)))
 
 func spawn_players() -> void:
-	#var _new_player = resources.player_scene.instantiate()
-	#_new_player.position = map_generation.bases[0].get_node("PlayerSpawn/1").global_position
-	#_new_player.name = str(Replication.players.keys()[0])
-	#add_child(_new_player, true)
 	for i in range(Replication.players.size()):
+		var id : int= Replication.players.keys()[i]
 		var _new_player = resources.player_scene.instantiate()
 		_new_player.position = map_generation.bases[0].get_node("PlayerSpawn/" + str(i+1)).global_position
-		_new_player.name = str(Replication.players.keys()[i])
+		_new_player.name = str(id)
 		add_child(_new_player, true)
-		Replication.players[Replication.players.keys()[i]]["player_ref"] = _new_player
-		Replication.rpc("update_player_infos", Replication.players.keys()[i], Replication.players[Replication.players.keys()[i]])
+		# Store ref locally on server only — never send over RPC
+		Replication.players[id]["player_ref"] = _new_player
 
 var spawn_count = 0
 func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	print('gregre')
 	node.position = map_generation.bases[0].get_node("PlayerSpawn/" + str(spawn_count+1)).global_position
 	spawn_count += 1

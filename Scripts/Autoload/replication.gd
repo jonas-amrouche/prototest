@@ -1,59 +1,102 @@
 extends Node
 
-# CLIENT NOT DIRECTLY USED BY SERVER
-var client_infos := {}
+# ── State ─────────────────────────────────────────────────────────────────────
 
-# CLIENT AND SERVER
-var players := {}
-var players_loaded := {}
+var client_infos : Dictionary = {}
+var players      : Dictionary = {}  # peer_id -> player info dict
+var players_loaded : Dictionary = {}
 
-const PORT := 7432
-const DEFAULT_SERVER_IP := "localhost" # IPv4 localhost
+const PORT                := 7432
+const DEFAULT_SERVER_IP   := "localhost"
+
+# ── Signals ───────────────────────────────────────────────────────────────────
 
 signal enter_class_select
-signal player_locked_class(id : int, class_locked : Basics.Class)
+signal player_locked_class(id : int, class_locked : Basics.ClassType)
 signal enter_game_loading
 signal player_load_finished(id : int)
-signal load_finished()
+signal load_finished
 
-# Called by server to update client
-@rpc("any_peer", "reliable", "call_remote")
-func update_player_register(players_infos : Dictionary) -> void:
-	players = players_infos
-	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", players)
+# ── Player registration ───────────────────────────────────────────────────────
 
-# Called by client, executed by server, then update_player_register is called to update client
+## Called by server when a new peer connects.
+## Sends the new peer a full snapshot of current players (one-time sync),
+## then notifies all existing peers about the newcomer only.
+func register_new_player(new_id : int, info : Dictionary) -> void:
+	players[new_id] = info
+
+	# Send the new peer a full snapshot so they know about everyone
+	_send_full_snapshot.rpc_id(new_id, players)
+
+	# Notify all other peers about this single new player only
+	_notify_player_joined.rpc(new_id, info)
+
+## Called by server when a peer disconnects.
+func unregister_player(id : int) -> void:
+	players.erase(id)
+	_notify_player_left.rpc(id)
+
+# ── Player info updates ───────────────────────────────────────────────────────
+
+## Called by a client to update their own info on the server.
+## Server applies it and broadcasts only the changed entry.
 @rpc("any_peer", "reliable")
-func update_player_infos(client_id : int, new_client_info : Dictionary) -> void:
-	players[client_id] = new_client_info
-	update_player_register.rpc(players)
-	#print_rich(("[color=red]server" if multiplayer.is_server() else "[color=blue]client"), "[/color] : ", players)
+func update_player_infos(client_id : int, new_info : Dictionary) -> void:
+	if not multiplayer.is_server():
+		return
+	players[client_id] = new_info
+	# Broadcast only this player's updated entry — not the whole dict
+	_notify_player_updated.rpc(client_id, new_info)
 
-# Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable")
-func player_loaded(id : int):
-	if multiplayer.is_server():
-		players_loaded[id] = true
-		player_load_finished.emit(id)
-		if players_loaded.size() == players.size():
-			rpc("launch_game")
-			launch_game()
+# ── RPC: server → clients ─────────────────────────────────────────────────────
 
-# Called by server, executed by server and peers
-@rpc("any_peer", "reliable")
-func launch_game() -> void:
-	load_finished.emit()
+## Full snapshot sent only to a newly connected peer.
+@rpc("authority", "reliable", "call_remote")
+func _send_full_snapshot(snapshot : Dictionary) -> void:
+	players = snapshot
+
+## Targeted: tell all peers about one new player.
+@rpc("authority", "reliable")
+func _notify_player_joined(id : int, info : Dictionary) -> void:
+	players[id] = info
+
+## Targeted: tell all peers one player updated their info.
+@rpc("authority", "reliable")
+func _notify_player_updated(id : int, info : Dictionary) -> void:
+	players[id] = info
+
+## Tell all peers one player left.
+@rpc("authority", "reliable")
+func _notify_player_left(id : int) -> void:
+	players.erase(id)
+
+# ── Game flow RPCs ────────────────────────────────────────────────────────────
 
 @rpc("any_peer", "reliable")
 func launch_class_select() -> void:
 	enter_class_select.emit()
 
 @rpc("any_peer", "reliable")
-func lock_class(client_id : int, class_selected : Basics.Class) -> void:
+func lock_class(client_id : int, class_selected : Basics.ClassType) -> void:
 	players[client_id]["class"] = class_selected
 	player_locked_class.emit(client_id, class_selected)
-	# TODO should check if everybody locked before loading
-	launch_game_loading()
+	_enter_game_loading_rpc.rpc()
 
-func launch_game_loading() -> void:
+@rpc("authority", "reliable")
+func _enter_game_loading_rpc() -> void:
 	enter_game_loading.emit()
+
+@rpc("any_peer", "call_local", "reliable")
+func player_loaded(id : int) -> void:
+	print("player_loaded called: ", id, " is_server: ", multiplayer.is_server())
+	if not multiplayer.is_server():
+		return
+	players_loaded[id] = true
+	player_load_finished.emit(id)
+	print("players_loaded: ", players_loaded.size(), " / players: ", players.size(), " keys: ", players.keys())
+	if players_loaded.size() == players.size():
+		_launch_game_rpc.rpc()
+
+@rpc("any_peer", "reliable", "call_local")
+func _launch_game_rpc() -> void:
+	load_finished.emit()

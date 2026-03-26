@@ -199,8 +199,8 @@ func update_abilities() -> void:
 	for a in range(_sorted_ability_bar.size()):
 		var _new_ability_hud = world.resources.ability_hud.instantiate()
 		if _sorted_ability_bar[a]:
-			if player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a]):
-				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown(_sorted_ability_bar[a])
+			if player.ability_machine.get_ability_cooldown_remaining(_sorted_ability_bar[a]) > 0.0:
+				_new_ability_hud.cooldown_left = player.ability_machine.get_ability_cooldown_remaining(_sorted_ability_bar[a])
 			_new_ability_hud.ability = _sorted_ability_bar[a]
 			_new_ability_hud.item = _item_link.get(_sorted_ability_bar[a])
 		
@@ -363,19 +363,19 @@ func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
 	
-	var stat_base = Basics.get_all_stats()
+	var stat_base = Basics.load_all_stats()
 	var _p_entity : Entity = player.entity
 	
-	spawn_stat(stat_base["physical_damage"], _p_entity.physical_damage)
-	spawn_stat(stat_base["magic_damage"], _p_entity.magic_damage)
-	spawn_stat(stat_base["physical_armor"], _p_entity.physical_armor)
-	spawn_stat(stat_base["magic_armor"], _p_entity.magic_armor)
-	spawn_stat(stat_base["movement_speed"], _p_entity.movement_speed)
-	spawn_stat(stat_base["cooldown_reduction"], _p_entity.cooldown_reduction)
-	spawn_stat(stat_base["max_health"], _p_entity.max_health)
-	spawn_stat(stat_base["health_regeneration"], _p_entity.health_regeneration)
-	spawn_stat(stat_base["life_steal"], _p_entity.life_steal)
-	spawn_stat(stat_base["souls"], _p_entity.souls)
+	#spawn_stat(stat_base["physical_damage"], _p_entity.physical_damage)
+	#spawn_stat(stat_base["magic_damage"], _p_entity.magic_damage)
+	#spawn_stat(stat_base["physical_armor"], _p_entity.physical_armor)
+	#spawn_stat(stat_base["magic_armor"], _p_entity.magic_armor)
+	#spawn_stat(stat_base["movement_speed"], _p_entity.movement_speed)
+	#spawn_stat(stat_base["cooldown_reduction"], _p_entity.cooldown_reduction)
+	#spawn_stat(stat_base["max_health"], _p_entity.max_health)
+	#spawn_stat(stat_base["health_regeneration"], _p_entity.health_regeneration)
+	#spawn_stat(stat_base["life_steal"], _p_entity.life_steal)
+	#spawn_stat(stat_base["souls"], _p_entity.souls)
 
 func spawn_stat(stat : Stat, value) -> void:
 	var _new_stat_hud = world.resources.stat_hud.instantiate()

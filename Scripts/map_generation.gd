@@ -536,4 +536,5 @@ func is_in_arena(pos : Vector2) -> bool:
 	return false
 
 func _exit_tree():
-	collision_spawn_thread.wait_to_finish()
+	if collision_spawn_thread.is_alive():
+		collision_spawn_thread.wait_to_finish()

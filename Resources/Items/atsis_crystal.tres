@@ -11,7 +11,6 @@ script = ExtResource("3_3g7k2")
 id = "atsis_crystal"
 entity_type = 3
 icon = ExtResource("3_ssf4t")
-max_health = 10
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]

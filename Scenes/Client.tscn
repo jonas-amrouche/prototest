@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxg238k1wkp2l"]
+[gd_scene format=3 uid="uid://bxg238k1wkp2l"]
 
 [ext_resource type="Script" uid="uid://b32i06gs3m7i1" path="res://Scripts/client.gd" id="1_h56vy"]
 [ext_resource type="FontFile" uid="uid://bslckn0b3b6yk" path="res://Assets/Fonts/Gamaliel.otf" id="2_o4a6k"]
@@ -49,23 +49,23 @@ font_color = Color(0.392552, 0.471359, 0.488133, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuhft"]
 bg_color = Color(0, 0.392001, 0.361822, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6hp"]
-bg_color = Color(0.103375, 0.28847, 0.162035, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urhfn"]
+bg_color = Color(0.163388, 0.419482, 0.244629, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w114r"]
 bg_color = Color(0.0126783, 0.0725019, 0.0269571, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urhfn"]
-bg_color = Color(0.163388, 0.419482, 0.244629, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r6hp"]
+bg_color = Color(0.103375, 0.28847, 0.162035, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rw16"]
-bg_color = Color(0.112325, 0.262279, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16usq"]
+bg_color = Color(0.172379, 0.376151, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6515"]
 bg_color = Color(0.0349843, 0.115367, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16usq"]
-bg_color = Color(0.172379, 0.376151, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rw16"]
+bg_color = Color(0.112325, 0.262279, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_urhfn"]
 font = ExtResource("2_o4a6k")
@@ -81,7 +81,7 @@ font_color = Color(0.189256, 0.38054, 0.351092, 1)
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Client" type="Control"]
+[node name="Client" type="Control" unique_id=5743415]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,7 +91,7 @@ grow_vertical = 2
 script = ExtResource("1_h56vy")
 metadata/_edit_lock_ = true
 
-[node name="Main" type="PanelContainer" parent="."]
+[node name="Main" type="PanelContainer" parent="." unique_id=1150000681]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -101,41 +101,41 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_de1uw")
 metadata/_edit_lock_ = true
 
-[node name="DragBar" type="Panel" parent="Main"]
+[node name="DragBar" type="Panel" parent="Main" unique_id=1028410159]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Window" type="HBoxContainer" parent="Main"]
+[node name="Window" type="HBoxContainer" parent="Main" unique_id=1878903856]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/separation = 2
 
-[node name="Minimize" type="Button" parent="Main/Window"]
+[node name="Minimize" type="Button" parent="Main/Window" unique_id=704492474]
 custom_minimum_size = Vector2(39, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_o4a6k")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_o4a6k")
 theme_override_styles/normal = SubResource("StyleBoxFlat_o4a6k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_o4a6k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o4a6k")
 text = "-"
 
-[node name="Close" type="Button" parent="Main/Window"]
+[node name="Close" type="Button" parent="Main/Window" unique_id=264526765]
 custom_minimum_size = Vector2(39, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_v1moc")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_v1moc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_v1moc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_v1moc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_v1moc")
 text = "X"
 
-[node name="Home" type="Control" parent="."]
+[node name="Home" type="Control" parent="." unique_id=1657340218]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,7 +144,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="GameTitle" type="Label" parent="Home"]
+[node name="GameTitle" type="Label" parent="Home" unique_id=1104215865]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -158,7 +158,7 @@ text = "Forest
      Dungeon"
 label_settings = SubResource("LabelSettings_v1moc")
 
-[node name="IntroTitle" type="Label" parent="Home"]
+[node name="IntroTitle" type="Label" parent="Home" unique_id=126298932]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,7 +174,7 @@ grow_vertical = 2
 text = "Welcome to Forest Dungeon !"
 label_settings = SubResource("LabelSettings_o4a6k")
 
-[node name="IntroDesc" type="Label" parent="Home"]
+[node name="IntroDesc" type="Label" parent="Home" unique_id=1754245520]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -208,7 +208,7 @@ Use B to activate your recall and go back to your base, place any abilities in t
 label_settings = SubResource("LabelSettings_wuhft")
 autowrap_mode = 2
 
-[node name="EnterGame" type="Button" parent="Home"]
+[node name="EnterGame" type="Button" parent="Home" unique_id=962291031]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -225,7 +225,7 @@ mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wuhft")
 text = "SEARCH GAME"
 
-[node name="Pseudo" type="LineEdit" parent="Home"]
+[node name="Pseudo" type="LineEdit" parent="Home" unique_id=1747242623]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -244,7 +244,7 @@ text = "Zonfr"
 placeholder_text = "Pseudo"
 alignment = 1
 
-[node name="ClassSelect" type="Control" parent="."]
+[node name="ClassSelect" type="Control" parent="." unique_id=895070599]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -254,7 +254,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="ClassSelect"]
+[node name="Title" type="Label" parent="ClassSelect" unique_id=780821865]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -268,7 +268,7 @@ text = "Choose your class"
 label_settings = SubResource("LabelSettings_v1moc")
 horizontal_alignment = 1
 
-[node name="PickAndLock" type="PanelContainer" parent="ClassSelect"]
+[node name="PickAndLock" type="PanelContainer" parent="ClassSelect" unique_id=526468344]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -282,7 +282,7 @@ offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Pad" type="MarginContainer" parent="ClassSelect/PickAndLock"]
+[node name="Pad" type="MarginContainer" parent="ClassSelect/PickAndLock" unique_id=1818115775]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -290,94 +290,94 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_edit_lock_ = true
 
-[node name="Pad" type="VBoxContainer" parent="ClassSelect/PickAndLock/Pad"]
+[node name="Pad" type="VBoxContainer" parent="ClassSelect/PickAndLock/Pad" unique_id=863487990]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="ClassSelect/PickAndLock/Pad/Pad"]
+[node name="GridContainer" type="GridContainer" parent="ClassSelect/PickAndLock/Pad/Pad" unique_id=498931400]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 9
 
-[node name="Class1" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class1" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=464206740]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Hunter"
 
-[node name="Class2" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class2" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=492569714]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Assassin"
 
-[node name="Class3" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class3" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=1602566434]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Healer"
 
-[node name="Class4" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class4" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=690785806]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Doctor"
 
-[node name="Class5" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class5" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=1581029749]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Swordsman"
 
-[node name="Class6" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class6" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=1607669620]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Druid"
 
-[node name="Class7" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer"]
+[node name="Class7" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad/GridContainer" unique_id=2075283512]
 custom_minimum_size = Vector2(143.14, 68.595)
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_urhfn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w114r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8r6hp")
 text = "Guard"
 
-[node name="LockIn" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad"]
+[node name="LockIn" type="Button" parent="ClassSelect/PickAndLock/Pad/Pad" unique_id=452447402]
 custom_minimum_size = Vector2(208.565, 88.555)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -385,12 +385,12 @@ size_flags_vertical = 8
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_o4a6k")
 theme_override_font_sizes/font_size = 25
-theme_override_styles/hover = SubResource("StyleBoxFlat_2rw16")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_y6515")
 theme_override_styles/normal = SubResource("StyleBoxFlat_16usq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y6515")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2rw16")
 text = "Lock In"
 
-[node name="Chat" type="ColorRect" parent="ClassSelect"]
+[node name="Chat" type="ColorRect" parent="ClassSelect" unique_id=227482201]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -405,7 +405,7 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0, 0, 0, 1)
 
-[node name="LineEdit" type="LineEdit" parent="ClassSelect/Chat"]
+[node name="LineEdit" type="LineEdit" parent="ClassSelect/Chat" unique_id=1086435531]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -419,7 +419,7 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Shop" type="Control" parent="."]
+[node name="Shop" type="Control" parent="." unique_id=746425936]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -429,7 +429,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Shop"]
+[node name="Label" type="Label" parent="Shop" unique_id=484531959]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -444,7 +444,7 @@ Silver coins : 0"
 label_settings = SubResource("LabelSettings_urhfn")
 horizontal_alignment = 1
 
-[node name="Label5" type="Label" parent="Shop"]
+[node name="Label5" type="Label" parent="Shop" unique_id=1828992143]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -458,7 +458,7 @@ text = "SHOP"
 label_settings = SubResource("LabelSettings_8r6hp")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Shop"]
+[node name="Label2" type="Label" parent="Shop" unique_id=1104629430]
 layout_mode = 0
 offset_left = 166.0
 offset_top = 929.0
@@ -469,7 +469,7 @@ text = "Shadow Assasin
 label_settings = SubResource("LabelSettings_urhfn")
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="Shop"]
+[node name="ColorRect" type="ColorRect" parent="Shop" unique_id=363411448]
 layout_mode = 0
 offset_left = 106.0
 offset_top = 317.0
@@ -477,7 +477,7 @@ offset_right = 466.0
 offset_bottom = 875.0
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
-[node name="Label3" type="Label" parent="Shop"]
+[node name="Label3" type="Label" parent="Shop" unique_id=53431699]
 layout_mode = 0
 offset_left = 817.0
 offset_top = 929.0
@@ -488,7 +488,7 @@ text = "Committee Healer
 label_settings = SubResource("LabelSettings_urhfn")
 horizontal_alignment = 1
 
-[node name="ColorRect2" type="ColorRect" parent="Shop"]
+[node name="ColorRect2" type="ColorRect" parent="Shop" unique_id=169507825]
 layout_mode = 0
 offset_left = 757.0
 offset_top = 317.0
@@ -496,7 +496,7 @@ offset_right = 1117.0
 offset_bottom = 875.0
 color = Color(0.103744, 0.103744, 0.103744, 1)
 
-[node name="Label4" type="Label" parent="Shop"]
+[node name="Label4" type="Label" parent="Shop" unique_id=56067133]
 layout_mode = 0
 offset_left = 1406.0
 offset_top = 929.0
@@ -507,7 +507,7 @@ text = "Modest Swordsman
 label_settings = SubResource("LabelSettings_urhfn")
 horizontal_alignment = 1
 
-[node name="ColorRect3" type="ColorRect" parent="Shop"]
+[node name="ColorRect3" type="ColorRect" parent="Shop" unique_id=586218911]
 layout_mode = 0
 offset_left = 1377.0
 offset_top = 317.0

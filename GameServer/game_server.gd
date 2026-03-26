@@ -56,23 +56,19 @@ func _on_player_connected(id : int) -> void:
 
 func register_player(id : int) -> void:
 	server_logger.info(str("Player : ", str(id), " Registered."))
-	Replication.players[id] = {}
-	Replication.update_player_register.rpc(Replication.players)
+	Replication.register_new_player(id, {})
 
 func _on_player_disconnected(id : int) -> void:
 	server_logger.info(str(str(id), " Disconnected."))
-	Replication.players.erase(id)
-	Replication.update_player_register.rpc(Replication.players)
-	#player_disconnected.emit(id)
+	Replication.unregister_player(id)
 
 func _enter_class_select() -> void:
 	server_logger.info("Entering class select.")
 
-func _player_lock_class(id : int, class_locked : Basics.Class) -> void:
+func _player_lock_class(id : int, class_locked : Basics.ClassType) -> void:
 	server_logger.info(str("Player ", str(id), "(", str(Replication.players[id]["name"]), ") has locked ", str(Basics.CLASS_TEXT[class_locked]), "."))
 
 func _enter_game_loading() -> void:
-	
 	server_logger.info("Entering loading screen.")
 
 func _player_load_finished(id : int) -> void:

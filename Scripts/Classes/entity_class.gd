@@ -1,121 +1,90 @@
-extends Resource
-class_name Entity
+## Entity — core data container for any living thing in the world.
+## Stats are stored in a Dictionary keyed by stat ID string.
+## This means adding a new stat never requires touching this file —
+## just add a new Stat resource and reference its ID everywhere.
+##
+## Health is kept as a first-class field because it is runtime state,
+## not a base stat, and it needs special clamping logic.
+##
+## souls is also kept separately — it is match-state, not a base stat.
 
-@export var id : String
-@export var entity_type : Basics.EntityType
-@export var icon : Texture2D
-@export var max_health : int
-var health : int
-@export var health_regeneration : int
-@export var physical_damage : int
-@export var physical_armor : int
-@export var magic_damage : int
-@export var magic_armor : int
-#@export var dark_magic : int
-#@export var light_magic : int
-#@export var free_magic : int
-#@export var rune_magic : int
-#@export var light_crit : int
-#@export var dark_steal : int
-## Movement speed of the entity
-@export var movement_speed : int 
-## Reduction of cooldown of all abilities
-@export var cooldown_reduction : int 
-## Life recover from dealing damage
-@export var life_steal : int 
-## Souls taken (kills), dormant stats if not used by any items
-var souls : int 
-## Nerf critical hits and lifesteal taken
-@export var integrity : int 
-## Nerf slows and stuns taken
-@export var robustness : int 
-## Nerf slows and stuns taken
-@export var focus : int 
-## Reduce cost of mana of all abilities by a percentange
-@export var spirit : int 
-## Allows multi-casting, percentage of left channel ability time where you can cast another ability
-@export var soul_division : int 
-## Allows taking multiple potion without getting potion sickness
-@export var potion_resistence : int
+class_name Entity
+extends Resource
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+
+@export var id           : String
+@export var entity_type  : Basics.EntityType
+@export var icon         : Texture2D
+
+# ── Health (runtime, not a stat) ──────────────────────────────────────────────
+
+var health : int = 0
+var souls  : int = 0
 
 signal state_changed
 
+# ── Base stats ────────────────────────────────────────────────────────────────
+## Exported as a Dictionary so the Godot inspector can populate base values.
+## Keys must match the IDs of your Stat resources exactly.
+## Example: { "ember": 500, "rythic": 40, "stride": 60 }
+
+@export var base_stats : Dictionary = {}
+
+# ── Runtime stat map ──────────────────────────────────────────────────────────
+## Computed each time update_stats() is called on the owner.
+## Never write to this directly — it is always derived.
+
+var stats : Dictionary = {}
+
+# ── Stat access helpers ───────────────────────────────────────────────────────
+
+## Read a stat value by ID. Returns 0 if the stat does not exist.
+func get_stat(stat_id : String) -> int:
+	return stats.get(stat_id, 0)
+
+## Write a computed stat value. Used by the owner during update_stats().
+func set_stat(stat_id : String, value : int) -> void:
+	stats[stat_id] = value
+
+## Add a delta to a computed stat. Used when applying item bonuses in a loop.
+func add_stat(stat_id : String, delta : int) -> void:
+	stats[stat_id] = stats.get(stat_id, 0) + delta
+
+## Reset all computed stats back to base values.
+## Call this at the start of every update_stats() pass.
+func reset_stats() -> void:
+	stats = base_stats.duplicate()
+
+# ── Convenience shorthands ────────────────────────────────────────────────────
+## These match the GDD stat unit names. They are just thin wrappers around
+## get_stat() so call sites read naturally without magic strings everywhere.
+
+func get_ember()  -> int: return get_stat("ember")    # max health
+func get_rythic() -> int: return get_stat("rythic")   # damage
+func get_veil()   -> int: return get_stat("veil")     # vision range
+func get_stride() -> int: return get_stat("stride")   # movement speed
+func get_lull()   -> int: return get_stat("lull")     # cooldown reduction
+
+# Physical / magic split stats kept for combat clarity.
+func get_physical_damage() -> int: return get_stat("physical_damage")
+func get_magic_damage()    -> int: return get_stat("magic_damage")
+func get_physical_armor()  -> int: return get_stat("physical_armor")
+func get_magic_armor()     -> int: return get_stat("magic_armor")
+func get_max_health()      -> int: return get_stat("ember")
+func get_movement_speed()  -> int: return get_stat("stride")
+func get_health_regen()    -> int: return get_stat("health_regeneration")
+func get_life_steal()      -> int: return get_stat("life_steal")
+
+# ── Health helpers ────────────────────────────────────────────────────────────
+
 func set_full_health() -> void:
-	set_health(max_health)
+	health = get_max_health()
 	state_changed.emit()
 
-func set_id(name : String):
-	id = name
+func set_health(hp : int) -> void:
+	health = clamp(hp, 0, get_max_health())
 	state_changed.emit()
 
-func set_entity_type(et : Basics.EntityType):
-	entity_type = et
-	state_changed.emit()
-
-func set_icon(ic : Texture2D):
-	icon = ic
-	state_changed.emit()
-
-func set_max_health(mh : int):
-	max_health = mh
-	state_changed.emit()
-
-func set_health(hp : int):
-	health = hp
-	state_changed.emit()
-
-func set_health_regeneration(hr : int):
-	health_regeneration = hr
-	state_changed.emit()
-
-func set_physical_damage(pd : int):
-	physical_damage = pd
-	state_changed.emit()
-
-func set_physical_armor(pa : int):
-	physical_armor = pa
-	state_changed.emit()
-
-func set_magic_damage(md : int):
-	magic_damage = md
-	state_changed.emit()
-
-func set_magic_armor(ma : int):
-	magic_armor = ma
-	state_changed.emit()
-
-func set_movement_speed(ms : int):
-	movement_speed = ms
-	state_changed.emit()
-
-func set_cooldown_reduction(cr : int):
-	cooldown_reduction = cr
-	state_changed.emit()
-
-func set_life_steal(ls : int):
-	life_steal = ls
-	state_changed.emit()
-
-func set_souls(s : int):
-	souls = s
-	state_changed.emit()
-
-func set_integrity(i : int):
-	integrity = i
-	state_changed.emit()
-
-func set_robustness(r : int):
-	robustness = r
-	state_changed.emit()
-
-func set_focus(f : int):
-	focus = f
-	state_changed.emit()
-
-func set_spirit(sp : int):
-	spirit = sp
-	state_changed.emit()
-
-func set_soul_division(sd : int):
-	soul_division = sd
-	state_changed.emit()
+func is_alive() -> bool:
+	return health > 0

@@ -15,7 +15,6 @@ script = ExtResource("6_su8qd")
 id = "hunter's_machete"
 entity_type = 3
 icon = ExtResource("1_skpvv")
-physical_damage = 30
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
 [resource]

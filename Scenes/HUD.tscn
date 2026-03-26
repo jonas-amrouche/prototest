@@ -1,4 +1,4 @@
-[gd_scene load_steps=153 format=3 uid="uid://b06u8fhi27vf4"]
+[gd_scene format=3 uid="uid://b06u8fhi27vf4"]
 
 [ext_resource type="PackedScene" uid="uid://b7a7xf75sbf22" path="res://Scenes/minimap.tscn" id="1_4iu7d"]
 [ext_resource type="Script" uid="uid://cgfesqirt20xr" path="res://Scripts/hud.gd" id="1_ajh5x"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bi54l2duylakn" path="res://Assets/2D/UI/action_bar.png" id="6_ssfue"]
 [ext_resource type="Texture2D" uid="uid://b4fgsnfoxf6ik" path="res://Assets/2D/UI/stat_souls.png" id="7_1ajdh"]
 [ext_resource type="Texture2D" uid="uid://b1ors1nuuhydl" path="res://Assets/2D/UI/stat_scroll.png" id="8_o2vyp"]
-[ext_resource type="Texture2D" uid="uid://crkuhvrmvgyqn" path="res://Assets/2D/UI/energy_weird_bar.png" id="9_oersf"]
 [ext_resource type="Texture2D" uid="uid://c1iccru15ksof" path="res://Assets/2D/UI/purified_mana_bar.png" id="9_vxf74"]
 [ext_resource type="PackedScene" uid="uid://bx1r2n5ivie03" path="res://Scenes/UI/ability_hud.tscn" id="10_ba8gd"]
 [ext_resource type="FontFile" uid="uid://dt6v3wvpus61p" path="res://Assets/Fonts/Stilu-Regular.otf" id="10_xuldq"]
@@ -25,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ij4dbuoeqry" path="res://Assets/2D/UI/cell_overlay.png" id="20_yidpd"]
 [ext_resource type="Texture2D" uid="uid://e3j1ija6b4cb" path="res://Assets/2D/UI/hunter_class.png" id="23_vxf74"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewydl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxf74"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -36,7 +35,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oy6ci"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oersf"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -47,7 +46,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gw64n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_484xk"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -58,7 +57,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ux5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkt4f"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -69,7 +68,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uflcv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfkbc"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -80,7 +79,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5uhqk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s17ah"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -91,7 +90,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5hrv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jnyvx"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -102,7 +101,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1bji"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qtyhc"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -113,7 +112,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7pnvm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q562m"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -124,7 +123,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxkxr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8r83"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -135,7 +134,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_abb43"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5hjn"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -146,7 +145,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n3vcj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_buji0"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -157,7 +156,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8u7u"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5fqfc"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -168,7 +167,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlega"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbkfx"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -179,7 +178,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub0o4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lr1mr"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -190,7 +189,7 @@ shader_parameter/shine = ExtResource("5_0cch0")
 shader_parameter/color1 = Color(0.635847, 1, 0.29159, 1)
 shader_parameter/color2 = Color(0.65077, 0.898991, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bbpm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vs582"]
 resource_local_to_scene = true
 shader = ExtResource("3_khlsh")
 shader_parameter/enabled = false
@@ -240,30 +239,6 @@ texture = ExtResource("6_fbb48")
 [sub_resource type="LabelSettings" id="LabelSettings_1a2va"]
 font = ExtResource("10_xuldq")
 font_size = 10
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g17n1"]
-bg_color = Color(0.17, 0.17, 0.17, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lkt4f"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5fqfc"]
-texture = ExtResource("9_oersf")
-
-[sub_resource type="LabelSettings" id="LabelSettings_vxf74"]
-font = ExtResource("10_xuldq")
-font_size = 9
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
@@ -345,188 +320,6 @@ texture_margin_top = 18.0
 texture_margin_right = 18.0
 texture_margin_bottom = 18.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36s6t"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yidpd"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0iicw"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajim5"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxf74"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oersf"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_484xk"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkt4f"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfkbc"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s17ah"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnyvx"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtyhc"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbkfx"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53yd6"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
@@ -542,6 +335,104 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vjej"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj5bi"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn45h"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jysg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmo6y"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2aa"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfo6n"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -625,177 +516,21 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjmfb"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p63d5"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77xe6"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gn0kw"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba8gd"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fqfc"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tj5bi"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dn45h"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jysg"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmo6y"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfp0x"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_buji0"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te3lg"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 0.193)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.126119, 0.107304, 0.0935508, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcce"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g17n1"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -921,6 +656,8 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ba8gd"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tiqyw"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
@@ -930,10 +667,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t62pt"]
 resource_local_to_scene = true
@@ -944,10 +681,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gnrp"]
 resource_local_to_scene = true
@@ -958,10 +695,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi6f4"]
 resource_local_to_scene = true
@@ -972,10 +709,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tptls"]
 resource_local_to_scene = true
@@ -986,10 +723,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_knoxt"]
 resource_local_to_scene = true
@@ -1000,10 +737,10 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.126119, 0.107304, 0.0935508, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2gqg"]
 resource_local_to_scene = true
@@ -1047,6 +784,244 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjmfb"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p63d5"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77xe6"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gn0kw"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkcuu"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w24mk"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gj888"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peteo"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v76oh"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v201j"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfp0x"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d71yn"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58tcp"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0f21"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_km7qi"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12civ"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ccuq"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 0.193)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.126119, 0.107304, 0.0935508, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_xbkfx"]
 font_size = 15
 font_color = Color(0.28, 0.25984, 0.2296, 1)
@@ -1066,7 +1041,7 @@ font_color = Color(0.28, 0.25984, 0.2296, 1)
 shadow_color = Color(0, 0, 0, 0.409)
 shadow_offset = Vector2(1.5, 1.5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lr1mr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8awe"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1080,7 +1055,7 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs582"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwppo"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1094,7 +1069,7 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q562m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1egt8"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1108,7 +1083,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c2aa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g58d"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1122,7 +1097,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfo6n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh20n"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 0.193)
 border_width_left = 2
@@ -1273,7 +1248,7 @@ font_size = 20
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" unique_id=1196675471]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1284,7 +1259,7 @@ mouse_filter = 2
 script = ExtResource("1_ajh5x")
 metadata/_edit_lock_ = true
 
-[node name="BorderPanel" type="ColorRect" parent="."]
+[node name="BorderPanel" type="ColorRect" parent="." unique_id=570626373]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1299,7 +1274,7 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.395626, 0.317235, 0.159001, 1)
 
-[node name="GemsPad" type="MarginContainer" parent="."]
+[node name="GemsPad" type="MarginContainer" parent="." unique_id=1427617756]
 visible = false
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
@@ -1316,76 +1291,76 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ExpContainer" type="HBoxContainer" parent="GemsPad"]
+[node name="ExpContainer" type="HBoxContainer" parent="GemsPad" unique_id=249011575]
 layout_mode = 2
 theme_override_constants/separation = 9
 metadata/_edit_lock_ = true
 
-[node name="Gem" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_ewydl")
+[node name="Gem" parent="GemsPad/ExpContainer" unique_id=758877996 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_vxf74")
 layout_mode = 2
 
-[node name="Gem2" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_oy6ci")
+[node name="Gem2" parent="GemsPad/ExpContainer" unique_id=1121368454 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_oersf")
 layout_mode = 2
 
-[node name="Gem3" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_gw64n")
+[node name="Gem3" parent="GemsPad/ExpContainer" unique_id=1298323980 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_484xk")
 layout_mode = 2
 
-[node name="Gem4" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_m1ux5")
+[node name="Gem4" parent="GemsPad/ExpContainer" unique_id=825577744 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_lkt4f")
 layout_mode = 2
 
-[node name="Gem5" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_uflcv")
+[node name="Gem5" parent="GemsPad/ExpContainer" unique_id=62664141 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_wfkbc")
 layout_mode = 2
 
-[node name="Gem6" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_5uhqk")
+[node name="Gem6" parent="GemsPad/ExpContainer" unique_id=1404998651 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_s17ah")
 layout_mode = 2
 
-[node name="Gem7" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_s5hrv")
+[node name="Gem7" parent="GemsPad/ExpContainer" unique_id=339801872 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_jnyvx")
 layout_mode = 2
 
-[node name="Gem8" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_d1bji")
+[node name="Gem8" parent="GemsPad/ExpContainer" unique_id=1979050003 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_qtyhc")
 layout_mode = 2
 
-[node name="Gem9" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_7pnvm")
+[node name="Gem9" parent="GemsPad/ExpContainer" unique_id=425823989 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_q562m")
 layout_mode = 2
 
-[node name="Gem10" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_gxkxr")
+[node name="Gem10" parent="GemsPad/ExpContainer" unique_id=1811287705 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_l8r83")
 layout_mode = 2
 
-[node name="Gem11" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_abb43")
+[node name="Gem11" parent="GemsPad/ExpContainer" unique_id=1753142288 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_v5hjn")
 layout_mode = 2
 
-[node name="Gem12" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_n3vcj")
+[node name="Gem12" parent="GemsPad/ExpContainer" unique_id=361817845 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_buji0")
 layout_mode = 2
 
-[node name="Gem13" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_k8u7u")
+[node name="Gem13" parent="GemsPad/ExpContainer" unique_id=1136587481 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_5fqfc")
 layout_mode = 2
 
-[node name="Gem14" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_nlega")
+[node name="Gem14" parent="GemsPad/ExpContainer" unique_id=2052234791 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_xbkfx")
 layout_mode = 2
 
-[node name="Gem15" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_ub0o4")
+[node name="Gem15" parent="GemsPad/ExpContainer" unique_id=1871646816 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_lr1mr")
 layout_mode = 2
 
-[node name="Gem16" parent="GemsPad/ExpContainer" instance=ExtResource("2_j4ssy")]
-material = SubResource("ShaderMaterial_2bbpm")
+[node name="Gem16" parent="GemsPad/ExpContainer" unique_id=1894249113 instance=ExtResource("2_j4ssy")]
+material = SubResource("ShaderMaterial_vs582")
 layout_mode = 2
 
-[node name="EffectsPanel" type="Panel" parent="."]
+[node name="EffectsPanel" type="Panel" parent="." unique_id=211719575]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1400,7 +1375,7 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hhtw7")
 
-[node name="EffectPad" type="MarginContainer" parent="."]
+[node name="EffectPad" type="MarginContainer" parent="." unique_id=1528100921]
 clip_contents = true
 custom_minimum_size = Vector2(0, 7)
 layout_mode = 1
@@ -1422,14 +1397,14 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="EffectContainer" type="GridContainer" parent="EffectPad"]
+[node name="EffectContainer" type="GridContainer" parent="EffectPad" unique_id=458382063]
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 columns = 6
 metadata/_edit_lock_ = true
 
-[node name="ExpBar" type="ProgressBar" parent="."]
+[node name="ExpBar" type="ProgressBar" parent="." unique_id=1508318253]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1445,8 +1420,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pbtju")
 value = 29.49
 show_percentage = false
 
-[node name="ClassIcon" type="TextureRect" parent="."]
-layout_mode = 2
+[node name="ClassIcon" type="TextureRect" parent="." unique_id=151762050]
+layout_mode = 0
 offset_left = 1408.0
 offset_top = 772.0
 offset_right = 1474.0
@@ -1455,7 +1430,7 @@ texture = ExtResource("23_vxf74")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ActionPanel" type="TextureRect" parent="."]
+[node name="ActionPanel" type="TextureRect" parent="." unique_id=1809423643]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1473,7 +1448,7 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="HealthBarContainer" type="PanelContainer" parent="ActionPanel"]
+[node name="HealthBarContainer" type="PanelContainer" parent="ActionPanel" unique_id=870067105]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1486,7 +1461,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fbb48")
 
-[node name="HealthBar" type="ProgressBar" parent="ActionPanel/HealthBarContainer"]
+[node name="HealthBar" type="ProgressBar" parent="ActionPanel/HealthBarContainer" unique_id=644976075]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1496,7 +1471,7 @@ value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
-[node name="HealthLabel" type="Label" parent="ActionPanel/HealthBarContainer"]
+[node name="HealthLabel" type="Label" parent="ActionPanel/HealthBarContainer" unique_id=1938386739]
 layout_mode = 2
 text = "560/560"
 label_settings = SubResource("LabelSettings_1a2va")
@@ -1504,38 +1479,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="ManaBarContainer" type="PanelContainer" parent="ActionPanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -296.0
-offset_top = 224.0
-offset_right = 297.0
-offset_bottom = 240.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_g17n1")
-
-[node name="ManaBar" type="ProgressBar" parent="ActionPanel/ManaBarContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxEmpty_lkt4f")
-theme_override_styles/fill = SubResource("StyleBoxTexture_5fqfc")
-value = 100.0
-show_percentage = false
-metadata/_edit_lock_ = true
-
-[node name="ManaLabel" type="Label" parent="ActionPanel/ManaBarContainer"]
-layout_mode = 2
-text = "750/750"
-label_settings = SubResource("LabelSettings_vxf74")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="EnergyBarContainer" type="PanelContainer" parent="ActionPanel"]
+[node name="EnergyBarContainer" type="PanelContainer" parent="ActionPanel" unique_id=1669086459]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -1549,7 +1493,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gnip7")
 
-[node name="EnergyBar" type="ProgressBar" parent="ActionPanel/EnergyBarContainer"]
+[node name="EnergyBar" type="ProgressBar" parent="ActionPanel/EnergyBarContainer" unique_id=68452633]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -1559,7 +1503,7 @@ value = 100.0
 show_percentage = false
 metadata/_edit_lock_ = true
 
-[node name="AbilityBar" type="PanelContainer" parent="ActionPanel"]
+[node name="AbilityBar" type="PanelContainer" parent="ActionPanel" unique_id=1549892351]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1575,7 +1519,7 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eqxyv")
 
-[node name="Pad" type="MarginContainer" parent="ActionPanel/AbilityBar"]
+[node name="Pad" type="MarginContainer" parent="ActionPanel/AbilityBar" unique_id=1109266249]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
@@ -1583,44 +1527,44 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
-[node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad"]
+[node name="AbilityList" type="HBoxContainer" parent="ActionPanel/AbilityBar/Pad" unique_id=1520898658]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="AbilityHud" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=1054580639 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud2" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud2" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=2088085766 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud3" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud3" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=1159589837 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud4" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud4" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=523002485 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud5" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud5" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=1209763184 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud6" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud6" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=923982052 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud7" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud7" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=773844416 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud8" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud8" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=273360320 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud9" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud9" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=1675157631 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud10" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud10" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=386594055 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="AbilityHud11" parent="ActionPanel/AbilityBar/Pad/AbilityList" instance=ExtResource("10_ba8gd")]
+[node name="AbilityHud11" parent="ActionPanel/AbilityBar/Pad/AbilityList" unique_id=89452212 instance=ExtResource("10_ba8gd")]
 layout_mode = 2
 
-[node name="LevelInd" type="Label" parent="ActionPanel"]
+[node name="LevelInd" type="Label" parent="ActionPanel" unique_id=1709004309]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1635,7 +1579,7 @@ label_settings = SubResource("LabelSettings_blu1a")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LevelPan" type="Panel" parent="."]
+[node name="LevelPan" type="Panel" parent="." unique_id=145390360]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -1651,7 +1595,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_oqqyi")
 
-[node name="ChannelingBar" type="ProgressBar" parent="."]
+[node name="ChannelingBar" type="ProgressBar" parent="." unique_id=1178491320]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -1671,7 +1615,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_ba8gd")
 value = 91.8
 show_percentage = false
 
-[node name="ChannelingLabel" type="Label" parent="ChannelingBar"]
+[node name="ChannelingLabel" type="Label" parent="ChannelingBar" unique_id=1398103046]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1686,7 +1630,7 @@ label_settings = SubResource("LabelSettings_ssfue")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreBoard" type="ColorRect" parent="."]
+[node name="ScoreBoard" type="ColorRect" parent="." unique_id=1066687410]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -1703,7 +1647,7 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0.180005, 0.180005, 0.180005, 1)
 
-[node name="MiniMap" parent="." instance=ExtResource("1_4iu7d")]
+[node name="MiniMap" parent="." unique_id=1705478954 instance=ExtResource("1_4iu7d")]
 layout_mode = 1
 offset_left = -415.0
 offset_top = -355.0
@@ -1711,7 +1655,7 @@ offset_right = -71.0
 offset_bottom = -11.0
 mouse_filter = 0
 
-[node name="Inventory" type="PanelContainer" parent="."]
+[node name="Inventory" type="PanelContainer" parent="." unique_id=771360528]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1724,153 +1668,153 @@ grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="Container" type="VBoxContainer" parent="Inventory"]
+[node name="Container" type="VBoxContainer" parent="Inventory" unique_id=1408360994]
 layout_mode = 2
 
-[node name="InventoryList" type="GridContainer" parent="Inventory/Container"]
+[node name="InventoryList" type="GridContainer" parent="Inventory/Container" unique_id=669810908]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 6
 metadata/_edit_lock_ = true
 
-[node name="ItemHud" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_36s6t")
-
-[node name="ItemHud2" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yidpd")
-
-[node name="ItemHud3" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0iicw")
-
-[node name="ItemHud4" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ajim5")
-
-[node name="ItemHud5" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vxf74")
-
-[node name="ItemHud6" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oersf")
-
-[node name="ItemHud7" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_484xk")
-
-[node name="ItemHud8" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lkt4f")
-
-[node name="ItemHud9" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wfkbc")
-
-[node name="ItemHud10" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_s17ah")
-
-[node name="ItemHud11" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jnyvx")
-
-[node name="ItemHud12" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qtyhc")
-
-[node name="ItemHud13" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xbkfx")
-
-[node name="ItemHud14" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud" parent="Inventory/Container/InventoryList" unique_id=1005361177 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_53yd6")
 
-[node name="ItemHud15" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud2" parent="Inventory/Container/InventoryList" unique_id=1668463042 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0vjej")
 
-[node name="ItemHud16" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud3" parent="Inventory/Container/InventoryList" unique_id=1246326227 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tj5bi")
+
+[node name="ItemHud4" parent="Inventory/Container/InventoryList" unique_id=2058794979 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dn45h")
+
+[node name="ItemHud5" parent="Inventory/Container/InventoryList" unique_id=1789817259 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7jysg")
+
+[node name="ItemHud6" parent="Inventory/Container/InventoryList" unique_id=1821471300 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
+
+[node name="ItemHud7" parent="Inventory/Container/InventoryList" unique_id=1732772172 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
+
+[node name="ItemHud8" parent="Inventory/Container/InventoryList" unique_id=1391157776 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7c2aa")
+
+[node name="ItemHud9" parent="Inventory/Container/InventoryList" unique_id=1870153000 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yfo6n")
+
+[node name="ItemHud10" parent="Inventory/Container/InventoryList" unique_id=1374007065 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g8vqp")
 
-[node name="ItemHud17" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud11" parent="Inventory/Container/InventoryList" unique_id=392700818 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wosp2")
 
-[node name="ItemHud18" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud12" parent="Inventory/Container/InventoryList" unique_id=1343778304 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1x1q1")
 
-[node name="ItemHud19" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud13" parent="Inventory/Container/InventoryList" unique_id=625189989 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1mdok")
 
-[node name="ItemHud20" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud14" parent="Inventory/Container/InventoryList" unique_id=1363097579 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w8qfe")
 
-[node name="ItemHud21" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud15" parent="Inventory/Container/InventoryList" unique_id=1755429462 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gjmfb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4vcce")
 
-[node name="ItemHud22" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud16" parent="Inventory/Container/InventoryList" unique_id=593489622 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_p63d5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_g17n1")
 
-[node name="ItemHud23" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud17" parent="Inventory/Container/InventoryList" unique_id=1728308833 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_77xe6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_71ejs")
 
-[node name="ItemHud24" parent="Inventory/Container/InventoryList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud18" parent="Inventory/Container/InventoryList" unique_id=81375195 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gn0kw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ecp6t")
 
-[node name="HSeparator" type="HSeparator" parent="Inventory/Container"]
+[node name="ItemHud19" parent="Inventory/Container/InventoryList" unique_id=1744345115 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s071j")
+
+[node name="ItemHud20" parent="Inventory/Container/InventoryList" unique_id=1160645461 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_djv8h")
+
+[node name="ItemHud21" parent="Inventory/Container/InventoryList" unique_id=21300299 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_08ytq")
+
+[node name="ItemHud22" parent="Inventory/Container/InventoryList" unique_id=1844997518 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_040kf")
+
+[node name="ItemHud23" parent="Inventory/Container/InventoryList" unique_id=1697247201 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_citry")
+
+[node name="ItemHud24" parent="Inventory/Container/InventoryList" unique_id=630508324 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2lrj8")
+
+[node name="HSeparator" type="HSeparator" parent="Inventory/Container" unique_id=1025449728]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ba8gd")
 
-[node name="ConsumableList" type="HBoxContainer" parent="Inventory/Container"]
+[node name="ConsumableList" type="HBoxContainer" parent="Inventory/Container" unique_id=984108183]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="ItemHud" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud" parent="Inventory/Container/ConsumableList" unique_id=220421382 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5fqfc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tiqyw")
 available = false
 
-[node name="ItemHud2" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud2" parent="Inventory/Container/ConsumableList" unique_id=1205253545 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tj5bi")
+theme_override_styles/panel = SubResource("StyleBoxFlat_t62pt")
 available = false
 
-[node name="ItemHud3" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud3" parent="Inventory/Container/ConsumableList" unique_id=536062854 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dn45h")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gnrp")
 available = false
 
-[node name="ItemHud4" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud4" parent="Inventory/Container/ConsumableList" unique_id=935805545 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7jysg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wi6f4")
 available = false
 
-[node name="ItemHud5" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud5" parent="Inventory/Container/ConsumableList" unique_id=667070505 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jmo6y")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tptls")
 available = false
 
-[node name="ItemHud6" parent="Inventory/Container/ConsumableList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud6" parent="Inventory/Container/ConsumableList" unique_id=365844054 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tfp0x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_knoxt")
 available = false
 
-[node name="Gathering" type="PanelContainer" parent="."]
+[node name="Gathering" type="PanelContainer" parent="." unique_id=880987329]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1883,94 +1827,94 @@ grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="GatheringList" type="GridContainer" parent="Gathering"]
+[node name="GatheringList" type="GridContainer" parent="Gathering" unique_id=1282658949]
 layout_mode = 2
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 5
 metadata/_edit_lock_ = true
 
-[node name="ItemHud" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_buji0")
-
-[node name="ItemHud2" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_te3lg")
-
-[node name="ItemHud3" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_4vcce")
-
-[node name="ItemHud4" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_71ejs")
-
-[node name="ItemHud5" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ecp6t")
-
-[node name="ItemHud6" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_s071j")
-
-[node name="ItemHud7" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_djv8h")
-
-[node name="ItemHud8" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_08ytq")
-
-[node name="ItemHud9" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_040kf")
-
-[node name="ItemHud10" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_citry")
-
-[node name="ItemHud11" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2lrj8")
-
-[node name="ItemHud12" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tiqyw")
-
-[node name="ItemHud13" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t62pt")
-
-[node name="ItemHud14" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1gnrp")
-
-[node name="ItemHud15" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wi6f4")
-
-[node name="ItemHud16" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tptls")
-
-[node name="ItemHud17" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_knoxt")
-
-[node name="ItemHud18" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud" parent="Gathering/GatheringList" unique_id=323524187 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h2gqg")
 
-[node name="ItemHud19" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud2" parent="Gathering/GatheringList" unique_id=1646084641 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o7d6u")
 
-[node name="ItemHud20" parent="Gathering/GatheringList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud3" parent="Gathering/GatheringList" unique_id=1817200992 instance=ExtResource("12_ssfue")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n63dt")
 
-[node name="Loot" type="PanelContainer" parent="."]
+[node name="ItemHud4" parent="Gathering/GatheringList" unique_id=18113985 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gjmfb")
+
+[node name="ItemHud5" parent="Gathering/GatheringList" unique_id=328589375 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p63d5")
+
+[node name="ItemHud6" parent="Gathering/GatheringList" unique_id=354610730 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_77xe6")
+
+[node name="ItemHud7" parent="Gathering/GatheringList" unique_id=1745684723 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gn0kw")
+
+[node name="ItemHud8" parent="Gathering/GatheringList" unique_id=1271633910 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fkcuu")
+
+[node name="ItemHud9" parent="Gathering/GatheringList" unique_id=670613023 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w24mk")
+
+[node name="ItemHud10" parent="Gathering/GatheringList" unique_id=1054201023 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gj888")
+
+[node name="ItemHud11" parent="Gathering/GatheringList" unique_id=496081297 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_peteo")
+
+[node name="ItemHud12" parent="Gathering/GatheringList" unique_id=611121938 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v76oh")
+
+[node name="ItemHud13" parent="Gathering/GatheringList" unique_id=1976759915 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v201j")
+
+[node name="ItemHud14" parent="Gathering/GatheringList" unique_id=686404732 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tfp0x")
+
+[node name="ItemHud15" parent="Gathering/GatheringList" unique_id=266437988 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d71yn")
+
+[node name="ItemHud16" parent="Gathering/GatheringList" unique_id=1148212389 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_58tcp")
+
+[node name="ItemHud17" parent="Gathering/GatheringList" unique_id=1766478820 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0f21")
+
+[node name="ItemHud18" parent="Gathering/GatheringList" unique_id=495931206 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_km7qi")
+
+[node name="ItemHud19" parent="Gathering/GatheringList" unique_id=1806045211 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12civ")
+
+[node name="ItemHud20" parent="Gathering/GatheringList" unique_id=9019943 instance=ExtResource("12_ssfue")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ccuq")
+
+[node name="Loot" type="PanelContainer" parent="." unique_id=944650383]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -1984,7 +1928,7 @@ grow_horizontal = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="Pad" type="MarginContainer" parent="Loot"]
+[node name="Pad" type="MarginContainer" parent="Loot" unique_id=1629254840]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
@@ -1992,14 +1936,14 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 metadata/_edit_lock_ = true
 
-[node name="Container" type="VBoxContainer" parent="Loot"]
+[node name="Container" type="VBoxContainer" parent="Loot" unique_id=582687498]
 layout_mode = 2
 
-[node name="PanelContainer" type="MarginContainer" parent="Loot/Container"]
+[node name="PanelContainer" type="MarginContainer" parent="Loot/Container" unique_id=1203939374]
 layout_mode = 2
 theme_override_constants/margin_top = -8
 
-[node name="Label" type="Label" parent="Loot/Container/PanelContainer"]
+[node name="Label" type="Label" parent="Loot/Container/PanelContainer" unique_id=1160311674]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Loot"
@@ -2007,15 +1951,15 @@ label_settings = SubResource("LabelSettings_xbkfx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LootList" type="HBoxContainer" parent="Loot/Container"]
+[node name="LootList" type="HBoxContainer" parent="Loot/Container" unique_id=1251364694]
 layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="ItemCraft" type="PanelContainer" parent="."]
+[node name="ItemCraft" type="PanelContainer" parent="." unique_id=578868172]
 visible = false
-layout_mode = 2
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 289.0
@@ -2026,7 +1970,7 @@ grow_vertical = 0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_8bf2m")
 
-[node name="Pad" type="MarginContainer" parent="ItemCraft"]
+[node name="Pad" type="MarginContainer" parent="ItemCraft" unique_id=1798649766]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 0
@@ -2034,7 +1978,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
 
-[node name="Visuals" type="Label" parent="ItemCraft/Pad"]
+[node name="Visuals" type="Label" parent="ItemCraft/Pad" unique_id=959934715]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -2043,41 +1987,41 @@ text = "        +         +         +"
 label_settings = SubResource("LabelSettings_rr6i0")
 vertical_alignment = 1
 
-[node name="CraftList" type="HBoxContainer" parent="ItemCraft/Pad"]
+[node name="CraftList" type="HBoxContainer" parent="ItemCraft/Pad" unique_id=2104872290]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 22
 
-[node name="ItemHud" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud" parent="ItemCraft/Pad/CraftList" unique_id=1456176856 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lr1mr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i8awe")
 
-[node name="ItemHud2" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud2" parent="ItemCraft/Pad/CraftList" unique_id=1591949784 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vs582")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nwppo")
 
-[node name="ItemHud3" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud3" parent="ItemCraft/Pad/CraftList" unique_id=1582917843 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q562m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1egt8")
 available = false
 
-[node name="ItemHud4" parent="ItemCraft/Pad/CraftList" instance=ExtResource("12_ssfue")]
+[node name="ItemHud4" parent="ItemCraft/Pad/CraftList" unique_id=1311411656 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7c2aa")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3g58d")
 available = false
 
-[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad"]
+[node name="CraftResult" type="PanelContainer" parent="ItemCraft/Pad" unique_id=76141517]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="ItemHud4" parent="ItemCraft/Pad/CraftResult" instance=ExtResource("12_ssfue")]
+[node name="ItemHud4" parent="ItemCraft/Pad/CraftResult" unique_id=1657174421 instance=ExtResource("12_ssfue")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yfo6n")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jh20n")
 available = false
 
-[node name="ProgressPad" type="MarginContainer" parent="ItemCraft"]
+[node name="ProgressPad" type="MarginContainer" parent="ItemCraft" unique_id=1228617553]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 15
@@ -2086,7 +2030,7 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 21
 metadata/_edit_lock_ = true
 
-[node name="CraftBar" type="ProgressBar" parent="ItemCraft/ProgressPad"]
+[node name="CraftBar" type="ProgressBar" parent="ItemCraft/ProgressPad" unique_id=705851054]
 custom_minimum_size = Vector2(0, 13)
 layout_mode = 2
 size_flags_vertical = 4
@@ -2094,7 +2038,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_l8r83")
 theme_override_styles/fill = SubResource("StyleBoxFlat_v5hjn")
 show_percentage = false
 
-[node name="TargetData" type="PanelContainer" parent="."]
+[node name="TargetData" type="PanelContainer" parent="." unique_id=754880279]
 visible = false
 layout_mode = 1
 offset_left = 10.0
@@ -2104,17 +2048,17 @@ offset_bottom = 96.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_ba8gd")
 
-[node name="TargCont" type="VBoxContainer" parent="TargetData"]
+[node name="TargCont" type="VBoxContainer" parent="TargetData" unique_id=274071640]
 layout_mode = 2
 
-[node name="Pad" type="MarginContainer" parent="TargetData/TargCont"]
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont" unique_id=526006315]
 layout_mode = 2
 theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = -3
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = -3
 
-[node name="EntityIcon" type="TextureRect" parent="TargetData/TargCont/Pad"]
+[node name="EntityIcon" type="TextureRect" parent="TargetData/TargCont/Pad" unique_id=54233162]
 custom_minimum_size = Vector2(53, 53)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -2122,35 +2066,35 @@ texture = ExtResource("14_0iicw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad"]
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad" unique_id=449072722]
 custom_minimum_size = Vector2(260.22, 53)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/margin_bottom = 7
 
-[node name="EntityName" type="Label" parent="TargetData/TargCont/Pad/Pad"]
+[node name="EntityName" type="Label" parent="TargetData/TargCont/Pad/Pad" unique_id=153443461]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Endossed Willow"
 
-[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad"]
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad" unique_id=1179100755]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad/Pad"]
+[node name="Pad" type="MarginContainer" parent="TargetData/TargCont/Pad/Pad/Pad" unique_id=885129823]
 layout_mode = 2
 theme_override_constants/margin_left = -2
 theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = -2
 theme_override_constants/margin_bottom = -2
 
-[node name="HealthBorder" type="ColorRect" parent="TargetData/TargCont/Pad/Pad/Pad/Pad"]
+[node name="HealthBorder" type="ColorRect" parent="TargetData/TargCont/Pad/Pad/Pad/Pad" unique_id=1091813729]
 layout_mode = 2
 color = Color(0.12549, 0.12549, 0.12549, 1)
 
-[node name="HealthBar" type="ProgressBar" parent="TargetData/TargCont/Pad/Pad/Pad"]
+[node name="HealthBar" type="ProgressBar" parent="TargetData/TargCont/Pad/Pad/Pad" unique_id=319798584]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -2159,18 +2103,18 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_hhtw7")
 value = 87.99
 show_percentage = false
 
-[node name="Spacer" type="HSeparator" parent="TargetData/TargCont"]
+[node name="Spacer" type="HSeparator" parent="TargetData/TargCont" unique_id=25901656]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 theme_override_styles/separator = SubResource("StyleBoxEmpty_8bf2m")
 
-[node name="Items" type="GridContainer" parent="TargetData/TargCont"]
+[node name="Items" type="GridContainer" parent="TargetData/TargCont" unique_id=362658681]
 layout_mode = 2
 columns = 5
 metadata/_edit_lock_ = true
 
-[node name="StatScroll" type="TextureRect" parent="."]
+[node name="StatScroll" type="TextureRect" parent="." unique_id=223222054]
 layout_mode = 0
 offset_left = 1364.0
 offset_top = 777.0
@@ -2179,7 +2123,7 @@ offset_bottom = 1080.0
 texture = ExtResource("8_o2vyp")
 metadata/_edit_lock_ = true
 
-[node name="Stats" type="Panel" parent="."]
+[node name="Stats" type="Panel" parent="." unique_id=1737169975]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -2194,7 +2138,7 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hhtw7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Stats"]
+[node name="MarginContainer" type="MarginContainer" parent="Stats" unique_id=951242653]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2207,11 +2151,11 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 metadata/_edit_lock_ = true
 
-[node name="StatList" type="VBoxContainer" parent="Stats/MarginContainer"]
+[node name="StatList" type="VBoxContainer" parent="Stats/MarginContainer" unique_id=60058400]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="Workshop" type="Panel" parent="."]
+[node name="Workshop" type="Panel" parent="." unique_id=930868058]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -2229,8 +2173,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_oersf")
 
-[node name="ItemBoard" type="PanelContainer" parent="Workshop"]
-layout_mode = 2
+[node name="ItemBoard" type="PanelContainer" parent="Workshop" unique_id=1870503805]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 48.0
 offset_right = 1288.0
@@ -2240,16 +2184,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_itd6h")
 
-[node name="WindowCont" type="HBoxContainer" parent="Workshop/ItemBoard"]
+[node name="WindowCont" type="HBoxContainer" parent="Workshop/ItemBoard" unique_id=1685188039]
 layout_mode = 2
 
-[node name="Categories" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+[node name="Categories" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont" unique_id=953218805]
 custom_minimum_size = Vector2(312.39, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_lkt4f")
 
-[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard/WindowCont/Categories"]
+[node name="Pad" type="MarginContainer" parent="Workshop/ItemBoard/WindowCont/Categories" unique_id=729885404]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = -5
@@ -2257,211 +2201,211 @@ theme_override_constants/margin_top = -5
 theme_override_constants/margin_right = -5
 theme_override_constants/margin_bottom = -5
 
-[node name="Panels" type="HBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad"]
+[node name="Panels" type="HBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad" unique_id=284368787]
 layout_mode = 2
 
-[node name="Buttons" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+[node name="Buttons" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels" unique_id=161851834]
 custom_minimum_size = Vector2(166.175, 0)
 layout_mode = 2
 
-[node name="Cat1" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat1" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=710806408]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Hp" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat1"]
+[node name="Hp" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat1" unique_id=1108458502]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ucbsi")
 text = "Health"
 
-[node name="Cat2" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat2" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=148804281]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LowCD" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat2"]
+[node name="LowCD" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat2" unique_id=1101270943]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_l1phg")
 text = "Low Cooldown"
 
-[node name="Cat3" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat3" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=794125391]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Vision" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat3"]
+[node name="Vision" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat3" unique_id=743940227]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_821f3")
 text = "Vision"
 
-[node name="Cat4" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat4" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=632170469]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HDamage" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat4"]
+[node name="HDamage" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat4" unique_id=1771271906]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_c4nu8")
 text = "High Damage"
 
-[node name="Cat5" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat5" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=2082012460]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SDependent" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat5"]
+[node name="SDependent" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat5" unique_id=1449091656]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_cresn")
 text = "Souls Dependant"
 
-[node name="Cat6" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat6" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=505426715]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat6"]
+[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat6" unique_id=1994761159]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7twce")
 text = "Armor"
 
-[node name="Cat7" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat7" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=888461814]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Healing" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat7"]
+[node name="Healing" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat7" unique_id=1698076288]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vlod2")
 text = "Healing"
 
-[node name="Cat8" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat8" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=1869577041]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CC" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat8"]
+[node name="CC" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat8" unique_id=70897495]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
 text = "Crowd Control
 "
 
-[node name="Cat9" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons"]
+[node name="Cat9" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons" unique_id=1354321065]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat9"]
+[node name="Armor" type="Button" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/Buttons/Cat9" unique_id=405818569]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bpqhs")
 text = "Armor"
 
-[node name="VSeparator" type="VSeparator" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+[node name="VSeparator" type="VSeparator" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels" unique_id=2138977665]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_484xk")
 
-[node name="ItemList" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels"]
+[node name="ItemList" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels" unique_id=950629307]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=1695439596 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=1877678258 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=1502465717 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=951709804 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=1691657578 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/Categories/Pad/Panels/ItemList" unique_id=183988497 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="Sep1" type="VSeparator" parent="Workshop/ItemBoard/WindowCont"]
+[node name="Sep1" type="VSeparator" parent="Workshop/ItemBoard/WindowCont" unique_id=1893710899]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_wfkbc")
 
-[node name="SearchPad" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+[node name="SearchPad" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont" unique_id=1845089337]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_s17ah")
 
-[node name="Pad" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad"]
+[node name="Pad" type="VBoxContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad" unique_id=640306241]
 layout_mode = 2
 
-[node name="SearchBar" type="LineEdit" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+[node name="SearchBar" type="LineEdit" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad" unique_id=400226895]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="HSeparator" type="HSeparator" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+[node name="HSeparator" type="HSeparator" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad" unique_id=1967429987]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_jnyvx")
 
-[node name="ItemScrollCont" type="ScrollContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad"]
+[node name="ItemScrollCont" type="ScrollContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad" unique_id=455688360]
 custom_minimum_size = Vector2(0, 850)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont"]
+[node name="ItemList" type="GridContainer" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont" unique_id=1806253694]
 layout_mode = 2
 columns = 2
 metadata/_edit_lock_ = true
 
-[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=423760190 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop3" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1321557573 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop4" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1524043035 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop5" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=2058979343 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop6" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1110252877 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop7" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop7" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1548726785 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop8" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop8" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1434418186 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop9" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop9" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=521304589 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop10" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop10" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1276298197 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" instance=ExtResource("19_oersf")]
+[node name="ItemWorkshop2" parent="Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList" unique_id=1763907946 instance=ExtResource("19_oersf")]
 layout_mode = 2
 
-[node name="Sep2" type="VSeparator" parent="Workshop/ItemBoard/WindowCont"]
+[node name="Sep2" type="VSeparator" parent="Workshop/ItemBoard/WindowCont" unique_id=753006593]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_wfkbc")
 
-[node name="Inspector" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont"]
+[node name="Inspector" type="PanelContainer" parent="Workshop/ItemBoard/WindowCont" unique_id=1197148116]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_s17ah")
 
-[node name="CloseWorkshop" type="Button" parent="Workshop"]
+[node name="CloseWorkshop" type="Button" parent="Workshop" unique_id=551929880]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -2475,7 +2419,7 @@ focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ua7hb")
 text = "X"
 
-[node name="CraftBook" type="PanelContainer" parent="."]
+[node name="CraftBook" type="PanelContainer" parent="." unique_id=575906780]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -2492,7 +2436,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_0iicw")
 
-[node name="Pad" type="MarginContainer" parent="CraftBook"]
+[node name="Pad" type="MarginContainer" parent="CraftBook" unique_id=978275030]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 190
@@ -2501,43 +2445,43 @@ theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 10
 metadata/_edit_lock_ = true
 
-[node name="RecipeList" type="GridContainer" parent="CraftBook/Pad"]
+[node name="RecipeList" type="GridContainer" parent="CraftBook/Pad" unique_id=422895288]
 layout_mode = 2
 theme_override_constants/h_separation = 95
 theme_override_constants/v_separation = 25
 columns = 2
 
-[node name="RecipeHud" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud" parent="CraftBook/Pad/RecipeList" unique_id=1949319018 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud2" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud2" parent="CraftBook/Pad/RecipeList" unique_id=644016082 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud3" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud3" parent="CraftBook/Pad/RecipeList" unique_id=1932602572 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud4" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud4" parent="CraftBook/Pad/RecipeList" unique_id=1072661890 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud5" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud5" parent="CraftBook/Pad/RecipeList" unique_id=1801430221 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud6" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud6" parent="CraftBook/Pad/RecipeList" unique_id=1988048143 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud7" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud7" parent="CraftBook/Pad/RecipeList" unique_id=909111809 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud8" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud8" parent="CraftBook/Pad/RecipeList" unique_id=769163024 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud9" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud9" parent="CraftBook/Pad/RecipeList" unique_id=826153868 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="RecipeHud10" parent="CraftBook/Pad/RecipeList" instance=ExtResource("17_yidpd")]
+[node name="RecipeHud10" parent="CraftBook/Pad/RecipeList" unique_id=444080756 instance=ExtResource("17_yidpd")]
 layout_mode = 2
 
-[node name="GameTime" type="Label" parent="."]
+[node name="GameTime" type="Label" parent="." unique_id=38567587]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -2550,7 +2494,7 @@ grow_horizontal = 0
 text = "0:00"
 horizontal_alignment = 2
 
-[node name="Chat" type="PanelContainer" parent="."]
+[node name="Chat" type="PanelContainer" parent="." unique_id=82959723]
 visible = false
 layout_mode = 0
 offset_left = 47.0
@@ -2559,24 +2503,24 @@ offset_right = 477.0
 offset_bottom = 838.0
 mouse_filter = 2
 
-[node name="Container" type="VBoxContainer" parent="Chat"]
+[node name="Container" type="VBoxContainer" parent="Chat" unique_id=2105555285]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Chat/Container"]
+[node name="MarginContainer" type="MarginContainer" parent="Chat/Container" unique_id=1974965954]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Chat/Container/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Chat/Container/MarginContainer" unique_id=355390668]
 layout_mode = 2
 text = "gregrez"
 
-[node name="ChatInput" type="LineEdit" parent="Chat/Container"]
+[node name="ChatInput" type="LineEdit" parent="Chat/Container" unique_id=1211102645]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="CraftChar" type="Panel" parent="."]
+[node name="CraftChar" type="Panel" parent="." unique_id=1593456878]
 visible = false
 custom_minimum_size = Vector2(249, 88)
-layout_mode = 2
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 9.0
@@ -2586,7 +2530,7 @@ offset_bottom = -166.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7m76n")
 
-[node name="Pad" type="MarginContainer" parent="CraftChar"]
+[node name="Pad" type="MarginContainer" parent="CraftChar" unique_id=1202579749]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2599,37 +2543,37 @@ theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 metadata/_edit_lock_ = true
 
-[node name="CraftSteps" type="HBoxContainer" parent="CraftChar/Pad"]
+[node name="CraftSteps" type="HBoxContainer" parent="CraftChar/Pad" unique_id=646012013]
 layout_mode = 2
 theme_override_constants/separation = 5
 metadata/_edit_lock_ = true
 
-[node name="Materials" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
+[node name="Materials" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps" unique_id=129182931]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="Substance" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
+[node name="Substance" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps" unique_id=1318639206]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="Catalyzer" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
+[node name="Catalyzer" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps" unique_id=681523439]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="Enchantment" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps"]
+[node name="Enchantment" type="VBoxContainer" parent="CraftChar/Pad/CraftSteps" unique_id=1819634533]
 custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 
-[node name="ColorRect" type="TextureRect" parent="CraftChar/Pad/CraftSteps"]
+[node name="ColorRect" type="TextureRect" parent="CraftChar/Pad/CraftSteps" unique_id=1596359627]
 custom_minimum_size = Vector2(28, 0)
 layout_mode = 2
 
-[node name="Bind" type="HBoxContainer" parent="CraftChar/Pad"]
+[node name="Bind" type="HBoxContainer" parent="CraftChar/Pad" unique_id=243048244]
 layout_mode = 2
 theme_override_constants/separation = 5
 metadata/_edit_lock_ = true
 
-[node name="1" type="Label" parent="CraftChar/Pad/Bind"]
+[node name="1" type="Label" parent="CraftChar/Pad/Bind" unique_id=194066913]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "1"
@@ -2637,7 +2581,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="2" type="Label" parent="CraftChar/Pad/Bind"]
+[node name="2" type="Label" parent="CraftChar/Pad/Bind" unique_id=1589777200]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "2"
@@ -2645,7 +2589,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="3" type="Label" parent="CraftChar/Pad/Bind"]
+[node name="3" type="Label" parent="CraftChar/Pad/Bind" unique_id=1203398991]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "3"
@@ -2653,7 +2597,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="4" type="Label" parent="CraftChar/Pad/Bind"]
+[node name="4" type="Label" parent="CraftChar/Pad/Bind" unique_id=1310236531]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 text = "4"
@@ -2661,7 +2605,7 @@ label_settings = SubResource("LabelSettings_rr6i0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="CraftChar"]
+[node name="ColorRect" type="ColorRect" parent="CraftChar" unique_id=1127867696]
 visible = false
 layout_mode = 0
 offset_left = 15.0
@@ -2670,7 +2614,7 @@ offset_right = 39.0
 offset_bottom = -4.0
 color = Color(0.489583, 0.297306, 0.140627, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="CraftChar"]
+[node name="ColorRect2" type="ColorRect" parent="CraftChar" unique_id=910847452]
 visible = false
 layout_mode = 0
 offset_left = 65.0
@@ -2679,7 +2623,7 @@ offset_right = 89.0
 offset_bottom = -4.0
 color = Color(0.249837, 0.337389, 0.489583, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="CraftChar"]
+[node name="ColorRect3" type="ColorRect" parent="CraftChar" unique_id=1682398142]
 visible = false
 layout_mode = 0
 offset_left = 115.0
@@ -2688,7 +2632,7 @@ offset_right = 139.0
 offset_bottom = -4.0
 color = Color(0.489583, 0.149153, 0.198037, 1)
 
-[node name="ColorRect4" type="ColorRect" parent="CraftChar"]
+[node name="ColorRect4" type="ColorRect" parent="CraftChar" unique_id=477257016]
 visible = false
 layout_mode = 0
 offset_left = 165.0
@@ -2697,7 +2641,7 @@ offset_right = 189.0
 offset_bottom = -4.0
 color = Color(0.481053, 0.188391, 0.489583, 1)
 
-[node name="Souls" type="TextureRect" parent="."]
+[node name="Souls" type="TextureRect" parent="." unique_id=1429605607]
 visible = false
 layout_mode = 0
 offset_left = 1821.0
@@ -2708,7 +2652,7 @@ texture = ExtResource("7_1ajdh")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SoulsLabel" type="Label" parent="Souls"]
+[node name="SoulsLabel" type="Label" parent="Souls" unique_id=586503845]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2720,7 +2664,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="SubViewport" type="TextureRect" parent="."]
+[node name="SubViewport" type="TextureRect" parent="." unique_id=731052511]
 visible = false
 modulate = Color(1, 1, 1, 0.25)
 layout_mode = 1
@@ -2734,7 +2678,7 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="CamView" type="Panel" parent="."]
+[node name="CamView" type="Panel" parent="." unique_id=1191922103]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -2746,7 +2690,7 @@ offset_right = 444.0
 offset_bottom = -171.0
 grow_vertical = 0
 
-[node name="Pad" type="MarginContainer" parent="CamView"]
+[node name="Pad" type="MarginContainer" parent="CamView" unique_id=1661556380]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2759,13 +2703,13 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 metadata/_edit_lock_ = true
 
-[node name="SubViewport" type="TextureRect" parent="CamView/Pad"]
+[node name="SubViewport" type="TextureRect" parent="CamView/Pad" unique_id=924560225]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="ScoreLab" type="PanelContainer" parent="."]
+[node name="ScoreLab" type="PanelContainer" parent="." unique_id=12573075]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -2777,32 +2721,32 @@ offset_bottom = 45.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4qpk8")
 
-[node name="MarginContainer" type="MarginContainer" parent="ScoreLab"]
+[node name="MarginContainer" type="MarginContainer" parent="ScoreLab" unique_id=958142473]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 0
 
-[node name="Blue" type="Label" parent="ScoreLab/MarginContainer"]
+[node name="Blue" type="Label" parent="ScoreLab/MarginContainer" unique_id=1530374032]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "14"
 label_settings = SubResource("LabelSettings_xtu5i")
 
-[node name="vs" type="Label" parent="ScoreLab/MarginContainer"]
+[node name="vs" type="Label" parent="ScoreLab/MarginContainer" unique_id=1803754816]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "vs"
 label_settings = SubResource("LabelSettings_l8pma")
 
-[node name="Red" type="Label" parent="ScoreLab/MarginContainer"]
+[node name="Red" type="Label" parent="ScoreLab/MarginContainer" unique_id=86717389]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "30"
 label_settings = SubResource("LabelSettings_ut4rx")
 
-[node name="Back" type="PanelContainer" parent="."]
+[node name="Back" type="PanelContainer" parent="." unique_id=1816341528]
 visible = false
 layout_mode = 1
 anchors_preset = 3
@@ -2818,11 +2762,11 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3njvo")
 
-[node name="TextureRect" type="Panel" parent="Back"]
+[node name="TextureRect" type="Panel" parent="Back" unique_id=1925411182]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5nah2")
 
-[node name="MarginContainer" type="MarginContainer" parent="Back"]
+[node name="MarginContainer" type="MarginContainer" parent="Back" unique_id=1918601721]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
@@ -2830,23 +2774,23 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="Back/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Back/MarginContainer" unique_id=1294741430]
 layout_mode = 2
 texture = ExtResource("18_36s6t")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="Back/MarginContainer"]
+[node name="Panel" type="Panel" parent="Back/MarginContainer" unique_id=1941703909]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ajim5")
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer2" type="MarginContainer" parent="Back"]
+[node name="MarginContainer2" type="MarginContainer" parent="Back" unique_id=1194811428]
 layout_mode = 2
 theme_override_constants/margin_bottom = 0
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Back/MarginContainer2"]
+[node name="Label" type="Label" parent="Back/MarginContainer2" unique_id=765034410]
 layout_mode = 2
 size_flags_vertical = 0
 text = "B "

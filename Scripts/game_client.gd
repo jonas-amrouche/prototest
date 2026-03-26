@@ -32,7 +32,7 @@ func check_load_progress() -> void:
 	if _load_status == ResourceLoader.THREAD_LOAD_LOADED:
 		var _loaded_scene = ResourceLoader.load_threaded_get(game_scene)
 		add_child(_loaded_scene.instantiate(), true)
-		Replication.rpc("player_loaded", multiplayer.get_unique_id())
+		Replication.player_loaded.rpc(multiplayer.get_unique_id())
 
 func start_client() -> void:
 	var peer = ENetMultiplayerPeer.new()

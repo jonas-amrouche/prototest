@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bxdm6eppdf28l" path="res://Resources/Materials/TechArt/target_outline_hover.tres" id="2_f1ek2"]
 [ext_resource type="PackedScene" uid="uid://clyr7mc7h80pm" path="res://Scenes/Models/wise_mage_model.tscn" id="3_f1ek2"]
 [ext_resource type="Material" uid="uid://bbedg08s8c1q0" path="res://Resources/Materials/TechArt/target_outline_select.tres" id="3_tx1dd"]
-[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/abilities.tscn" id="4_tx1dd"]
+[ext_resource type="PackedScene" uid="uid://8gxad82o4fso" path="res://Scenes/Systems/ability_machine.tscn" id="4_tx1dd"]
 [ext_resource type="PackedScene" uid="uid://bc3vy722upu52" path="res://Scenes/UI/player_health_bar.tscn" id="5_gymyn"]
 [ext_resource type="PackedScene" uid="uid://ck86813meoj4w" path="res://Scenes/vision.tscn" id="6_pu2lt"]
 [ext_resource type="PackedScene" uid="uid://enhw6ain4c5q" path="res://Scenes/Systems/effects.tscn" id="7_ukyrk"]

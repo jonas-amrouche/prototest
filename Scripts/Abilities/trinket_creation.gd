@@ -24,4 +24,4 @@ func press() -> Basics.AbilityError:
 			manager.start_ability_cooldown(ad.ability))
 		return Basics.AbilityError.OK
 	queue_free()
-	return Basics.AbilityError.NEED_RESOURCE
+	return Basics.AbilityError.UNAVAILABLE #NEED_RESOURCE

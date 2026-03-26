@@ -66,7 +66,7 @@ func _enter_class_select() -> void:
 	shop_tab.hide()
 
 func _on_lock_in_pressed() -> void:
-	Replication.lock_class.rpc(multiplayer.get_unique_id(), Basics.Class.HUNTER)
+	Replication.lock_class.rpc(multiplayer.get_unique_id(), Basics.ClassType.BLEEDER)
 	_enter_game_loading()
 
 func _enter_game_loading() -> void:
