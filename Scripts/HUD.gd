@@ -28,8 +28,6 @@ extends Control
 @onready var xp_bar := $ExpBar
 @onready var effect_container := $EffectPad/EffectContainer
 @onready var level_label_hud := $ActionPanel/LevelInd
-@onready var workshop_tab := $Workshop
-@onready var workshop_items_container := $Workshop/ItemBoard/WindowCont/SearchPad/Pad/ItemScrollCont/ItemList
 @onready var loot_tab := $Loot
 @onready var loot_container := $Loot/Container/LootList
 
@@ -37,8 +35,6 @@ var item_preview
 #var component_preview
 var effect_preview
 var ability_preview
-var bind_ability_preview
-
 var dragged_ability_slot : Object
 var dragged_item_ref : Object
 
@@ -66,9 +62,9 @@ func update_info_bars() -> void:
 
 func bind_default_abilities() -> void:
 	for i in range(player.abilities.size()):
-		if player.abilities[i].id == "direct_slash":
+		if player.abilities[i].id == &"direct_slash":
 			player.abilities[i].slot_id = 0
-		if player.abilities[i].id == "cutting_around":
+		if player.abilities[i].id == &"cutting_around":
 			player.abilities[i].slot_id = 1
 	update_abilities()
 
@@ -246,7 +242,6 @@ func update_inventory() -> void:
 		_new_item_hud.connect("drag_item", Callable(self, "drag_item"))
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
-		_new_item_hud.connect("show_abilities", Callable(self, "show_bind_abilities"))
 		if i >= player.INVENTORY_SIZE:
 			_new_item_hud.available = false
 		inventory_list.add_child(_new_item_hud)
@@ -279,21 +274,6 @@ func hide_item_preview() -> void:
 	if item_preview:
 		item_preview.queue_free()
 		item_preview = null
-
-func hide_bind_abilities() -> void: # TODO A APPELER QUELQUE PART
-	if bind_ability_preview:
-		bind_ability_preview.queue_free()
-		bind_ability_preview = null
-
-func show_bind_abilities(itm : Item, item_ref : Object) -> void:
-	hide_bind_abilities()
-	bind_ability_preview = world.resources.bind_ability_hud.instantiate()
-	bind_ability_preview.item = itm
-	bind_ability_preview.hud = self
-	add_child(bind_ability_preview)
-	
-	var _position_offset = Vector2(bind_ability_preview.size.x/2.0 - item_ref.size.x/2.0, bind_ability_preview.size.y + 10.0)
-	bind_ability_preview.position = item_ref.global_position - _position_offset
 
 func show_ability_preview(ability_ref : Object) -> void:
 	if ability_ref.ability:
@@ -360,16 +340,6 @@ func spawn_stat(stat_id : String, value : int) -> void:
 	_new_stat_hud.stat_id    = stat_id
 	_new_stat_hud.stat_value = value
 	stats_list.add_child(_new_stat_hud)
-
-func update_workshop() -> void:
-	for i in workshop_items_container.get_children():
-		i.queue_free()
-	for i in world.resources.all_items:
-		var _new_recipe_hud = world.resources.item_workshop_scene.instantiate()
-		_new_recipe_hud.item = i
-		_new_recipe_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
-		_new_recipe_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
-		workshop_items_container.add_child(_new_recipe_hud)
 
 func drag_ability(slot : Object) -> void:
 	dragged_ability_slot = slot
@@ -459,6 +429,3 @@ func drop_item_craft(slot : Object) -> void:
 		update_abilities()
 		update_craft()
 		dragged_item_ref = null
-
-func _on_close_workshop_pressed() -> void:
-	workshop_tab.hide()

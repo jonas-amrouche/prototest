@@ -134,7 +134,7 @@ func _execute_custom(ability : Ability, dealer : Object) -> Basics.AbilityError:
 	var ad := AbilityData.new()
 	ad.ability        = ability
 	ad.ability_dealer = dealer
-	ad.is_auto_attack = (ability.slot_id == 10)
+	ad.is_auto_attack = ability.targets_auto
 	node.ad = ad
 	add_child(node)
 	active_abilities[ability] = node
@@ -230,7 +230,7 @@ func _apply_on_hit_effects(ability : Ability, target : Object, dealer : Object) 
 # ── Targeting helpers ─────────────────────────────────────────────────────────
 
 func get_target(ab : Ability) -> Object:
-	if ab.slot_id == 10 or ab.slot_id == -1:
+	if ab.targets_auto:
 		return entity.auto_attack_target
 	return entity.hovered_target
 

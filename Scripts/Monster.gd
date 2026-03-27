@@ -6,15 +6,6 @@ var monster : Monster
 
 var monster_model : Object
 
-#@onready var stats := {"physical_damage" : monster.physical_damage, \
-#"magic_damage" : monster.magic_damage, \
-#"physical_armor" : monster.physical_armor, \
-#"magic_armor" : monster.magic_armor, \
-#"movement_speed" : monster.movement_speed, \
-#"health_regeneration" : monster.health_regeneration, \
-#"max_health" : monster.max_health}
-
-#@onready var health : int = monster.max_health
 var level := int(1)
 var auto_attack_target : Object
 
@@ -119,7 +110,7 @@ func take_damage(damage : int, damage_type : Basics.DamageType, damage_dealer : 
 			_armor = entity.get_withering_armor()
 	var _final_damage : int = max(damage - _armor, 0)
 
-	if damage_dealer.has_passive("jungle's_way"):
+	if damage_dealer.has_passive(&"jungle's_way"):
 		_final_damage += round(_final_damage * 0.1)
 
 	entity.set_health(entity.health - _final_damage)

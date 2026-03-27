@@ -24,15 +24,13 @@ func update_content() -> void:
 		item_icon.set_texture(item.icon_resting)
 		rarity_icon.set_texture(load("res://Assets/2D/UI/item_overlay_" + Basics.RARITY_TEXT[item.rarity] + ".png"))
 		rarity_label.set_text("R : " + Basics.RARITY_TEXT[item.rarity].capitalize())
-		item_name.set_text(item.display_name.capitalize() if item.display_name else item.id.capitalize())
+		item_name.set_text(item.display_name.capitalize() if item.display_name else str(item.item_id))
 		desc_line.set_text(item.description)
 
 		clear_stats()
-		# Generic loop over item.stats dict — no hardcoded stat names
-		for stat_id in item.stats:
-			var value : int = item.stats[stat_id]
-			if value != 0:
-				add_stat(stat_id, value)
+		for entry in item.stats:
+			if entry.value != 0.0:
+				add_stat(str(entry.id), int(entry.value))
 
 		clear_abilities()
 		if item.type != Basics.ItemType.CONSUMABLE:

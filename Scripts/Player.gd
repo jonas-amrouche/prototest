@@ -18,11 +18,7 @@ var target_direction := Vector3()
 
 const EMPTY_MOVEMENT_SPEED := 120
 const LOOT_RANGE := 1.0
-const MAX_HEALTH_PER_LEVEL := 50
-const PHYSICAL_DAMAGE_PER_LEVEL := 10
-const MAGIC_DAMAGE_PER_LEVEL := 10
 const MAX_XP_PER_LEVEL := 500
-const SLOT_PER_LEVEL := 1
 const RESPAWN_TIME_PER_LEVEL : float = 5.0
 const KILL_REWARD_EXP := 750
 
@@ -322,8 +318,7 @@ func _unhandled_input(event) -> void:
 						selected_target.entity.state_changed.connect(Callable(hud, "update_target"))
 					hud.update_target()
 		elif event.button_index == 1 and !event.pressed and hud.dragged_item_ref:
-			if hud.dragged_item_ref.item_slot.item:
-				drop_item_ground(hud.dragged_item_ref.item_slot)
+			pass # GDD §5: no voluntary drop — items cannot leave inventory by player action
 
 #const DROP_VECTOR_LENGTH = 1.4
 func drop_item_ground(item_slot : ItemSlot) -> void:
@@ -483,13 +478,6 @@ func action_keys():
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
 	if Input.is_action_just_released("show_scoreboard"):
 		hud.scoreboard.set_visible(!hud.scoreboard.visible)
-	if Input.is_action_just_pressed("workshop"):
-		hud.update_workshop()
-		hud.workshop_tab.visible = !hud.workshop_tab.visible
-	if Input.is_action_just_pressed("recall"):
-		var _recall = world.resources.recall_ability
-		if ability_machine.use_ability(_recall, self) == Basics.AbilityError.OK:
-			ability_machine.start_channeling(_recall.action_time, _recall.id.capitalize())
 	if Input.is_action_just_pressed("chat"):
 		hud.chat.set_visible(!hud.chat.visible)
 		can_cast = hud.chat.visible
@@ -524,10 +512,11 @@ func remove_effect(effect : Effect) -> void:
 	effect_machine.destroy_effect(effect)
 	hud.update_effects()
 
-func has_passive(passive_id : String) -> bool:
-	for i in inventory:
-		if !i.item: continue
-		for p in i.item.passives:
+func has_passive(passive_id : StringName) -> bool:
+	for slot in inventory:
+		if not slot.item:
+			continue
+		for p in slot.item.passives:
 			if p.id == passive_id:
 				return true
 	return false
@@ -586,15 +575,15 @@ func get_empty_slot(item_source : Array[ItemSlot]) -> ItemSlot:
 	return null
 
 func has_item(itm : Item, item_source : Array[ItemSlot]) -> bool:
-	for i in item_source:
-		if i.item == itm:
+	for slot in item_source:
+		if slot.item and slot.item.is_same_item(itm):
 			return true
 	return false
 
 func get_item_slot(itm : Item, item_source : Array[ItemSlot]) -> ItemSlot:
-	for i in item_source:
-		if i.item == itm:
-			return i
+	for slot in item_source:
+		if slot.item and slot.item.is_same_item(itm):
+			return slot
 	return null
 
 # Only works with inventory
@@ -638,39 +627,22 @@ func get_item_slot_source(item_slot : ItemSlot) -> Array[ItemSlot]:
 func craft_item() -> void:
 	if not crafts[0].item or not crafts[1].item:
 		return
- 
-	var item_a : Item = crafts[0].item
-	var item_b : Item = crafts[1].item
- 
-	# Find which item in the game data can be crafted from these two
-	var result_item : Item = null
-	for candidate in world.resources.all_items:
-		if candidate.is_craftable_from(item_a, item_b):
-			result_item = candidate.duplicate()
-			break
- 
-	if not result_item:
-		# No valid craft — clear inputs, drop nothing
-		for i in range(2):
-			crafts[i].item     = null
-			crafts[i].quantity = 0
-		hud.update_craft()
-		return
- 
-	# Transfer stats from the second input into the result
-	# This may trigger an evolution
-	var evolved : Item = result_item.combine_stats_from(item_b)
-	if evolved:
-		result_item = evolved
- 
-	# Place result in slot 2 (the preview/output slot)
+
+	# Duplicate the base so we never mutate the shared resource
+	var base  : Item = crafts[0].item.duplicate()
+	var donor : Item = crafts[1].item
+
+	# Transfer donor stats into base; evolution fires if any cap is reached
+	var evolved : Item = base.combine_stats_from(donor)
+	var result  : Item = evolved if evolved else base
+
 	crafts[0].item     = null
 	crafts[0].quantity = 0
 	crafts[1].item     = null
 	crafts[1].quantity = 0
-	crafts[2].item     = result_item
+	crafts[2].item     = result
 	crafts[2].quantity = 1
- 
+
 	hud.update_craft()
 
 # Used to clear the craft tab when exiting the base
@@ -715,12 +687,16 @@ func update_stats() -> void:
 	# 3. Apply area regeneration bonus (e.g. being in base)
 	entity.add_stat(Entity.S_HEALTH_REGEN, area_health_regeneration)
 
-	# 4. Apply all inventory item stats in a single generic loop
+	# 4. Apply all inventory item stats and passive stat_modifiers
+	# TODO: add bar slot loop here when bar is implemented
 	for slot in inventory:
 		if not slot.item:
 			continue
-		for stat_id in slot.item.stats:
-			entity.add_stat(stat_id, slot.item.stats[stat_id])
+		for entry in slot.item.stats:
+			entity.add_stat(entry.id, int(entry.value))
+		for passive in slot.item.passives:
+			for stat_id in passive.stat_modifiers:
+				entity.add_stat(stat_id, passive.stat_modifiers[stat_id])
 
 	# 5. Clamp health to new max in case max_health was reduced
 	entity.health = min(entity.health, entity.get_max_health())
@@ -728,10 +704,6 @@ func update_stats() -> void:
 	# 6. Notify listeners
 	entity.state_changed.emit()
 	hud.update_stats_hud()
-
-func is_item_craftable(item : Item, comps : Array[Item]) -> bool:
-	var recipe = [item.craft_1, item.craft_2]
-	return (comps[0] == recipe[0] and comps[1] == recipe[1]) or (comps[0] == recipe[1] and comps[1] == recipe[0])
 
 func _on_nav_path_changed() -> void:
 	hud.mini_map.update_movement_line(nav)

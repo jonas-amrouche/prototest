@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d045faearnedw"]
+[gd_scene format=3 uid="uid://d045faearnedw"]
 
 [ext_resource type="Texture2D" uid="uid://uk4va0m75cqh" path="res://Assets/2D/Items/HunterMacheteIcon.png" id="1_8aamf"]
 [ext_resource type="Script" uid="uid://cb1yhslcd8ho1" path="res://Scripts/item_preview.gd" id="1_h6i7p"]
@@ -20,7 +20,7 @@ texture_margin_bottom = 15.0
 font_size = 12
 font_color = Color(0.262932, 0.262932, 0.262932, 1)
 
-[node name="ItemPreview" type="PanelContainer"]
+[node name="ItemPreview" type="PanelContainer" unique_id=1919091538]
 z_index = 1
 custom_minimum_size = Vector2(300, 0)
 anchors_preset = 2
@@ -33,7 +33,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_duutx")
 script = ExtResource("1_h6i7p")
 
-[node name="Pad" type="MarginContainer" parent="."]
+[node name="Pad" type="MarginContainer" parent="." unique_id=1326784019]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 5
@@ -42,12 +42,12 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = -2
 metadata/_edit_lock_ = true
 
-[node name="Pad" type="MarginContainer" parent="Pad"]
+[node name="Pad" type="MarginContainer" parent="Pad" unique_id=874119971]
 layout_mode = 2
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 
-[node name="ItemIcon" type="TextureRect" parent="Pad/Pad"]
+[node name="ItemIcon" type="TextureRect" parent="Pad/Pad" unique_id=468517896]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -57,7 +57,7 @@ texture = ExtResource("1_8aamf")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Rarity" type="TextureRect" parent="Pad/Pad"]
+[node name="Rarity" type="TextureRect" parent="Pad/Pad" unique_id=1750413452]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -66,70 +66,70 @@ texture = ExtResource("4_yd0pb")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ItemData" type="VBoxContainer" parent="Pad"]
+[node name="ItemData" type="VBoxContainer" parent="Pad" unique_id=249327736]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 metadata/_edit_lock_ = true
 
-[node name="ItemName" type="Label" parent="Pad/ItemData"]
+[node name="ItemName" type="Label" parent="Pad/ItemData" unique_id=510073218]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Item Name"
 label_settings = SubResource("LabelSettings_yrvhj")
 
-[node name="NameDescSep" type="HSeparator" parent="Pad/ItemData"]
+[node name="NameDescSep" type="HSeparator" parent="Pad/ItemData" unique_id=1993239604]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
-[node name="DescLine" type="RichTextLabel" parent="Pad/ItemData"]
+[node name="DescLine" type="RichTextLabel" parent="Pad/ItemData" unique_id=43544520]
 custom_minimum_size = Vector2(210, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/default_color = Color(0.43134, 0.43134, 0.43134, 1)
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 2
 theme_override_font_sizes/bold_italics_font_size = 12
 theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/mono_font_size = 12
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 2
 bbcode_enabled = true
 text = "blade of akila"
 fit_content = true
 autowrap_mode = 2
 
-[node name="DataSpecsSep" type="HSeparator" parent="Pad/ItemData"]
+[node name="DataSpecsSep" type="HSeparator" parent="Pad/ItemData" unique_id=1193350014]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxEmpty_44vsf")
 
-[node name="Specs" type="VBoxContainer" parent="Pad/ItemData"]
+[node name="Specs" type="VBoxContainer" parent="Pad/ItemData" unique_id=774537144]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="StatsBox" type="VBoxContainer" parent="Pad/ItemData/Specs"]
+[node name="StatsBox" type="VBoxContainer" parent="Pad/ItemData/Specs" unique_id=1152722242]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="AbilitiesBox" type="VBoxContainer" parent="Pad/ItemData/Specs"]
+[node name="AbilitiesBox" type="VBoxContainer" parent="Pad/ItemData/Specs" unique_id=1766660090]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="PassiveBox" type="VBoxContainer" parent="Pad/ItemData/Specs"]
+[node name="PassiveBox" type="VBoxContainer" parent="Pad/ItemData/Specs" unique_id=1810670347]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Rarity" type="Label" parent="Pad/ItemData"]
+[node name="Rarity" type="Label" parent="Pad/ItemData" unique_id=1418719133]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8

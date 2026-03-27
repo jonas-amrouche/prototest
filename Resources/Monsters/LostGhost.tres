@@ -13,7 +13,6 @@
 
 [sub_resource type="Resource" id="Resource_s3jrr"]
 script = ExtResource("3_ugk36")
-id = "lost_ghost"
 entity_type = 1
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
 
@@ -46,15 +45,8 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 [resource]
 script = ExtResource("5_m6ddl")
 entity = SubResource("Resource_s3jrr")
-id = "lost_ghost"
-name = "Lost Ghost"
 monster_model = ExtResource("3_mn240")
 item_drops = Array[ExtResource("3_jg1n4")]([SubResource("Resource_ugk36"), SubResource("Resource_mx8e3"), SubResource("Resource_06xdq"), SubResource("Resource_exp2b")])
 experience_drop = 42
 abilities = Array[ExtResource("1_dsj7x")]([ExtResource("2_c7mvp")])
 roam = true
-max_health = 250
-magic_damage = 23
-physical_armor = 5
-magic_armor = 10
-movement_speed = 2.0

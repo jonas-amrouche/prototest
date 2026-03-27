@@ -11,16 +11,12 @@ var cursors = [preload("res://Assets/2D/UI/cursor_normal.png"), preload("res://A
 
 var move_effect = preload("res://Scenes/UI/click_move_effect.tscn")
 var item_ground = preload("res://Scenes/Systems/item_ground.tscn")
-var recall_ability = preload("res://Resources/Abilities/recall.tres")
 var dead_color_correction = preload("res://Resources/ColorCorection/DeadColorCorrection.tres")
 
-var item_workshop_scene = preload("res://Scenes/UI/item_workshop.tscn")
-var bind_ability_hud = preload("res://Scenes/UI/bind_abilities_hud.tscn")
 var item_hud = preload("res://Scenes/UI/item_hud.tscn")
 var ability_hud = preload("res://Scenes/UI/ability_hud.tscn")
 var item_craft = preload("res://Scenes/UI/item_craft.tscn")
 var stat_hud = preload("res://Scenes/UI/stat_hud.tscn")
-var recipe_hud = preload("res://Scenes/UI/recipe_hud.tscn")
 var effect_hud = preload("res://Scenes/UI/effect_hud.tscn")
 var item_preview = preload("res://Scenes/UI/item_preview.tscn")
 var ability_preview = preload("res://Scenes/UI/ability_preview.tscn")

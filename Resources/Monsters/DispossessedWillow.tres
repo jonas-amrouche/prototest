@@ -13,7 +13,6 @@
 
 [sub_resource type="Resource" id="Resource_acul7"]
 script = ExtResource("4_j5ux2")
-id = "dispossessed_willow"
 entity_type = 1
 icon = ExtResource("3_tir4y")
 metadata/_custom_type_script = "uid://n6qtiv0nkvke"
@@ -41,15 +40,8 @@ metadata/_custom_type_script = "uid://cn77duvoc7bc"
 [resource]
 script = ExtResource("4_s78hj")
 entity = SubResource("Resource_acul7")
-id = "dispossessed_willow"
-name = "Dispossessed Willow"
 monster_model = ExtResource("3_66i8m")
 item_drops = Array[ExtResource("3_jhu2p")]([SubResource("Resource_j5ux2"), SubResource("Resource_sq2tb"), SubResource("Resource_ajofe")])
 experience_drop = 83
 abilities = Array[ExtResource("1_xbuxr")]([ExtResource("1_5et1k")])
 roam_range = 3.0
-max_health = 250
-magic_damage = 17
-physical_armor = 5
-magic_armor = 15
-movement_speed = 0.0
