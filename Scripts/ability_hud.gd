@@ -4,7 +4,6 @@ extends PanelContainer
 @export var item : Item
 @export var keybind : String
 @export var cooldown_left := 0.0
-@export var is_auto_attack := false
 signal drag_ability(slot : Object)
 signal drop_ability(slot : Object)
 signal mouse_entered_ability(slot : Object)
@@ -14,8 +13,6 @@ signal unbind(slot : Object)
 @onready var icon = $MarginContainer/IconContainer/Icon
 @onready var item_icon = $ItemIconContainer/PanelContainer/ItemIcon
 @onready var keybind_label = $MarginContainer/KeyCont/Keybind
-@onready var auto_attack_border = $MarginContainer/AutoAttackBorder
-@onready var auto_attack_label = $BorderContainer/AutoAttackLabel
 @onready var cooldown_label = $CooldownLabel
 @onready var cooldown_progress = $MarginContainer/CoolDownProgress
 
@@ -34,13 +31,10 @@ func update_slot() -> void:
 	keybind_label.set_text(keybind.replace("(Physical)", ""))
 	if ability and item:
 		icon.set_texture(ability.icon)
-		item_icon.set_texture(item.entity.icon)
+		item_icon.set_texture(item.icon_resting)
 	else:
 		icon.set_texture(null)
 		item_icon.set_texture(null)
-	
-	auto_attack_border.set_visible(is_auto_attack)
-	auto_attack_label.set_visible(is_auto_attack)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == 1 and !event.pressed:

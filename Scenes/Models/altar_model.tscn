@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c832cmfkpbfyd"]
+[gd_scene format=3 uid="uid://c832cmfkpbfyd"]
 
 [ext_resource type="PackedScene" uid="uid://cqteeojyot34k" path="res://Assets/3D/Altar.glb" id="1_blxq5"]
 [ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Resources/Materials/PBR/Metal1.tres" id="2_g1oyw"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Resources/Materials/PBR/Metal2.tres" id="3_bqj1g"]
 [ext_resource type="Material" uid="uid://35c7edmripbd" path="res://Resources/Materials/TechArt/altar_fire.tres" id="4_ui3rr"]
 
-[node name="AltarModel" instance=ExtResource("1_blxq5")]
+[node name="AltarModel" unique_id=171623250 instance=ExtResource("1_blxq5")]
 
 [node name="AltarModel" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_g1oyw")

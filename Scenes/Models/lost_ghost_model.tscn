@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmvjhexu3hgoy"]
+[gd_scene format=3 uid="uid://cmvjhexu3hgoy"]
 
-[ext_resource type="PackedScene" uid="uid://dxm3fr10qjafr" path="res://Assets/3D/Monsters/LostGhost.glb" id="1_ctyml"]
+[ext_resource type="PackedScene" uid="uid://dxm3fr10qjafr" path="res://Assets/3D/Monsters/lost_ghost.glb" id="1_ctyml"]
 [ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Resources/Materials/PBR/Metal2.tres" id="2_tefiw"]
 
 [node name="LostGhostModel" instance=ExtResource("1_ctyml")]

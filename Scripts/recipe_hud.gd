@@ -11,6 +11,6 @@ func _ready():
 
 func update_recipe() -> void:
 	if item:
-		icon_item_1.texture = item.craft_1.icon
-		icon_item_2.texture = item.craft_2.icon
-		icon_item_3.texture = item.icon
+		icon_item_1.texture = item.craft_1.icon_resting
+		icon_item_2.texture = item.craft_2.icon_resting
+		icon_item_3.texture = item.icon_resting

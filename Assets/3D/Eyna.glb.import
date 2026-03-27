@@ -4,20 +4,22 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://us5uuq3360ig"
-path="res://.godot/imported/Eyna.glb-99df9ff5d2c612b16571dc81137925ff.scn"
+path="res://.godot/imported/eyna.glb-e188f97574a1d52e230bc95af820eb82.scn"
 
 [deps]
 
-source_file="res://Assets/3D/Eyna.glb"
-dest_files=["res://.godot/imported/Eyna.glb-99df9ff5d2c612b16571dc81137925ff.scn"]
+source_file="res://Assets/3D/eyna.glb"
+dest_files=["res://.godot/imported/eyna.glb-e188f97574a1d52e230bc95af820eb82.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,6 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

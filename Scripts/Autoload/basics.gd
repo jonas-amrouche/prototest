@@ -7,6 +7,11 @@ extends Node
 
 const MAP_SIZE := Vector2(150.0, 150.0)
 
+## Global Rythic scaling rate. Tune this once against prototype action times.
+## damage_bonus = rythic × action_time × RYTHIC_RATE
+## Example: 100 Rythic on a 1.0s cast with rate 0.5 adds 50 bonus damage.
+const RYTHIC_RATE := 0.5
+
 # ── Enums ─────────────────────────────────────────────────────────────────────
 
 enum EntityType   { PLAYER, MONSTER, NPCS, ITEM, GUARDS, STRUCTURE }
@@ -16,7 +21,7 @@ enum Rarity       { CLASSIC, RARE, ELITE, FANTASTIC, LEGENDARY, MYTHICAL, THEORE
 enum ClientState  { DISCONNECTED, ENTERED, LOADING, INGAME }
 enum CursorMode   { NORMAL, ATTACK, LOOT }
 
-enum DamageType   { PHYSIC, MAGIC, HYBRID }
+enum DamageType   { PHYSICAL, TENSION, WITHERING }
 
 ## Ability execution types. Each maps to a handler in the AbilityMachine.
 enum AbilityType  {
@@ -37,6 +42,19 @@ enum AbilityError {
 }
 
 enum AbilityCancel { MOVING, TAKING_DAMAGE }
+
+## Attachment points on the player rig for bound item models.
+## Items declare a socket_preference — system falls back if occupied.
+enum ItemSocket {
+	HAND_RIGHT,  ## Primary weapon hand
+	HAND_LEFT,   ## Off-hand
+	BACK,        ## Back/shoulders
+	HIP_LEFT,    ## Belt left
+	HIP_RIGHT,   ## Belt right
+	CHEST,       ## Body/chest
+	HEAD,        ## Head
+	WRIST,       ## Wrist/bracers
+}
 
 enum ClassType {
 	BLEEDER,
@@ -66,57 +84,61 @@ const RARITY_COLORS : Array[Color] = [
 ## Stat ID → display color. Add new entries here when adding stats.
 ## Keys match the stat IDs used in Entity.stats and Item.stats.
 const STAT_COLORS : Dictionary = {
-	"rythic"              : Color.FIREBRICK,
-	"ember"               : Color.DARK_GREEN,
-	"veil"                : Color.CORNFLOWER_BLUE,
-	"stride"              : Color.DARK_SLATE_BLUE,
-	"lull"                : Color.MEDIUM_PURPLE,
-	"physical_damage"     : Color.FIREBRICK,
-	"magic_damage"        : Color.SLATE_BLUE,
-	"physical_armor"      : Color.BROWN,
-	"magic_armor"         : Color.DARK_SLATE_BLUE,
-	"health_regeneration" : Color.SEA_GREEN,
-	"movement_speed"      : Color.DARK_SLATE_BLUE,
-	"life_steal"          : Color.DARK_RED,
+	## Damage
+	"rythic"            : Color.FIREBRICK,
+	"physical"          : Color.INDIAN_RED,
+	"tension"           : Color.CORNFLOWER_BLUE,
+	"withering"         : Color.MEDIUM_PURPLE,
+	## Defense
+	"physical_armor"    : Color.BROWN,
+	"tension_armor"     : Color.STEEL_BLUE,
+	"withering_armor"   : Color.DARK_SLATE_BLUE,
+	"shield"            : Color.SILVER,
+	"tenacity"          : Color.ROSY_BROWN,
+	## Sustain
+	"max_health"        : Color.DARK_GREEN,
+	"health_regen"      : Color.SEA_GREEN,
+	"shield_regen"      : Color.LIGHT_STEEL_BLUE,
+	"life_steal"        : Color.DARK_RED,
+	## Mobility
+	"movement_speed"    : Color.KHAKI,
+	"move_reduction"    : Color.DARK_KHAKI,
+	## Utility
+	"cooldown_reduction": Color.MEDIUM_ORCHID,
+	"attack_speed"      : Color.GOLD,
+	"veil"              : Color.LIGHT_CYAN,
+	"looting"           : Color.SANDY_BROWN,
+	## Combat specialization
+	"monster_damage"    : Color.ORANGE_RED,
+	"monster_resistance": Color.DARK_OLIVE_GREEN,
 }
 
-const DAMAGE_COLORS : Array[Color] = [Color.FIREBRICK, Color.SLATE_BLUE]
+## Maps DamageType enum index → display color
+const DAMAGE_COLORS : Array[Color] = [
+	Color.INDIAN_RED,    ## PHYSICAL
+	Color.CORNFLOWER_BLUE, ## TENSION
+	Color.MEDIUM_PURPLE, ## WITHERING
+]
 
 const CLASS_TEXT : Array[String] = [
 	"bleeder", "tracker", "tender", "breaker", "drifter"
 ]
 
 # ── Resource loaders ──────────────────────────────────────────────────────────
-## Called once at startup by GameResources. Results are cached there.
-## Do not call these per-frame.
+## Called once at startup by GameResources._ready(). Never call per-frame.
 
 func load_all_items() -> Array[Item]:
-	return _load_resources_from("res://Resources/Items/", "Item")
-
-func load_all_stats() -> Dictionary:
-	var result : Dictionary = {}
-	for stat in _load_resources_from("res://Resources/Stats/", "Stat"):
-		result[stat.id] = stat
-	return result
-
-func load_all_abilities() -> Dictionary:
-	var result : Dictionary = {}
-	for ab in _load_resources_from("res://Resources/Abilities/", "Ability"):
-		result[ab.id] = ab
-	return result
-
-func _load_resources_from(path : String, _type_hint : String) -> Array:
-	var results := []
-	var dir := DirAccess.open(path)
+	var results : Array[Item] = []
+	var dir := DirAccess.open("res://Resources/Items/")
 	if not dir:
-		push_error("Basics: could not open resource directory: " + path)
+		push_error("Basics: could not open res://Resources/Items/")
 		return results
 	dir.list_dir_begin()
 	var file_name := dir.get_next()
 	while file_name != "":
 		if not dir.current_is_dir() and file_name.ends_with(".tres"):
-			var res = load(path + file_name)
-			if res:
+			var res = load("res://Resources/Items/" + file_name)
+			if res is Item:
 				results.append(res)
 		file_name = dir.get_next()
 	return results

@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkshsftmin4hp"]
+[gd_scene format=3 uid="uid://bkshsftmin4hp"]
 
-[ext_resource type="PackedScene" uid="uid://dr013o88b81r6" path="res://Assets/3D/MetalOreDepot.glb" id="1_phdcg"]
+[ext_resource type="PackedScene" uid="uid://dr013o88b81r6" path="res://Assets/3D/metal_ore_depot.glb" id="1_phdcg"]
 [ext_resource type="Material" uid="uid://dka3aah2jrvhb" path="res://Resources/Materials/PBR/MetalOre1.tres" id="2_u2atw"]
 
 [node name="MetalOreDepot" instance=ExtResource("1_phdcg")]

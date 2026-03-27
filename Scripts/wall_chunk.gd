@@ -11,9 +11,8 @@ func _ready() -> void:
 func take_damage(damage : int, damage_type : Basics.DamageType, _damage_dealer : Object) -> void:
 	if is_dead():
 		return
-	if damage_type == Basics.DamageType.PHYSIC or damage_type == Basics.DamageType.HYBRID:
-		entity.health = max(entity.health - damage, 0.0)
-		entity.state_changed.emit()
+	if damage_type == Basics.DamageType.PHYSICAL:
+		entity.set_health(entity.health - damage)
 		if is_dead():
 			die()
 

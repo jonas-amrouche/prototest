@@ -38,6 +38,7 @@ platform_wall_layers = 8
 script = ExtResource("1_3smsa")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=240421336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0357586, 0)
 shape = SubResource("CylinderShape3D_j70xh")
 
 [node name="HoverOutline" type="SubViewportContainer" parent="." unique_id=396099370]
@@ -99,8 +100,8 @@ transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573577, 
 
 [node name="HUD" parent="CanvasLayer" unique_id=134373784 instance=ExtResource("2_8erm5")]
 
-[node name="PlayerModel" parent="." unique_id=573090906 instance=ExtResource("3_f1ek2")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.05, 0)
+[node name="PlayerModel" parent="." unique_id=712349144 instance=ExtResource("3_f1ek2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Abilities" parent="." unique_id=1771841502 instance=ExtResource("4_tx1dd")]
 
@@ -116,7 +117,7 @@ size = Vector2i(950, 420)
 [node name="PlayerHealthBar" parent="SubViewport" unique_id=1627333280 instance=ExtResource("5_gymyn")]
 
 [node name="InfoBar" type="Sprite3D" parent="." unique_id=1477737087]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.943577, -0.455705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9793355, -0.455705)
 pixel_size = 0.0027
 billboard = 1
 double_sided = false

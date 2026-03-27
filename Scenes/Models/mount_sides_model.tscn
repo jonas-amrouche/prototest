@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cev1a22ek6uvs"]
+[gd_scene format=3 uid="uid://cev1a22ek6uvs"]
 
-[ext_resource type="PackedScene" uid="uid://buhjd3xvgpoc3" path="res://Assets/3D/MountSides.glb" id="1_2x0y3"]
+[ext_resource type="PackedScene" uid="uid://buhjd3xvgpoc3" path="res://Assets/3D/mount_sides.glb" id="1_2x0y3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1v7f"]
 albedo_color = Color(0.105186, 0.100625, 0.0943939, 1)

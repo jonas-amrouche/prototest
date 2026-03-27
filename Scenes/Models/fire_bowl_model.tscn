@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://53wvqwt5u8hb"]
+
+[ext_resource type="PackedScene" uid="uid://cbp8ndfwhck43" path="res://Assets/3D/fire_bowl.glb" id="1_y048j"]
+[ext_resource type="Material" uid="uid://cekjk343y5tlb" path="res://Resources/Materials/PBR/Metal1.tres" id="2_h8t6e"]
+[ext_resource type="Material" uid="uid://bcwusxhdyymkk" path="res://Resources/Materials/PBR/Metal2.tres" id="3_48ry6"]
+[ext_resource type="Material" uid="uid://fcewy7m1666t" path="res://Resources/Materials/TechArt/fire_bowl_fire.tres" id="4_h8t6e"]
+
+[node name="FireBowlModel" unique_id=39580948 instance=ExtResource("1_y048j")]
+
+[node name="FireBowl" parent="." index="0" unique_id=160663886]
+surface_material_override/0 = ExtResource("2_h8t6e")
+surface_material_override/1 = ExtResource("3_48ry6")
+surface_material_override/2 = ExtResource("4_h8t6e")
+
+[node name="FireLight" type="OmniLight3D" parent="." index="1" unique_id=1420591119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3237753, 0)
+light_color = Color(0.861603, 0.522246, 0.276303, 1)

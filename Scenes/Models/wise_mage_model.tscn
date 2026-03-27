@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://clyr7mc7h80pm"]
+[gd_scene format=3 uid="uid://clyr7mc7h80pm"]
 
-[ext_resource type="PackedScene" uid="uid://cm4sho43vqkqo" path="res://Assets/3D/WiseMage.glb" id="1_b56hy"]
+[ext_resource type="PackedScene" uid="uid://cm4sho43vqkqo" path="res://Assets/3D/wise_mage.glb" id="1_b56hy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irhtk"]
 cull_mode = 2

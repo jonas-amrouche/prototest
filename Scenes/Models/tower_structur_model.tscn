@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://21ehc2j02kaq"]
+[gd_scene format=3 uid="uid://21ehc2j02kaq"]
 
-[ext_resource type="PackedScene" uid="uid://dv8ptbfn8w7sf" path="res://Assets/3D/TowerStructure.glb" id="1_bw6og"]
+[ext_resource type="PackedScene" uid="uid://dv8ptbfn8w7sf" path="res://Assets/3D/tower_structure.glb" id="1_bw6og"]
 [ext_resource type="Material" uid="uid://ch50pmqgyurhh" path="res://Resources/Materials/PBR/Pavement1.tres" id="2_34hd3"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Resources/Materials/PBR/Wood1.tres" id="3_31de7"]
 

@@ -49,13 +49,16 @@ func _ready():
 	agro_collision.shape.set("radius", monster.aggro_range)
 	default_point = global_position
 	for i in range(level-1):
-		entity.magic_damage = int(entity.magic_damage * 1.5)
-		entity.physical_damage = int(entity.physical_damage * 1.5)
-		entity.magic_armor = int(entity.magic_armor * 1.2)
-		entity.physical_armor = int(entity.physical_armor * 1.2)
-		entity.max_health = int(entity.max_health * 1.5)
-		entity.health_regeneration = int(entity.health_regeneration * 1.5)
-		entity.movement_speed = int(entity.movement_speed * 1.05)
+		entity.add_stat(Entity.S_PHYSICAL,        int(entity.get_physical()       * 1.5))
+		entity.add_stat(Entity.S_TENSION,         int(entity.get_tension()        * 1.5))
+		entity.add_stat(Entity.S_WITHERING,       int(entity.get_withering()      * 1.5))
+		entity.add_stat(Entity.S_PHYSICAL_ARMOR,  int(entity.get_physical_armor() * 1.2))
+		entity.add_stat(Entity.S_TENSION_ARMOR,   int(entity.get_tension_armor()  * 1.2))
+		entity.add_stat(Entity.S_WITHERING_ARMOR, int(entity.get_withering_armor()* 1.2))
+		entity.set_stat(Entity.S_MAX_HEALTH,      int(entity.get_max_health()     * 1.5))
+		entity.set_stat(Entity.S_HEALTH_REGEN,    int(entity.get_health_regen()   * 1.5))
+		entity.set_stat(Entity.S_MOVEMENT_SPEED,  int(entity.get_movement_speed() * 1.05))
+	entity.set_full_health()
 	entity.state_changed.emit()
 	level_label.text = str(level)
 	monster_model = monster.monster_model.instantiate()
@@ -95,7 +98,7 @@ func lose_target() -> void:
 		if c.is_class("MeshInstance3D"):
 			c.set_layer_mask_value(15, false)
 
-func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
+func take_damage(damage : int, damage_type : Basics.DamageType, damage_dealer : Object) -> void:
 	if is_dead():
 		return
 	if !auto_attack_target:
@@ -103,21 +106,24 @@ func take_damage(damage : int, damage_type, damage_dealer : Object) -> void:
 		update_path()
 		attack_timer.start()
 	auto_attack_target = damage_dealer
-	
+
 	health_bar_display.show()
-	
-	var _final_damage : int
+
+	var _armor : int
 	match damage_type:
-		0:
-			_final_damage = max(damage - damage * min(0.99, int(float(entity.physical_armor) / float(damage))), 0.0)
-		1:
-			_final_damage = max(damage - damage * min(0.99, int(float(entity.magic_armor) / float(damage))), 0.0)
-	
+		Basics.DamageType.PHYSICAL:
+			_armor = entity.get_physical_armor()
+		Basics.DamageType.TENSION:
+			_armor = entity.get_tension_armor()
+		Basics.DamageType.WITHERING:
+			_armor = entity.get_withering_armor()
+	var _final_damage : int = max(damage - _armor, 0)
+
 	if damage_dealer.has_passive("jungle's_way"):
-		_final_damage += round(_final_damage*0.1)
-	
-	entity.set_health(max(entity.health - _final_damage, 0.0))
-	health_bar.value = float(entity.health) / float(entity.max_health) * 100.0
+		_final_damage += round(_final_damage * 0.1)
+
+	entity.set_health(entity.health - _final_damage)
+	health_bar.value = float(entity.health) / float(entity.get_max_health()) * 100.0
 	if is_dead():
 		damage_dealer.gain_experience(monster.experience_drop)
 		die()
@@ -183,14 +189,14 @@ func movement() -> void:
 		input_dir = Vector2(_direction_result.x, _direction_result.z)
 	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 	if direction:
-		velocity.x = direction.x * entity.movement_speed/40.0
-		velocity.z = direction.z * entity.movement_speed/40.0
+		velocity.x = direction.x * entity.get_movement_speed()/40.0
+		velocity.z = direction.z * entity.get_movement_speed()/40.0
 		face_direction(direction.rotated(Vector3.UP, PI/2.0))
 	else:
 		if auto_attack_target:
 			face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)).rotated(Vector3.UP, PI/2.0))
-		velocity.x = move_toward(velocity.x, 0, entity.movement_speed/40.0)
-		velocity.z = move_toward(velocity.z, 0, entity.movement_speed/40.0)
+		velocity.x = move_toward(velocity.x, 0, entity.get_movement_speed()/40.0)
+		velocity.z = move_toward(velocity.z, 0, entity.get_movement_speed()/40.0)
 	
 	move_and_slide()
 

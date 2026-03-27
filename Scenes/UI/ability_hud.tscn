@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bx1r2n5ivie03"]
+[gd_scene format=3 uid="uid://bx1r2n5ivie03"]
 
 [ext_resource type="Script" uid="uid://boovp0w3ep30g" path="res://Scripts/ability_hud.gd" id="1_fix78"]
 [ext_resource type="Texture2D" uid="uid://bycg2js86f2o5" path="res://Assets/2D/UI/cooldown_clockwise.png" id="2_0fylm"]
@@ -45,16 +45,16 @@ border_width_bottom = 5
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 
-[node name="AbilityHud" type="PanelContainer"]
-custom_minimum_size = Vector2(50, 50)
-offset_right = 45.0
-offset_bottom = 45.0
+[node name="AbilityHud" type="PanelContainer" unique_id=567775865]
+custom_minimum_size = Vector2(46, 46)
+offset_right = 47.5
+offset_bottom = 47.5
 size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apy5x")
 script = ExtResource("1_fix78")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1966876748]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 2
@@ -62,13 +62,13 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Frame" type="Panel" parent="MarginContainer"]
+[node name="Frame" type="Panel" parent="MarginContainer" unique_id=184539585]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ujmt7")
 
-[node name="IconContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="IconContainer" type="MarginContainer" parent="MarginContainer" unique_id=2030956670]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 1
@@ -76,27 +76,27 @@ theme_override_constants/margin_top = 1
 theme_override_constants/margin_right = 1
 theme_override_constants/margin_bottom = 1
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/IconContainer"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/IconContainer" unique_id=1705219211]
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CoolDownProgress" type="TextureProgressBar" parent="MarginContainer"]
+[node name="CoolDownProgress" type="TextureProgressBar" parent="MarginContainer" unique_id=540535454]
 modulate = Color(0.09, 0.281333, 0.5, 0.909804)
 layout_mode = 2
 fill_mode = 4
 nine_patch_stretch = true
 texture_progress = ExtResource("2_0fylm")
 
-[node name="KeyCont" type="MarginContainer" parent="MarginContainer"]
+[node name="KeyCont" type="MarginContainer" parent="MarginContainer" unique_id=387174536]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Keybind" type="Label" parent="MarginContainer/KeyCont"]
+[node name="Keybind" type="Label" parent="MarginContainer/KeyCont" unique_id=952228875]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -105,19 +105,19 @@ label_settings = SubResource("LabelSettings_1v0i5")
 horizontal_alignment = 2
 clip_text = true
 
-[node name="BorderOverlay" type="TextureRect" parent="MarginContainer"]
+[node name="BorderOverlay" type="TextureRect" parent="MarginContainer" unique_id=1291061270]
 layout_mode = 2
 texture = ExtResource("4_3x5r4")
 expand_mode = 1
 
-[node name="AutoAttackBorder" type="TextureRect" parent="MarginContainer"]
+[node name="AutoAttackBorder" type="TextureRect" parent="MarginContainer" unique_id=1497830556]
 visible = false
 z_index = 1
 layout_mode = 2
 texture = ExtResource("5_x650a")
 expand_mode = 1
 
-[node name="CooldownLabel" type="Label" parent="."]
+[node name="CooldownLabel" type="Label" parent="." unique_id=1619188836]
 visible = false
 layout_mode = 2
 size_flags_vertical = 1
@@ -125,21 +125,21 @@ label_settings = SubResource("LabelSettings_0nbbv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BorderContainer" type="MarginContainer" parent="."]
+[node name="BorderContainer" type="MarginContainer" parent="." unique_id=1139627579]
 layout_mode = 2
 theme_override_constants/margin_left = -2
 theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = -2
 theme_override_constants/margin_bottom = -2
 
-[node name="AutoAttackBorder" type="TextureRect" parent="BorderContainer"]
+[node name="AutoAttackBorder" type="TextureRect" parent="BorderContainer" unique_id=655341279]
 visible = false
 z_index = 1
 layout_mode = 2
 texture = ExtResource("5_x650a")
 expand_mode = 1
 
-[node name="AutoAttackLabel" type="Label" parent="BorderContainer"]
+[node name="AutoAttackLabel" type="Label" parent="BorderContainer" unique_id=89698213]
 visible = false
 z_index = 1
 layout_mode = 2
@@ -148,7 +148,7 @@ size_flags_vertical = 8
 text = "Auto Attack"
 label_settings = SubResource("LabelSettings_fix78")
 
-[node name="ItemIconContainer" type="MarginContainer" parent="."]
+[node name="ItemIconContainer" type="MarginContainer" parent="." unique_id=97418024]
 visible = false
 layout_mode = 2
 mouse_filter = 2
@@ -157,7 +157,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="ItemIconContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ItemIconContainer" unique_id=107354768]
 z_index = 1
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
@@ -165,7 +165,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_fix78")
 
-[node name="ItemIcon" type="TextureRect" parent="ItemIconContainer/PanelContainer"]
+[node name="ItemIcon" type="TextureRect" parent="ItemIconContainer/PanelContainer" unique_id=1087928524]
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1

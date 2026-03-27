@@ -1,29 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://hxkknhv1vgbl"]
+[gd_scene format=3 uid="uid://hxkknhv1vgbl"]
 
 [ext_resource type="PackedScene" uid="uid://c832cmfkpbfyd" path="res://Scenes/Models/altar_model.tscn" id="1_jqkxx"]
 [ext_resource type="AudioStream" uid="uid://b83wqmkdtgx8b" path="res://Assets/Audio/altar_fire.ogg" id="2_cmt54"]
+[ext_resource type="PackedScene" uid="uid://4o8enu7hi243" path="res://Scenes/Models/alran_model.tscn" id="2_wbgkf"]
+[ext_resource type="PackedScene" uid="uid://bifx5odguuono" path="res://Scenes/Models/eyna_model.tscn" id="3_e8lra"]
+[ext_resource type="Texture2D" uid="uid://cqw8n17jeyx2y" path="res://Assets/2D/Alpha-Textures/light_flare.png" id="5_e8lra"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_x186m"]
 height = 1.62271
 radius = 0.882813
 
-[node name="Altar" type="Node3D"]
+[sub_resource type="QuadMesh" id="QuadMesh_rx1ar"]
+size = Vector2(0.3, 0.3)
 
-[node name="AltarModel" parent="." instance=ExtResource("1_jqkxx")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bdc3p"]
+transparency = 1
+no_depth_test = true
+shading_mode = 2
+albedo_color = Color(0.695503, 0.695503, 0.695503, 1)
+albedo_texture = ExtResource("5_e8lra")
+emission_enabled = true
+emission = Color(0, 0.733333, 1, 1)
+emission_energy_multiplier = 500.0
+billboard_mode = 1
+
+[node name="Altar" type="Node3D" unique_id=1094488658]
+
+[node name="AltarModel" parent="." unique_id=726693916 instance=ExtResource("1_jqkxx")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
+visible = false
 
-[node name="StaticBody" type="StaticBody3D" parent="."]
+[node name="AlranModel" parent="." unique_id=473961758 instance=ExtResource("2_wbgkf")]
 
-[node name="Collision" type="CollisionShape3D" parent="StaticBody"]
+[node name="EynaModel" parent="." unique_id=1034777944 instance=ExtResource("3_e8lra")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+visible = false
+
+[node name="StaticBody" type="StaticBody3D" parent="." unique_id=1644953618]
+
+[node name="Collision" type="CollisionShape3D" parent="StaticBody" unique_id=216379559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.616422, 0)
 shape = SubResource("CylinderShape3D_x186m")
 
-[node name="FireLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04624, 0)
-light_color = Color(0.861603, 0.522246, 0.276303, 1)
-
-[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+[node name="FireSound" type="AudioStreamPlayer3D" parent="." unique_id=1991633627]
 stream = ExtResource("2_cmt54")
 unit_size = 15.0
 autoplay = true
 max_distance = 20.0
+
+[node name="EyeFlare" type="MeshInstance3D" parent="." unique_id=1207182101]
+transform = Transform3D(-1.5298989e-08, 0.24748746, -0.24748746, 0, 0.24748746, 0.24748746, 0.35, 1.081801e-08, -1.081801e-08, 0.097581625, 7.565993, 0.69068563)
+mesh = SubResource("QuadMesh_rx1ar")
+skeleton = NodePath("../AltarModel")
+surface_material_override/0 = SubResource("StandardMaterial3D_bdc3p")
+
+[node name="EyeFlare2" type="MeshInstance3D" parent="." unique_id=213577140]
+transform = Transform3D(-1.5298989e-08, 0.24748746, -0.24748746, 0, 0.24748746, 0.24748746, 0.35, 1.081801e-08, -1.081801e-08, -0.09301245, 7.565993, 0.69068563)
+mesh = SubResource("QuadMesh_rx1ar")
+skeleton = NodePath("../AltarModel")
+surface_material_override/0 = SubResource("StandardMaterial3D_bdc3p")
+
+[node name="EyeLight" type="OmniLight3D" parent="." unique_id=638769444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008763075, 7.5512233, 0.7796792)
+light_color = Color(0, 0.733333, 1, 1)
+light_energy = 2.0

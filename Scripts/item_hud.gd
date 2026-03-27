@@ -27,7 +27,7 @@ func _ready():
 
 func update_slot() -> void:
 	if item_slot and item_slot.item:
-		icon.texture = item_slot.item.entity.icon
+		icon.texture = item_slot.item.icon_resting
 		match item_slot.item.type:
 			Basics.ItemType.COMPONENTS:
 				component_overlay.show()

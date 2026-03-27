@@ -24,8 +24,8 @@ func _ready():
 
 func update_slot() -> void:
 	if item:
-		icon.texture = item.entity.icon
-		name_label.text = item.entity.id.capitalize()
+		icon.texture = item.icon_resting
+		name_label.text = item.id.capitalize()
 		desc_label.text = item.description
 		var _color = Basics.RARITY_COLORS[item.rarity]
 		_color *= 0.4

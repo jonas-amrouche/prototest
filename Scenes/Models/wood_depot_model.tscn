@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dksu81ilutrsf"]
+[gd_scene format=3 uid="uid://dksu81ilutrsf"]
 
-[ext_resource type="PackedScene" uid="uid://bcqjp7qmimav7" path="res://Assets/3D/WoodDepot.glb" id="1_oe2ve"]
+[ext_resource type="PackedScene" uid="uid://bcqjp7qmimav7" path="res://Assets/3D/wood_depot.glb" id="1_oe2ve"]
 [ext_resource type="Material" uid="uid://bgxbh30xfnlh" path="res://Resources/Materials/PBR/Wood1.tres" id="2_qm1ep"]
 
 [node name="WoodDepot" instance=ExtResource("1_oe2ve")]

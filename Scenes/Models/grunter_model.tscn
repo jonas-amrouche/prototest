@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cglob3n00b1m"]
+[gd_scene format=3 uid="uid://cglob3n00b1m"]
 
-[ext_resource type="PackedScene" uid="uid://cpmj4e2gqnrpg" path="res://Assets/3D/Monsters/Grunter.glb" id="1_tgdwe"]
+[ext_resource type="PackedScene" uid="uid://cpmj4e2gqnrpg" path="res://Assets/3D/Monsters/grunter.glb" id="1_tgdwe"]
 [ext_resource type="Material" uid="uid://dka3aah2jrvhb" path="res://Resources/Materials/PBR/MetalOre1.tres" id="2_b38c2"]
 
 [node name="GrunterModel" instance=ExtResource("1_tgdwe")]

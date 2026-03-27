@@ -11,9 +11,10 @@ func press() -> Basics.AbilityError:
 	manager.in_casting = true
 	manager.disable_player_movement(ad.ability_dealer)
 	get_tree().create_timer(ad.ability.action_time).timeout.connect(func():
+		var dmg : Dictionary = manager._compute_damage(ad.ability, ad.ability_dealer)
 		for p in collision.get_overlapping_bodies():
 			if p != ad.ability_dealer:
-				p.take_damage(min(ad.ability_dealer.stats.physical_damage, ad.ability.damage_cap), 0, ad.ability_dealer)
+				p.take_damage(dmg.amount, dmg.type, ad.ability_dealer)
 		manager.in_casting = false
 		manager.enable_player_movement(ad.ability_dealer)
 		manager.start_ability_cooldown(ad.ability))

@@ -38,9 +38,7 @@ const SPAWN_REGEN := 98
 var in_base := false
 
 # INVENTORY
-const INVENTORY_BASE_SIZE := 10
-const INVENTORY_MAX_SIZE := 24
-var inventory_size = 10
+const INVENTORY_SIZE := 16
 var inventory : Array[ItemSlot]
 
 # CONSUMABLES
@@ -99,7 +97,7 @@ func _ready():
 	set_process_unhandled_input(is_multiplayer_authority())
 	
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
-	inventory = fill_inventory(INVENTORY_MAX_SIZE)
+	inventory = fill_inventory(INVENTORY_SIZE)
 	consumables = fill_consumables(CONSUMABLES_MAX_SIZE)
 	crafts = fill_crafts(CRAFT_MAX_SIZE)
 	obtain_item(preload("res://Resources/Items/hunter_machette.tres"))
@@ -190,10 +188,8 @@ func auto_attacking() -> void:
 			auto_attack_target = null
 			return
 		nav.target_position = auto_attack_target.global_position
-		var _auto_ability : Ability
-		for ab in abilities:
-			if ab.slot_id == 10:
-				_auto_ability = ab
+		var _auto_ability : Ability = null
+		# TODO : auto ability should be set to the class ability
 		if _auto_ability and ability_machine.is_in_range(_auto_ability):
 			nav.target_position = global_position
 			
@@ -359,18 +355,19 @@ func respawn_base() -> void:
 func take_damage(damage : int, damage_type : Basics.DamageType, damage_dealer : Object) -> void:
 	if is_dead():
 		return
-	var _final_damage : int
+	var _armor : int
 	match damage_type:
-		Basics.DamageType.PHYSIC:
-			_final_damage = max(damage - entity.physic_armor, 0.0)
-		Basics.DamageType.MAGIC:
-			_final_damage = max(damage - entity.magic_armor, 0.0)
-		Basics.DamageType.HYBRID:
-			_final_damage = max(damage - entity.physical_armor - entity.magic_armor, 0.0)
-	
+		Basics.DamageType.PHYSICAL:
+			_armor = entity.get_physical_armor()
+		Basics.DamageType.TENSION:
+			_armor = entity.get_tension_armor()
+		Basics.DamageType.WITHERING:
+			_armor = entity.get_withering_armor()
+	var _final_damage : int = max(damage - _armor, 0)
+
 	model_anims.play("take_damage")
 	ability_machine.cancel_abilities(Basics.AbilityCancel.TAKING_DAMAGE)
-	entity.health = max(entity.health - _final_damage, 0.0)
+	entity.set_health(entity.health - _final_damage)
 	hud.update_info_bars()
 	if is_dead():
 		damage_dealer.kill_player()
@@ -383,7 +380,7 @@ func kill_player() -> void:
 
 func heal(healing : int) -> void:
 	if !is_dead():
-		entity.set_health(min(entity.health + healing, entity.max_health))
+		entity.set_health(entity.health + healing)
 		hud.update_info_bars()
 
 func lose_experience(experience_loss : int) -> void:
@@ -394,7 +391,6 @@ func lose_experience(experience_loss : int) -> void:
 		experience = max_experience - abs(experience)
 		level -= 1
 		respawn_time = level * RESPAWN_TIME_PER_LEVEL
-		inventory_size = min(level * SLOT_PER_LEVEL + INVENTORY_BASE_SIZE, INVENTORY_MAX_SIZE)
 		consumables_size = min(CONSUMABLES_BASE_SIZE + floor(float(level-3)/3.0), CONSUMABLES_MAX_SIZE)
 		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
@@ -407,7 +403,6 @@ func gain_experience(experience_gained : int) -> void:
 		experience = experience - max_experience
 		level += 1
 		respawn_time = level * RESPAWN_TIME_PER_LEVEL
-		inventory_size = min(level * SLOT_PER_LEVEL + INVENTORY_BASE_SIZE, INVENTORY_MAX_SIZE)
 		consumables_size = min(CONSUMABLES_BASE_SIZE + floor(float(level-3)/3.0), CONSUMABLES_MAX_SIZE)
 		max_experience = level * MAX_XP_PER_LEVEL
 	hud.update_info_bars()
@@ -436,7 +431,7 @@ func die() -> void:
 	player_collision.disabled = true
 	world.set_color_correction(world.resources.dead_color_correction)
 	get_tree().create_timer(respawn_time).timeout.connect(Callable(func():
-		entity.set_health(entity.max_health)
+		entity.set_full_health()
 		hud.update_info_bars()
 		world.set_color_correction(null)
 		player_collision.disabled = false
@@ -454,11 +449,11 @@ func movement() -> void:
 	
 	if direction and can_move:
 		if model_anims.current_animation != "walk":
-			model_anims.play("walk", 0.5, 0.3 * entity.movement_speed/40.0)
+			model_anims.play("walk", 0.5, 0.3 * entity.get_movement_speed()/40.0)
 		if ability_machine.has_active_abilities():
 			ability_machine.cancel_abilities(Basics.AbilityCancel.MOVING)
-		velocity.x = lerp(velocity.x, direction.x * entity.movement_speed/40.0, ACCELERATION)
-		velocity.z = lerp(velocity.z, direction.z * entity.movement_speed/40.0, ACCELERATION)
+		velocity.x = lerp(velocity.x, direction.x * entity.get_movement_speed()/40.0, ACCELERATION)
+		velocity.z = lerp(velocity.z, direction.z * entity.get_movement_speed()/40.0, ACCELERATION)
 		#if auto_attack_target:
 			#face_direction(global_position.direction_to(Vector3(auto_attack_target.global_position.x, global_position.y, auto_attack_target.global_position.z)))
 		#else:
@@ -607,7 +602,7 @@ func obtain_item(item : Item, quantity : int = 1) -> void:
 	if has_item(item, get_item_source(item)):
 		get_item_slot(item, get_item_source(item)).quantity += quantity
 	else:
-		if get_slot_taken_count() >= inventory_size:
+		if get_slot_taken_count() >= INVENTORY_SIZE:
 			var _item_slot = ItemSlot.new()
 			_item_slot.item = item
 			_item_slot.quantity = quantity
@@ -699,33 +694,37 @@ func exit_base() -> void:
 	in_base = false
 	clear_craft()
 
+## Flat bonus added per level above 1, keyed by stat ID.
+## Rythic grows separately through items and level curve (TBD).
 const LEVEL_BONUSES : Dictionary = {
-	"ember"           : 50,   # max health per level
-	"physical_damage" : 10,
-	"magic_damage"    : 10,
+	Entity.S_MAX_HEALTH     : 50,
+	Entity.S_PHYSICAL       : 3,
+	Entity.S_TENSION        : 3,
+	Entity.S_WITHERING      : 3,
+	Entity.S_MOVEMENT_SPEED : 1,
 }
 
 func update_stats() -> void:
 	# 1. Reset all computed stats to base values
 	entity.reset_stats()
- 
+
 	# 2. Apply level scaling bonuses
 	for stat_id in LEVEL_BONUSES:
 		entity.add_stat(stat_id, (level - 1) * LEVEL_BONUSES[stat_id])
- 
+
 	# 3. Apply area regeneration bonus (e.g. being in base)
-	entity.add_stat("health_regeneration", area_health_regeneration)
- 
+	entity.add_stat(Entity.S_HEALTH_REGEN, area_health_regeneration)
+
 	# 4. Apply all inventory item stats in a single generic loop
 	for slot in inventory:
 		if not slot.item:
 			continue
 		for stat_id in slot.item.stats:
 			entity.add_stat(stat_id, slot.item.stats[stat_id])
- 
+
 	# 5. Clamp health to new max in case max_health was reduced
 	entity.health = min(entity.health, entity.get_max_health())
- 
+
 	# 6. Notify listeners
 	entity.state_changed.emit()
 	hud.update_stats_hud()
@@ -743,4 +742,4 @@ func _on_update_movement_line_timeout():
 	nav.target_position = nav.target_position + Vector3(0.0001, 0.0, -0.0001)
 
 func _on_stat_regen_timeout():
-	heal(int(entity.health_regeneration))
+	heal(int(entity.get_health_regen()))

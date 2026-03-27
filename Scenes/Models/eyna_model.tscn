@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bifx5odguuono"]
+[gd_scene format=3 uid="uid://bifx5odguuono"]
 
-[ext_resource type="PackedScene" uid="uid://us5uuq3360ig" path="res://Assets/3D/Eyna.glb" id="1_kdety"]
+[ext_resource type="PackedScene" uid="uid://us5uuq3360ig" path="res://Assets/3D/eyna.glb" id="1_kdety"]
 [ext_resource type="Material" uid="uid://blyt8qvjtvtqj" path="res://Resources/Materials/PBR/stone_statue.tres" id="2_s343r"]
 [ext_resource type="Material" uid="uid://jilkuc5hg0re" path="res://Resources/Materials/PBR/glowing_eyes.tres" id="3_cn0er"]
 

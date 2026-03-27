@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://r3i5eqcea8le"]
+[gd_scene format=3 uid="uid://r3i5eqcea8le"]
 
 [ext_resource type="Script" uid="uid://ub1ljy2w5rx5" path="res://Scripts/statue.gd" id="1_eclcq"]
 [ext_resource type="PackedScene" uid="uid://4o8enu7hi243" path="res://Scenes/Models/alran_model.tscn" id="2_fmemu"]
@@ -23,31 +23,31 @@ emission = Color(0, 0.733333, 1, 1)
 emission_energy_multiplier = 500.0
 billboard_mode = 1
 
-[node name="Statue" type="Node3D"]
+[node name="Statue" type="Node3D" unique_id=109886464]
 script = ExtResource("1_eclcq")
 
-[node name="AlranModel" parent="." instance=ExtResource("2_fmemu")]
+[node name="AlranModel" parent="." unique_id=1657581361 instance=ExtResource("2_fmemu")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 
-[node name="EynaModel" parent="." instance=ExtResource("3_kptt8")]
+[node name="EynaModel" parent="." unique_id=667102118 instance=ExtResource("3_kptt8")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 visible = false
 
-[node name="StaticBody" type="StaticBody3D" parent="."]
+[node name="StaticBody" type="StaticBody3D" parent="." unique_id=654084257]
 collision_layer = 8
 collision_mask = 8
 
-[node name="Collision" type="CollisionShape3D" parent="StaticBody"]
+[node name="Collision" type="CollisionShape3D" parent="StaticBody" unique_id=649427961]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.40054, 0)
 shape = SubResource("CylinderShape3D_eclcq")
 
-[node name="EyeFlare" type="MeshInstance3D" parent="."]
+[node name="EyeFlare" type="MeshInstance3D" parent="." unique_id=291651489]
 transform = Transform3D(-4.37114e-08, 0.707107, -0.707107, 0, 0.707107, 0.707107, 1, 3.09086e-08, -3.09086e-08, 0.120533, 6.96753, 0.461264)
 visible = false
 mesh = SubResource("QuadMesh_kptt8")
 surface_material_override/0 = SubResource("StandardMaterial3D_rst3k")
 
-[node name="EyeLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.99324, 0.5571)
+[node name="EyeLight" type="OmniLight3D" parent="." unique_id=1624205072]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.233674, 0.5571)
 light_color = Color(0, 0.733333, 1, 1)
 light_energy = 2.0

@@ -11,8 +11,8 @@ var quantity : int
 func _ready() -> void:
 	var _rand_rot = randf_range(-PI, PI)
 	if item:
-		icon_tex.set_texture(item.entity.icon)
-		icon_tex_shadow.set_texture(item.entity.icon)
+		icon_tex.set_texture(item.icon_resting)
+		icon_tex_shadow.set_texture(item.icon_resting)
 		icon_tex.rotate(Vector3.UP, _rand_rot)
 		icon_tex_shadow.rotate(Vector3.UP, _rand_rot)
 		icon_tex.position.y = randf_range(-0.64, -0.66)

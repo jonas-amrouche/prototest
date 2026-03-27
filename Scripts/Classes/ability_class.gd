@@ -49,7 +49,7 @@ extends Resource
 
 # ── Damage ────────────────────────────────────────────────────────────────────
 
-@export var damage_type  : Basics.DamageType = Basics.DamageType.PHYSIC
+@export var damage_type  : Basics.DamageType = Basics.DamageType.PHYSICAL
 ## Multiplier applied to the caster's relevant damage stat.
 ## 1.0 = full damage, 0.5 = half damage, 1.5 = 150% damage.
 @export var damage_scale : float = 1.0

@@ -12,7 +12,7 @@ extends Control
 @onready var craft_tab := $ItemCraft
 @onready var craft_result_container := $ItemCraft/Pad/CraftResult
 @onready var craft_list := $ItemCraft/Pad/CraftList
-@onready var craft_bar := $ItemCraft/ProgressPad/CraftBar
+@onready var craft_bar := $ItemCraft/Pad/CraftBar
 @onready var inventory_list = $Inventory/Container/InventoryList
 @onready var consumables_list = $Inventory/Container/ConsumableList
 @onready var ability_list = $ActionPanel/AbilityBar/Pad/AbilityList
@@ -48,10 +48,9 @@ func _process(_delta):
 	update_previews()
 
 func update_info_bars() -> void:
-	player.health_bar.value = float(player.entity.health) / float(player.entity.max_health) * 100.0
-	#player.level_label.text = str(player.level)
-	health_bar.value = float(player.entity.health) / float(player.entity.max_health) * 100.0
-	health_label.text = str(player.entity.health) + "/" + str(int(player.entity.max_health))
+	player.health_bar.value = float(player.entity.health) / float(player.entity.get_max_health()) * 100.0
+	health_bar.value = float(player.entity.health) / float(player.entity.get_max_health()) * 100.0
+	health_label.text = str(player.entity.health) + "/" + str(int(player.entity.get_max_health()))
 	level_label_hud.text = str(player.level)
 	
 	xp_bar.value = float(player.experience) / float(player.max_experience) * 100.0
@@ -70,7 +69,7 @@ func bind_default_abilities() -> void:
 		if player.abilities[i].id == "direct_slash":
 			player.abilities[i].slot_id = 0
 		if player.abilities[i].id == "cutting_around":
-			player.abilities[i].slot_id = 10
+			player.abilities[i].slot_id = 1
 	update_abilities()
 
 func bind_ability_to_empty_slot(ab : Ability) -> void:
@@ -78,10 +77,7 @@ func bind_ability_to_empty_slot(ab : Ability) -> void:
 	for i in range(player.abilities.size()):
 		_slot_taken.append(player.abilities[i].slot_id)
 	
-	if !(10 in _slot_taken) and ab.targeted:
-		bind_ability_to(ab, 10)
-	
-	for i in range(10):
+	for i in range(12):
 		if i in _slot_taken:
 			continue
 		bind_ability_to(player.abilities[player.abilities.find(ab)], i)
@@ -108,7 +104,7 @@ func update_craft() -> void:
 		craft_tween.kill()
 		craft_bar.value = 0.0
 	
-	if player.crafts[0].item and player.crafts[1].item and !player.crafts[2].item:
+	if player.crafts[0].item and player.crafts[1].item:
 		craft_tween = get_tree().create_tween()
 		craft_tween.tween_property(craft_bar, "value", 100.0, Basics.CRAFT_TIME)
 		craft_tween.finished.connect(func():
@@ -122,7 +118,7 @@ func update_craft() -> void:
 		_new_item_slot.connect("mouse_exited", Callable(self, "hide_item_preview"))
 		_new_item_slot.item_slot = player.crafts[i]
 		_new_item_slot.available = player.in_base
-		if i == 2 and !player.crafts[2].item:
+		if i == 1 and !player.crafts[1].item:
 			_new_item_slot.available = false
 		craft_list.add_child(_new_item_slot)
 
@@ -154,7 +150,7 @@ func update_target() -> void:
 			target_icon.set_texture(player.selected_target.entity.icon)
 		match player.selected_target.entity.entity_type:
 			Basics.EntityType.MONSTER, Basics.EntityType.PLAYER, Basics.EntityType.GUARDS:
-				target_health.set_value(float(player.selected_target.entity.health) / float(player.selected_target.entity.max_health) * 100.0)
+				target_health.set_value(float(player.selected_target.entity.health) / float(player.selected_target.entity.get_max_health()) * 100.0)
 
 func update_abilities() -> void:
 	# Clear ability bars
@@ -187,7 +183,7 @@ func update_abilities() -> void:
 	
 	# Sort abilities in an array for ability_hud spawning
 	var _sorted_ability_bar : Array[Ability]
-	for a in range(11):
+	for a in range(12):
 		for aa in range(player.abilities.size()):
 			if player.abilities[aa].slot_id == a:
 				_sorted_ability_bar.append(player.abilities[aa])
@@ -204,17 +200,13 @@ func update_abilities() -> void:
 			_new_ability_hud.ability = _sorted_ability_bar[a]
 			_new_ability_hud.item = _item_link.get(_sorted_ability_bar[a])
 		
-		if a == 10:
-			_new_ability_hud.is_auto_attack = true
-		else:
-			for i in InputMap.get_actions():
-				if i.begins_with("ability") and i.ends_with(str(a+1)):
-					_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
+		for i in InputMap.get_actions():
+			if i.begins_with("ability") and i.ends_with(str(a+1)):
+				_new_ability_hud.keybind = InputMap.action_get_events(i)[0].as_text()
 		_new_ability_hud.connect("drag_ability", Callable(self, "drag_ability"))
 		_new_ability_hud.connect("drop_ability", Callable(self, "drop_ability"))
 		_new_ability_hud.connect("mouse_entered_ability", Callable(self, "show_ability_preview"))
 		_new_ability_hud.connect("mouse_exited", Callable(self, "hide_ability_preview"))
-		_new_ability_hud.connect("assign_auto_attack", Callable(self, "assign_auto_attack"))
 		_new_ability_hud.connect("unbind", Callable(self, "unbind_ability"))
 		
 		ability_list.add_child(_new_ability_hud)
@@ -255,7 +247,7 @@ func update_inventory() -> void:
 		_new_item_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))
 		_new_item_hud.connect("mouse_exited", Callable(self, "hide_item_preview"))
 		_new_item_hud.connect("show_abilities", Callable(self, "show_bind_abilities"))
-		if i >= player.inventory_size:
+		if i >= player.INVENTORY_SIZE:
 			_new_item_hud.available = false
 		inventory_list.add_child(_new_item_hud)
 	
@@ -322,10 +314,6 @@ func hide_ability_preview() -> void:
 		ability_preview.queue_free()
 		ability_preview = null
 
-func assign_auto_attack(ability_ref : Object) -> void:
-	bind_ability_to(ability_ref.ability, 10)
-	update_abilities()
-
 func unbind_ability(ability_ref : Object) -> void:
 	ability_ref.ability.slot_id = -1
 	update_abilities()
@@ -362,33 +350,21 @@ func update_previews() -> void:
 func update_stats_hud() -> void:
 	for i in stats_list.get_children():
 		i.queue_free()
-	
-	var stat_base = Basics.load_all_stats()
-	var _p_entity : Entity = player.entity
-	
-	#spawn_stat(stat_base["physical_damage"], _p_entity.physical_damage)
-	#spawn_stat(stat_base["magic_damage"], _p_entity.magic_damage)
-	#spawn_stat(stat_base["physical_armor"], _p_entity.physical_armor)
-	#spawn_stat(stat_base["magic_armor"], _p_entity.magic_armor)
-	#spawn_stat(stat_base["movement_speed"], _p_entity.movement_speed)
-	#spawn_stat(stat_base["cooldown_reduction"], _p_entity.cooldown_reduction)
-	#spawn_stat(stat_base["max_health"], _p_entity.max_health)
-	#spawn_stat(stat_base["health_regeneration"], _p_entity.health_regeneration)
-	#spawn_stat(stat_base["life_steal"], _p_entity.life_steal)
-	#spawn_stat(stat_base["souls"], _p_entity.souls)
+	for stat_id in player.entity.stats:
+		var value : int = player.entity.get_stat(stat_id)
+		if value != 0:
+			spawn_stat(stat_id, value)
 
-func spawn_stat(stat : Stat, value) -> void:
+func spawn_stat(stat_id : String, value : int) -> void:
 	var _new_stat_hud = world.resources.stat_hud.instantiate()
+	_new_stat_hud.stat_id    = stat_id
 	_new_stat_hud.stat_value = value
-	_new_stat_hud.stat = stat
 	stats_list.add_child(_new_stat_hud)
 
 func update_workshop() -> void:
 	for i in workshop_items_container.get_children():
 		i.queue_free()
-	
-	for i in Basics.get_all_items():
-		#if i.craft.size() > 0:
+	for i in world.resources.all_items:
 		var _new_recipe_hud = world.resources.item_workshop_scene.instantiate()
 		_new_recipe_hud.item = i
 		_new_recipe_hud.connect("mouse_entered_item", Callable(self, "show_item_preview"))

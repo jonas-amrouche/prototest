@@ -203,14 +203,18 @@ func stop_channeling() -> void:
 func _compute_damage(ability : Ability, dealer : Object) -> Dictionary:
 	var base : int
 	match ability.damage_type:
-		Basics.DamageType.PHYSIC:
-			base = dealer.entity.get_physic_damage()
-		Basics.DamageType.MAGIC:
-			base = dealer.entity.get_magic_damage()
-		Basics.DamageType.HYBRID:
-			base = dealer.entity.get_physic_damage() + dealer.entity.get_magic_damage()
+		Basics.DamageType.PHYSICAL:
+			base = dealer.entity.get_physical()
+		Basics.DamageType.TENSION:
+			base = dealer.entity.get_tension()
+		Basics.DamageType.WITHERING:
+			base = dealer.entity.get_withering()
 		_:
 			base = 0
+
+	# Apply Rythic scaling based on action time
+	var rythic_bonus := int(dealer.entity.get_rythic() * ability.action_time * Basics.RYTHIC_RATE)
+	base += rythic_bonus
 
 	var scaled := int(base * ability.damage_scale)
 	var amount : int = scaled if ability.damage_cap == 0 else min(scaled, ability.damage_cap)

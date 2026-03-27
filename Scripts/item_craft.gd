@@ -5,7 +5,7 @@ signal select_item(item_selected : Item)
 signal mouse_entered_item(itm : Item)
 
 func _ready() -> void:
-	$MarginIcon/Icon.texture = item.icon
+	$MarginIcon/Icon.texture = item.icon_resting
 
 func _on_select_button_down() -> void:
 	select_item.emit(item)
